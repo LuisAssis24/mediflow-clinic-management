@@ -36,11 +36,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MediFLow");
-        setBackground(new java.awt.Color(204, 204, 204));
         setName("login_panel"); // NOI18N
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -54,6 +52,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("MediFlow");
         jLabel1.setMaximumSize(new java.awt.Dimension(150, 60));
+        jLabel1.setMinimumSize(new java.awt.Dimension(140, 60));
         jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -66,10 +65,11 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         getContentPane().add(jPanel2, gridBagConstraints);
 
-        jPanel3.setBackground(new java.awt.Color(243, 243, 243));
+        jPanel3.setMinimumSize(new java.awt.Dimension(640, 580));
         jPanel3.setPreferredSize(new java.awt.Dimension(640, 580));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
+        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 149, 218));
         jLabel2.setText("Login");
@@ -84,6 +84,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Nome de Utilizador");
         jLabel3.setMaximumSize(new java.awt.Dimension(250, 25));
+        jLabel3.setMinimumSize(new java.awt.Dimension(250, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(250, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -92,6 +93,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jPanel3.add(jLabel3, gridBagConstraints);
 
         jTextField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jTextField1.setMinimumSize(new java.awt.Dimension(175, 30));
         jTextField1.setPreferredSize(new java.awt.Dimension(175, 30));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +111,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Password");
         jLabel4.setMaximumSize(new java.awt.Dimension(250, 25));
+        jLabel4.setMinimumSize(new java.awt.Dimension(250, 25));
         jLabel4.setPreferredSize(new java.awt.Dimension(250, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -116,10 +119,12 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         jPanel3.add(jLabel4, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(0, 149, 218));
+        jButton1.setBackground(new java.awt.Color(0, 119, 174));
         jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(245, 245, 245));
         jButton1.setText("Iniciar Sessão");
+        jButton1.setMaximumSize(new java.awt.Dimension(200, 50));
+        jButton1.setMinimumSize(new java.awt.Dimension(200, 50));
         jButton1.setPreferredSize(new java.awt.Dimension(200, 50));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +138,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jPanel3.add(jButton1, gridBagConstraints);
 
         jPasswordField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPasswordField1.setMinimumSize(new java.awt.Dimension(175, 30));
         jPasswordField1.setPreferredSize(new java.awt.Dimension(175, 30));
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,28 +153,8 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        getContentPane().add(jPanel3, gridBagConstraints);
-
-        jPanel1.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel1.setMinimumSize(new java.awt.Dimension(640, 3));
-        jPanel1.setPreferredSize(new java.awt.Dimension(640, 3));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        getContentPane().add(jPanel1, gridBagConstraints);
+        getContentPane().add(jPanel3, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -230,7 +216,6 @@ public class VistaDeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPasswordField1;
