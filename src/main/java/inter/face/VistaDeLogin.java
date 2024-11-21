@@ -44,7 +44,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel2.setPreferredSize(new java.awt.Dimension(640, 60));
+        jPanel2.setPreferredSize(new java.awt.Dimension(720, 60));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
@@ -57,7 +57,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 460;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 520);
         jPanel2.add(jLabel1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -66,20 +66,20 @@ public class VistaDeLogin extends javax.swing.JFrame {
         getContentPane().add(jPanel2, gridBagConstraints);
 
         jPanel3.setMinimumSize(new java.awt.Dimension(640, 580));
-        jPanel3.setPreferredSize(new java.awt.Dimension(640, 580));
+        jPanel3.setPreferredSize(new java.awt.Dimension(720, 660));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 32)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 149, 218));
         jLabel2.setText("Login");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 35, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 50, 0);
         jPanel3.add(jLabel2, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 149, 218));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Nome de Utilizador");
@@ -89,12 +89,12 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
         jPanel3.add(jLabel3, gridBagConstraints);
 
         jTextField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jTextField1.setMinimumSize(new java.awt.Dimension(175, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(175, 30));
+        jTextField1.setPreferredSize(new java.awt.Dimension(200, 35));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -103,7 +103,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel3.add(jTextField1, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -116,7 +116,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
         jPanel3.add(jLabel4, gridBagConstraints);
 
         jButton1.setBackground(new java.awt.Color(0, 119, 174));
@@ -125,7 +125,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jButton1.setText("Iniciar Sessão");
         jButton1.setMaximumSize(new java.awt.Dimension(200, 50));
         jButton1.setMinimumSize(new java.awt.Dimension(200, 50));
-        jButton1.setPreferredSize(new java.awt.Dimension(200, 50));
+        jButton1.setPreferredSize(new java.awt.Dimension(225, 60));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -139,7 +139,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jPasswordField1.setMinimumSize(new java.awt.Dimension(175, 30));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(175, 30));
+        jPasswordField1.setPreferredSize(new java.awt.Dimension(200, 35));
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
@@ -148,7 +148,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 45, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 60, 0);
         jPanel3.add(jPasswordField1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
