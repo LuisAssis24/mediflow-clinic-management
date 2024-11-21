@@ -14,8 +14,8 @@ public class Main {
 
         public RegistroClinico(String dataNascimento, int cc, List<String> tratamentos, List<String> alergias, List<String> historicoDoencas) {}
 
-        public String getDataNascimento() { return ""; }
-        public int getCc() { return 0; }
+        public String getDataNascimento() { return dataNascimento; }
+        public int getCc() { return cc; }
         public List<String> getTratamentos() { return null; }
         public List<String> getAlergias() { return null; }
         public List<String> getHistoricoDoencas() { return null; }
@@ -30,10 +30,10 @@ public class Main {
 
         public EntradaRegistroClinico(String data, Medico medico, String assunto, List<String> tratamento) {}
 
-        public String getData() { return ""; }
-        public Medico getMedico() { return null; }
-        public String getAssunto() { return ""; }
-        public String getTratamento() { return ""; }
+        public String getData() { return data; }
+        public Medico getMedico() { return medico; }
+        public String getAssunto() { return assunto; }
+        public String getTratamento() { return tratamento.toString(); }
     }
 
     class Receita {
@@ -43,8 +43,8 @@ public class Main {
 
         public Receita(int numeroReceita, String dataEmissao, List<String> medicacaoPrescrita) {}
 
-        public int getNumeroReceita() { return 0; }
-        public String getDataEmissao() { return ""; }
+        public int getNumeroReceita() { return numeroReceita; }
+        public String getDataEmissao() { return dataEmissao; }
         public List<String> getMedicacaoPrescrita() { return null; }
     }
 
@@ -55,17 +55,17 @@ public class Main {
 
     public Paciente(int numeroSns, String nome, String contacto) {}
 
-        public int getNumeroSns() { return 0; }
-        public String getNome() { return ""; }
-        public String getContacto() { return ""; }
+        public int getNumeroSns() { return numeroSns; }
+        public String getNome() { return nome; }
+        public String getContacto() { return contacto; }
     }
 
     class Medico {
         private int numeroMedico;
         private String especialidade;
 
-        public int getNumeroMedico() { return 0; }
-        public String getEspecialidade() { return ""; }
+        public int getNumeroMedico() { return numeroMedico; }
+        public String getEspecialidade() { return especialidade; }
         public void setEspecialidade(String especialidade) {}
         public Receita receitaMedica(Receita receita) { return null; }
         public void imprimirReceita(Receita receita) {}
@@ -81,11 +81,11 @@ public class Main {
 
     public Consulta(Sala sala, String data, String hora, boolean estado) {}
 
-        public Sala getSala() { return null; }
-        public String getData() { return ""; }
-        public String getHora() { return ""; }
-        public Medico getMedico() { return null; }
-        public Paciente getPaciente() { return null; }
+        public Sala getSala() { return sala; }
+        public String getData() { return data; }
+        public String getHora() { return hora; }
+        public Medico getMedico() { return medico; }
+        public Paciente getPaciente() { return paciente; }
         public void setEstado(boolean estado) {}
     }
 
@@ -93,8 +93,8 @@ public class Main {
         private int numero;
         private int especialidade;
 
-        public int getNumero() { return 0; }
-        public int getEspecialidade() { return 0; }
+        public int getNumero() { return numero; }
+        public int getEspecialidade() { return especialidade; }
     }
 
     class Utilizador {
@@ -105,10 +105,10 @@ public class Main {
 
         public Utilizador(String nomeUtilizador, String password, int numeroClinica, String nome) {}
 
-        public String getNomeUtilizador() { return ""; }
-        public String getPassword() { return ""; }
-        public int getNumeroClinica() { return 0; }
-        public String getNome() { return ""; }
+        public String getNomeUtilizador() { return nomeUtilizador; }
+        public String getPassword() { return password; }
+        public int getNumeroClinica() { return numeroClinica; }
+        public String getNome() { return nome; }
     }
 
     class Gestor {
