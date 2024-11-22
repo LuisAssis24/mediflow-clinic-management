@@ -33,7 +33,7 @@ public class VistaBase extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        barraPesquisa = new javax.swing.JTextField();
         botaoVerConsultas = new javax.swing.JButton();
         botaoMarcarConsultas = new javax.swing.JButton();
         verConsultas = new javax.swing.JLayeredPane();
@@ -82,20 +82,20 @@ public class VistaBase extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
         jPanel7.add(jButton3, gridBagConstraints);
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setText("Pesquisar...");
-        jTextField1.setMinimumSize(new java.awt.Dimension(350, 35));
-        jTextField1.setPreferredSize(new java.awt.Dimension(350, 35));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        barraPesquisa.setText("Pesquisar...");
+        barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
+        barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
+        barraPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                barraPesquisaActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel7.add(jTextField1, gridBagConstraints);
+        jPanel7.add(barraPesquisa, gridBagConstraints);
 
         botaoVerConsultas.setBackground(new java.awt.Color(0, 132, 193));
         botaoVerConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -144,18 +144,7 @@ public class VistaBase extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 149, 218));
         jPanel2.setPreferredSize(new java.awt.Dimension(960, 500));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        jPanel2.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -196,13 +185,14 @@ public class VistaBase extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
 
         if (verConsultas.isVisible() == false){
+            barraPesquisa.setVisible(true);
             verConsultas.setVisible(true);
             marcarConsultas.setVisible(false);
         }// TODO add your handling code here:
@@ -211,6 +201,7 @@ public class VistaBase extends javax.swing.JFrame {
     private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
         if (marcarConsultas.isVisible() == false){
             marcarConsultas.setVisible(true);
+            barraPesquisa.setVisible(false);
             verConsultas.setVisible(false);
         } // TODO add your handling code here:
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
@@ -251,6 +242,7 @@ public class VistaBase extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField barraPesquisa;
     private javax.swing.JButton botaoMarcarConsultas;
     private javax.swing.JButton botaoVerConsultas;
     private javax.swing.JButton jButton3;
@@ -259,7 +251,6 @@ public class VistaBase extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLayeredPane marcarConsultas;
     private javax.swing.JLayeredPane verConsultas;
     // End of variables declaration//GEN-END:variables

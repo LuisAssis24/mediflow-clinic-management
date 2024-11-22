@@ -34,7 +34,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        botaoLogin = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,23 +119,23 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
         jPanel3.add(jLabel4, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(0, 119, 174));
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(245, 245, 245));
-        jButton1.setText("Iniciar Sessão");
-        jButton1.setMaximumSize(new java.awt.Dimension(200, 50));
-        jButton1.setMinimumSize(new java.awt.Dimension(200, 50));
-        jButton1.setPreferredSize(new java.awt.Dimension(225, 60));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botaoLogin.setBackground(new java.awt.Color(0, 119, 174));
+        botaoLogin.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
+        botaoLogin.setForeground(new java.awt.Color(245, 245, 245));
+        botaoLogin.setText("Iniciar Sessão");
+        botaoLogin.setMaximumSize(new java.awt.Dimension(200, 50));
+        botaoLogin.setMinimumSize(new java.awt.Dimension(200, 50));
+        botaoLogin.setPreferredSize(new java.awt.Dimension(225, 60));
+        botaoLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botaoLoginActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 50, 0);
-        jPanel3.add(jButton1, gridBagConstraints);
+        jPanel3.add(botaoLogin, gridBagConstraints);
 
         jPasswordField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jPasswordField1.setMinimumSize(new java.awt.Dimension(175, 30));
@@ -164,9 +164,14 @@ public class VistaDeLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
+        boolean login = true;
+        if (login = true) {
+            VistaFuncionario vistaFuncionario = new VistaFuncionario();
+            dispose();
+            vistaFuncionario.setVisible(true);
+        }
+    }//GEN-LAST:event_botaoLoginActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
@@ -211,7 +216,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botaoLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
