@@ -128,6 +128,22 @@ public class Main {
         public Consulta verConsulta(String dia, String hora, Paciente paciente) { return null; }
     }
     public static void main(String[] args) {
+// Cria a conexão com a base de dados assim que o programa inicia
+        Connection connection = SqlServer.DatabaseConnection.getInstance();
+
+// Verifica se a conexão foi bem-sucedida
+        if (connection != null) {
+            System.out.println("Conexão inicializada.");
+        } else {
+            System.out.println("Falha ao conectar a base de dados.");
+        }
+
+// Inicia a interface gráfica 
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VistaDeLogin().setVisible(true); // Mostra a janela de login
+            }
+        });
 
     }
 }
