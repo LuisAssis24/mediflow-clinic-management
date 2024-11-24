@@ -172,14 +172,123 @@ public class VistaDeLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
-        boolean login = true;
-        if (login = true) {
-            VistaFuncionario vistaFuncionario = new VistaFuncionario();
-            dispose();
-            vistaFuncionario.setVisible(true);
+    private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
+        // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
+        String utilizador = jTextField1.getText();
+        String senha = new String(jPasswordField1.getPassword());
+
+        // Verifica se as credenciais são válidas
+        if (verificarLogin(utilizador, senha)) {
+            // Determina o tipo de utilizador com base no nome fornecido
+            String tipoUtilizador = verificarTipoUtilizador(utilizador);
+
+            if ("Funcionario".equalsIgnoreCase(tipoUtilizador)) {
+                // Caso seja um funcionário, abre a vista correspondente
+                VistaFuncionario vistaFuncionario = new VistaFuncionario();
+                dispose(); // Fecha a janela de login
+                vistaFuncionario.setVisible(true); // Mostra a nova janela
+            } else if ("Gestor".equalsIgnoreCase(tipoUtilizador)) {
+                // Caso seja um gestor, abre a vista correspondente
+                VistaGestor vistaGestor = new VistaGestor();
+                dispose(); // Fecha a janela de login
+                vistaGestor.setVisible(true); // Mostra a nova janela
+            } else { // else if ("Medico".equalsIgnoreCase(tipoUtilizador))
+                // Caso o tipo de utilizador não seja reconhecido, mostra uma mensagem de erro
+                JOptionPane.showMessageDialog(this, "Usuário não autorizado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Se as credenciais forem inválidas, exibe uma mensagem de erro
+            JOptionPane.showMessageDialog(this, "Credenciais incorretas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botaoLoginActionPerformed
+    }
+
+    private boolean verificarLogin(String utilizador, String senha) {
+
+        Connection conexao = SqlServer.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
+
+        if (conexao != null) {  // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Declara uma consulta SQL para verificar as credenciais
+                String sql = "SELECT * FROM Utilizador WHERE Nome = ? AND Password = ?"; // Vai a tabela utilizador e verifica o Nome e a Password
+                PreparedStatement statement = conexao.prepareStatement(sql);
+
+                // Substitui os placeholders (?) pelos valores fornecidos pelo utilizador
+                statement.setString(1, utilizador);
+                statement.setString(2, senha);
+
+                // Executa a consulta a base de dados e armazena o resultado
+                ResultSet resultado = statement.executeQuery();
+
+                // Retorna verdadeiro se encontrar um registo correspondente
+                return resultado.next();
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao verificar as credenciais: " + e.getMessage());
+            }
+        } else {
+            // Se a conexão não for estabelecida, exibe uma mensagem de erro
+            System.out.println("Erro de conexão com o banco de dados.");
+        }
+        return false; // Retorna falso se a conexão falhar ou as credenciais forem inválidas
+    }
+
+    private String verificarTipoUtilizador(String utilizador) {
+
+        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Consulta SQL para obter o ID do utilizador com base no nome
+                String sqlId = "SELECT id FROM Utilizador WHERE nome = ?";
+                PreparedStatement stmtId = conexao.prepareStatement(sqlId);
+                stmtId.setString(1, utilizador);
+
+                // Executa a consulta e armazena o resultado
+                ResultSet rsId = stmtId.executeQuery();
+                if (rsId.next()) { // Se encontrar um registo
+                    int userId = rsId.getInt("id"); // Obtém o ID do utilizador
+
+                    // Verifica se o ID corresponde a um funcionário
+                    if (idExisteNaTabela(conexao, userId, "Funcionario", "ID_Funcionario")) {
+                        return "Funcionario";
+                    }
+
+                    // Verifica se o ID corresponde a um gestor
+                    if (idExisteNaTabela(conexao, userId, "Gestor", "ID_Gestor")) {
+                        return "Gestor";
+                    }
+
+                    //Verifica se o ID corresponde a um medico
+                    //if (idExisteNaTabela(conexao, userID, "Medico", "ID_Medico")){
+                    //return "Medico";
+                    //}
+
+                    // Adicionar mais verificações aqui para outros tipos de utilizadores, se necessário
+                }
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao verificar o tipo de usuário: " + e.getMessage());
+            }
+        }
+
+        return null; // Retorna null se não encontrar o tipo do utilizador
+    }
+
+    private boolean idExisteNaTabela(Connection conexao, int id, String tabela, String colunaId) {
+        try {
+            // Declara uma consulta SQL para verificar a existência do ID na tabela
+            String sql = "SELECT " + colunaId + " FROM " + tabela + " WHERE " + colunaId + " = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+
+            // Substitui o placeholder (?) pelo valor do ID
+            stmt.setInt(1, id);
+
+            // Executa a consulta e verifica se existe pelo menos um registo correspondente
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // Retorna verdadeiro se encontrar um registo
+        } catch (SQLException e) { // Trata erros relacionados ao SQL
+            System.out.println("Erro ao verificar a tabela " + tabela + ": " + e.getMessage());
+        }
+        return false; // Retorna falso se ocorrer um erro ou não encontrar o ID
+    }
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
