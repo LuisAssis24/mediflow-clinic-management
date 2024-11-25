@@ -15,7 +15,6 @@ public final class VistaFuncionario extends javax.swing.JFrame {
      */
     public VistaFuncionario() {
         initComponents();
-        marcarConsultas.setVisible(false);
         carregarConsultasBaseDeDados();
     }
     
@@ -209,6 +208,7 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         marcarConsultas.setBackground(new java.awt.Color(0, 149, 218));
         marcarConsultas.setMinimumSize(new java.awt.Dimension(960, 550));
         marcarConsultas.setOpaque(true);
+        marcarConsultas.setVisible(false);
         marcarConsultas.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 149, 218));

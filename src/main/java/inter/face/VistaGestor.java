@@ -15,7 +15,6 @@ public class VistaGestor extends javax.swing.JFrame {
      */
     public VistaGestor() {
         initComponents();
-        marcarConsultas.setVisible(false);
     }
 
     /**
@@ -32,11 +31,12 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        botaoPesquisa = new javax.swing.JButton();
         barraPesquisa = new javax.swing.JTextField();
-        botaoVerConsultas = new javax.swing.JButton();
-        botaoMarcarConsultas = new javax.swing.JButton();
-        verConsultas = new javax.swing.JLayeredPane();
+        botaoCriarCredencial = new javax.swing.JButton();
+        botaoEliminarCredencial = new javax.swing.JButton();
+        eliminarCredencial = new javax.swing.JLayeredPane();
+        criarCredencial = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -55,7 +55,6 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-        marcarConsultas = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -86,18 +85,23 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(960, 50));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        jButton3.setBackground(new java.awt.Color(0, 132, 193));
-        jButton3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(245, 245, 245));
-        jButton3.setText("PESQUISAR");
-        jButton3.setMaximumSize(new java.awt.Dimension(120, 35));
-        jButton3.setMinimumSize(new java.awt.Dimension(120, 35));
-        jButton3.setPreferredSize(new java.awt.Dimension(140, 35));
+        botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
+        botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoPesquisa.setForeground(new java.awt.Color(245, 245, 245));
+        botaoPesquisa.setText("PESQUISAR");
+        botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
+        botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
+        botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
+        botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoPesquisaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
-        jPanel7.add(jButton3, gridBagConstraints);
+        jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barraPesquisa.setText("Pesquisar...");
@@ -114,50 +118,72 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel7.add(barraPesquisa, gridBagConstraints);
 
-        botaoVerConsultas.setBackground(new java.awt.Color(0, 132, 193));
-        botaoVerConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoVerConsultas.setForeground(new java.awt.Color(245, 245, 245));
-        botaoVerConsultas.setText("Ver Consultas");
-        botaoVerConsultas.setMaximumSize(new java.awt.Dimension(140, 35));
-        botaoVerConsultas.setMinimumSize(new java.awt.Dimension(140, 35));
-        botaoVerConsultas.setPreferredSize(new java.awt.Dimension(140, 35));
-        botaoVerConsultas.addActionListener(new java.awt.event.ActionListener() {
+        botaoCriarCredencial.setBackground(new java.awt.Color(0, 132, 193));
+        botaoCriarCredencial.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoCriarCredencial.setForeground(new java.awt.Color(245, 245, 245));
+        botaoCriarCredencial.setLabel("Criar");
+        botaoCriarCredencial.setMaximumSize(new java.awt.Dimension(140, 35));
+        botaoCriarCredencial.setMinimumSize(new java.awt.Dimension(140, 35));
+        botaoCriarCredencial.setPreferredSize(new java.awt.Dimension(140, 35));
+        botaoCriarCredencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoVerConsultasActionPerformed(evt);
+                botaoCriarCredencialActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        jPanel7.add(botaoVerConsultas, gridBagConstraints);
+        jPanel7.add(botaoCriarCredencial, gridBagConstraints);
 
-        botaoMarcarConsultas.setBackground(new java.awt.Color(0, 132, 193));
-        botaoMarcarConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoMarcarConsultas.setForeground(new java.awt.Color(245, 245, 245));
-        botaoMarcarConsultas.setText("Marcar Consulta");
-        botaoMarcarConsultas.setMaximumSize(new java.awt.Dimension(140, 35));
-        botaoMarcarConsultas.setMinimumSize(new java.awt.Dimension(140, 35));
-        botaoMarcarConsultas.setPreferredSize(new java.awt.Dimension(140, 35));
-        botaoMarcarConsultas.addActionListener(new java.awt.event.ActionListener() {
+        botaoEliminarCredencial.setBackground(new java.awt.Color(0, 132, 193));
+        botaoEliminarCredencial.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoEliminarCredencial.setForeground(new java.awt.Color(245, 245, 245));
+        botaoEliminarCredencial.setLabel("Eliminar");
+        botaoEliminarCredencial.setMaximumSize(new java.awt.Dimension(140, 35));
+        botaoEliminarCredencial.setMinimumSize(new java.awt.Dimension(140, 35));
+        botaoEliminarCredencial.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoEliminarCredencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoMarcarConsultasActionPerformed(evt);
+                botaoEliminarCredencialActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        jPanel7.add(botaoMarcarConsultas, gridBagConstraints);
+        jPanel7.add(botaoEliminarCredencial, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel3.add(jPanel7, gridBagConstraints);
 
-        verConsultas.setBackground(new java.awt.Color(0, 149, 218));
-        verConsultas.setMinimumSize(new java.awt.Dimension(960, 35));
-        verConsultas.setOpaque(true);
-        verConsultas.setLayout(new java.awt.GridBagLayout());
+        eliminarCredencial.setVisible(true);
+        eliminarCredencial.setBackground(new java.awt.Color(255, 204, 204));
+        eliminarCredencial.setMinimumSize(new java.awt.Dimension(960, 550));
+        eliminarCredencial.setOpaque(true);
+        eliminarCredencial.setPreferredSize(new java.awt.Dimension(960, 500));
+
+        javax.swing.GroupLayout eliminarCredencialLayout = new javax.swing.GroupLayout(eliminarCredencial);
+        eliminarCredencial.setLayout(eliminarCredencialLayout);
+        eliminarCredencialLayout.setHorizontalGroup(
+            eliminarCredencialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        eliminarCredencialLayout.setVerticalGroup(
+            eliminarCredencialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel3.add(eliminarCredencial, gridBagConstraints);
+
+        criarCredencial.setBackground(new java.awt.Color(0, 149, 218));
+        criarCredencial.setMinimumSize(new java.awt.Dimension(960, 35));
+        criarCredencial.setOpaque(true);
+        criarCredencial.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 149, 218));
         jPanel2.setPreferredSize(new java.awt.Dimension(960, 500));
@@ -175,6 +201,9 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         jPanel2.add(jLabel3, gridBagConstraints);
+
+        jTextField1.setMinimumSize(new java.awt.Dimension(450, 30));
+        jTextField1.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -187,6 +216,9 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         jPanel2.add(jLabel4, gridBagConstraints);
+
+        jTextField2.setMinimumSize(new java.awt.Dimension(300, 30));
+        jTextField2.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -205,6 +237,8 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         jPanel2.add(jLabel6, gridBagConstraints);
+
+        jTextField3.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
@@ -216,6 +250,8 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         jPanel2.add(jLabel7, gridBagConstraints);
+
+        jTextField4.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
@@ -239,6 +275,9 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
         jPanel2.add(jCheckBox1, gridBagConstraints);
+
+        jTextField6.setMinimumSize(new java.awt.Dimension(300, 30));
+        jTextField6.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 13;
@@ -272,33 +311,12 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        verConsultas.add(jPanel2, gridBagConstraints);
+        criarCredencial.add(jPanel2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        jPanel3.add(verConsultas, gridBagConstraints);
-
-        marcarConsultas.setBackground(new java.awt.Color(255, 204, 204));
-        marcarConsultas.setMinimumSize(new java.awt.Dimension(960, 550));
-        marcarConsultas.setOpaque(true);
-        marcarConsultas.setPreferredSize(new java.awt.Dimension(960, 500));
-
-        javax.swing.GroupLayout marcarConsultasLayout = new javax.swing.GroupLayout(marcarConsultas);
-        marcarConsultas.setLayout(marcarConsultasLayout);
-        marcarConsultasLayout.setHorizontalGroup(
-            marcarConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        marcarConsultasLayout.setVerticalGroup(
-            marcarConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel3.add(marcarConsultas, gridBagConstraints);
+        jPanel3.add(criarCredencial, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -313,26 +331,32 @@ public class VistaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
-    private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
+    private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCredencialActionPerformed
 
-        if (verConsultas.isVisible() == false){
+        if (criarCredencial.isVisible() == false){
+            botaoPesquisa.setVisible(false);
             barraPesquisa.setVisible(true);
-            verConsultas.setVisible(true);
-            marcarConsultas.setVisible(false);
+            criarCredencial.setVisible(true);
+            eliminarCredencial.setVisible(false);
         }// TODO add your handling code here:
-    }//GEN-LAST:event_botaoVerConsultasActionPerformed
+    }//GEN-LAST:event_botaoCriarCredencialActionPerformed
 
-    private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
-        if (marcarConsultas.isVisible() == false){
-            marcarConsultas.setVisible(true);
-            barraPesquisa.setVisible(false);
-            verConsultas.setVisible(false);
+    private void botaoEliminarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarCredencialActionPerformed
+        if (botaoEliminarCredencial.isVisible() == false){
+            botaoPesquisa.setVisible(false);
+            botaoEliminarCredencial.setVisible(true);
+            botaoCriarCredencial.setVisible(false);
+            botaoCriarCredencial.setVisible(false);
         } // TODO add your handling code here:
-    }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
+    }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -374,9 +398,11 @@ public class VistaGestor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField barraPesquisa;
-    private javax.swing.JButton botaoMarcarConsultas;
-    private javax.swing.JButton botaoVerConsultas;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton botaoCriarCredencial;
+    private javax.swing.JButton botaoEliminarCredencial;
+    private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JLayeredPane criarCredencial;
+    private javax.swing.JLayeredPane eliminarCredencial;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -399,7 +425,5 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JLayeredPane marcarConsultas;
-    private javax.swing.JLayeredPane verConsultas;
     // End of variables declaration//GEN-END:variables
 }
