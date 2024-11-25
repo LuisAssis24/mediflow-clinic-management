@@ -388,7 +388,9 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
-         if (verConsultas.isVisible() == false){
+      
+        
+        if (verConsultas.isVisible() == false){
             barraPesquisa.setVisible(true);
             botaoPesquisa.setVisible(true);
             verConsultas.setVisible(true);
