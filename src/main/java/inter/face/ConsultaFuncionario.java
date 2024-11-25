@@ -8,12 +8,12 @@ package inter.face;
  *
  * @author draga
  */
-public class Consulta extends javax.swing.JPanel {
+public class ConsultaFuncionario extends javax.swing.JPanel {
 
     /**
      * Creates new form Consulta
      */
-    public Consulta() {
+    public ConsultaFuncionario() {
         initComponents();
     }
 
@@ -39,9 +39,10 @@ public class Consulta extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 149, 218), 3));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
+        setMaximumSize(new java.awt.Dimension(900, 100));
         setMinimumSize(new java.awt.Dimension(900, 100));
-        setPreferredSize(new java.awt.Dimension(910, 100));
+        setPreferredSize(new java.awt.Dimension(900, 100));
         setLayout(new java.awt.GridBagLayout());
 
         nomePaciente.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -79,7 +80,7 @@ public class Consulta extends javax.swing.JPanel {
         add(medico, gridBagConstraints);
 
         sala.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        sala.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sala.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         sala.setText("Sala:");
         sala.setMaximumSize(new java.awt.Dimension(50, 30));
         sala.setMinimumSize(new java.awt.Dimension(50, 30));

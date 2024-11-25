@@ -40,10 +40,10 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nomeUtilizador = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         botaoLogin = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MediFLow");
@@ -100,19 +100,19 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
         jPanel3.add(jLabel3, gridBagConstraints);
 
-        jTextField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jTextField1.setMinimumSize(new java.awt.Dimension(175, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 35));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nomeUtilizador.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nomeUtilizador.setMinimumSize(new java.awt.Dimension(175, 30));
+        nomeUtilizador.setPreferredSize(new java.awt.Dimension(200, 35));
+        nomeUtilizador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nomeUtilizadorActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel3.add(jTextField1, gridBagConstraints);
+        jPanel3.add(nomeUtilizador, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 149, 218));
@@ -145,19 +145,19 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 50, 0);
         jPanel3.add(botaoLogin, gridBagConstraints);
 
-        jPasswordField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPasswordField1.setMinimumSize(new java.awt.Dimension(175, 30));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(200, 35));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        password.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        password.setMinimumSize(new java.awt.Dimension(175, 30));
+        password.setPreferredSize(new java.awt.Dimension(200, 35));
+        password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passwordActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 60, 0);
-        jPanel3.add(jPasswordField1, gridBagConstraints);
+        jPanel3.add(password, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -168,14 +168,14 @@ public class VistaDeLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nomeUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeUtilizadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nomeUtilizadorActionPerformed
 
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
-        String utilizador = jTextField1.getText();
-        String senha = new String(jPasswordField1.getPassword());
+        String utilizador = nomeUtilizador.getText();
+        String senha = new String(password.getPassword());
 
         // Verifica se as credenciais são válidas
         if (verificarLogin(utilizador, senha)) {
@@ -192,10 +192,15 @@ public class VistaDeLogin extends javax.swing.JFrame {
                 VistaGestor vistaGestor = new VistaGestor();
                 dispose(); // Fecha a janela de login
                 vistaGestor.setVisible(true); // Mostra a nova janela
-            } else { // else if ("Medico".equalsIgnoreCase(tipoUtilizador))
+            } else if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+                VistaMedico vistaMedico = new VistaMedico();
+                dispose(); 
+                vistaMedico.setVisible(true); 
+            } else {
                 // Caso o tipo de utilizador não seja reconhecido, mostra uma mensagem de erro
                 JOptionPane.showMessageDialog(this, "Usuário não autorizado.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
+           
         } else {
             // Se as credenciais forem inválidas, exibe uma mensagem de erro
             JOptionPane.showMessageDialog(this, "Credenciais incorretas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -258,9 +263,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     }
 
                     //Verifica se o ID corresponde a um medico
-                    //if (idExisteNaTabela(conexao, userID, "Medico", "ID_Medico")){
-                    //return "Medico";
-                    //}
+                    if (idExisteNaTabela(conexao, userId, "Medico", "ID_Medico")){
+                    return "Medico";
+                    }
 
                     // Adicionar mais verificações aqui para outros tipos de utilizadores, se necessário
                 }
@@ -290,9 +295,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
         return false; // Retorna falso se ocorrer um erro ou não encontrar o ID
     }
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,7 +345,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nomeUtilizador;
+    private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }

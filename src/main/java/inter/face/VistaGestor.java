@@ -35,7 +35,6 @@ public class VistaGestor extends javax.swing.JFrame {
         barraPesquisa = new javax.swing.JTextField();
         botaoCriarCredencial = new javax.swing.JButton();
         botaoEliminarCredencial = new javax.swing.JButton();
-        eliminarCredencial = new javax.swing.JLayeredPane();
         criarCredencial = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -55,8 +54,10 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        eliminarCredencial = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 149, 218));
@@ -158,7 +159,175 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         jPanel3.add(jPanel7, gridBagConstraints);
 
-        eliminarCredencial.setVisible(true);
+        criarCredencial.setBackground(new java.awt.Color(0, 149, 218));
+        criarCredencial.setMinimumSize(new java.awt.Dimension(960, 35));
+        criarCredencial.setOpaque(true);
+        criarCredencial.setLayout(new java.awt.GridBagLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 149, 218));
+        jPanel2.setPreferredSize(new java.awt.Dimension(960, 500));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel2.setText("Dados de Utilizador");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
+        jPanel2.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel3.setText("Nome de Utilizador:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel2.add(jLabel3, gridBagConstraints);
+
+        jTextField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jTextField1.setMinimumSize(new java.awt.Dimension(450, 30));
+        jTextField1.setPreferredSize(new java.awt.Dimension(450, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel2.add(jTextField1, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel4.setText("Password:");
+        jLabel4.setPreferredSize(new java.awt.Dimension(55, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        jPanel2.add(jLabel4, gridBagConstraints);
+
+        jTextField2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jTextField2.setMinimumSize(new java.awt.Dimension(300, 30));
+        jTextField2.setPreferredSize(new java.awt.Dimension(300, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel2.add(jTextField2, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel5.setText("Dados Pessoais");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 15, 0);
+        jPanel2.add(jLabel5, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel6.setText("Nome Completo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        jPanel2.add(jLabel6, gridBagConstraints);
+
+        jTextField3.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jTextField3.setPreferredSize(new java.awt.Dimension(300, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel2.add(jTextField3, gridBagConstraints);
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel7.setText("Numero CC:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        jPanel2.add(jLabel7, gridBagConstraints);
+
+        jTextField4.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jTextField4.setPreferredSize(new java.awt.Dimension(300, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel2.add(jTextField4, gridBagConstraints);
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel8.setText("Tipo de Funcionario:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        jPanel2.add(jLabel8, gridBagConstraints);
+
+        jCheckBox1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(245, 245, 245));
+        jCheckBox1.setLabel("- Medico");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
+        jPanel2.add(jCheckBox1, gridBagConstraints);
+
+        jTextField6.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jTextField6.setMinimumSize(new java.awt.Dimension(300, 30));
+        jTextField6.setPreferredSize(new java.awt.Dimension(300, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel2.add(jTextField6, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel10.setText("Especialidade:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        jPanel2.add(jLabel10, gridBagConstraints);
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel9.setText("Numero de Fezes");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+        jPanel2.add(jLabel9, gridBagConstraints);
+
+        jTextField5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel2.add(jTextField5, gridBagConstraints);
+
+        jButton4.setBackground(new java.awt.Color(0, 132, 193));
+        jButton4.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(245, 245, 245));
+        jButton4.setText("Criar");
+        jButton4.setSelected(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 16;
+        jPanel2.add(jButton4, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        criarCredencial.add(jPanel2, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel3.add(criarCredencial, gridBagConstraints);
+
+        eliminarCredencial.setVisible(false);
         eliminarCredencial.setBackground(new java.awt.Color(255, 204, 204));
         eliminarCredencial.setMinimumSize(new java.awt.Dimension(960, 550));
         eliminarCredencial.setOpaque(true);
@@ -179,144 +348,6 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         jPanel3.add(eliminarCredencial, gridBagConstraints);
-
-        criarCredencial.setBackground(new java.awt.Color(0, 149, 218));
-        criarCredencial.setMinimumSize(new java.awt.Dimension(960, 35));
-        criarCredencial.setOpaque(true);
-        criarCredencial.setLayout(new java.awt.GridBagLayout());
-
-        jPanel2.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel2.setPreferredSize(new java.awt.Dimension(960, 500));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        jLabel2.setText("Dados de Utilizador");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
-        jPanel2.add(jLabel2, gridBagConstraints);
-
-        jLabel3.setText("Nome de Utilizador:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel2.add(jLabel3, gridBagConstraints);
-
-        jTextField1.setMinimumSize(new java.awt.Dimension(450, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(450, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField1, gridBagConstraints);
-
-        jLabel4.setText("Password:");
-        jLabel4.setPreferredSize(new java.awt.Dimension(55, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        jPanel2.add(jLabel4, gridBagConstraints);
-
-        jTextField2.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField2.setPreferredSize(new java.awt.Dimension(300, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField2, gridBagConstraints);
-
-        jLabel5.setText("Dados Pessoais");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 15, 0);
-        jPanel2.add(jLabel5, gridBagConstraints);
-
-        jLabel6.setText("Nome Completo:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        jPanel2.add(jLabel6, gridBagConstraints);
-
-        jTextField3.setPreferredSize(new java.awt.Dimension(300, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField3, gridBagConstraints);
-
-        jLabel7.setText("Numero CC:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        jPanel2.add(jLabel7, gridBagConstraints);
-
-        jTextField4.setPreferredSize(new java.awt.Dimension(300, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField4, gridBagConstraints);
-
-        jLabel8.setText("Tipo de Funcionario:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        jPanel2.add(jLabel8, gridBagConstraints);
-
-        jCheckBox1.setLabel("- Medico");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
-        jPanel2.add(jCheckBox1, gridBagConstraints);
-
-        jTextField6.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField6.setPreferredSize(new java.awt.Dimension(300, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField6, gridBagConstraints);
-
-        jLabel10.setText("Especialidade:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        jPanel2.add(jLabel10, gridBagConstraints);
-
-        jLabel9.setText("Numero de Fezes");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 14;
-        jPanel2.add(jLabel9, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField5, gridBagConstraints);
-
-        jButton4.setText("Marcar");
-        jButton4.setSelected(true);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
-        jPanel2.add(jButton4, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        criarCredencial.add(jPanel2, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel3.add(criarCredencial, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

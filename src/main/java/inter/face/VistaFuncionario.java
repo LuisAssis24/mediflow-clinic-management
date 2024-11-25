@@ -8,7 +8,7 @@ package inter.face;
  *
  * @author draga
  */
-public final class VistaFuncionario extends javax.swing.JFrame {
+public class VistaFuncionario extends javax.swing.JFrame {
 
     /**
      * Creates new form VistaBase
@@ -16,11 +16,6 @@ public final class VistaFuncionario extends javax.swing.JFrame {
     public VistaFuncionario() {
         initComponents();
         carregarConsultasBaseDeDados();
-    }
-    
-    void criarPainelConsulta(){ //Adiciona uma consulta ao painel
-        Consulta consulta = new Consulta();
-        consultasPanel.add(consulta);
     }
     
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
@@ -32,6 +27,11 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         }
         consultasPanel.revalidate();
         consultasPanel.repaint();
+    }
+        
+    void criarPainelConsulta(){ //Adiciona uma consulta ao painel
+        ConsultaFuncionario consulta = new ConsultaFuncionario();
+        consultasPanel.add(consulta);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -182,12 +182,13 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         verConsultas.setOpaque(true);
         verConsultas.setLayout(new java.awt.GridBagLayout());
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 550));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 550));
 
-        consultasPanel.setMinimumSize(new java.awt.Dimension(910, 0));
-        consultasPanel.setPreferredSize(new java.awt.Dimension(910, 0));
+        consultasPanel.setMinimumSize(new java.awt.Dimension(900, 0));
+        consultasPanel.setPreferredSize(new java.awt.Dimension(900, 0));
         consultasPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         jScrollPane1.setViewportView(consultasPanel);
 
@@ -195,7 +196,7 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         verConsultas.add(jScrollPane1, gridBagConstraints);
