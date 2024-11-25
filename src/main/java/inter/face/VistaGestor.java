@@ -40,21 +40,21 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nomeUtizador = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        nomeCompleto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        nomeCC = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        medicoCheckBox = new javax.swing.JCheckBox();
+        especialidade = new javax.swing.JTextField();
+        especLabel = new javax.swing.JLabel();
+        nMedicoLabel = new javax.swing.JLabel();
+        numeroDeMedico = new javax.swing.JTextField();
+        criar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -180,6 +180,7 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         jPanel3.add(eliminarCredencial, gridBagConstraints);
 
+        criarCredencial.setVisible(false);
         criarCredencial.setBackground(new java.awt.Color(0, 149, 218));
         criarCredencial.setMinimumSize(new java.awt.Dimension(960, 35));
         criarCredencial.setOpaque(true);
@@ -202,13 +203,13 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        jTextField1.setMinimumSize(new java.awt.Dimension(450, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(450, 30));
+        nomeUtizador.setMinimumSize(new java.awt.Dimension(450, 30));
+        nomeUtizador.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField1, gridBagConstraints);
+        jPanel2.add(nomeUtizador, gridBagConstraints);
 
         jLabel4.setText("Password:");
         jLabel4.setPreferredSize(new java.awt.Dimension(55, 16));
@@ -217,13 +218,13 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         jPanel2.add(jLabel4, gridBagConstraints);
 
-        jTextField2.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField2.setPreferredSize(new java.awt.Dimension(300, 30));
+        password.setMinimumSize(new java.awt.Dimension(300, 30));
+        password.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField2, gridBagConstraints);
+        jPanel2.add(password, gridBagConstraints);
 
         jLabel5.setText("Dados Pessoais");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -238,12 +239,12 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 6;
         jPanel2.add(jLabel6, gridBagConstraints);
 
-        jTextField3.setPreferredSize(new java.awt.Dimension(300, 30));
+        nomeCompleto.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField3, gridBagConstraints);
+        jPanel2.add(nomeCompleto, gridBagConstraints);
 
         jLabel7.setText("Numero CC:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -251,12 +252,12 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 8;
         jPanel2.add(jLabel7, gridBagConstraints);
 
-        jTextField4.setPreferredSize(new java.awt.Dimension(300, 30));
+        nomeCC.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField4, gridBagConstraints);
+        jPanel2.add(nomeCC, gridBagConstraints);
 
         jLabel8.setText("Tipo de Funcionario:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -264,49 +265,49 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 10;
         jPanel2.add(jLabel8, gridBagConstraints);
 
-        jCheckBox1.setLabel("- Medico");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        medicoCheckBox.setLabel("- Medico");
+        medicoCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                medicoCheckBoxActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
-        jPanel2.add(jCheckBox1, gridBagConstraints);
+        jPanel2.add(medicoCheckBox, gridBagConstraints);
 
-        jTextField6.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField6.setPreferredSize(new java.awt.Dimension(300, 30));
+        especialidade.setMinimumSize(new java.awt.Dimension(300, 30));
+        especialidade.setPreferredSize(new java.awt.Dimension(300, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 13;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField6, gridBagConstraints);
+        jPanel2.add(especialidade, gridBagConstraints);
 
-        jLabel10.setText("Especialidade:");
+        especLabel.setText("Especialidade:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
-        jPanel2.add(jLabel10, gridBagConstraints);
+        jPanel2.add(especLabel, gridBagConstraints);
 
-        jLabel9.setText("Numero de Fezes");
+        nMedicoLabel.setText("Numero de Fezes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 14;
-        jPanel2.add(jLabel9, gridBagConstraints);
+        jPanel2.add(nMedicoLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 15;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(jTextField5, gridBagConstraints);
+        jPanel2.add(numeroDeMedico, gridBagConstraints);
 
-        jButton4.setText("Marcar");
-        jButton4.setSelected(true);
+        criar.setText("Marcar");
+        criar.setSelected(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 16;
-        jPanel2.add(jButton4, gridBagConstraints);
+        jPanel2.add(criar, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -332,30 +333,41 @@ public class VistaGestor extends javax.swing.JFrame {
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCredencialActionPerformed
-
-        if (criarCredencial.isVisible() == false){
-            botaoPesquisa.setVisible(false);
-            barraPesquisa.setVisible(true);
-            criarCredencial.setVisible(true);
-            eliminarCredencial.setVisible(false);
-        }// TODO add your handling code here:
+           criarCredencial.setVisible(true);
+        eliminarCredencial.setVisible(false);
+        botaoPesquisa.setVisible(false);
+        barraPesquisa.setVisible(false);
+        numeroDeMedico.setVisible(false);
+        especialidade.setVisible(false);
+        especLabel.setVisible(false);
+        nMedicoLabel.setVisible(false);
     }//GEN-LAST:event_botaoCriarCredencialActionPerformed
 
     private void botaoEliminarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarCredencialActionPerformed
-        if (botaoEliminarCredencial.isVisible() == false){
-            botaoPesquisa.setVisible(false);
-            botaoEliminarCredencial.setVisible(true);
-            botaoCriarCredencial.setVisible(false);
-            botaoCriarCredencial.setVisible(false);
-        } // TODO add your handling code here:
+         
+        eliminarCredencial.setVisible(true);
+        criarCredencial.setVisible(false);
+        botaoPesquisa.setVisible(true);
+        barraPesquisa.setVisible(true);
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    private void medicoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicoCheckBoxActionPerformed
+        if(medicoCheckBox.isSelected()){
+        especLabel.setVisible(true);
+        nMedicoLabel.setVisible(true);
+        numeroDeMedico.setVisible(true);
+        especialidade.setVisible(true);
+        } else{
+        especLabel.setVisible(false);
+        nMedicoLabel.setVisible(false);
+        numeroDeMedico.setVisible(false);
+        especialidade.setVisible(false);
+        }
+    }//GEN-LAST:event_medicoCheckBoxActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     /**
@@ -401,12 +413,12 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JButton botaoCriarCredencial;
     private javax.swing.JButton botaoEliminarCredencial;
     private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JButton criar;
     private javax.swing.JLayeredPane criarCredencial;
     private javax.swing.JLayeredPane eliminarCredencial;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel especLabel;
+    private javax.swing.JTextField especialidade;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -414,16 +426,16 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JCheckBox medicoCheckBox;
+    private javax.swing.JLabel nMedicoLabel;
+    private javax.swing.JTextField nomeCC;
+    private javax.swing.JTextField nomeCompleto;
+    private javax.swing.JTextField nomeUtizador;
+    private javax.swing.JTextField numeroDeMedico;
+    private javax.swing.JTextField password;
     // End of variables declaration//GEN-END:variables
 }
