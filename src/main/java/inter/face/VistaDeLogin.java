@@ -90,7 +90,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 149, 218));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Nome de Utilizador");
+        jLabel3.setText("ID de Utilizador");
         jLabel3.setMaximumSize(new java.awt.Dimension(250, 25));
         jLabel3.setMinimumSize(new java.awt.Dimension(250, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(250, 25));
@@ -214,7 +214,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         if (conexao != null) {  // Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Declara uma consulta SQL para verificar as credenciais
-                String sql = "SELECT * FROM Utilizador WHERE Nome = ? AND Password = ?"; // Vai a tabela utilizador e verifica o Nome e a Password
+                String sql = "SELECT * FROM Utilizador WHERE ID = ? AND Password = ?"; // Vai a tabela utilizador e verifica o Nome e a Password
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Substitui os placeholders (?) pelos valores fornecidos pelo utilizador
@@ -243,7 +243,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Consulta SQL para obter o ID do utilizador com base no nome
-                String sqlId = "SELECT id FROM Utilizador WHERE nome = ?";
+                String sqlId = "SELECT id FROM Utilizador WHERE ID = ?";
                 PreparedStatement stmtId = conexao.prepareStatement(sqlId);
                 stmtId.setString(1, utilizador);
 
