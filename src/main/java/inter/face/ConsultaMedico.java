@@ -132,11 +132,12 @@ public class ConsultaMedico extends javax.swing.JPanel {
         motivo.setColumns(20);
         motivo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         motivo.setRows(5);
-        motivo.setText("ssssssssssssssssssssssssssssssssssssssssssssssssss");
+        motivo.setText("ssssssssssssssssssdddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffffffffffffffffffvc");
         motivo.setBorder(null);
-        motivo.setMaximumSize(new java.awt.Dimension(250, 80));
-        motivo.setMinimumSize(new java.awt.Dimension(250, 80));
-        motivo.setPreferredSize(new java.awt.Dimension(250, 80));
+        motivo.setMaximumSize(new java.awt.Dimension(300, 60));
+        motivo.setMinimumSize(new java.awt.Dimension(300, 60));
+        motivo.setName(""); // NOI18N
+        motivo.setPreferredSize(new java.awt.Dimension(300, 60));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;

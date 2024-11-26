@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
+import javax.swing.*;
 
 /**
  *
@@ -25,6 +26,11 @@ public class VistaFuncionario extends javax.swing.JFrame {
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta();
         }
+         //Faz o scroll começar em cima
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        });
         consultasPanel.revalidate();
         consultasPanel.repaint();
     }

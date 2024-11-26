@@ -40,6 +40,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
+        setFocusable(false);
         setMaximumSize(new java.awt.Dimension(900, 100));
         setMinimumSize(new java.awt.Dimension(900, 100));
         setPreferredSize(new java.awt.Dimension(900, 100));
