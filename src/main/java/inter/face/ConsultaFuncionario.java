@@ -151,7 +151,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
 
         botaoDesmarcar.setBackground(new java.awt.Color(0, 132, 193));
         botaoDesmarcar.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoDesmarcar.setForeground(new java.awt.Color(245, 245, 245));
+        botaoDesmarcar.setForeground(new java.awt.Color(242, 242, 242));
         botaoDesmarcar.setText("Desmarcar");
         botaoDesmarcar.setPreferredSize(new java.awt.Dimension(100, 35));
         botaoDesmarcar.addActionListener(new java.awt.event.ActionListener() {

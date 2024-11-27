@@ -4,6 +4,8 @@
  */
 package inter.face;
 
+import javax.swing.*;
+
 /**
  *
  * @author draga
@@ -15,8 +17,29 @@ public class VistaGestor extends javax.swing.JFrame {
      */
     public VistaGestor() {
         initComponents();
+        carregarCredenciaisBaseDeDados();
     }
+    void carregarCredenciaisBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
+        int tamanhoPainelCredenciais = 0;
+        for (int i = 0; i < 10; i++) {
+            tamanhoPainelCredenciais+=100; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
+            credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
+            criarPainelConsulta();
+        }
+        //Faz o scroll começar em cima
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        });
 
+        credenciaisPanel.revalidate();
+        credenciaisPanel.repaint();
+    }
+    
+    void criarPainelConsulta(){ //Adiciona uma consulta ao painel
+        Credencial credencial = new Credencial();
+        credenciaisPanel.add(credencial);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,24 +62,27 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nomeUtizador = new javax.swing.JTextField();
+        idUtizador = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         password = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         nomeCompleto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        nomeCC = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         especialidade = new javax.swing.JTextField();
         especLabel = new javax.swing.JLabel();
         nMedicoLabel = new javax.swing.JLabel();
         numeroDeMedico = new javax.swing.JTextField();
         criar = new javax.swing.JButton();
+        tipoFuncionario = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
         eliminarCredencial = new javax.swing.JLayeredPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        credenciaisPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 149, 218));
@@ -104,11 +130,11 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
         jPanel7.add(botaoPesquisa, gridBagConstraints);
 
-        barraPesquisa.setVisible(false);
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barraPesquisa.setText("Pesquisar...");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
         barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
+        barraPesquisa.setVisible(false);
         barraPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 barraPesquisaActionPerformed(evt);
@@ -167,12 +193,12 @@ public class VistaGestor extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 149, 218));
         jPanel2.setMinimumSize(new java.awt.Dimension(960, 550));
-        jPanel2.setPreferredSize(new java.awt.Dimension(960, 500));
+        jPanel2.setPreferredSize(new java.awt.Dimension(960, 550));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(245, 245, 245));
-        jLabel2.setText("DADOS DO UTILIZADOR");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel2.setText("DADOS DE LOGIN");
         jLabel2.setMaximumSize(new java.awt.Dimension(450, 30));
         jLabel2.setMinimumSize(new java.awt.Dimension(450, 30));
         jLabel2.setPreferredSize(new java.awt.Dimension(450, 30));
@@ -182,58 +208,63 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel2.add(jLabel2, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(245, 245, 245));
-        jLabel3.setText("Nome de Utilizador:");
-        jLabel3.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel3.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel3.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel3.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel3.setText("ID de Utilizador:");
+        jLabel3.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel3.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel3.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        nomeUtizador.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        nomeUtizador.setMinimumSize(new java.awt.Dimension(450, 30));
-        nomeUtizador.setPreferredSize(new java.awt.Dimension(450, 30));
+        idUtizador.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        idUtizador.setMaximumSize(new java.awt.Dimension(200, 30));
+        idUtizador.setMinimumSize(new java.awt.Dimension(200, 30));
+        idUtizador.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        jPanel2.add(nomeUtizador, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
+        jPanel2.add(idUtizador, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("Password:");
-        jLabel4.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel4.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel4.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel4.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel4.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel4.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
         jPanel2.add(jLabel4, gridBagConstraints);
 
-        password.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        password.setMinimumSize(new java.awt.Dimension(450, 30));
-        password.setPreferredSize(new java.awt.Dimension(450, 30));
+        password.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        password.setMaximumSize(new java.awt.Dimension(200, 30));
+        password.setMinimumSize(new java.awt.Dimension(200, 30));
+        password.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
         jPanel2.add(password, gridBagConstraints);
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(245, 245, 245));
-        jLabel5.setText("DADOS PESSOAIS");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel5.setText("DADOS DO UTILIZADOR");
         jLabel5.setMaximumSize(new java.awt.Dimension(450, 30));
         jLabel5.setMinimumSize(new java.awt.Dimension(450, 30));
         jLabel5.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 15);
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 0, 15);
         jPanel2.add(jLabel5, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel6.setForeground(new java.awt.Color(242, 242, 242));
         jLabel6.setText("Nome Completo:");
         jLabel6.setMaximumSize(new java.awt.Dimension(450, 30));
         jLabel6.setMinimumSize(new java.awt.Dimension(450, 30));
@@ -241,108 +272,130 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel6.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 4;
         jPanel2.add(jLabel6, gridBagConstraints);
 
-        nomeCompleto.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        nomeCompleto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nomeCompleto.setMaximumSize(new java.awt.Dimension(450, 30));
         nomeCompleto.setMinimumSize(new java.awt.Dimension(450, 30));
         nomeCompleto.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 5;
         jPanel2.add(nomeCompleto, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel7.setForeground(new java.awt.Color(242, 242, 242));
         jLabel7.setText("Numero CC:");
-        jLabel7.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel7.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel7.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel7.setMaximumSize(new java.awt.Dimension(90, 30));
+        jLabel7.setMinimumSize(new java.awt.Dimension(90, 30));
+        jLabel7.setPreferredSize(new java.awt.Dimension(90, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 360);
         jPanel2.add(jLabel7, gridBagConstraints);
 
-        nomeCC.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        nomeCC.setMinimumSize(new java.awt.Dimension(450, 30));
-        nomeCC.setPreferredSize(new java.awt.Dimension(300, 30));
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel8.setText("Tipo de Funcionario:");
+        jLabel8.setMaximumSize(new java.awt.Dimension(140, 30));
+        jLabel8.setMinimumSize(new java.awt.Dimension(140, 30));
+        jLabel8.setPreferredSize(new java.awt.Dimension(140, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 310);
+        jPanel2.add(jLabel8, gridBagConstraints);
+
+        especialidade.setVisible(false);
+        especialidade.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        especialidade.setMaximumSize(new java.awt.Dimension(200, 30));
+        especialidade.setMinimumSize(new java.awt.Dimension(200, 30));
+        especialidade.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(nomeCC, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
+        jPanel2.add(especialidade, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(245, 245, 245));
-        jLabel8.setText("Tipo de Funcionario:");
-        jLabel8.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel8.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel8.setPreferredSize(new java.awt.Dimension(450, 30));
+        especLabel.setVisible(false);
+        especLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        especLabel.setForeground(new java.awt.Color(242, 242, 242));
+        especLabel.setText("Especialidade:");
+        especLabel.setMaximumSize(new java.awt.Dimension(200, 30));
+        especLabel.setMinimumSize(new java.awt.Dimension(200, 30));
+        especLabel.setPreferredSize(new java.awt.Dimension(200, 30));
+        especLabel.setRequestFocusEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 250);
+        jPanel2.add(especLabel, gridBagConstraints);
+
+        nMedicoLabel.setVisible(false);
+        nMedicoLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        nMedicoLabel.setForeground(new java.awt.Color(242, 242, 242));
+        nMedicoLabel.setText("Número da Ordem:");
+        nMedicoLabel.setMaximumSize(new java.awt.Dimension(200, 30));
+        nMedicoLabel.setMinimumSize(new java.awt.Dimension(200, 30));
+        nMedicoLabel.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(10, 250, 0, 0);
+        jPanel2.add(nMedicoLabel, gridBagConstraints);
+
+        numeroDeMedico.setVisible(false);
+        numeroDeMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        numeroDeMedico.setMaximumSize(new java.awt.Dimension(200, 30));
+        numeroDeMedico.setMinimumSize(new java.awt.Dimension(200, 30));
+        numeroDeMedico.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        jPanel2.add(numeroDeMedico, gridBagConstraints);
+
+        criar.setBackground(new java.awt.Color(0, 132, 193));
+        criar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        criar.setForeground(new java.awt.Color(242, 242, 242));
+        criar.setText("Criar");
+        criar.setMaximumSize(new java.awt.Dimension(150, 35));
+        criar.setMinimumSize(new java.awt.Dimension(150, 35));
+        criar.setPreferredSize(new java.awt.Dimension(150, 35));
+        criar.setSelected(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
-        jPanel2.add(jLabel8, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
+        jPanel2.add(criar, gridBagConstraints);
 
-        jCheckBox1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(245, 245, 245));
-        jCheckBox1.setLabel("- Medico");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        tipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Médico", "Gestor" }));
+        tipoFuncionario.setMaximumSize(new java.awt.Dimension(80, 30));
+        tipoFuncionario.setMinimumSize(new java.awt.Dimension(80, 30));
+        tipoFuncionario.setPreferredSize(new java.awt.Dimension(100, 30));
+        tipoFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                tipoFuncionarioActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
-        jPanel2.add(jCheckBox1, gridBagConstraints);
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 70);
+        jPanel2.add(tipoFuncionario, gridBagConstraints);
 
-        especialidade.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        especialidade.setMinimumSize(new java.awt.Dimension(450, 30));
-        especialidade.setPreferredSize(new java.awt.Dimension(450, 30));
+        jTextField1.setMaximumSize(new java.awt.Dimension(200, 30));
+        jTextField1.setMinimumSize(new java.awt.Dimension(200, 30));
+        jTextField1.setPreferredSize(new java.awt.Dimension(200, 30));
+        jTextField1.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(especialidade, gridBagConstraints);
-
-        especLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        especLabel.setForeground(new java.awt.Color(245, 245, 245));
-        especLabel.setText("Especialidade:");
-        especLabel.setMaximumSize(new java.awt.Dimension(450, 30));
-        especLabel.setMinimumSize(new java.awt.Dimension(450, 30));
-        especLabel.setPreferredSize(new java.awt.Dimension(450, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        jPanel2.add(especLabel, gridBagConstraints);
-
-        nMedicoLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        nMedicoLabel.setForeground(new java.awt.Color(245, 245, 245));
-        nMedicoLabel.setText("Número de Médico");
-        nMedicoLabel.setMaximumSize(new java.awt.Dimension(450, 30));
-        nMedicoLabel.setMinimumSize(new java.awt.Dimension(450, 30));
-        nMedicoLabel.setPreferredSize(new java.awt.Dimension(450, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 14;
-        jPanel2.add(nMedicoLabel, gridBagConstraints);
-
-        numeroDeMedico.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        numeroDeMedico.setMinimumSize(new java.awt.Dimension(450, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        jPanel2.add(numeroDeMedico, gridBagConstraints);
-
-        criar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        criar.setText("Marcar");
-        criar.setSelected(true);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
-        jPanel2.add(criar, gridBagConstraints);
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 70);
+        jPanel2.add(jTextField1, gridBagConstraints);
 
         criarCredencial.add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -351,22 +404,29 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         jPanel3.add(criarCredencial, gridBagConstraints);
 
-        eliminarCredencial.setVisible(false);
-        eliminarCredencial.setBackground(new java.awt.Color(255, 204, 204));
-        eliminarCredencial.setMinimumSize(new java.awt.Dimension(960, 550));
+        eliminarCredencial.setBackground(new java.awt.Color(0, 149, 218));
+        eliminarCredencial.setMinimumSize(new java.awt.Dimension(960, 35));
         eliminarCredencial.setOpaque(true);
-        eliminarCredencial.setPreferredSize(new java.awt.Dimension(960, 500));
+        eliminarCredencial.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout eliminarCredencialLayout = new javax.swing.GroupLayout(eliminarCredencial);
-        eliminarCredencial.setLayout(eliminarCredencialLayout);
-        eliminarCredencialLayout.setHorizontalGroup(
-            eliminarCredencialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        eliminarCredencialLayout.setVerticalGroup(
-            eliminarCredencialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setHorizontalScrollBar(null);
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 550));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 550));
+
+        credenciaisPanel.setMinimumSize(new java.awt.Dimension(900, 0));
+        credenciaisPanel.setPreferredSize(new java.awt.Dimension(900, 0));
+        credenciaisPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
+        jScrollPane1.setViewportView(credenciaisPanel);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        eliminarCredencial.add(jScrollPane1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -380,6 +440,7 @@ public class VistaGestor extends javax.swing.JFrame {
         getContentPane().add(jPanel3, gridBagConstraints);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
@@ -394,9 +455,18 @@ public class VistaGestor extends javax.swing.JFrame {
         botaoEliminarCredencial.setVisible(true);
         eliminarCredencial.setVisible(false);
         especLabel.setVisible(false);
-        nMedicoLabel.setVisible(false);
         especialidade.setVisible(false);
+        nMedicoLabel.setVisible(false);
         numeroDeMedico.setVisible(false);
+        //Limpa os campos
+        idUtizador.setText("");
+        password.setText("");
+        nomeCompleto.setText("");
+        especialidade.setText("");
+        numeroDeMedico.setText("");
+        jTextField1.setText("");
+        especialidade.setText("");
+        numeroDeMedico.setText("");
     }//GEN-LAST:event_botaoCriarCredencialActionPerformed
 
     private void botaoEliminarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarCredencialActionPerformed
@@ -408,23 +478,28 @@ public class VistaGestor extends javax.swing.JFrame {
         criarCredencial.setVisible(false);
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if(jCheckBox1.isSelected()){
-            especLabel.setVisible(true);
-            nMedicoLabel.setVisible(true);
-            especialidade.setVisible(true);
-            numeroDeMedico.setVisible(true);
-        }else{
-            especLabel.setVisible(false);
-            nMedicoLabel.setVisible(false);
-            especialidade.setVisible(false);
-            numeroDeMedico.setVisible(false);
-        }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoPesquisaActionPerformed
+
+    private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
+        String selecionado = (String) tipoFuncionario.getSelectedItem();
+                    if ("Médico".equals(selecionado)) {
+                        especLabel.setVisible(true);
+                        nMedicoLabel.setVisible(true);
+                        especialidade.setVisible(true);
+                        numeroDeMedico.setVisible(true);
+                    } else {
+                        especLabel.setVisible(false);
+                        nMedicoLabel.setVisible(false);
+                        especialidade.setVisible(false);
+                        numeroDeMedico.setVisible(false);
+                        especialidade.setText(""); // Limpa o campo
+                        numeroDeMedico.setText(""); // Limpa o campo
+                    }
+                    jPanel2.revalidate();
+                    jPanel2.repaint();// TODO add your handling code here:
+    }//GEN-LAST:event_tipoFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,12 +544,13 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JButton botaoCriarCredencial;
     private javax.swing.JButton botaoEliminarCredencial;
     private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JPanel credenciaisPanel;
     private javax.swing.JButton criar;
     private javax.swing.JLayeredPane criarCredencial;
     private javax.swing.JLayeredPane eliminarCredencial;
     private javax.swing.JLabel especLabel;
     private javax.swing.JTextField especialidade;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JTextField idUtizador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -487,11 +563,12 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nMedicoLabel;
-    private javax.swing.JTextField nomeCC;
     private javax.swing.JTextField nomeCompleto;
-    private javax.swing.JTextField nomeUtizador;
     private javax.swing.JTextField numeroDeMedico;
     private javax.swing.JTextField password;
+    private javax.swing.JComboBox<String> tipoFuncionario;
     // End of variables declaration//GEN-END:variables
 }
