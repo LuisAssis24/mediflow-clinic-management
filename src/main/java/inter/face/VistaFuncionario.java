@@ -4,9 +4,7 @@
  */
 package inter.face;
 import javax.swing.*;
-
 import sql.server.SqlServer;
-
 import java.sql.*;
 
 
@@ -77,9 +75,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
         barraPesquisa = new javax.swing.JTextField();
         botaoVerConsultas = new javax.swing.JButton();
         botaoMarcarConsultas = new javax.swing.JButton();
-        verConsultas = new javax.swing.JLayeredPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        consultasPanel = new javax.swing.JPanel();
         marcarConsultas = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -100,6 +95,9 @@ public class VistaFuncionario extends javax.swing.JFrame {
         label = new javax.swing.JLabel();
         horaConsulta = new javax.swing.JFormattedTextField();
         botaoDisponibilidade = new javax.swing.JButton();
+        verConsultas = new javax.swing.JLayeredPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consultasPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -204,35 +202,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         jPanel3.add(jPanel7, gridBagConstraints);
-
-        verConsultas.setBackground(new java.awt.Color(0, 149, 218));
-        verConsultas.setMinimumSize(new java.awt.Dimension(960, 35));
-        verConsultas.setOpaque(true);
-        verConsultas.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setHorizontalScrollBar(null);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 550));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 550));
-
-        consultasPanel.setMinimumSize(new java.awt.Dimension(900, 0));
-        consultasPanel.setPreferredSize(new java.awt.Dimension(900, 0));
-        consultasPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
-        jScrollPane1.setViewportView(consultasPanel);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        verConsultas.add(jScrollPane1, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel3.add(verConsultas, gridBagConstraints);
 
         marcarConsultas.setBackground(new java.awt.Color(0, 149, 218));
         marcarConsultas.setMinimumSize(new java.awt.Dimension(960, 550));
@@ -399,6 +368,11 @@ public class VistaFuncionario extends javax.swing.JFrame {
         botaoMarcar.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoMarcar.setMinimumSize(new java.awt.Dimension(150, 35));
         botaoMarcar.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoMarcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoMarcarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -454,6 +428,35 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         jPanel3.add(marcarConsultas, gridBagConstraints);
 
+        verConsultas.setBackground(new java.awt.Color(0, 149, 218));
+        verConsultas.setMinimumSize(new java.awt.Dimension(960, 35));
+        verConsultas.setOpaque(true);
+        verConsultas.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setHorizontalScrollBar(null);
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 550));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 550));
+
+        consultasPanel.setMinimumSize(new java.awt.Dimension(900, 0));
+        consultasPanel.setPreferredSize(new java.awt.Dimension(900, 0));
+        consultasPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
+        jScrollPane1.setViewportView(consultasPanel);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        verConsultas.add(jScrollPane1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel3.add(verConsultas, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -508,6 +511,17 @@ public class VistaFuncionario extends javax.swing.JFrame {
         DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
         disp.setVisible(true);
     }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
+
+    private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarActionPerformed
+        String nome = nomePaciente.getText();
+        int numeroSns = Integer.parseInt(nSns.getText());
+        String motivo = motivoConsulta.getText();
+        String data = dataConsulta.getText();
+        String hora = horaConsulta.getText();
+        SqlServer.criarConsulta(nome, numeroSns, motivo, data, hora);
+        
+        
+    }//GEN-LAST:event_botaoMarcarActionPerformed
 
     /**
      * @param args the command line arguments

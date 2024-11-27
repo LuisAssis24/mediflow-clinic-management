@@ -34,6 +34,29 @@ public class SqlServer {
     }
 
 
+    public static void criarConsulta(String nome, int numeroSns, String motivo, String data, String hora){
+        Connection conexao = SqlServer.DatabaseConnection.getInstance();
+
+        // Chamar a stored procedure
+        String sql = "{CALL MarcarConsulta(?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
+
+            // Definir parâmetros de entrada
+            callableStatement.setTimestamp(1, java.sql.Timestamp.valueOf(data + " " + hora)); // DataHora
+            callableStatement.setString(2, motivo); // Motivo
+            callableStatement.setString(3, ""); // Observacoes
+            callableStatement.setString(4, ""); // Prescricao
+            callableStatement.setInt(5, numeroSns); // NumeroUtente
+            callableStatement.setInt(6, 10); // IDSala
+            callableStatement.setInt(7, 5); // IDMedico
+
+            // Executar a stored procedure
+            callableStatement.execute();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static String verificarTipoUtilizador(String utilizador) {
@@ -125,7 +148,6 @@ public class SqlServer {
             // Retorna a instância da conexão, que pode ser null se não for criada
             return connection;
         }
-
 
 
 
