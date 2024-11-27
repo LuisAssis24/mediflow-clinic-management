@@ -25,7 +25,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }
 
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); //Abre a conexão com a base de dados
+        /*Connection conexao = SqlServer.DatabaseConnection.getInstance(); //Abre a conexão com a base de dados
         int tamanhoPainelConsultas = 0;
         int nConsultas = 0; //Atributo responsavel por dizer quantos objetos do tipo consultaPanel existirão
         try{
@@ -52,7 +52,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
         consultasPanel.revalidate();
-        consultasPanel.repaint();
+        consultasPanel.repaint(); */
     }
 
     void criarPainelConsulta(){ //Adiciona uma consulta ao painel
@@ -77,9 +77,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
         barraPesquisa = new javax.swing.JTextField();
         botaoVerConsultas = new javax.swing.JButton();
         botaoMarcarConsultas = new javax.swing.JButton();
-        verConsultas = new javax.swing.JLayeredPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        consultasPanel = new javax.swing.JPanel();
         marcarConsultas = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -101,7 +98,10 @@ public class VistaFuncionario extends javax.swing.JFrame {
         horaConsulta = new javax.swing.JFormattedTextField();
         botaoDisponibilidade = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        idMedico = new javax.swing.JTextField();
+        verConsultas = new javax.swing.JLayeredPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consultasPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -206,35 +206,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         jPanel3.add(jPanel7, gridBagConstraints);
-
-        verConsultas.setBackground(new java.awt.Color(0, 149, 218));
-        verConsultas.setMinimumSize(new java.awt.Dimension(960, 35));
-        verConsultas.setOpaque(true);
-        verConsultas.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setHorizontalScrollBar(null);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 550));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 550));
-
-        consultasPanel.setMinimumSize(new java.awt.Dimension(900, 0));
-        consultasPanel.setPreferredSize(new java.awt.Dimension(900, 0));
-        consultasPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
-        jScrollPane1.setViewportView(consultasPanel);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        verConsultas.add(jScrollPane1, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel3.add(verConsultas, gridBagConstraints);
 
         marcarConsultas.setBackground(new java.awt.Color(0, 149, 218));
         marcarConsultas.setMinimumSize(new java.awt.Dimension(960, 550));
@@ -403,6 +374,11 @@ public class VistaFuncionario extends javax.swing.JFrame {
         botaoMarcar.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoMarcar.setMinimumSize(new java.awt.Dimension(150, 35));
         botaoMarcar.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoMarcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoMarcarConsultasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
@@ -463,15 +439,15 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 350);
         jPanel2.add(jLabel9, gridBagConstraints);
 
-        jTextField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jTextField1.setMaximumSize(new java.awt.Dimension(200, 30));
-        jTextField1.setMinimumSize(new java.awt.Dimension(200, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 30));
+        idMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        idMedico.setMaximumSize(new java.awt.Dimension(200, 30));
+        idMedico.setMinimumSize(new java.awt.Dimension(200, 30));
+        idMedico.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 50);
-        jPanel2.add(jTextField1, gridBagConstraints);
+        jPanel2.add(idMedico, gridBagConstraints);
 
         marcarConsultas.add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -479,6 +455,35 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         jPanel3.add(marcarConsultas, gridBagConstraints);
+
+        verConsultas.setBackground(new java.awt.Color(0, 149, 218));
+        verConsultas.setMinimumSize(new java.awt.Dimension(960, 35));
+        verConsultas.setOpaque(true);
+        verConsultas.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setHorizontalScrollBar(null);
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 550));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 550));
+
+        consultasPanel.setMinimumSize(new java.awt.Dimension(900, 0));
+        consultasPanel.setPreferredSize(new java.awt.Dimension(900, 0));
+        consultasPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
+        jScrollPane1.setViewportView(consultasPanel);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        verConsultas.add(jScrollPane1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel3.add(verConsultas, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -511,6 +516,13 @@ public class VistaFuncionario extends javax.swing.JFrame {
             botaoPesquisa.setVisible(false);
             marcarConsultas.setVisible(true);
             verConsultas.setVisible(false);
+            nomePaciente.setText("");
+            contactoPaciente.setText("");
+            nSns.setText("");
+            motivoConsulta.setText("");
+            dataConsulta.setText("");
+            horaConsulta.setText("");
+            idMedico.setText("");
         } // TODO add your handling code here:
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
@@ -582,6 +594,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField contactoPaciente;
     private javax.swing.JFormattedTextField dataConsulta;
     private javax.swing.JFormattedTextField horaConsulta;
+    private javax.swing.JTextField idMedico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -596,7 +609,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label;
     private javax.swing.JLayeredPane marcarConsultas;
     private javax.swing.JTextArea motivoConsulta;
