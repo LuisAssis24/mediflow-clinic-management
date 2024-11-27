@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package inter.face;
+import java.awt.*;
 
 /**
  *
@@ -36,7 +37,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         data = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        botaoDesmarcar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
@@ -148,15 +149,20 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         add(data, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(0, 132, 193));
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(245, 245, 245));
-        jButton1.setText("Desmarcar");
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 35));
+        botaoDesmarcar.setBackground(new java.awt.Color(0, 132, 193));
+        botaoDesmarcar.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoDesmarcar.setForeground(new java.awt.Color(245, 245, 245));
+        botaoDesmarcar.setText("Desmarcar");
+        botaoDesmarcar.setPreferredSize(new java.awt.Dimension(100, 35));
+        botaoDesmarcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoDesmarcarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 1;
-        add(jButton1, gridBagConstraints);
+        add(botaoDesmarcar, gridBagConstraints);
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel11.setText("xx/yy/zzzz");
@@ -170,10 +176,14 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         add(jLabel11, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
+
+    }//GEN-LAST:event_botaoDesmarcarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoDesmarcar;
     private javax.swing.JLabel data;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

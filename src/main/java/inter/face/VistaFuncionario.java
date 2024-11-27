@@ -64,20 +64,22 @@ public class VistaFuncionario extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nomePaciente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        contactoPaciente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        nSns = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        motivo = new javax.swing.JTextArea();
-        motivo.setLineWrap(true);
-        motivo.setWrapStyleWord(true);
+        motivoConsulta = new javax.swing.JTextArea();
+        motivoConsulta.setLineWrap(true);
+        motivoConsulta.setWrapStyleWord(true);
         jLabel8 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        dataConsulta = new javax.swing.JFormattedTextField();
+        botaoMarcar = new javax.swing.JButton();
+        label = new javax.swing.JLabel();
+        horaConsulta = new javax.swing.JFormattedTextField();
+        botaoDisponibilidade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -245,59 +247,68 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        jTextField1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jTextField1.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(450, 30));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nomePaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nomePaciente.setMinimumSize(new java.awt.Dimension(300, 30));
+        nomePaciente.setPreferredSize(new java.awt.Dimension(450, 30));
+        nomePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nomePacienteActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        jPanel2.add(jTextField1, gridBagConstraints);
+        jPanel2.add(nomePaciente, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("N.º SNS:");
-        jLabel4.setMaximumSize(new java.awt.Dimension(300, 30));
-        jLabel4.setMinimumSize(new java.awt.Dimension(300, 30));
-        jLabel4.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel4.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel4.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel4.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(jLabel4, gridBagConstraints);
 
-        jTextField2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jTextField2.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField2.setPreferredSize(new java.awt.Dimension(300, 30));
+        contactoPaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        contactoPaciente.setMaximumSize(new java.awt.Dimension(200, 30));
+        contactoPaciente.setMinimumSize(new java.awt.Dimension(200, 30));
+        contactoPaciente.setPreferredSize(new java.awt.Dimension(200, 30));
+        contactoPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactoPacienteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 150);
-        jPanel2.add(jTextField2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        jPanel2.add(contactoPaciente, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(242, 242, 242));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Contacto:");
-        jLabel5.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel5.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel5.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel5.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel5.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel5.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
         jPanel2.add(jLabel5, gridBagConstraints);
 
-        jTextField3.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jTextField3.setMinimumSize(new java.awt.Dimension(300, 30));
-        jTextField3.setPreferredSize(new java.awt.Dimension(300, 30));
+        nSns.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nSns.setMaximumSize(new java.awt.Dimension(200, 30));
+        nSns.setMinimumSize(new java.awt.Dimension(200, 30));
+        nSns.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 150);
-        jPanel2.add(jTextField3, gridBagConstraints);
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
+        jPanel2.add(nSns, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(242, 242, 242));
@@ -307,70 +318,114 @@ public class VistaFuncionario extends javax.swing.JFrame {
         jLabel6.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         jPanel2.add(jLabel6, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel7.setText("Motivo");
-        jLabel7.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel7.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel7.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel7.setText("Motivo:");
+        jLabel7.setMaximumSize(new java.awt.Dimension(150, 30));
+        jLabel7.setMinimumSize(new java.awt.Dimension(150, 30));
+        jLabel7.setPreferredSize(new java.awt.Dimension(150, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 300);
         jPanel2.add(jLabel7, gridBagConstraints);
 
-        motivo.setColumns(20);
-        motivo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        motivo.setRows(5);
-        motivo.setMinimumSize(new java.awt.Dimension(300, 200));
-        motivo.setPreferredSize(new java.awt.Dimension(450, 150));
+        motivoConsulta.setColumns(20);
+        motivoConsulta.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        motivoConsulta.setRows(5);
+        motivoConsulta.setMinimumSize(new java.awt.Dimension(300, 200));
+        motivoConsulta.setPreferredSize(new java.awt.Dimension(450, 100));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        jPanel2.add(motivo, gridBagConstraints);
+        gridBagConstraints.gridy = 7;
+        jPanel2.add(motivoConsulta, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(242, 242, 242));
         jLabel8.setText("Data:");
-        jLabel8.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel8.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel8.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel8.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel8.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel8.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(jLabel8, gridBagConstraints);
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jFormattedTextField1.setMinimumSize(new java.awt.Dimension(150, 30));
-        jFormattedTextField1.setPreferredSize(new java.awt.Dimension(150, 30));
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        dataConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        dataConsulta.setMaximumSize(new java.awt.Dimension(200, 30));
+        dataConsulta.setMinimumSize(new java.awt.Dimension(200, 30));
+        dataConsulta.setPreferredSize(new java.awt.Dimension(200, 30));
+        dataConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                dataConsultaActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        jPanel2.add(jFormattedTextField1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
+        jPanel2.add(dataConsulta, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(0, 132, 193));
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(242, 242, 242));
-        jButton1.setText("MARCAR");
-        jButton1.setMaximumSize(new java.awt.Dimension(140, 3405));
-        jButton1.setMinimumSize(new java.awt.Dimension(140, 40));
-        jButton1.setPreferredSize(new java.awt.Dimension(140, 35));
+        botaoMarcar.setBackground(new java.awt.Color(0, 132, 193));
+        botaoMarcar.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoMarcar.setForeground(new java.awt.Color(242, 242, 242));
+        botaoMarcar.setText("MARCAR");
+        botaoMarcar.setMaximumSize(new java.awt.Dimension(150, 35));
+        botaoMarcar.setMinimumSize(new java.awt.Dimension(150, 35));
+        botaoMarcar.setPreferredSize(new java.awt.Dimension(150, 35));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        jPanel2.add(jButton1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
+        jPanel2.add(botaoMarcar, gridBagConstraints);
 
-        jPanel4.setLayout(new java.awt.GridBagLayout());
-        jPanel2.add(jPanel4, new java.awt.GridBagConstraints());
+        label.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        label.setForeground(new java.awt.Color(242, 242, 242));
+        label.setText("Hora:");
+        label.setMaximumSize(new java.awt.Dimension(200, 30));
+        label.setMinimumSize(new java.awt.Dimension(200, 30));
+        label.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        jPanel2.add(label, gridBagConstraints);
+
+        horaConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        horaConsulta.setMaximumSize(new java.awt.Dimension(200, 30));
+        horaConsulta.setMinimumSize(new java.awt.Dimension(200, 30));
+        horaConsulta.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        jPanel2.add(horaConsulta, gridBagConstraints);
+
+        botaoDisponibilidade.setBackground(new java.awt.Color(0, 132, 193));
+        botaoDisponibilidade.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoDisponibilidade.setForeground(new java.awt.Color(242, 242, 242));
+        botaoDisponibilidade.setText("DISPONIBILIDADE ");
+        botaoDisponibilidade.setMaximumSize(new java.awt.Dimension(150, 35));
+        botaoDisponibilidade.setMinimumSize(new java.awt.Dimension(150, 35));
+        botaoDisponibilidade.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoDisponibilidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoDisponibilidadeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
+        jPanel2.add(botaoDisponibilidade, gridBagConstraints);
 
         marcarConsultas.add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -417,13 +472,22 @@ public class VistaFuncionario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nomePacienteActionPerformed
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void dataConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_dataConsultaActionPerformed
+
+    private void contactoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactoPacienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactoPacienteActionPerformed
+
+    private void botaoDisponibilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDisponibilidadeActionPerformed
+        DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
+        disp.setVisible(true);
+    }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -463,12 +527,15 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField barraPesquisa;
+    private javax.swing.JButton botaoDisponibilidade;
+    private javax.swing.JButton botaoMarcar;
     private javax.swing.JButton botaoMarcarConsultas;
     private javax.swing.JButton botaoPesquisa;
     private javax.swing.JButton botaoVerConsultas;
     private javax.swing.JPanel consultasPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JTextField contactoPaciente;
+    private javax.swing.JFormattedTextField dataConsulta;
+    private javax.swing.JFormattedTextField horaConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -480,14 +547,13 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel label;
     private javax.swing.JLayeredPane marcarConsultas;
-    private javax.swing.JTextArea motivo;
+    private javax.swing.JTextArea motivoConsulta;
+    private javax.swing.JTextField nSns;
+    private javax.swing.JTextField nomePaciente;
     private javax.swing.JLayeredPane verConsultas;
     // End of variables declaration//GEN-END:variables
 }
