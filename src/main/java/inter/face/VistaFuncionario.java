@@ -5,6 +5,11 @@
 package inter.face;
 import javax.swing.*;
 
+import sql.server.SqlServer;
+
+import java.sql.*;
+
+
 /**
  *
  * @author draga
@@ -18,10 +23,25 @@ public class VistaFuncionario extends javax.swing.JFrame {
         initComponents();
         carregarConsultasBaseDeDados();
     }
-    
+
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
+        Connection conexao = SqlServer.DatabaseConnection.getInstance(); //Abre a conexão com a base de dados
         int tamanhoPainelConsultas = 0;
-        for (int i = 0; i < 25; i++) {
+        int nConsultas = 0; //Atributo responsavel por dizer quantos objetos do tipo consultaPanel existirão
+        try{
+            String contTuplos = "SELECT COUNT(*) FROM Consulta"; //Script para obter o numero de Tublos da relação Consulta
+            PreparedStatement statement = conexao.prepareStatement(contTuplos);
+            ResultSet nTuplos = statement.executeQuery();
+
+                if (nTuplos.next()) {
+                    // Obtém o número de registros
+                    nConsultas = nTuplos.getInt(1);
+                }
+        }catch ( SQLException e ){
+            System.out.println("Erro ao encontrar a relação Consulta" + e.getMessage());
+        }
+
+        for (int i = 0; i < nConsultas; i++) {
             tamanhoPainelConsultas+=100; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta();
@@ -34,7 +54,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
         consultasPanel.revalidate();
         consultasPanel.repaint();
     }
-        
+
     void criarPainelConsulta(){ //Adiciona uma consulta ao painel
         ConsultaFuncionario consulta = new ConsultaFuncionario();
         consultasPanel.add(consulta);
@@ -449,8 +469,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
-      
-        
+
+
         if (verConsultas.isVisible() == false){
             barraPesquisa.setVisible(true);
             botaoPesquisa.setVisible(true);
@@ -469,7 +489,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
-        
+
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
@@ -496,7 +516,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
