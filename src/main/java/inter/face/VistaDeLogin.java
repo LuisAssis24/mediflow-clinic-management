@@ -51,6 +51,11 @@ public class VistaDeLogin extends javax.swing.JFrame {
         setTitle("MediFLow");
         setName("login_panel"); // NOI18N
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 149, 218));
@@ -92,7 +97,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 149, 218));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("ID de Utilizador");
+        jLabel3.setText("Nome de Utilizador");
         jLabel3.setMaximumSize(new java.awt.Dimension(250, 25));
         jLabel3.setMinimumSize(new java.awt.Dimension(250, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(250, 25));
@@ -168,6 +173,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        addKeyListenerToComponents(this);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeUtilizadorActionPerformed
@@ -222,6 +228,24 @@ public class VistaDeLogin extends javax.swing.JFrame {
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
+
+    private void addKeyListenerToComponents(java.awt.Container container) {
+        for (java.awt.Component component : container.getComponents()) {
+            component.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    formKeyPressed(evt);
+                }
+            });
+            if (component instanceof java.awt.Container) {
+                addKeyListenerToComponents((java.awt.Container) component);
+            }
+        }
+    }
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            botaoLogin.doClick();
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments

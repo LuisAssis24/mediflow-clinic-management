@@ -1,6 +1,7 @@
 package sql.server;
 
 import java.sql.*;
+import java.text.*;
 
 public class SqlServer {
 
@@ -34,30 +35,50 @@ public class SqlServer {
     }
 
 
-    public static void criarConsulta(String nome, int numeroSns, String motivo, String data, String hora){
+    public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico) {
         Connection conexao = SqlServer.DatabaseConnection.getInstance();
+        int idConsultaGerado = -1; // Variável para armazenar o ID gerado pela base de dados
+
+        // Reformatar a data para o formato SQL
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dataSql = "";
+        try {
+            dataSql = sqlDateFormat.format(inputDateFormat.parse(data));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Adicionar :00 ao final da hora
+        String horaSql = hora + ":00";
 
         // Chamar a stored procedure
-        String sql = "{CALL MarcarConsulta(?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{CALL MarcarConsulta(?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Chama a stored procedure MarcarConsulta
 
         try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-
             // Definir parâmetros de entrada
-            callableStatement.setTimestamp(1, java.sql.Timestamp.valueOf(data + " " + hora)); // DataHora
-            callableStatement.setString(2, motivo); // Motivo
-            callableStatement.setString(3, ""); // Observacoes
-            callableStatement.setString(4, ""); // Prescricao
-            callableStatement.setInt(5, numeroSns); // NumeroUtente
-            callableStatement.setInt(6, 10); // IDSala
-            callableStatement.setInt(7, 5); // IDMedico
+            callableStatement.setDate(1, java.sql.Date.valueOf(dataSql)); // Data
+            callableStatement.setTime(2, java.sql.Time.valueOf(horaSql)); // Hora
+            callableStatement.setString(3, motivo); // Motivo
+            callableStatement.setString(4, nomePaciente); // Nome do paciente
+            callableStatement.setInt(5, snsPaciente); // SNS do paciente
+            callableStatement.setInt(6, contacto); // Contacto do paciente
+            callableStatement.setInt(7, numSala); // Número da sala
+            callableStatement.setInt(8, idMedico); // ID do médico
+            callableStatement.registerOutParameter(9, java.sql.Types.INTEGER); // ID da consulta (gerado pela base de dados)
 
             // Executar a stored procedure
             callableStatement.execute();
-        }catch (SQLException e) {
+
+            // Recuperar o ID gerado
+            idConsultaGerado = callableStatement.getInt(9); // Pega o valor gerado da primary key
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
+        return idConsultaGerado; // Retorna o ID gerado para aprsentar ao utilizador
+    }
 
     public static String verificarTipoUtilizador(String utilizador) {
 

@@ -99,6 +99,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
         botaoDisponibilidade = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         idMedico = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        salaConsulta = new javax.swing.JTextField();
         verConsultas = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         consultasPanel = new javax.swing.JPanel();
@@ -244,7 +246,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
         nomePaciente.setMaximumSize(new java.awt.Dimension(450, 30));
         nomePaciente.setMinimumSize(new java.awt.Dimension(450, 30));
         nomePaciente.setPreferredSize(new java.awt.Dimension(450, 30));
-        nomePaciente.setRequestFocusEnabled(false);
         nomePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomePacienteActionPerformed(evt);
@@ -376,7 +377,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
         botaoMarcar.setPreferredSize(new java.awt.Dimension(150, 35));
         botaoMarcar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoMarcarConsultasActionPerformed(evt);
+                botaoMarcarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -442,12 +443,34 @@ public class VistaFuncionario extends javax.swing.JFrame {
         idMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         idMedico.setMaximumSize(new java.awt.Dimension(200, 30));
         idMedico.setMinimumSize(new java.awt.Dimension(200, 30));
-        idMedico.setPreferredSize(new java.awt.Dimension(200, 30));
+        idMedico.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 50);
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 150);
         jPanel2.add(idMedico, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel10.setText("Sala:");
+        jLabel10.setToolTipText("");
+        jLabel10.setMaximumSize(new java.awt.Dimension(40, 30));
+        jLabel10.setMinimumSize(new java.awt.Dimension(40, 30));
+        jLabel10.setPreferredSize(new java.awt.Dimension(40, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(15, 90, 0, 0);
+        jPanel2.add(jLabel10, gridBagConstraints);
+
+        salaConsulta.setMaximumSize(new java.awt.Dimension(100, 30));
+        salaConsulta.setMinimumSize(new java.awt.Dimension(100, 30));
+        salaConsulta.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(15, 230, 0, 0);
+        jPanel2.add(salaConsulta, gridBagConstraints);
 
         marcarConsultas.add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -547,6 +570,46 @@ public class VistaFuncionario extends javax.swing.JFrame {
         disp.setVisible(true);
     }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
 
+    private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            // Obter os valores dos campos da interface
+            String nome = nomePaciente.getText();
+            String numeroSnsStr = nSns.getText();
+            String motivo = motivoConsulta.getText();
+            String data = dataConsulta.getText();
+            String hora = horaConsulta.getText();
+            String idMedicoStr = idMedico.getText();
+            String idSalaStr = salaConsulta.getText();
+            String contacto = contactoPaciente.getText();
+
+            // Verificar se algum campo está vazio
+            if (nome.isEmpty() || numeroSnsStr.isEmpty() || motivo.isEmpty() || data.isEmpty() || hora.isEmpty() || idMedicoStr.isEmpty() || idSalaStr.isEmpty() || contacto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Converter os valores para os tipos corretos
+            int numeroSns = Integer.parseInt(numeroSnsStr);
+            int idMedico = Integer.parseInt(idMedicoStr);
+            int idSala = Integer.parseInt(idSalaStr);
+            int contactoInt = Integer.parseInt(contacto);
+
+            // Chamar o método que cria a consulta
+            int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedico);
+
+            // Verificar se a consulta foi criada com sucesso
+            if (idConsultaGerada != -1) {
+                JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso! ID da Consulta: " + idConsultaGerada, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Certifique-se de que os campos numéricos (SNS, Contacto, Médico, Sala) contêm apenas números.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -596,6 +659,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField horaConsulta;
     private javax.swing.JTextField idMedico;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -614,6 +678,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextArea motivoConsulta;
     private javax.swing.JTextField nSns;
     private javax.swing.JTextField nomePaciente;
+    private javax.swing.JTextField salaConsulta;
     private javax.swing.JLayeredPane verConsultas;
     // End of variables declaration//GEN-END:variables
 }
