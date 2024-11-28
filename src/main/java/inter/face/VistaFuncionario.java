@@ -22,6 +22,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }
 
     void carregarConsultasBaseDeDados() {
+        consultasPanel.removeAll();
+
         List<Integer> consultaIds = SqlServer.obterTodasConsultas(); // Fetch consultation IDs from the database
         int tamanhoPainelConsultas = 0;
 
@@ -577,16 +579,27 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
             // Converter os valores para os tipos corretos
             int numeroSns = Integer.parseInt(numeroSnsStr);
-            int idMedico = Integer.parseInt(idMedicoStr);
+            int idMedicoInt = Integer.parseInt(idMedicoStr);
             int idSala = Integer.parseInt(idSalaStr);
             int contactoInt = Integer.parseInt(contacto);
 
             // Chamar o método que cria a consulta
-            int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedico);
+            int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {
                 JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso! ID da Consulta: " + idConsultaGerada, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                // Limpar os campos
+                nomePaciente.setText("");
+                nSns.setText("");
+                motivoConsulta.setText("");
+                dataConsulta.setText("");
+                horaConsulta.setText("");
+                idMedico.setText("");
+                salaConsulta.setText("");
+                contactoPaciente.setText("");
+                // Atualizar o painel verConsultas
+                carregarConsultasBaseDeDados();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -595,9 +608,6 @@ public class VistaFuncionario extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
-        consultasPanel.revalidate();
-        consultasPanel.repaint();
     }
 
     /**
