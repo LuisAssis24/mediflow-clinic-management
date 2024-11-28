@@ -3,19 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package inter.face;
-import java.awt.*;
+import java.util.*;
+import sql.server.*;
+import javax.swing.*;
 
 /**
  *
  * @author draga
  */
 public class ConsultaFuncionario extends javax.swing.JPanel {
-
+    int idConsulta;
     /**
      * Creates new form Consulta
      */
-    public ConsultaFuncionario() {
+    public ConsultaFuncionario(HashMap<String, String> dadosConsulta) {
         initComponents();
+        data.setText(dadosConsulta.get("data"));
+        hora.setText(dadosConsulta.get("hora"));
+        nomePaciente.setText(dadosConsulta.get("nomePaciente"));
+        nSns.setText(dadosConsulta.get("snsPaciente"));
+        sala.setText(dadosConsulta.get("numSala"));
+        medico.setText(dadosConsulta.get("idMedico"));
+        idConsulta = Integer.parseInt(dadosConsulta.get("idConsulta"));
     }
 
     /**
@@ -28,17 +37,19 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        nome = new javax.swing.JLabel();
+        sns = new javax.swing.JLabel();
+        med = new javax.swing.JLabel();
+        sal = new javax.swing.JLabel();
         nomePaciente = new javax.swing.JLabel();
         nSns = new javax.swing.JLabel();
         medico = new javax.swing.JLabel();
         sala = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        data = new javax.swing.JLabel();
+        d = new javax.swing.JLabel();
         botaoDesmarcar = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
+        data = new javax.swing.JLabel();
+        h = new javax.swing.JLabel();
+        hora = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setFocusable(false);
@@ -47,107 +58,108 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(900, 100));
         setLayout(new java.awt.GridBagLayout());
 
-        nomePaciente.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        nomePaciente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nomePaciente.setText("Nome do paciente:");
-        nomePaciente.setMaximumSize(new java.awt.Dimension(120, 30));
-        nomePaciente.setMinimumSize(new java.awt.Dimension(120, 30));
-        nomePaciente.setPreferredSize(new java.awt.Dimension(120, 30));
+        nome.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nome.setText("Nome do paciente:");
+        nome.setMaximumSize(new java.awt.Dimension(150, 30));
+        nome.setMinimumSize(new java.awt.Dimension(150, 30));
+        nome.setPreferredSize(new java.awt.Dimension(150, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        add(nome, gridBagConstraints);
+
+        sns.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        sns.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        sns.setText("N.º SNS:");
+        sns.setMaximumSize(new java.awt.Dimension(150, 30));
+        sns.setMinimumSize(new java.awt.Dimension(150, 30));
+        sns.setPreferredSize(new java.awt.Dimension(150, 30));
+        sns.setRequestFocusEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        add(sns, gridBagConstraints);
+
+        med.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        med.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        med.setText("Médico:");
+        med.setMaximumSize(new java.awt.Dimension(60, 30));
+        med.setMinimumSize(new java.awt.Dimension(60, 30));
+        med.setPreferredSize(new java.awt.Dimension(60, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(med, gridBagConstraints);
+
+        sal.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        sal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        sal.setText("Sala:");
+        sal.setMaximumSize(new java.awt.Dimension(60, 30));
+        sal.setMinimumSize(new java.awt.Dimension(60, 30));
+        sal.setPreferredSize(new java.awt.Dimension(60, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(sal, gridBagConstraints);
+
+        nomePaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nomePaciente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nomePaciente.setText("xxxxxx");
+        nomePaciente.setMaximumSize(new java.awt.Dimension(250, 30));
+        nomePaciente.setMinimumSize(new java.awt.Dimension(250, 30));
+        nomePaciente.setPreferredSize(new java.awt.Dimension(250, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         add(nomePaciente, gridBagConstraints);
 
-        nSns.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        nSns.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nSns.setText("N.º SNS:");
-        nSns.setMaximumSize(new java.awt.Dimension(120, 30));
-        nSns.setMinimumSize(new java.awt.Dimension(120, 30));
-        nSns.setPreferredSize(new java.awt.Dimension(120, 30));
+        nSns.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nSns.setText("yyyyy");
+        nSns.setMaximumSize(new java.awt.Dimension(250, 30));
+        nSns.setMinimumSize(new java.awt.Dimension(250, 30));
+        nSns.setPreferredSize(new java.awt.Dimension(250, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         add(nSns, gridBagConstraints);
 
-        medico.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        medico.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        medico.setText("Médico:");
-        medico.setMaximumSize(new java.awt.Dimension(50, 30));
-        medico.setMinimumSize(new java.awt.Dimension(50, 30));
-        medico.setPreferredSize(new java.awt.Dimension(50, 30));
+        medico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        medico.setText("zzzzzzz");
+        medico.setMaximumSize(new java.awt.Dimension(150, 30));
+        medico.setMinimumSize(new java.awt.Dimension(150, 30));
+        medico.setPreferredSize(new java.awt.Dimension(150, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         add(medico, gridBagConstraints);
 
-        sala.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        sala.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        sala.setText("Sala:");
-        sala.setMaximumSize(new java.awt.Dimension(50, 30));
-        sala.setMinimumSize(new java.awt.Dimension(50, 30));
-        sala.setPreferredSize(new java.awt.Dimension(50, 30));
+        sala.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        sala.setText("wwwww");
+        sala.setMaximumSize(new java.awt.Dimension(150, 30));
+        sala.setMinimumSize(new java.awt.Dimension(150, 30));
+        sala.setPreferredSize(new java.awt.Dimension(150, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         add(sala, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("xxxxxx");
-        jLabel6.setMaximumSize(new java.awt.Dimension(300, 30));
-        jLabel6.setMinimumSize(new java.awt.Dimension(300, 30));
-        jLabel6.setPreferredSize(new java.awt.Dimension(300, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel6, gridBagConstraints);
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel7.setText("yyyyy");
-        jLabel7.setMaximumSize(new java.awt.Dimension(300, 30));
-        jLabel7.setMinimumSize(new java.awt.Dimension(300, 30));
-        jLabel7.setPreferredSize(new java.awt.Dimension(300, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel7, gridBagConstraints);
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel8.setText("zzzzzzz");
-        jLabel8.setMaximumSize(new java.awt.Dimension(150, 30));
-        jLabel8.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel8.setPreferredSize(new java.awt.Dimension(150, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel8, gridBagConstraints);
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel9.setText("wwwww");
-        jLabel9.setMaximumSize(new java.awt.Dimension(150, 30));
-        jLabel9.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel9.setPreferredSize(new java.awt.Dimension(150, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel9, gridBagConstraints);
-
-        data.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        data.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        data.setText("Data:");
-        data.setMaximumSize(new java.awt.Dimension(30, 30));
-        data.setMinimumSize(new java.awt.Dimension(30, 30));
-        data.setPreferredSize(new java.awt.Dimension(40, 30));
+        d.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        d.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        d.setText("Data:");
+        d.setMaximumSize(new java.awt.Dimension(40, 30));
+        d.setMinimumSize(new java.awt.Dimension(40, 30));
+        d.setPreferredSize(new java.awt.Dimension(40, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        add(data, gridBagConstraints);
+        add(d, gridBagConstraints);
 
         botaoDesmarcar.setBackground(new java.awt.Color(0, 132, 193));
         botaoDesmarcar.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -164,34 +176,61 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         add(botaoDesmarcar, gridBagConstraints);
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel11.setText("xx/yy/zzzz");
-        jLabel11.setMaximumSize(new java.awt.Dimension(80, 30));
-        jLabel11.setMinimumSize(new java.awt.Dimension(80, 30));
-        jLabel11.setPreferredSize(new java.awt.Dimension(80, 30));
+        data.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        data.setText("xx/yy/zzzz");
+        data.setMaximumSize(new java.awt.Dimension(80, 30));
+        data.setMinimumSize(new java.awt.Dimension(80, 30));
+        data.setPreferredSize(new java.awt.Dimension(80, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(jLabel11, gridBagConstraints);
+        add(data, gridBagConstraints);
+
+        h.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        h.setText("Hora:");
+        h.setMaximumSize(new java.awt.Dimension(40, 30));
+        h.setMinimumSize(new java.awt.Dimension(40, 30));
+        h.setPreferredSize(new java.awt.Dimension(40, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        add(h, gridBagConstraints);
+
+        hora.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        hora.setText("hh/mm");
+        hora.setMaximumSize(new java.awt.Dimension(80, 30));
+        hora.setMinimumSize(new java.awt.Dimension(80, 30));
+        hora.setPreferredSize(new java.awt.Dimension(80, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        add(hora, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
-
+        SqlServer.desmarcarConsulta(idConsulta);
+        JPanel parentPanel = (JPanel) this.getParent();
+        parentPanel.remove(this);
+        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));
+        parentPanel.revalidate();
+        parentPanel.repaint();
     }//GEN-LAST:event_botaoDesmarcarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoDesmarcar;
+    private javax.swing.JLabel d;
     private javax.swing.JLabel data;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel h;
+    private javax.swing.JLabel hora;
+    private javax.swing.JLabel med;
     private javax.swing.JLabel medico;
     private javax.swing.JLabel nSns;
+    private javax.swing.JLabel nome;
     private javax.swing.JLabel nomePaciente;
+    private javax.swing.JLabel sal;
     private javax.swing.JLabel sala;
+    private javax.swing.JLabel sns;
     // End of variables declaration//GEN-END:variables
 }

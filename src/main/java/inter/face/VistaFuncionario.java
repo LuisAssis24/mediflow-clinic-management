@@ -5,10 +5,7 @@
 package inter.face;
 import javax.swing.*;
 import sql.server.*;
-import java.sql.*;
 import java.util.*;
-import medi.flow.Main;
-
 
 /**
  *
@@ -24,39 +21,29 @@ public class VistaFuncionario extends javax.swing.JFrame {
         carregarConsultasBaseDeDados();
     }
 
-    void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
-        /*Connection conexao = SqlServer.DatabaseConnection.getInstance(); //Abre a conexão com a base de dados
+    void carregarConsultasBaseDeDados() {
+        List<Integer> consultaIds = SqlServer.obterTodasConsultas(); // Fetch consultation IDs from the database
         int tamanhoPainelConsultas = 0;
-        int nConsultas = 0; //Atributo responsavel por dizer quantos objetos do tipo consultaPanel existirão
-        try{
-            String contTuplos = "SELECT COUNT(*) FROM Consulta"; //Script para obter o numero de Tuplos da relação Consulta
-            PreparedStatement statement = conexao.prepareStatement(contTuplos);
-            ResultSet nTuplos = statement.executeQuery();
 
-                if (nTuplos.next()) {
-                    // Obtém o número de registros
-                    nConsultas = nTuplos.getInt(1);
-                }
-        }catch ( SQLException e ){
-            System.out.println("Erro ao encontrar a relação Consulta" + e.getMessage());
-        }
-
-        for (int i = 0; i < nConsultas; i++) {
-            tamanhoPainelConsultas+=100; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
+        for (int idConsulta : consultaIds) {
+            HashMap<String, String> dadosConsulta = SqlServer.dadosConsulta(idConsulta); // Fetch consultation data
+            tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            criarPainelConsulta();
+            criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
         }
-         //Faz o scroll começar em cima
+
+        // Scroll to the top
         SwingUtilities.invokeLater(() -> {
             JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
+
         consultasPanel.revalidate();
-        consultasPanel.repaint(); */
+        consultasPanel.repaint();
     }
 
-    void criarPainelConsulta(){ //Adiciona uma consulta ao painel
-        ConsultaFuncionario consulta = new ConsultaFuncionario();
+    void criarPainelConsulta(HashMap<String, String> dadosConsulta) {
+        ConsultaFuncionario consulta = new ConsultaFuncionario(dadosConsulta);
         consultasPanel.add(consulta);
     }
     /**
@@ -608,6 +595,9 @@ public class VistaFuncionario extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
+
+        consultasPanel.revalidate();
+        consultasPanel.repaint();
     }
 
     /**

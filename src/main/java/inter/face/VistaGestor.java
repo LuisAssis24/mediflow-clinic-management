@@ -19,12 +19,12 @@ public class VistaGestor extends javax.swing.JFrame {
         initComponents();
         carregarCredenciaisBaseDeDados();
     }
-    void carregarCredenciaisBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
+    void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         int tamanhoPainelCredenciais = 0;
         for (int i = 0; i < 10; i++) {
             tamanhoPainelCredenciais+=100; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
             credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
-            criarPainelConsulta();
+            criarPainelCredencial();
         }
         //Faz o scroll começar em cima
         SwingUtilities.invokeLater(() -> {
@@ -36,7 +36,7 @@ public class VistaGestor extends javax.swing.JFrame {
         credenciaisPanel.repaint();
     }
     
-    void criarPainelConsulta(){ //Adiciona uma consulta ao painel
+    void criarPainelCredencial(){ //Adiciona uma credencial ao painel
         Credencial credencial = new Credencial();
         credenciaisPanel.add(credencial);
     }
