@@ -5,6 +5,8 @@
 package inter.face;
 import javax.swing.*;
 import sql.server.*;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -582,6 +584,17 @@ public class VistaFuncionario extends javax.swing.JFrame {
             int idMedicoInt = Integer.parseInt(idMedicoStr);
             int idSala = Integer.parseInt(idSalaStr);
             int contactoInt = Integer.parseInt(contacto);
+
+
+            // Verificar se a data e hora da consulta são no futuro
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date dataHoraConsulta = dateTimeFormat.parse(data + " " + hora);
+            Date dataHoraAtual = new Date();
+
+            if (dataHoraConsulta.before(dataHoraAtual)) {
+                JOptionPane.showMessageDialog(this, "A consulta não pode ser marcada no passado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Chamar o método que cria a consulta
             int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
