@@ -579,6 +579,12 @@ public class VistaFuncionario extends javax.swing.JFrame {
                 return;
             }
 
+            // Verificar se o contacto tem 9 dígitos e não começa com 0
+            if (contacto.length() != 9 || contacto.charAt(0) == '0') {
+                JOptionPane.showMessageDialog(this, "O contacto deve ter exatamente 9 dígitos e não pode começar com 0.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Converter os valores para os tipos corretos
             int numeroSns = Integer.parseInt(numeroSnsStr);
             int idMedicoInt = Integer.parseInt(idMedicoStr);
