@@ -585,6 +585,12 @@ public class VistaFuncionario extends javax.swing.JFrame {
                 return;
             }
 
+            //Verificar se o número de sns tem 9 dígitos e não começa com 0
+            if (numeroSnsStr.length() != 9 || numeroSnsStr.charAt(0) == '0')  {
+                JOptionPane.showMessageDialog(this, "O número de SNS deve ter exatamente 9 dígitos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Converter os valores para os tipos corretos
             int numeroSns = Integer.parseInt(numeroSnsStr);
             int idMedicoInt = Integer.parseInt(idMedicoStr);
