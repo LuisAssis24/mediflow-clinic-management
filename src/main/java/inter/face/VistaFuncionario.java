@@ -554,10 +554,10 @@ public class VistaFuncionario extends javax.swing.JFrame {
         }
 
         try {
-            int consultaID = Integer.parseInt(inputID);
-            System.out.println("Pesquisando consulta com ID: " + consultaID);
+            int nSns = Integer.parseInt(inputID);
+            System.out.println("Pesquisando consulta do paciente: " + nSns);
 
-            HashMap<String, String> dadosConsulta = SqlServer.procurarConsulta(consultaID);
+            HashMap<String, String> dadosConsulta = SqlServer.procurarConsulta(nSns);
 
             consultasPanel.removeAll();
 

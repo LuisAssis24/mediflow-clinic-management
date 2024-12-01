@@ -56,7 +56,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         medicosPanel = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(720, 720));
         setMinimumSize(new java.awt.Dimension(720, 720));
         setResizable(false);

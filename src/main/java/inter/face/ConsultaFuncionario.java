@@ -20,12 +20,13 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         initComponents();
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
-        data.setText(dadosConsulta.getOrDefault("Data", "Data não disponível"));
-        hora.setText(dadosConsulta.getOrDefault("Hora", "Hora não disponível"));
-        nomePaciente.setText(dadosConsulta.getOrDefault("Nome_Paciente", "Paciente desconhecido"));
-        nSns.setText(dadosConsulta.getOrDefault("Sns_Paciente", "N/A"));
-        sala.setText(dadosConsulta.getOrDefault("Num_Sala", "Sala desconhecida"));
-        medico.setText(dadosConsulta.getOrDefault("ID_Medico", "N/A"));
+        data.setText(dadosConsulta.getOrDefault("data", "Data não disponível"));
+        hora.setText(dadosConsulta.getOrDefault("hora", "Hora não disponível"));
+        nomePaciente.setText(dadosConsulta.getOrDefault("nomePaciente", "Paciente desconhecido"));
+        nSns.setText(dadosConsulta.getOrDefault("snsPaciente", "N/A"));
+        sala.setText(dadosConsulta.getOrDefault("numSala", "Sala desconhecida"));
+        medico.setText(dadosConsulta.getOrDefault("idMedico", "N/A"));
+
 
         // Trata o ID de forma segura
         String idConsultaStr = dadosConsulta.get("ID_Consulta");
