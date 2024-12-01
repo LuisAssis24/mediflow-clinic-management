@@ -75,6 +75,8 @@ public class SqlServer {
         return resultadoConsulta; // Retorna os dados da consulta
     }
 
+    
+
     public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico) {
         Connection conexao = SqlServer.DatabaseConnection.getInstance();
         int idConsultaGerado = -1; // Variável para armazenar o ID gerado pela base de dados
