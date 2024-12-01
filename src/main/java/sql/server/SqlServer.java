@@ -35,47 +35,47 @@ public class SqlServer {
         return false; // Retorna falso se a conexão falhar ou as credenciais forem inválidas
     }
 
-    public static HashMap<String, String> procurarConsulta(int consultaID) {
+    public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {
         Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com o banco de dados
         HashMap<String, String> resultadoConsulta = new HashMap<>(); // Mapa para armazenar os resultados
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida
             try {
-                // Chama a *stored procedure* VerConsulta
-                String sql = "{CALL VerConsulta(?)}";
+                // Chama a *stored procedure* VerConsultaPorSNS
+                String sql = "{CALL ProcurarConsulta(?)}";
                 CallableStatement callableStatement = conexao.prepareCall(sql);
 
                 // Define o parâmetro de entrada
-                callableStatement.setInt(1, consultaID);
+                callableStatement.setInt(1, snsPaciente);
 
                 // Executa a *procedure* e obtém o resultado
                 ResultSet resultado = callableStatement.executeQuery();
 
                 // Verifica se existem resultados
                 if (resultado.next()) {
-                    resultadoConsulta.put("ID_Consulta", String.valueOf(resultado.getInt("ID_Consulta")));
-                    resultadoConsulta.put("Data", resultado.getString("Data"));
-                    resultadoConsulta.put("Hora", resultado.getString("Hora"));
-                    resultadoConsulta.put("Motivo", resultado.getString("Motivo"));
-                    resultadoConsulta.put("Nome_Paciente", resultado.getString("Nome_Paciente"));
-                    resultadoConsulta.put("Sns_Paciente", String.valueOf(resultado.getInt("Sns_Paciente")));
-                    resultadoConsulta.put("Contacto", String.valueOf(resultado.getInt("Contacto")));
-                    resultadoConsulta.put("Num_Sala", String.valueOf(resultado.getInt("Num_Sala")));
-                    resultadoConsulta.put("ID_Medico", String.valueOf(resultado.getInt("ID_Medico")));
+                    System.out.println("Consulta encontrada para SNS: " + snsPaciente);
+                    // Preenche o mapa com os dados retornados
+                    resultadoConsulta.put("idConsulta", String.valueOf(resultado.getInt("ID_Consulta")));
+                    resultadoConsulta.put("data", resultado.getString("Data"));
+                    resultadoConsulta.put("hora", resultado.getString("Hora"));
+                    resultadoConsulta.put("motivo", resultado.getString("Motivo"));
+                    resultadoConsulta.put("nomePaciente", resultado.getString("Nome_Paciente"));
+                    resultadoConsulta.put("snsPaciente", String.valueOf(resultado.getInt("Sns_Paciente")));
+                    resultadoConsulta.put("contacto", String.valueOf(resultado.getInt("Contacto")));
+                    resultadoConsulta.put("numSala", String.valueOf(resultado.getInt("Num_Sala")));
+                    resultadoConsulta.put("idMedico", String.valueOf(resultado.getInt("ID_Medico")));
                 } else {
-                    System.out.println("Nenhuma consulta encontrada para o ID informado.");
+                    System.out.println("Nenhuma consulta encontrada para o SNS informado: " + snsPaciente);
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao executar a *stored procedure* VerConsulta: " + e.getMessage());
+                System.out.println("Erro ao executar a *stored procedure* VerConsultaPorSNS: " + e.getMessage());
             }
-        } else {
-            System.out.println("Conexão com o banco de dados não foi estabelecida.");
         }
 
         return resultadoConsulta; // Retorna os dados da consulta
     }
 
-    
+
 
     public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico) {
         Connection conexao = SqlServer.DatabaseConnection.getInstance();

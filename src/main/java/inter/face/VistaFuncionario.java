@@ -541,23 +541,23 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
-        String inputID = barraPesquisa.getText().trim();
+        String inputSNS = barraPesquisa.getText().trim();
 
-        if (inputID == null || inputID.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira um ID válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (inputSNS == null || inputSNS.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira um número de SNS.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!inputID.matches("\\d+")) {
+        if (!inputSNS.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "Por favor, insira apenas números.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
-            int nSns = Integer.parseInt(inputID);
-            System.out.println("Pesquisando consulta do paciente: " + nSns);
+            int snsPaciente = Integer.parseInt(inputSNS);
+            System.out.println("Pesquisando consulta para SNS: " + snsPaciente);
 
-            HashMap<String, String> dadosConsulta = SqlServer.procurarConsulta(nSns);
+            HashMap<String, String> dadosConsulta = SqlServer.procurarConsultaPorSNS(snsPaciente);
 
             consultasPanel.removeAll();
 
@@ -570,7 +570,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
                 consultasPanel.repaint();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao converter o ID: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao converter o SNS: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
