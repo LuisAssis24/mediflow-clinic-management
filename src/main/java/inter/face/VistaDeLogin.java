@@ -97,7 +97,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 149, 218));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Nome de Utilizador");
+        jLabel3.setText("ID de Utilizador");
         jLabel3.setMaximumSize(new java.awt.Dimension(250, 25));
         jLabel3.setMinimumSize(new java.awt.Dimension(250, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(250, 25));

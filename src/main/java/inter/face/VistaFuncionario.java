@@ -5,6 +5,8 @@
 package inter.face;
 import javax.swing.*;
 import sql.server.*;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -577,11 +579,34 @@ public class VistaFuncionario extends javax.swing.JFrame {
                 return;
             }
 
+            // Verificar se o contacto tem 9 dígitos e não começa com 0
+            if (contacto.length() != 9 || contacto.charAt(0) == '0') {
+                JOptionPane.showMessageDialog(this, "O contacto deve ter exatamente 9 dígitos e não pode começar com 0.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            //Verificar se o número de sns tem 9 dígitos e não começa com 0
+            if (numeroSnsStr.length() != 9 || numeroSnsStr.charAt(0) == '0')  {
+                JOptionPane.showMessageDialog(this, "O número de SNS deve ter exatamente 9 dígitos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Converter os valores para os tipos corretos
             int numeroSns = Integer.parseInt(numeroSnsStr);
             int idMedicoInt = Integer.parseInt(idMedicoStr);
             int idSala = Integer.parseInt(idSalaStr);
             int contactoInt = Integer.parseInt(contacto);
+
+
+            // Verificar se a data e hora da consulta são no futuro
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date dataHoraConsulta = dateTimeFormat.parse(data + " " + hora);
+            Date dataHoraAtual = new Date();
+
+            if (dataHoraConsulta.before(dataHoraAtual)) {
+                JOptionPane.showMessageDialog(this, "A consulta não pode ser marcada no passado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Chamar o método que cria a consulta
             int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
