@@ -4,6 +4,8 @@
  */
 package inter.face;
 
+import java.util.HashMap;
+
 /**
  *
  * @author draga
@@ -13,8 +15,13 @@ public class Credencial extends javax.swing.JPanel {
     /**
      * Creates new form Credencial
      */
-    public Credencial() {
+    public Credencial(HashMap<String, String> dados) {
         initComponents();
+
+        idCredencial.setText(dados.getOrDefault("ID", "ID não disponível"));
+        nomeCredencial.setText(dados.getOrDefault("Nome", "Nome não disponível"));
+        password.setText(dados.getOrDefault("Password", "Password não disponível"));
+        funcao.setText(dados.getOrDefault("TipoUtilizador", "Função não disponível"));
     }
 
     /**
@@ -29,12 +36,12 @@ public class Credencial extends javax.swing.JPanel {
 
         nomePaciente = new javax.swing.JLabel();
         nSns = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        idCredencial = new javax.swing.JLabel();
+        nomeCredencial = new javax.swing.JLabel();
         medico = new javax.swing.JLabel();
         sala = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        password = new javax.swing.JLabel();
+        funcao = new javax.swing.JLabel();
         botaoDesmarcar1 = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
@@ -62,28 +69,28 @@ public class Credencial extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         add(nSns, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("xxxxxx");
-        jLabel6.setMaximumSize(new java.awt.Dimension(350, 30));
-        jLabel6.setMinimumSize(new java.awt.Dimension(350, 30));
-        jLabel6.setPreferredSize(new java.awt.Dimension(350, 30));
+        idCredencial.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        idCredencial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        idCredencial.setText("xxxxxx");
+        idCredencial.setMaximumSize(new java.awt.Dimension(350, 30));
+        idCredencial.setMinimumSize(new java.awt.Dimension(350, 30));
+        idCredencial.setPreferredSize(new java.awt.Dimension(350, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel6, gridBagConstraints);
+        add(idCredencial, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel7.setText("yyyyy");
-        jLabel7.setMaximumSize(new java.awt.Dimension(350, 30));
-        jLabel7.setMinimumSize(new java.awt.Dimension(350, 30));
-        jLabel7.setPreferredSize(new java.awt.Dimension(350, 30));
+        nomeCredencial.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        nomeCredencial.setText("yyyyy");
+        nomeCredencial.setMaximumSize(new java.awt.Dimension(350, 30));
+        nomeCredencial.setMinimumSize(new java.awt.Dimension(350, 30));
+        nomeCredencial.setPreferredSize(new java.awt.Dimension(350, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel7, gridBagConstraints);
+        add(nomeCredencial, gridBagConstraints);
 
         medico.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         medico.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -110,27 +117,27 @@ public class Credencial extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         add(sala, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel8.setText("zzzzzzz");
-        jLabel8.setMaximumSize(new java.awt.Dimension(175, 30));
-        jLabel8.setMinimumSize(new java.awt.Dimension(175, 30));
-        jLabel8.setPreferredSize(new java.awt.Dimension(175, 30));
+        password.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        password.setText("zzzzzzz");
+        password.setMaximumSize(new java.awt.Dimension(175, 30));
+        password.setMinimumSize(new java.awt.Dimension(175, 30));
+        password.setPreferredSize(new java.awt.Dimension(175, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel8, gridBagConstraints);
+        add(password, gridBagConstraints);
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel9.setText("wwwww");
-        jLabel9.setMaximumSize(new java.awt.Dimension(175, 30));
-        jLabel9.setMinimumSize(new java.awt.Dimension(175, 30));
-        jLabel9.setPreferredSize(new java.awt.Dimension(175, 30));
+        funcao.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        funcao.setText("wwwww");
+        funcao.setMaximumSize(new java.awt.Dimension(175, 30));
+        funcao.setMinimumSize(new java.awt.Dimension(175, 30));
+        funcao.setPreferredSize(new java.awt.Dimension(175, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(jLabel9, gridBagConstraints);
+        add(funcao, gridBagConstraints);
 
         botaoDesmarcar1.setBackground(new java.awt.Color(0, 132, 193));
         botaoDesmarcar1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -154,15 +161,14 @@ public class Credencial extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoDesmarcar;
     private javax.swing.JButton botaoDesmarcar1;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel funcao;
+    private javax.swing.JLabel idCredencial;
     private javax.swing.JLabel medico;
     private javax.swing.JLabel nSns;
+    private javax.swing.JLabel nomeCredencial;
     private javax.swing.JLabel nomePaciente;
+    private javax.swing.JLabel password;
     private javax.swing.JLabel sala;
     // End of variables declaration//GEN-END:variables
 }

@@ -184,6 +184,63 @@ public class SqlServer {
         return dadosConsulta; // Retorna o mapa com os dados da consulta
     }
 
+    public static ArrayList<String> obterTodosUtilizadores() {
+        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        ArrayList<String> utilizadores = new ArrayList<>(); // Lista para armazenar os IDs dos utilizadores
+
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Declara uma consulta SQL para obter todos os IDs dos utilizadores
+                String sql = "SELECT ID FROM Utilizador";
+                PreparedStatement statement = conexao.prepareStatement(sql);
+
+                // Executa a consulta e armazena o resultado
+                ResultSet resultado = statement.executeQuery();
+
+                // Adiciona todos os IDs dos utilizadores à lista
+                while (resultado.next()) {
+                    utilizadores.add(resultado.getString("ID"));
+                }
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao obter os utilizadores: " + e.getMessage());
+            }
+        }
+
+        return utilizadores; // Retorna a lista com os IDs dos utilizadores
+    }
+
+    public static HashMap<String, String> dadosUtilizador(String IDUtilizador) {
+        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        HashMap<String, String> dadosUtilizador = new HashMap<>(); // Mapa para armazenar os dados do utilizador
+
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Declara uma consulta SQL para obter os dados do utilizador
+                String sql = "SELECT * FROM Utilizador WHERE ID = ?";
+                PreparedStatement statement = conexao.prepareStatement(sql);
+
+                // Substitui o placeholder (?) pelo valor do ID do utilizador
+                statement.setString(1, IDUtilizador);
+
+                // Executa a consulta e armazena o resultado
+                ResultSet resultado = statement.executeQuery();
+
+                // Verifica se encontrou um registo
+                if (resultado.next()) {
+                    // Adiciona os dados do utilizador ao mapa
+                    dadosUtilizador.put("ID", resultado.getString("ID"));
+                    dadosUtilizador.put("Nome", resultado.getString("Nome"));
+                    dadosUtilizador.put("Password", resultado.getString("Password"));
+                    dadosUtilizador.put("TipoUtilizador", verificarTipoUtilizador(IDUtilizador));
+                    // Adicionar mais campos aqui, se necessário
+                }
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao obter os dados do utilizador: " + e.getMessage());
+            }
+        }
+        return dadosUtilizador; // Retorna o mapa com os dados do utilizador
+    }
+
     public static void desmarcarConsulta(int IDConsulta){
         Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso

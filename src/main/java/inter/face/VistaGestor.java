@@ -6,13 +6,14 @@ package inter.face;
 
 import javax.swing.*;
 import sql.server.*;
+import java.util.*;
 
 /**
  *
  * @author draga
  */
 public class VistaGestor extends javax.swing.JFrame {
-
+    HashMap<String, String> dados = new HashMap<>();
     /**
      * Creates new form VistaBase
      */
@@ -21,11 +22,15 @@ public class VistaGestor extends javax.swing.JFrame {
         carregarCredenciaisBaseDeDados();
     }
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
+        credenciaisPanel.removeAll();
+
+        List<String> utilizadores = SqlServer.obterTodosUtilizadores();
         int tamanhoPainelCredenciais = 0;
-        for (int i = 0; i < 10; i++) {
-            tamanhoPainelCredenciais+=100; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
-            credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
+
+        for (String id : utilizadores) {
+            dados = SqlServer.dadosUtilizador(id);
             criarPainelCredencial();
+            tamanhoPainelCredenciais++;
         }
         //Faz o scroll começar em cima
         SwingUtilities.invokeLater(() -> {
@@ -38,7 +43,7 @@ public class VistaGestor extends javax.swing.JFrame {
     }
     
     void criarPainelCredencial(){ //Adiciona uma credencial ao painel
-        Credencial credencial = new Credencial();
+        Credencial credencial = new Credencial(dados);
         credenciaisPanel.add(credencial);
     }
     /**
@@ -64,9 +69,6 @@ public class VistaGestor extends javax.swing.JFrame {
         botaoEliminarCredencial = new javax.swing.JButton();
         criarCredencial = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        idUtizador = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         password = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -78,7 +80,7 @@ public class VistaGestor extends javax.swing.JFrame {
         especLabel = new javax.swing.JLabel();
         nMedicoLabel = new javax.swing.JLabel();
         numeroDeMedico = new javax.swing.JTextField();
-        criar = new javax.swing.JButton();
+        concluirButton = new javax.swing.JButton();
         tipoFuncionario = new javax.swing.JComboBox<>();
         numeroCC = new javax.swing.JTextField();
         eliminarCredencial = new javax.swing.JLayeredPane();
@@ -200,39 +202,6 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(960, 550));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel2.setText("DADOS DE LOGIN");
-        jLabel2.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel2.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel2.setPreferredSize(new java.awt.Dimension(450, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel2.add(jLabel2, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel3.setText("ID de Utilizador:");
-        jLabel3.setMaximumSize(new java.awt.Dimension(200, 30));
-        jLabel3.setMinimumSize(new java.awt.Dimension(200, 30));
-        jLabel3.setPreferredSize(new java.awt.Dimension(200, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
-        jPanel2.add(jLabel3, gridBagConstraints);
-
-        idUtizador.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        idUtizador.setMaximumSize(new java.awt.Dimension(200, 30));
-        idUtizador.setMinimumSize(new java.awt.Dimension(200, 30));
-        idUtizador.setPreferredSize(new java.awt.Dimension(200, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
-        jPanel2.add(idUtizador, gridBagConstraints);
-
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("Password:");
@@ -241,18 +210,18 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel4.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(jLabel4, gridBagConstraints);
 
         password.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         password.setMaximumSize(new java.awt.Dimension(200, 30));
         password.setMinimumSize(new java.awt.Dimension(200, 30));
-        password.setPreferredSize(new java.awt.Dimension(200, 30));
+        password.setPreferredSize(new java.awt.Dimension(290, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 160);
         jPanel2.add(password, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
@@ -263,7 +232,7 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel5.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(10, 15, 0, 15);
         jPanel2.add(jLabel5, gridBagConstraints);
 
@@ -276,7 +245,7 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel6.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 1;
         jPanel2.add(jLabel6, gridBagConstraints);
 
         nomeCompleto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
@@ -285,7 +254,7 @@ public class VistaGestor extends javax.swing.JFrame {
         nomeCompleto.setPreferredSize(new java.awt.Dimension(450, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 2;
         jPanel2.add(nomeCompleto, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -296,7 +265,7 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel7.setPreferredSize(new java.awt.Dimension(90, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 360);
         jPanel2.add(jLabel7, gridBagConstraints);
 
@@ -308,7 +277,7 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel8.setPreferredSize(new java.awt.Dimension(140, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 310);
         jPanel2.add(jLabel8, gridBagConstraints);
 
@@ -319,7 +288,7 @@ public class VistaGestor extends javax.swing.JFrame {
         especialidade.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(especialidade, gridBagConstraints);
 
@@ -333,7 +302,7 @@ public class VistaGestor extends javax.swing.JFrame {
         especLabel.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 250);
         jPanel2.add(especLabel, gridBagConstraints);
 
@@ -346,7 +315,7 @@ public class VistaGestor extends javax.swing.JFrame {
         nMedicoLabel.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(10, 250, 0, 0);
         jPanel2.add(nMedicoLabel, gridBagConstraints);
 
@@ -357,24 +326,29 @@ public class VistaGestor extends javax.swing.JFrame {
         numeroDeMedico.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
         jPanel2.add(numeroDeMedico, gridBagConstraints);
 
-        criar.setBackground(new java.awt.Color(0, 132, 193));
-        criar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        criar.setForeground(new java.awt.Color(242, 242, 242));
-        criar.setText("Criar");
-        criar.setMaximumSize(new java.awt.Dimension(150, 35));
-        criar.setMinimumSize(new java.awt.Dimension(150, 35));
-        criar.setPreferredSize(new java.awt.Dimension(150, 35));
-        criar.setSelected(true);
+        concluirButton.setBackground(new java.awt.Color(0, 132, 193));
+        concluirButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        concluirButton.setForeground(new java.awt.Color(242, 242, 242));
+        concluirButton.setText("Concluir");
+        concluirButton.setMaximumSize(new java.awt.Dimension(150, 35));
+        concluirButton.setMinimumSize(new java.awt.Dimension(150, 35));
+        concluirButton.setPreferredSize(new java.awt.Dimension(150, 35));
+        concluirButton.setSelected(true);
+        concluirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                concluirButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        jPanel2.add(criar, gridBagConstraints);
+        jPanel2.add(concluirButton, gridBagConstraints);
 
         tipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Médico", "Gestor" }));
         tipoFuncionario.setMaximumSize(new java.awt.Dimension(80, 30));
@@ -387,18 +361,17 @@ public class VistaGestor extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 70);
         jPanel2.add(tipoFuncionario, gridBagConstraints);
 
-        numeroCC = new javax.swing.JTextField();
         numeroCC.setMaximumSize(new java.awt.Dimension(200, 30));
         numeroCC.setMinimumSize(new java.awt.Dimension(200, 30));
         numeroCC.setPreferredSize(new java.awt.Dimension(200, 30));
-        numeroCC.setEditable(true); // Ensure the text field is editable
+        numeroCC.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 70);
         jPanel2.add(numeroCC, gridBagConstraints);
 
@@ -452,66 +425,17 @@ public class VistaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
-    private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCredencialActionPerformed
-        criarCredencial.setVisible(true);
+    private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt) {
         barraPesquisa.setVisible(false);
         botaoPesquisa.setVisible(false);
-        botaoCriarCredencial.setVisible(true);
-        botaoEliminarCredencial.setVisible(true);
+        criarCredencial.setVisible(true);
         eliminarCredencial.setVisible(false);
-        especLabel.setVisible(false);
-        especialidade.setVisible(false);
-        nMedicoLabel.setVisible(false);
-        numeroDeMedico.setVisible(false);
-        //Limpa os campos
-        idUtizador.setText("");
-        password.setText("");
-        nomeCompleto.setText("");
-        especialidade.setText("");
-        numeroDeMedico.setText("");
-        numeroCC.setText("");
-        especialidade.setText("");
-        numeroDeMedico.setText("");
-
-        try {
-            // Collect user data from form fields
-            String id = idUtizador.getText();
-            String password = new String(this.password.getText());
-            String nome = nomeCompleto.getText();
-            String especialidade = this.especialidade.getText();
-            String numeroDeMedico = this.numeroDeMedico.getText();
-
-            // Validate input
-            if (id.isEmpty() || password.isEmpty() || nome.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Save user data to the database
-            boolean success = SqlServer.criarUsuario(id, password, nome, especialidade, numeroDeMedico);
-
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                // Clear form fields
-                idUtizador.setText("");
-                this.password.setText("");
-                nomeCompleto.setText("");
-                this.especialidade.setText("");
-                this.numeroDeMedico.setText("");
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao criar o usuário. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_botaoCriarCredencialActionPerformed
+    }                                                    
 
     private void botaoEliminarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarCredencialActionPerformed
         eliminarCredencial.setVisible(true);
         barraPesquisa.setVisible(true);
         botaoPesquisa.setVisible(true);
-        botaoCriarCredencial.setVisible(true);
-        botaoEliminarCredencial.setVisible(true);
         criarCredencial.setVisible(false);
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
@@ -521,22 +445,59 @@ public class VistaGestor extends javax.swing.JFrame {
 
     private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
         String selecionado = (String) tipoFuncionario.getSelectedItem();
-                    if ("Médico".equals(selecionado)) {
-                        especLabel.setVisible(true);
-                        nMedicoLabel.setVisible(true);
-                        especialidade.setVisible(true);
-                        numeroDeMedico.setVisible(true);
-                    } else {
-                        especLabel.setVisible(false);
-                        nMedicoLabel.setVisible(false);
-                        especialidade.setVisible(false);
-                        numeroDeMedico.setVisible(false);
-                        especialidade.setText(""); // Limpa o campo
-                        numeroDeMedico.setText(""); // Limpa o campo
-                    }
-                    jPanel2.revalidate();
-                    jPanel2.repaint();// TODO add your handling code here:
+        if ("Médico".equals(selecionado)) {
+            especLabel.setVisible(true);
+            nMedicoLabel.setVisible(true);
+            especialidade.setVisible(true);
+            numeroDeMedico.setVisible(true);
+        } else {
+            especLabel.setVisible(false);
+            nMedicoLabel.setVisible(false);
+            especialidade.setVisible(false);
+            numeroDeMedico.setVisible(false);
+            especialidade.setText(""); // Limpa o campo
+            numeroDeMedico.setText(""); // Limpa o campo
+        }
+        jPanel2.revalidate();
+        jPanel2.repaint();// TODO add your handling code here:
     }//GEN-LAST:event_tipoFuncionarioActionPerformed
+
+    private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
+    try {
+        // pega os dados do formulário
+        String cc = numeroCC.getText();
+        String password = new String(this.password.getText());
+        String nome = nomeCompleto.getText();
+        String especialidade = this.especialidade.getText();
+        String numeroDeMedico = this.numeroDeMedico.getText();
+        String tipoFuncionarioSelecionado = (String) tipoFuncionario.getSelectedItem();
+
+        // Validate input
+        if (cc.isEmpty() || password.isEmpty() || nome.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //Chamada das Stored procedures
+        /*if ("Secretaria".equals(tipoFuncionarioSelecionado)) {
+
+        }*/
+
+        if (true) { // Se o utilizador foi criado com sucesso apaga os campos
+            JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            // Clear campos formulario
+            numeroCC.setText("");
+            this.password.setText("");
+            nomeCompleto.setText("");
+            this.especialidade.setText("");
+            this.numeroDeMedico.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao criar o usuário. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+}//GEN-LAST:event_concluirButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -581,16 +542,13 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JButton botaoCriarCredencial;
     private javax.swing.JButton botaoEliminarCredencial;
     private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JButton concluirButton;
     private javax.swing.JPanel credenciaisPanel;
-    private javax.swing.JButton criar;
     private javax.swing.JLayeredPane criarCredencial;
     private javax.swing.JLayeredPane eliminarCredencial;
     private javax.swing.JLabel especLabel;
     private javax.swing.JTextField especialidade;
-    private javax.swing.JTextField idUtizador;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -601,9 +559,9 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField numeroCC;
     private javax.swing.JLabel nMedicoLabel;
     private javax.swing.JTextField nomeCompleto;
+    private javax.swing.JTextField numeroCC;
     private javax.swing.JTextField numeroDeMedico;
     private javax.swing.JTextField password;
     private javax.swing.JComboBox<String> tipoFuncionario;

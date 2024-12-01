@@ -27,7 +27,6 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         sala.setText(dadosConsulta.getOrDefault("numSala", "Sala desconhecida"));
         medico.setText(dadosConsulta.getOrDefault("idMedico", "N/A"));
 
-
         // Trata o ID de forma segura
         String idConsultaStr = dadosConsulta.get("ID_Consulta");
         if (idConsultaStr != null) {
