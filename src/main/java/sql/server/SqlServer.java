@@ -266,4 +266,21 @@ public class SqlServer {
             }
         }
     }
+
+    public static boolean criarUsuario(String id, String password, String nome, String especialidade, String numeroDeMedico) {
+        String sql = "INSERT INTO Usuarios (id, password, nome, especialidade, numeroDeMedico) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conexao = SqlServer.DatabaseConnection.getInstance();
+             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.setString(2, password);
+            pstmt.setString(3, nome);
+            pstmt.setString(4, especialidade);
+            pstmt.setString(5, numeroDeMedico);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
