@@ -510,7 +510,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
@@ -541,7 +541,39 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
+        String inputID = barraPesquisa.getText().trim();
 
+        if (inputID == null || inputID.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira um ID válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!inputID.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira apenas números.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int consultaID = Integer.parseInt(inputID);
+            System.out.println("Pesquisando consulta com ID: " + consultaID);
+
+            HashMap<String, String> dadosConsulta = SqlServer.procurarConsulta(consultaID);
+
+            consultasPanel.removeAll();
+
+            if (dadosConsulta.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                ConsultaFuncionario consulta = new ConsultaFuncionario(dadosConsulta);
+                consultasPanel.add(consulta);
+                consultasPanel.revalidate();
+                consultasPanel.repaint();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao converter o ID: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
