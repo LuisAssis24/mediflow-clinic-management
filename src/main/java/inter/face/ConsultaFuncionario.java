@@ -18,13 +18,27 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
      */
     public ConsultaFuncionario(HashMap<String, String> dadosConsulta) {
         initComponents();
-        data.setText(dadosConsulta.get("data"));
-        hora.setText(dadosConsulta.get("hora"));
-        nomePaciente.setText(dadosConsulta.get("nomePaciente"));
-        nSns.setText(dadosConsulta.get("snsPaciente"));
-        sala.setText(dadosConsulta.get("numSala"));
-        medico.setText(dadosConsulta.get("idMedico"));
-        idConsulta = Integer.parseInt(dadosConsulta.get("idConsulta"));
+
+        // Preenche os componentes da interface, verificando nulos e usando valores padrão
+        data.setText(dadosConsulta.getOrDefault("Data", "Data não disponível"));
+        hora.setText(dadosConsulta.getOrDefault("Hora", "Hora não disponível"));
+        nomePaciente.setText(dadosConsulta.getOrDefault("Nome_Paciente", "Paciente desconhecido"));
+        nSns.setText(dadosConsulta.getOrDefault("Sns_Paciente", "N/A"));
+        sala.setText(dadosConsulta.getOrDefault("Num_Sala", "Sala desconhecida"));
+        medico.setText(dadosConsulta.getOrDefault("ID_Medico", "N/A"));
+
+        // Trata o ID de forma segura
+        String idConsultaStr = dadosConsulta.get("ID_Consulta");
+        if (idConsultaStr != null) {
+            try {
+                idConsulta = Integer.parseInt(idConsultaStr);
+            } catch (NumberFormatException e) {
+                System.out.println("ID_Consulta inválido: " + idConsultaStr);
+                idConsulta = -1; // Define um valor padrão para erros
+            }
+        } else {
+            idConsulta = -1; // Valor padrão caso o ID seja nulo
+        }
     }
 
     /**
