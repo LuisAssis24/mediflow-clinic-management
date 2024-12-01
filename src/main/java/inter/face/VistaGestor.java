@@ -68,7 +68,7 @@ public class VistaGestor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         idUtizador = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        password = new javax.swing.JPasswordField();
+        password = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         nomeCompleto = new javax.swing.JTextField();
@@ -476,7 +476,7 @@ public class VistaGestor extends javax.swing.JFrame {
         try {
             // Collect user data from form fields
             String id = idUtizador.getText();
-            String password = new String(this.password.getPassword());
+            String password = new String(this.password.getText());
             String nome = nomeCompleto.getText();
             String especialidade = this.especialidade.getText();
             String numeroDeMedico = this.numeroDeMedico.getText();
@@ -605,7 +605,7 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel nMedicoLabel;
     private javax.swing.JTextField nomeCompleto;
     private javax.swing.JTextField numeroDeMedico;
-    private javax.swing.JPasswordField password;
+    private javax.swing.JTextField password;
     private javax.swing.JComboBox<String> tipoFuncionario;
     // End of variables declaration//GEN-END:variables
 }
