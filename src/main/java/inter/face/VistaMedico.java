@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
+import sql.server.SqlServer;
+
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -20,13 +24,19 @@ public class VistaMedico extends javax.swing.JFrame {
     }
     
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
+        consultasPanel.removeAll();
+
+        List<Integer> consultaIds = SqlServer.obterTodasConsultas(); // Fetch consultation IDs from the database
         int tamanhoPainelConsultas = 0;
-        for (int i = 0; i < 25; i++) {
-            tamanhoPainelConsultas+=100; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
+
+        for (int idConsulta : consultaIds) {
+            HashMap<String, String> dadosConsulta = SqlServer.dadosConsulta(idConsulta); // Fetch consultation data
+            tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            criarPainelConsulta();
+            criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
         }
-        //Faz o scroll começar em cima
+
+        // Scroll to the top
         SwingUtilities.invokeLater(() -> {
             JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
@@ -36,8 +46,8 @@ public class VistaMedico extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
     
-    void criarPainelConsulta(){ //Adiciona uma consulta ao painel
-        ConsultaMedico consulta = new ConsultaMedico();
+    void criarPainelConsulta(HashMap<String, String> dadosConsulta){ //Adiciona uma consulta ao painel
+        ConsultaMedico consulta = new ConsultaMedico(dadosConsulta);
         consultasPanel.add(consulta);
     }
     /**
@@ -107,6 +117,7 @@ public class VistaMedico extends javax.swing.JFrame {
         getContentPane().add(jPanel3, gridBagConstraints);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

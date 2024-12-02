@@ -4,6 +4,8 @@
  */
 package inter.face;
 
+import java.util.*;
+
 /**
  *
  * @author draga
@@ -13,8 +15,15 @@ public class ConsultaMedico extends javax.swing.JPanel {
     /**
      * Creates new form Consulta
      */
-    public ConsultaMedico() {
+    public ConsultaMedico(HashMap<String, String> dadosConsulta) {
         initComponents();
+
+        // Preenche os componentes da interface, verificando nulos e usando valores padrão
+        data.setText(dadosConsulta.getOrDefault("data", "Data não disponível"));
+        hora.setText(dadosConsulta.getOrDefault("hora", "Hora não disponível"));
+        nomePaciente.setText(dadosConsulta.getOrDefault("nomePaciente", "Paciente desconhecido"));
+        motivo.setText(dadosConsulta.getOrDefault("motivo", "N/A"));
+
     }
 
     /**
