@@ -8,8 +8,8 @@ import javax.swing.*;
 import sql.server.*;
 import java.util.*;
 
-import static sql.server.SqlGeral.criarMedico;
-import static sql.server.SqlGeral.criarUtilizador;
+import static sql.server.SqlGestor.criarMedico;
+import static sql.server.SqlGestor.criarUtilizador;
 
 /**
  *
@@ -27,11 +27,11 @@ public class VistaGestor extends javax.swing.JFrame {
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll();
 
-        List<String> utilizadores = SqlGeral.obterTodosUtilizadores();
+        List<String> utilizadores = SqlGestor.obterTodosUtilizadores();
         int tamanhoPainelCredenciais = 0;
 
         for (String id : utilizadores) {
-            dados = SqlGeral.dadosUtilizador(id);
+            dados = SqlGestor.dadosUtilizador(id);
             criarPainelCredencial();
             tamanhoPainelCredenciais++;
         }
