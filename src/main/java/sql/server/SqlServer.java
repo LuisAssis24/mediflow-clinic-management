@@ -376,20 +376,69 @@ public class SqlServer {
         }
     }
 
-    public static boolean criarUsuario(String id, String password, String nome, String especialidade, String numeroDeMedico) {
-        String sql = "INSERT INTO Usuarios (id, password, nome, especialidade, numeroDeMedico) VALUES (?, ?, ?, ?, ?)";
+
+
+    public static int criarMedico(String nome, String password, String especialidade, int numeroMedico, int cc) {
+        int idMedicoGerado = -1; // Variável para armazenar o ID do médico gerado
+        String sql = "{CALL CriarMedico(?, ?, ?, ?, ?, ?)}"; // Chama a procedure CriarMedico
+
         try (Connection conexao = SqlServer.DatabaseConnection.getInstance();
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setString(1, id);
-            pstmt.setString(2, password);
-            pstmt.setString(3, nome);
-            pstmt.setString(4, especialidade);
-            pstmt.setString(5, numeroDeMedico);
-            pstmt.executeUpdate();
-            return true;
+             CallableStatement callableStatement = conexao.prepareCall(sql)) {
+
+            // Definir parâmetros de entrada
+            callableStatement.setInt(1, cc); // CC
+            callableStatement.setString(2, nome); // Nome
+            callableStatement.setString(3, password); // Password
+            callableStatement.setString(4, especialidade); // Especialidade
+            callableStatement.setInt(5, numeroMedico); // Número do médico
+
+            // Registrar o parâmetro de saída
+            callableStatement.registerOutParameter(6, java.sql.Types.INTEGER); // ID_Medico gerado
+
+            // Executar a stored procedure
+            callableStatement.execute();
+
+            // Recuperar o ID do médico gerado
+            idMedicoGerado = callableStatement.getInt(6);
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+
         }
+
+        return idMedicoGerado; // Retorna o ID do médico gerado para apresentar ao utilizador
     }
+
+
+    public static int criarUtilizador(String nome, String password, String tipoUtilizador, int cc) {
+        int idUtilizadorGerado = -1; // Variável para armazenar o ID gerado
+        String sql = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}"; // Chama a procedure CriarUtilizador
+
+        try (Connection conexao = SqlServer.DatabaseConnection.getInstance();
+             CallableStatement callableStatement = conexao.prepareCall(sql)) {
+
+            // Definir parâmetros de entrada
+            callableStatement.setInt(1, cc); // CC
+            callableStatement.setString(2, nome); // Nome
+            callableStatement.setString(3, password); // Password
+            callableStatement.setString(4, tipoUtilizador); // Tipo_Utilizador
+
+            // Registrar o parâmetro de saída
+            callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // ID gerado
+
+            // Executar a stored procedure
+            callableStatement.execute();
+
+            // Recuperar o ID gerado
+            idUtilizadorGerado = callableStatement.getInt(5);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return idUtilizadorGerado; // Retorna o ID gerado para apresentar ao utilizador
+    }
+
+
 }

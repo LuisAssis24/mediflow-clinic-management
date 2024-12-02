@@ -192,7 +192,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
             // Determina o tipo de utilizador com base no nome fornecido
             String tipoUtilizador = SqlServer.verificarTipoUtilizador(utilizador);
 
-            if ("Funcionario".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Secretaria".equalsIgnoreCase(tipoUtilizador)) {
                 // Caso seja um funcionário, abre a vista correspondente
                 VistaFuncionario vistaFuncionario = new VistaFuncionario();
                 dispose(); // Fecha a janela de login

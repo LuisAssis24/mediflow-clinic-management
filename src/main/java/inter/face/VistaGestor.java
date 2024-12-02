@@ -8,6 +8,9 @@ import javax.swing.*;
 import sql.server.*;
 import java.util.*;
 
+import static sql.server.SqlServer.criarMedico;
+import static sql.server.SqlServer.criarUtilizador;
+
 /**
  *
  * @author draga
@@ -368,7 +371,6 @@ public class VistaGestor extends javax.swing.JFrame {
         numeroCC.setMaximumSize(new java.awt.Dimension(200, 30));
         numeroCC.setMinimumSize(new java.awt.Dimension(200, 30));
         numeroCC.setPreferredSize(new java.awt.Dimension(200, 30));
-        numeroCC.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -444,60 +446,65 @@ public class VistaGestor extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
+
         String selecionado = (String) tipoFuncionario.getSelectedItem();
         if ("Médico".equals(selecionado)) {
+            // Mostra os campos de especialidade e número de médico
             especLabel.setVisible(true);
             nMedicoLabel.setVisible(true);
             especialidade.setVisible(true);
             numeroDeMedico.setVisible(true);
         } else {
+            // Esconde os campos de especialidade e número de médico
             especLabel.setVisible(false);
             nMedicoLabel.setVisible(false);
             especialidade.setVisible(false);
             numeroDeMedico.setVisible(false);
-            especialidade.setText(""); // Limpa o campo
-            numeroDeMedico.setText(""); // Limpa o campo
+
+            // Limpa os campos de especialidade e número de médico
+            especialidade.setText("");
+            numeroDeMedico.setText("");
         }
+
+// Atualiza o painel para refletir as mudanças de visibilidade
         jPanel2.revalidate();
-        jPanel2.repaint();// TODO add your handling code here:
+        jPanel2.repaint();
     }//GEN-LAST:event_tipoFuncionarioActionPerformed
 
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
-    try {
-        // pega os dados do formulário
-        String cc = numeroCC.getText();
-        String password = new String(this.password.getText());
-        String nome = nomeCompleto.getText();
-        String especialidade = this.especialidade.getText();
-        String numeroDeMedico = this.numeroDeMedico.getText();
-        String tipoFuncionarioSelecionado = (String) tipoFuncionario.getSelectedItem();
+        try {
+            String nome = nomeCompleto.getText();
+            String pessword = password.getText();
+            String tipoUtilizador = tipoFuncionario.getSelectedItem().toString();
+            int cc = Integer.parseInt(numeroCC.getText());
 
-        // Validate input
-        if (cc.isEmpty() || password.isEmpty() || nome.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+            // Criar utilizador e obter o ID gerado
+            int idUtilizador = criarUtilizador(nome, pessword, tipoUtilizador, cc);
+
+            // Caso seja Médico, criar também na tabela Médico
+            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+                String espcialidade = especialidade.getText();
+                int numOrdem = Integer.parseInt(numeroDeMedico.getText());
+
+                // Chamar o método criarMedico
+                int idMedico = criarMedico(nome, pessword, espcialidade, numOrdem, cc);
+
+                if (idMedico != -1) {
+                    JOptionPane.showMessageDialog(null, "Médico criado com sucesso! ID: " + idMedico);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falha ao criar o médico.");
+                }
+                // Mostrar o ID do Médico gerado
+                JOptionPane.showMessageDialog(null, "Médico criado com sucesso! ID: " + idMedico);
+            } else {
+                JOptionPane.showMessageDialog(null, "Utilizador criado com sucesso!");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: Verifique os campos numéricos.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao criar utilizador: " + ex.getMessage());
         }
-
-        //Chamada das Stored procedures
-        /*if ("Secretaria".equals(tipoFuncionarioSelecionado)) {
-
-        }*/
-
-        if (true) { // Se o utilizador foi criado com sucesso apaga os campos
-            JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            // Clear campos formulario
-            numeroCC.setText("");
-            this.password.setText("");
-            nomeCompleto.setText("");
-            this.especialidade.setText("");
-            this.numeroDeMedico.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao criar o usuário. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-}//GEN-LAST:event_concluirButtonActionPerformed
+}                                              
 
     /**
      * @param args the command line arguments
