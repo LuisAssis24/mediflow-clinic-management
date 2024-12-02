@@ -261,27 +261,26 @@ public class SqlServer {
     }
 
     public static String verificarTipoUtilizador(String utilizador) {
-    Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
 
-    if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
-        try {
-            // Consulta SQL para obter o tipo de utilizador com base no ID
-            String sql = "SELECT Tipo_Utilizador FROM Utilizador WHERE ID = ?";
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, utilizador);
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Consulta SQL para obter o tipo de utilizador com base no ID
+                String sql = "SELECT Tipo_Utilizador FROM Utilizador WHERE ID = ?";
+                PreparedStatement stmt = conexao.prepareStatement(sql);
+                stmt.setString(1, utilizador);
 
-            // Executa a consulta e armazena o resultado
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) { // Se encontrar um registo
-                return rs.getString("Tipo_Utilizador"); // Retorna o tipo de utilizador
+                // Executa a consulta e armazena o resultado
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) { // Se encontrar um registo
+                    return rs.getString("Tipo_Utilizador"); // Retorna o tipo de utilizador
+                }
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao verificar o tipo de utilizador: " + e.getMessage());
             }
-        } catch (SQLException e) { // Trata erros relacionados ao SQL
-            System.out.println("Erro ao verificar o tipo de utilizador: " + e.getMessage());
         }
+        return null; // Retorna null se não encontrar o tipo do utilizador
     }
-
-    return null; // Retorna null se não encontrar o tipo do utilizador
-}
 
     private static boolean idExisteNaTabela(Connection conexao, int id, String tabela, String colunaId) {
         try {

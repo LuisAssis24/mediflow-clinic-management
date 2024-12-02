@@ -28,7 +28,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         medico.setText(dadosConsulta.getOrDefault("idMedico", "N/A"));
 
         // Trata o ID de forma segura
-        String idConsultaStr = dadosConsulta.get("ID_Consulta");
+        String idConsultaStr = dadosConsulta.get("idConsulta");
         if (idConsultaStr != null) {
             try {
                 idConsulta = Integer.parseInt(idConsultaStr);
@@ -96,7 +96,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         add(sns, gridBagConstraints);
 
         med.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        med.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        med.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         med.setText("Médico:");
         med.setMaximumSize(new java.awt.Dimension(60, 30));
         med.setMinimumSize(new java.awt.Dimension(60, 30));
