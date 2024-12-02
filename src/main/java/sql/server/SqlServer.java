@@ -284,7 +284,7 @@ public class SqlServer {
 
     public static void verificarPacienteExiste(int numero, String nome, int contacto) {
         Connection conexao = SqlServer.DatabaseConnection.getInstance();
-        String sqlVerificar = "SELECT COUNT(*) FROM paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
+        String sqlVerificar = "SELECT COUNT(*) FROM Paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
         try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlVerificar)) {
             preparedStatement.setInt(1, numero);
             try (ResultSet rs = preparedStatement.executeQuery()) {
