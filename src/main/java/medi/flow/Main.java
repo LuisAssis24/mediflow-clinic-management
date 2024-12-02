@@ -1,7 +1,7 @@
 package medi.flow;
 
 import inter.face.VistaDeLogin;
-import sql.server.SqlServer;
+import sql.server.SqlGeral;
 
 import java.sql.Connection;
 import java.util.*;
@@ -129,7 +129,7 @@ public class Main {
     }
     public static void main(String[] args) {
     // Cria a conexão com a base de dados assim que o programa inicia
-        Connection connection = SqlServer.DatabaseConnection.getInstance();
+        Connection connection = SqlGeral.DatabaseConnection.getInstance();
 
         // Verifica se a conexão foi bem-sucedida
         if (connection != null) {

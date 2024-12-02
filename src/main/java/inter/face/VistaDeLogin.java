@@ -4,14 +4,9 @@
  */
 package inter.face;
 
-import sql.server.SqlServer;
+import sql.server.SqlGeral;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 
 
 /**
@@ -188,9 +183,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
         String senha = new String(password.getPassword());
 
         // Verifica se as credenciais são válidas
-        if (SqlServer.verificarLogin(utilizador, senha)) {
+        if (SqlGeral.verificarLogin(utilizador, senha)) {
             // Determina o tipo de utilizador com base no nome fornecido
-            String tipoUtilizador = SqlServer.verificarTipoUtilizador(utilizador);
+            String tipoUtilizador = SqlGeral.verificarTipoUtilizador(utilizador);
 
             if ("Secretaria".equalsIgnoreCase(tipoUtilizador)) {
                 // Caso seja um funcionário, abre a vista correspondente

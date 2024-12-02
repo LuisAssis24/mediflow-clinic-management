@@ -8,8 +8,8 @@ import javax.swing.*;
 import sql.server.*;
 import java.util.*;
 
-import static sql.server.SqlServer.criarMedico;
-import static sql.server.SqlServer.criarUtilizador;
+import static sql.server.SqlGeral.criarMedico;
+import static sql.server.SqlGeral.criarUtilizador;
 
 /**
  *
@@ -27,11 +27,11 @@ public class VistaGestor extends javax.swing.JFrame {
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll();
 
-        List<String> utilizadores = SqlServer.obterTodosUtilizadores();
+        List<String> utilizadores = SqlGeral.obterTodosUtilizadores();
         int tamanhoPainelCredenciais = 0;
 
         for (String id : utilizadores) {
-            dados = SqlServer.dadosUtilizador(id);
+            dados = SqlGeral.dadosUtilizador(id);
             criarPainelCredencial();
             tamanhoPainelCredenciais++;
         }
@@ -40,7 +40,8 @@ public class VistaGestor extends javax.swing.JFrame {
             JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
-
+        
+        credenciaisPanel.setVisible(false);
         credenciaisPanel.revalidate();
         credenciaisPanel.repaint();
     }
@@ -431,6 +432,7 @@ public class VistaGestor extends javax.swing.JFrame {
         barraPesquisa.setVisible(false);
         botaoPesquisa.setVisible(false);
         criarCredencial.setVisible(true);
+        credenciaisPanel.setVisible(false);
         eliminarCredencial.setVisible(false);
     }                                                    
 
@@ -438,6 +440,7 @@ public class VistaGestor extends javax.swing.JFrame {
         eliminarCredencial.setVisible(true);
         barraPesquisa.setVisible(true);
         botaoPesquisa.setVisible(true);
+        credenciaisPanel.setVisible(true);
         criarCredencial.setVisible(false);
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 

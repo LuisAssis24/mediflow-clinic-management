@@ -4,11 +4,11 @@ import java.sql.*;
 import java.text.*;
 import java.util.*;
 
-public class SqlServer {
+public class SqlGeral {
 
     public static boolean verificarLogin(String utilizador, String senha) {
 
-        Connection conexao = SqlServer.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
 
         if (conexao != null) {  // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -36,7 +36,7 @@ public class SqlServer {
     }
 
     public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com o banco de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com o banco de dados
         HashMap<String, String> resultadoConsulta = new HashMap<>(); // Mapa para armazenar os resultados
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida
@@ -78,7 +78,7 @@ public class SqlServer {
 
 
     public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico) {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
         int idConsultaGerado = -1; // Variável para armazenar o ID gerado pela base de dados
 
         // Reformatar a data para o formato SQL
@@ -123,7 +123,7 @@ public class SqlServer {
     }
 
     public static ArrayList<Integer> obterTodasConsultas() {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         ArrayList<Integer> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
@@ -149,7 +149,7 @@ public class SqlServer {
     }
 
     public static HashMap<String, String> dadosConsulta(int IDConsulta) {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         HashMap<String, String> dadosConsulta = new HashMap<>(); // Mapa para armazenar os dados da consulta
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
@@ -185,7 +185,7 @@ public class SqlServer {
     }
 
     public static ArrayList<String> obterTodosUtilizadores() {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         ArrayList<String> utilizadores = new ArrayList<>(); // Lista para armazenar os IDs dos utilizadores
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
@@ -210,7 +210,7 @@ public class SqlServer {
     }
 
     public static HashMap<String, String> dadosUtilizador(String IDUtilizador) {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         HashMap<String, String> dadosUtilizador = new HashMap<>(); // Mapa para armazenar os dados do utilizador
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
@@ -242,7 +242,7 @@ public class SqlServer {
     }
 
     public static void desmarcarConsulta(int IDConsulta){
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Declara uma consulta SQL para obter os dados da consulta
@@ -261,7 +261,7 @@ public class SqlServer {
     }
 
     public static String verificarTipoUtilizador(String utilizador) {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -283,7 +283,7 @@ public class SqlServer {
     }
 
     public static void verificarPacienteExiste(int numero, String nome, int contacto) {
-        Connection conexao = SqlServer.DatabaseConnection.getInstance();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
         String sqlVerificar = "SELECT COUNT(*) FROM Paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
         try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlVerificar)) {
             preparedStatement.setInt(1, numero);
@@ -382,7 +382,7 @@ public class SqlServer {
         int idMedicoGerado = -1; // Variável para armazenar o ID do médico gerado
         String sql = "{CALL CriarMedico(?, ?, ?, ?, ?, ?)}"; // Chama a procedure CriarMedico
 
-        try (Connection conexao = SqlServer.DatabaseConnection.getInstance();
+        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
              CallableStatement callableStatement = conexao.prepareCall(sql)) {
 
             // Definir parâmetros de entrada
@@ -414,7 +414,7 @@ public class SqlServer {
         int idUtilizadorGerado = -1; // Variável para armazenar o ID gerado
         String sql = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}"; // Chama a procedure CriarUtilizador
 
-        try (Connection conexao = SqlServer.DatabaseConnection.getInstance();
+        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
              CallableStatement callableStatement = conexao.prepareCall(sql)) {
 
             // Definir parâmetros de entrada

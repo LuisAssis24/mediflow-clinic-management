@@ -6,7 +6,6 @@ package inter.face;
 import javax.swing.*;
 import sql.server.*;
 
-import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -27,11 +26,11 @@ public class VistaFuncionario extends javax.swing.JFrame {
     void carregarConsultasBaseDeDados() {
         consultasPanel.removeAll();
 
-        List<Integer> consultaIds = SqlServer.obterTodasConsultas(); // Fetch consultation IDs from the database
+        List<Integer> consultaIds = SqlGeral.obterTodasConsultas(); // Fetch consultation IDs from the database
         int tamanhoPainelConsultas = 0;
 
         for (int idConsulta : consultaIds) {
-            HashMap<String, String> dadosConsulta = SqlServer.dadosConsulta(idConsulta); // Fetch consultation data
+            HashMap<String, String> dadosConsulta = SqlGeral.dadosConsulta(idConsulta); // Fetch consultation data
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
@@ -93,6 +92,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
         idMedico = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         salaConsulta = new javax.swing.JTextField();
+        botaoPacientes = new javax.swing.JButton();
         verConsultas = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         consultasPanel = new javax.swing.JPanel();
@@ -129,7 +129,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
         botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
         botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoPesquisa.setForeground(new java.awt.Color(245, 245, 245));
+        botaoPesquisa.setForeground(new java.awt.Color(242, 242, 242));
         botaoPesquisa.setText("PESQUISAR");
         botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
         botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
@@ -162,7 +162,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
         botaoVerConsultas.setBackground(new java.awt.Color(0, 132, 193));
         botaoVerConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoVerConsultas.setForeground(new java.awt.Color(245, 245, 245));
+        botaoVerConsultas.setForeground(new java.awt.Color(242, 242, 242));
         botaoVerConsultas.setText("Ver Consultas");
         botaoVerConsultas.setMaximumSize(new java.awt.Dimension(140, 35));
         botaoVerConsultas.setMinimumSize(new java.awt.Dimension(140, 35));
@@ -180,7 +180,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
         botaoMarcarConsultas.setBackground(new java.awt.Color(0, 132, 193));
         botaoMarcarConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoMarcarConsultas.setForeground(new java.awt.Color(245, 245, 245));
+        botaoMarcarConsultas.setForeground(new java.awt.Color(242, 242, 242));
         botaoMarcarConsultas.setText("Marcar Consulta");
         botaoMarcarConsultas.setMaximumSize(new java.awt.Dimension(140, 35));
         botaoMarcarConsultas.setMinimumSize(new java.awt.Dimension(140, 35));
@@ -215,12 +215,13 @@ public class VistaFuncionario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(242, 242, 242));
         jLabel2.setText("DADOS DO PACIENTE");
-        jLabel2.setMaximumSize(new java.awt.Dimension(450, 30));
-        jLabel2.setMinimumSize(new java.awt.Dimension(450, 30));
-        jLabel2.setPreferredSize(new java.awt.Dimension(450, 30));
+        jLabel2.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel2.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel2.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(jLabel2, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -464,6 +465,24 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(15, 230, 0, 0);
         jPanel2.add(salaConsulta, gridBagConstraints);
 
+        botaoPacientes.setBackground(new java.awt.Color(0, 132, 193));
+        botaoPacientes.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoPacientes.setForeground(new java.awt.Color(242, 242, 242));
+        botaoPacientes.setText("Procurar Paciente");
+        botaoPacientes.setMaximumSize(new java.awt.Dimension(150, 35));
+        botaoPacientes.setMinimumSize(new java.awt.Dimension(150, 35));
+        botaoPacientes.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoPacientesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 300, 0, 0);
+        jPanel2.add(botaoPacientes, gridBagConstraints);
+
         marcarConsultas.add(jPanel2, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -558,7 +577,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
             int snsPaciente = Integer.parseInt(inputSNS);
             System.out.println("Pesquisando consulta para SNS: " + snsPaciente);
 
-            HashMap<String, String> dadosConsulta = SqlServer.procurarConsultaPorSNS(snsPaciente);
+            HashMap<String, String> dadosConsulta = SqlGeral.procurarConsultaPorSNS(snsPaciente);
 
             consultasPanel.removeAll();
 
@@ -593,6 +612,10 @@ public class VistaFuncionario extends javax.swing.JFrame {
         DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
         disp.setVisible(true);
     }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
+
+    private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoPacientesActionPerformed
 
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
@@ -642,10 +665,10 @@ public class VistaFuncionario extends javax.swing.JFrame {
             }
 
             // Chamar o método que cria o paciente caso ele não exista
-            SqlServer.verificarPacienteExiste(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
+            SqlGeral.verificarPacienteExiste(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
 
             // Chamar o método que cria a consulta
-            int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
+            int idConsultaGerada = SqlGeral.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {
@@ -712,6 +735,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton botaoDisponibilidade;
     private javax.swing.JButton botaoMarcar;
     private javax.swing.JButton botaoMarcarConsultas;
+    private javax.swing.JButton botaoPacientes;
     private javax.swing.JButton botaoPesquisa;
     private javax.swing.JButton botaoVerConsultas;
     private javax.swing.JPanel consultasPanel;

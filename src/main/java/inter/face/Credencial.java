@@ -150,8 +150,9 @@ public class Credencial extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
         add(botaoDesmarcar1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
