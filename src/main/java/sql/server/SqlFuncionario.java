@@ -111,33 +111,43 @@ public class SqlFuncionario {
         }
     }
 
-    public static void verificarPacienteExiste(int numero, String nome, int contacto) {
+    public static boolean verificarPacienteExiste(int numero) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
         String sqlVerificar = "SELECT COUNT(*) FROM Paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
         try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlVerificar)) {
             preparedStatement.setInt(1, numero);
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 if (rs.next()) {
-                    if(rs.getInt(1) < 1){
-                        String sql = "{CALL CriarPaciente(?, ?, ?)}"; // Chama a stored procedure MarcarConsulta
-
-                        try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-                            // Definir parâmetros de entrada
-                            callableStatement.setInt(1, numero); // SNS do paciente
-                            callableStatement.setString(2, nome); // Nome do paciente
-                            callableStatement.setInt(3, contacto); // Contacto do paciente
-
-                            // Executar a stored procedure
-                            callableStatement.execute();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
+                    if (rs.getInt(1) > 0) {
+                        return true;
                     }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Erro ao verificar paciente: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public static void criarPacienteMarcacao(int numero, String nome, int contacto) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        if (!verificarPacienteExiste(numero)) {
+            String sql = "{CALL CriarPaciente(?, ?, ?)}"; // Chama a stored procedure MarcarConsulta
+
+            try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
+                // Definir parâmetros de entrada
+                callableStatement.setInt(1, numero); // SNS do paciente
+                callableStatement.setString(2, nome); // Nome do paciente
+                callableStatement.setInt(3, contacto); // Contacto do paciente
+
+                // Executar a stored procedure
+                callableStatement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

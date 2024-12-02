@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 import sql.server.*;
 
@@ -614,8 +618,44 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
 
     private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
-        // TODO add your handling code here:
+        pacienteAutoFill();
     }//GEN-LAST:event_botaoPacientesActionPerformed
+
+    public void pacienteAutoFill() {
+    try {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        // Obter o número do paciente
+        int numero = Integer.parseInt(nSns.getText());
+
+        // Verificar se o paciente existe
+        if (SqlFuncionario.verificarPacienteExiste(numero)) {
+            // Buscar o nome e contacto do paciente no banco
+            String sql = "SELECT Nome, Contacto FROM Paciente WHERE Numero_SNS = ?";
+            try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+
+                preparedStatement.setInt(1, numero);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    if (rs.next()) {
+                        // Preencher os campos da interface
+                        nomePaciente.setText(rs.getString("Nome")); // Nome do paciente
+                        contactoPaciente.setText(String.valueOf(rs.getInt("Contacto"))); // Contacto do paciente
+                    }
+                }
+            }
+        } else {
+            // Se o paciente não existir
+            JOptionPane.showMessageDialog(this, "Paciente inexistente", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Insira um número de SNS válido", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Erro ao acessar o banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+}
 
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
@@ -665,7 +705,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
             }
 
             // Chamar o método que cria o paciente caso ele não exista
-            SqlFuncionario.verificarPacienteExiste(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
+            SqlFuncionario.criarPacienteMarcacao(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
 
             // Chamar o método que cria a consulta
             int idConsultaGerada = SqlFuncionario.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);

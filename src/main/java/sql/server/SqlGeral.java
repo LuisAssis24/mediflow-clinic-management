@@ -122,7 +122,6 @@ public class SqlGeral {
         return null; // Retorna null se não encontrar o tipo do utilizador
     }
 
-
     private static boolean idExisteNaTabela(Connection conexao, int id, String tabela, String colunaId) {
         try {
             // Declara uma consulta SQL para verificar a existência do ID na tabela
@@ -171,7 +170,6 @@ public class SqlGeral {
             // Retorna a instância da conexão, que pode ser null se não for criada
             return connection;
         }
-
 
 
         // Método estático para fechar a conexão com a base de dados
