@@ -261,45 +261,27 @@ public class SqlServer {
     }
 
     public static String verificarTipoUtilizador(String utilizador) {
+    Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
 
-        Connection conexao = SqlServer.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+    if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+        try {
+            // Consulta SQL para obter o tipo de utilizador com base no ID
+            String sql = "SELECT Tipo_Utilizador FROM Utilizador WHERE ID = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, utilizador);
 
-        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
-            try {
-                // Consulta SQL para obter o ID do utilizador com base no nome
-                String sqlId = "SELECT id FROM Utilizador WHERE ID = ?";
-                PreparedStatement stmtId = conexao.prepareStatement(sqlId);
-                stmtId.setString(1, utilizador);
-
-                // Executa a consulta e armazena o resultado
-                ResultSet rsId = stmtId.executeQuery();
-                if (rsId.next()) { // Se encontrar um registo
-                    int userId = rsId.getInt("id"); // Obtém o ID do utilizador
-
-                    // Verifica se o ID corresponde a um funcionário
-                    if (idExisteNaTabela(conexao, userId, "Funcionario", "ID_Funcionario")) {
-                        return "Funcionario";
-                    }
-
-                    // Verifica se o ID corresponde a um gestor
-                    if (idExisteNaTabela(conexao, userId, "Gestor", "ID_Gestor")) {
-                        return "Gestor";
-                    }
-
-                    //Verifica se o ID corresponde a um medico
-                    if (idExisteNaTabela(conexao, userId, "Medico", "ID_Medico")){
-                        return "Medico";
-                    }
-
-                    // Adicionar mais verificações aqui para outros tipos de utilizadores, se necessário
-                }
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao verificar o tipo de usuário: " + e.getMessage());
+            // Executa a consulta e armazena o resultado
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) { // Se encontrar um registo
+                return rs.getString("Tipo_Utilizador"); // Retorna o tipo de utilizador
             }
+        } catch (SQLException e) { // Trata erros relacionados ao SQL
+            System.out.println("Erro ao verificar o tipo de utilizador: " + e.getMessage());
         }
-
-        return null; // Retorna null se não encontrar o tipo do utilizador
     }
+
+    return null; // Retorna null se não encontrar o tipo do utilizador
+}
 
     private static boolean idExisteNaTabela(Connection conexao, int id, String tabela, String colunaId) {
         try {
@@ -320,7 +302,7 @@ public class SqlServer {
     }
 
     // A classe DatabaseConnection é a responsavel por criar a conexão com a base de dados
-    public class DatabaseConnection {
+    public static class DatabaseConnection {
 
         // Definição das constantes para o URL da base de dados, o utilizador e a palavra-passe
         private static final String URL = "jdbc:mysql://estga-dev.ua.pt:3306/PTDA24_BD_04";

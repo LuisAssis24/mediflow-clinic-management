@@ -204,26 +204,18 @@ public class VistaDeLogin extends javax.swing.JFrame {
                 vistaGestor.setVisible(true); // Mostra a nova janela
             } else if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
                 VistaMedico vistaMedico = new VistaMedico();
-                dispose(); 
-                vistaMedico.setVisible(true); 
+                dispose();
+                vistaMedico.setVisible(true);
             } else {
                 // Caso o tipo de utilizador não seja reconhecido, mostra uma mensagem de erro
                 JOptionPane.showMessageDialog(this, "Usuário não autorizado.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-           
+
         } else {
             // Se as credenciais forem inválidas, exibe uma mensagem de erro
             JOptionPane.showMessageDialog(this, "Credenciais incorretas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
     }
-
-
-
-
-
-
-
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
