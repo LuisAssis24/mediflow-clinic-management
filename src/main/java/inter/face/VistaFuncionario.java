@@ -577,7 +577,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
             int snsPaciente = Integer.parseInt(inputSNS);
             System.out.println("Pesquisando consulta para SNS: " + snsPaciente);
 
-            HashMap<String, String> dadosConsulta = SqlGeral.procurarConsultaPorSNS(snsPaciente);
+            HashMap<String, String> dadosConsulta = SqlFuncionario.procurarConsultaPorSNS(snsPaciente);
 
             consultasPanel.removeAll();
 
@@ -665,10 +665,10 @@ public class VistaFuncionario extends javax.swing.JFrame {
             }
 
             // Chamar o método que cria o paciente caso ele não exista
-            SqlGeral.verificarPacienteExiste(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
+            SqlFuncionario.verificarPacienteExiste(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
 
             // Chamar o método que cria a consulta
-            int idConsultaGerada = SqlGeral.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
+            int idConsultaGerada = SqlFuncionario.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {
