@@ -6,6 +6,7 @@ package inter.face;
 import javax.swing.*;
 import sql.server.*;
 
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -639,6 +640,9 @@ public class VistaFuncionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "A consulta não pode ser marcada no passado.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            // Chamar o método que cria o paciente caso ele não exista
+            SqlServer.verificarPacienteExiste(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
 
             // Chamar o método que cria a consulta
             int idConsultaGerada = SqlServer.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);

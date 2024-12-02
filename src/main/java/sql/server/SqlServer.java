@@ -282,6 +282,36 @@ public class SqlServer {
         return null; // Retorna null se não encontrar o tipo do utilizador
     }
 
+    public static void verificarPacienteExiste(int numero, String nome, int contacto) {
+        Connection conexao = SqlServer.DatabaseConnection.getInstance();
+        String sqlVerificar = "SELECT COUNT(*) FROM paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
+        try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlVerificar)) {
+            preparedStatement.setInt(1, numero);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    if(rs.getInt(1) < 1){
+                        String sql = "{CALL CriarPaciente(?, ?, ?)}"; // Chama a stored procedure MarcarConsulta
+
+                        try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
+                            // Definir parâmetros de entrada
+                            callableStatement.setInt(1, numero); // SNS do paciente
+                            callableStatement.setString(2, nome); // Nome do paciente
+                            callableStatement.setInt(3, contacto); // Contacto do paciente
+
+                            // Executar a stored procedure
+                            callableStatement.execute();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao verificar paciente: " + e.getMessage());
+        }
+    }
+
     private static boolean idExisteNaTabela(Connection conexao, int id, String tabela, String colunaId) {
         try {
             // Declara uma consulta SQL para verificar a existência do ID na tabela
