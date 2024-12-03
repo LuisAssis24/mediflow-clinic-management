@@ -507,16 +507,40 @@ public class VistaGestor extends javax.swing.JFrame {
         criarCredencial.setVisible(false);
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
-    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
+    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             int idUtilizador = Integer.parseInt(barraPesquisa.getText());
             HashMap<String, String> dadosUtilizador = SqlGestor.procurarUtilizadorPorID(idUtilizador);
 
-            if (!dadosUtilizador.isEmpty()) {
-                // Display user data or update UI components with the retrieved data
-                String mensagem = String.format("Utilizador encontrado: \nNome: %s\nCC: %s\nID: %s\nTipo de Utilizador: %s",
-                        dadosUtilizador.get("Nome"), dadosUtilizador.get("CC"), dadosUtilizador.get("ID"), dadosUtilizador.get("Tipo_Utilizador"));
-                JOptionPane.showMessageDialog(this, mensagem);
+            if (dadosUtilizador != null && !dadosUtilizador.isEmpty()) {
+                System.out.println("Dados do Utilizador: " + dadosUtilizador);
+
+                // Limpa o painel de credenciais
+                credenciaisPanel.removeAll();
+
+                // Adiciona o utilizador encontrado ao painel de credenciais
+                dados = dadosUtilizador;
+
+                // Verifica e exibe o tipo de utilizador
+                String tipoUtilizador = dados.get("TipoUtilizador");
+                if (tipoUtilizador == null || tipoUtilizador.isEmpty()) {
+                    tipoUtilizador = "Função não disponível";
+                }
+                System.out.println("Tipo de Utilizador para exibição: " + tipoUtilizador);
+
+                // Esconde a senha, se necessário
+                if ("Gestor".equalsIgnoreCase(tipoUtilizador)) {
+                    String senha = dados.get("Password");
+                    if (senha != null) {
+                        dados.put("Password", "*".repeat(senha.length())); // Esconde a senha
+                    }
+                }
+
+                criarPainelCredencial();
+
+                // Atualiza o painel de credenciais
+                credenciaisPanel.revalidate();
+                credenciaisPanel.repaint();
             } else {
                 JOptionPane.showMessageDialog(this, "Nenhum utilizador encontrado com ID: " + idUtilizador);
             }
@@ -526,7 +550,9 @@ public class VistaGestor extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao procurar utilizador: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botaoPesquisaActionPerformed
+    }
+
+
 
     private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
         String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();
