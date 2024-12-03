@@ -8,8 +8,7 @@ import javax.swing.*;
 import sql.server.*;
 import java.util.*;
 
-import static sql.server.SqlGestor.criarMedico;
-import static sql.server.SqlGestor.criarUtilizador;
+import static sql.server.SqlGestor.*;
 
 /**
  *
@@ -449,24 +448,18 @@ public class VistaGestor extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
+        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();
 
-        String selecionado = (String) tipoFuncionario.getSelectedItem();
-        if ("Médico".equals(selecionado)) {
-            // Mostra os campos de especialidade e número de médico
-            especLabel.setVisible(true);
-            nMedicoLabel.setVisible(true);
+        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {
             especialidade.setVisible(true);
             numeroDeMedico.setVisible(true);
+            nMedicoLabel.setVisible(true);
+            especLabel.setVisible(true);
         } else {
-            // Esconde os campos de especialidade e número de médico
-            especLabel.setVisible(false);
-            nMedicoLabel.setVisible(false);
             especialidade.setVisible(false);
             numeroDeMedico.setVisible(false);
-
-            // Limpa os campos de especialidade e número de médico
-            especialidade.setText("");
-            numeroDeMedico.setText("");
+            nMedicoLabel.setVisible(false);
+            especLabel.setVisible(false);
         }
 
 // Atualiza o painel para refletir as mudanças de visibilidade
@@ -476,36 +469,44 @@ public class VistaGestor extends javax.swing.JFrame {
 
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
         try {
+            // Obter dados da interface gráfica
             String nome = nomeCompleto.getText();
             String pessword = password.getText();
             String tipoUtilizador = tipoFuncionario.getSelectedItem().toString();
             int cc = Integer.parseInt(numeroCC.getText());
 
-            // Criar utilizador e obter o ID gerado
-            int idUtilizador = criarUtilizador(nome, pessword, tipoUtilizador, cc);
+            // Variáveis específicas para médicos
+            String espcialidade = "";
+            int numOrdem = 0;
 
-            // Caso seja Médico, criar também na tabela Médico
-            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
-                String espcialidade = especialidade.getText();
-                int numOrdem = Integer.parseInt(numeroDeMedico.getText());
+            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
+                // Obter os valores adicionais para médicos
+                espcialidade = especialidade.getText();
+                numOrdem = Integer.parseInt(numeroDeMedico.getText());
+            }
 
-                // Chamar o método criarMedico
-                int idMedico = criarMedico(nome, pessword, espcialidade, numOrdem, cc);
+            // Chamar o método para criar o utilizador e verificar se é médico
+            int idUtilizador = criarUtilizadorEAdicionarMedico(nome, pessword, tipoUtilizador, cc, espcialidade, numOrdem);
 
-                if (idMedico != -1) {
-                    JOptionPane.showMessageDialog(null, "Médico criado com sucesso! ID: " + idMedico);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Falha ao criar o médico.");
-                }
-                // Mostrar o ID do Médico gerado
-                JOptionPane.showMessageDialog(null, "Médico criado com sucesso! ID: " + idMedico);
+            // Exibir mensagem de sucesso
+            if (idUtilizador != -1) {
+                JOptionPane.showMessageDialog(null,
+                        "Utilizador criado com sucesso! ID: " + idUtilizador);
             } else {
-                JOptionPane.showMessageDialog(null, "Utilizador criado com sucesso!");
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao criar utilizador. Verifique os dados inseridos.");
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Erro: Verifique os campos numéricos.");
+            JOptionPane.showMessageDialog(null,
+                    "Por favor, insira dados válidos para CC ou Número do Médico.",
+                    "Erro de Validação",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao criar utilizador: " + ex.getMessage());
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao processar os dados: " + ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
 }                                              
 

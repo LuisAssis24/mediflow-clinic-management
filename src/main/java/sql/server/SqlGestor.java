@@ -62,64 +62,45 @@ public class SqlGestor {
         return dadosUtilizador; // Retorna o mapa com os dados do utilizador
     }
 
-    public static int criarMedico(String nome, String password, String especialidade, int numeroMedico, int cc) {
-        int idMedicoGerado = -1; // Variável para armazenar o ID do médico gerado
-        String sql = "{CALL CriarMedico(?, ?, ?, ?, ?, ?)}"; // Chama a procedure CriarMedico
-
-        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-             CallableStatement callableStatement = conexao.prepareCall(sql)) {
-
-            // Definir parâmetros de entrada
-            callableStatement.setInt(1, cc); // CC
-            callableStatement.setString(2, nome); // Nome
-            callableStatement.setString(3, password); // Password
-            callableStatement.setString(4, especialidade); // Especialidade
-            callableStatement.setInt(5, numeroMedico); // Número do médico
-
-            // Registrar o parâmetro de saída
-            callableStatement.registerOutParameter(6, java.sql.Types.INTEGER); // ID_Medico gerado
-
-            // Executar a stored procedure
-            callableStatement.execute();
-
-            // Recuperar o ID do médico gerado
-            idMedicoGerado = callableStatement.getInt(6);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-        return idMedicoGerado; // Retorna o ID do médico gerado para apresentar ao utilizador
-    }
-
-    public static int criarUtilizador(String nome, String password, String tipoUtilizador, int cc) {
+    public static int criarUtilizadorEAdicionarMedico(String nome, String password, String tipoUtilizador, int cc,
+                                                      String especialidade, int numOrdem) {
         int idUtilizadorGerado = -1; // Variável para armazenar o ID gerado
-        String sql = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}"; // Chama a procedure CriarUtilizador
+        String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}"; // Procedure SQL para criar utilizador
+        String sqlAdicionarMedico = "INSERT INTO Medico (ID, Especialidade, Num_Ordem) VALUES (?, ?, ?)";
 
-        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-             CallableStatement callableStatement = conexao.prepareCall(sql)) {
+        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance()) {
 
-            // Definir parâmetros de entrada
-            callableStatement.setInt(1, cc); // CC
-            callableStatement.setString(2, nome); // Nome
-            callableStatement.setString(3, password); // Password
-            callableStatement.setString(4, tipoUtilizador); // Tipo_Utilizador
+            // 1. Criar o utilizador
+            try (CallableStatement callableStatement = conexao.prepareCall(sqlCriarUtilizador)) {
+                callableStatement.setInt(1, cc);                // CC
+                callableStatement.setString(2, nome);           // Nome
+                callableStatement.setString(3, password);       // Password
+                callableStatement.setString(4, tipoUtilizador); // Tipo de utilizador
+                callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // ID gerado
 
-            // Registrar o parâmetro de saída
-            callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // ID gerado
+                callableStatement.execute();
+                idUtilizadorGerado = callableStatement.getInt(5); // Obter o ID gerado
+                System.out.println("Utilizador criado com ID: " + idUtilizadorGerado);
+            }
 
-            // Executar a stored procedure
-            callableStatement.execute();
-
-            // Recuperar o ID gerado
-            idUtilizadorGerado = callableStatement.getInt(5);
+            // 2. Verificar se o tipo de utilizador é "Médico"
+            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
+                // 3. Inserir os detalhes na tabela Medico
+                try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlAdicionarMedico)) {
+                    preparedStatement.setInt(1, idUtilizadorGerado);    // ID do médico
+                    preparedStatement.setString(2, especialidade);      // Especialidade
+                    preparedStatement.setInt(3, numOrdem);              // Número do médico
+                    preparedStatement.executeUpdate();
+                    System.out.println("Detalhes do médico adicionados com sucesso!");
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
 
         }
 
-        return idUtilizadorGerado; // Retorna o ID gerado para apresentar ao utilizador
+        return idUtilizadorGerado; // Retorna o ID gerado para o utilizador
     }
+
 }
