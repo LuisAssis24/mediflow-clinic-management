@@ -3,6 +3,7 @@ package sql.server;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SqlGestor {
     public static ArrayList<String> obterTodosUtilizadores() {
@@ -102,5 +103,86 @@ public class SqlGestor {
 
         return idUtilizadorGerado; // Retorna o ID gerado para o utilizador
     }
+
+    public static boolean eliminarUtilizador(int id) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+
+        if (conexao != null) {
+            try {
+                String sql = "DELETE FROM Utilizador WHERE ID = ?";
+                PreparedStatement stmt = conexao.prepareStatement(sql);
+                stmt.setInt(1, id);
+
+                int linhasAfetadas = stmt.executeUpdate();
+                return linhasAfetadas > 0; // Retorna true se alguma linha foi excluída
+            } catch (SQLException e) {
+                System.out.println("Erro ao eliminar utilizador: " + e.getMessage());
+            }
+        }
+
+        return false; // Retorna falso se algo deu errado
+    }
+
+    public static List<HashMap<String, String>> obterTodosGestores() {
+        List<HashMap<String, String>> gestores = new ArrayList<>();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+
+        if (conexao != null) {
+            try {
+                String sql = "SELECT ID, Nome, Password FROM Utilizador WHERE Tipo_Utilizador = 'Gestor'";
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                ResultSet resultado = statement.executeQuery();
+
+                while (resultado.next()) {
+                    HashMap<String, String> gestor = new HashMap<>();
+                    gestor.put("ID", resultado.getString("ID"));
+                    gestor.put("Nome", resultado.getString("Nome"));
+                    gestor.put("Password", resultado.getString("Password"));
+                    gestores.add(gestor);
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao obter gestores: " + e.getMessage());
+            }
+        }
+        return gestores;
+    }
+
+    public static HashMap<String, String> procurarUtilizadorPorID(int idUtizador) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();  // Obtém a conexão com o banco de dados
+        HashMap<String, String> resultadoUtilizador = new HashMap<>();  // Mapa para armazenar os dados do utilizador
+
+        if (conexao != null) {
+            try {
+                // Chama a *stored procedure* ProcurarUtilizadorPorID
+                String sql = "{CALL ProcurarUtilizadorPorID(?)}";
+                CallableStatement callableStatement = conexao.prepareCall(sql);
+
+                // Define o parâmetro de entrada (ID do utilizador)
+                callableStatement.setInt(1, idUtizador);
+
+                // Executa a stored procedure e obtém o resultado
+                ResultSet resultado = callableStatement.executeQuery();
+
+                // Verifica se a consulta encontrou um utilizador
+                if (resultado.next()) {
+                    System.out.println("Utilizador encontrado com ID: " + idUtizador);
+
+                    // Preenche o mapa com os dados do utilizador
+                    resultadoUtilizador.put("ID", String.valueOf(resultado.getInt("ID")));
+                    resultadoUtilizador.put("CC", resultado.getString("CC"));
+                    resultadoUtilizador.put("Nome", resultado.getString("Nome"));
+                    resultadoUtilizador.put("Password", resultado.getString("Password"));
+                    resultadoUtilizador.put("Tipo_Utilizador", resultado.getString("Tipo_Utilizador"));
+                } else {
+                    System.out.println("Nenhum utilizador encontrado com ID: " + idUtizador);
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao executar a *stored procedure* ProcurarUtilizadorPorID: " + e.getMessage());
+            }
+        }
+
+        return resultadoUtilizador;  // Retorna os dados do utilizador (ou vazio se não encontrado)
+    }
+
 
 }

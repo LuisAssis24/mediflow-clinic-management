@@ -15,7 +15,13 @@ public class Credencial extends javax.swing.JPanel {
     /**
      * Creates new form Credencial
      */
-    public Credencial(HashMap<String, String> dados) {
+
+    private VistaGestor vistaGestor;
+    private String id;
+
+    public Credencial(HashMap<String, String> dados, VistaGestor vistaGestor) {
+        this.vistaGestor = vistaGestor;
+        this.id = dados.get("ID");
         initComponents();
 
         idCredencial.setText(dados.getOrDefault("ID", "ID não disponível"));
@@ -157,7 +163,7 @@ public class Credencial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoDesmarcar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcar1ActionPerformed
-
+        vistaGestor.mostrarPainelSenha(id);
     }//GEN-LAST:event_botaoDesmarcar1ActionPerformed
 
 
