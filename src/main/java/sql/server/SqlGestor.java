@@ -147,42 +147,48 @@ public class SqlGestor {
         return gestores;
     }
 
-    public static HashMap<String, String> procurarUtilizadorPorID(int idUtizador) {
+    public static HashMap<String, String> procurarUtilizadorPorID(int idUtilizador) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();  // Obtém a conexão com o banco de dados
         HashMap<String, String> resultadoUtilizador = new HashMap<>();  // Mapa para armazenar os dados do utilizador
 
         if (conexao != null) {
             try {
-                // Chama a *stored procedure* ProcurarUtilizadorPorID
+                // Chama a stored procedure ProcurarUtilizadorPorID
                 String sql = "{CALL ProcurarUtilizadorPorID(?)}";
                 CallableStatement callableStatement = conexao.prepareCall(sql);
 
                 // Define o parâmetro de entrada (ID do utilizador)
-                callableStatement.setInt(1, idUtizador);
+                callableStatement.setInt(1, idUtilizador);
 
                 // Executa a stored procedure e obtém o resultado
                 ResultSet resultado = callableStatement.executeQuery();
 
                 // Verifica se a consulta encontrou um utilizador
                 if (resultado.next()) {
-                    System.out.println("Utilizador encontrado com ID: " + idUtizador);
+                    System.out.println("Utilizador encontrado com ID: " + idUtilizador);
 
                     // Preenche o mapa com os dados do utilizador
                     resultadoUtilizador.put("ID", String.valueOf(resultado.getInt("ID")));
                     resultadoUtilizador.put("CC", resultado.getString("CC"));
                     resultadoUtilizador.put("Nome", resultado.getString("Nome"));
                     resultadoUtilizador.put("Password", resultado.getString("Password"));
-                    resultadoUtilizador.put("Tipo_Utilizador", resultado.getString("Tipo_Utilizador"));
+                    resultadoUtilizador.put("TipoUtilizador", resultado.getString("Tipo_Utilizador"));  // Atualize o nome da coluna aqui
+
+                    // Debugging: Print the retrieved data
+                    System.out.println("Dados do Utilizador: " + resultadoUtilizador);
                 } else {
-                    System.out.println("Nenhum utilizador encontrado com ID: " + idUtizador);
+                    System.out.println("Nenhum utilizador encontrado com ID: " + idUtilizador);
                 }
             } catch (SQLException e) {
-                System.out.println("Erro ao executar a *stored procedure* ProcurarUtilizadorPorID: " + e.getMessage());
+                System.out.println("Erro ao executar a stored procedure ProcurarUtilizadorPorID: " + e.getMessage());
             }
         }
 
         return resultadoUtilizador;  // Retorna os dados do utilizador (ou vazio se não encontrado)
     }
+
+
+
 
 
 }
