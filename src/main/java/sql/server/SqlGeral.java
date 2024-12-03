@@ -1,7 +1,6 @@
 package sql.server;
 
 import java.sql.*;
-import java.text.*;
 import java.util.*;
 
 public class SqlGeral {
@@ -184,7 +183,4 @@ public class SqlGeral {
             }
         }
     }
-
-
-
 }

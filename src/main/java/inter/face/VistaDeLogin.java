@@ -5,7 +5,6 @@
 package inter.face;
 
 import sql.server.SqlGeral;
-
 import javax.swing.*;
 
 

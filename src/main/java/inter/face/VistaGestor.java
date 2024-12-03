@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class VistaGestor extends javax.swing.JFrame {
     HashMap<String, String> dados = new HashMap<>();

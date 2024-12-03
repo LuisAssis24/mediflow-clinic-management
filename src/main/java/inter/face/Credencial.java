@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class Credencial extends javax.swing.JPanel {
 

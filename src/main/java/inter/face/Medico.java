@@ -6,7 +6,7 @@ package inter.face;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class Medico extends javax.swing.JPanel {
 

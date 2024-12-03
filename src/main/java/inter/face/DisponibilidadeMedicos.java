@@ -8,7 +8,7 @@ import javax.swing.*;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class DisponibilidadeMedicos extends javax.swing.JFrame {
     

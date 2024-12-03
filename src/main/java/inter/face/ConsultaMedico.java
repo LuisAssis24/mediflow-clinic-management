@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class ConsultaMedico extends javax.swing.JPanel {
 
@@ -45,7 +45,6 @@ public class ConsultaMedico extends javax.swing.JPanel {
         fichaMedicaButton = new javax.swing.JButton();
         motivo = new javax.swing.JTextArea();
         motivo.setLineWrap(true);
-        motivo.setWrapStyleWord(true);
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setMaximumSize(new java.awt.Dimension(900, 100));
@@ -137,20 +136,26 @@ public class ConsultaMedico extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         add(fichaMedicaButton, gridBagConstraints);
 
+        motivo.setEditable(false);
         motivo.setBackground(new java.awt.Color(242, 242, 242));
         motivo.setColumns(20);
         motivo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         motivo.setRows(5);
         motivo.setText("ssssssssssssssssssdddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffffffffffffffffffvc");
+        motivo.setWrapStyleWord(true);
         motivo.setBorder(null);
+        motivo.setFocusable(false);
         motivo.setMaximumSize(new java.awt.Dimension(300, 60));
         motivo.setMinimumSize(new java.awt.Dimension(300, 60));
         motivo.setName(""); // NOI18N
+        motivo.setOpaque(false);
         motivo.setPreferredSize(new java.awt.Dimension(300, 60));
+        motivo.setSelectedTextColor(new java.awt.Color(242, 242, 242));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(motivo, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

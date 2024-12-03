@@ -15,7 +15,7 @@ import java.util.*;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class VistaFuncionario extends javax.swing.JFrame {
     //ArrayList<> consultas = new ArrayList<Consulta>();

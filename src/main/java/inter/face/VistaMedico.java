@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class VistaMedico extends javax.swing.JFrame {
 
@@ -92,11 +92,13 @@ public class VistaMedico extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1080, 660));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
+        jScrollPane1.setBackground(new java.awt.Color(242, 242, 242));
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 132, 193), 6, true));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setColumnHeaderView(null);
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 600));
+        jScrollPane1.setOpaque(false);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 600));
         JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
         verticalScrollBar.setValue(verticalScrollBar.getMinimum());
@@ -109,6 +111,7 @@ public class VistaMedico extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         jPanel3.add(jScrollPane1, gridBagConstraints);
+        jScrollPane1.getViewport().setOpaque(false);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
