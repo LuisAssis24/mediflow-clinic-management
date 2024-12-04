@@ -417,7 +417,7 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
         jPanel2.add(concluirButton, gridBagConstraints);
 
-        tipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Médico", "Gestor" }));
+        tipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Medico", "Gestor" }));
         tipoFuncionario.setMaximumSize(new java.awt.Dimension(80, 30));
         tipoFuncionario.setMinimumSize(new java.awt.Dimension(80, 30));
         tipoFuncionario.setPreferredSize(new java.awt.Dimension(100, 30));

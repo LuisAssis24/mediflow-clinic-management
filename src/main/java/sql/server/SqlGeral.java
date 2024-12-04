@@ -2,6 +2,7 @@ package sql.server;
 
 import java.sql.*;
 import java.util.*;
+import sql.server.SqlMedico;
 
 public class SqlGeral {
 
@@ -112,6 +113,9 @@ public class SqlGeral {
                 // Executa a consulta e armazena o resultado
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) { // Se encontrar um registo
+                    if(rs.getString("Tipo_Utilizador").equals("Medico")){
+                        SqlMedico.idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
+                    }
                     return rs.getString("Tipo_Utilizador"); // Retorna o tipo de utilizador
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
