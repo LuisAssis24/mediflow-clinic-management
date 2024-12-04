@@ -9,6 +9,24 @@ import java.util.*;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    public static void quebraPontos(javax.swing.JList<String> jList, String texto) {
+        // Divide o texto usando "." como separador
+        String[] partes = texto.split("\\.");
+
+        // Cria um novo modelo para o JList
+        javax.swing.DefaultListModel<String> modelo = new javax.swing.DefaultListModel<>();
+
+        // Adiciona cada parte ao modelo, ignorando itens vazios
+        for (String parte : partes) {
+            if (!parte.trim().isEmpty()) {
+                modelo.addElement(parte.trim());
+            }
+        }
+
+        // Define o modelo processado na JList
+        jList.setModel(modelo);
+    }
+
     class RegistroClinico {
         private String dataNascimento;
         private int cc;
