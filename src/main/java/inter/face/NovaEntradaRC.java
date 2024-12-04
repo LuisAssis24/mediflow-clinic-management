@@ -91,7 +91,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jList1.setBackground(new java.awt.Color(242, 242, 242));
         jList1.setBorder(null);
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Item 1", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -108,7 +108,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jList2.setBackground(new java.awt.Color(242, 242, 242));
         jList2.setBorder(null);
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Item 1", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });

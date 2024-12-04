@@ -30,9 +30,9 @@ public class EntradaRegistoClinico extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        motivoPanel = new javax.swing.JPanel();
+        jList1 = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tratamentosPanel = new javax.swing.JPanel();
+        jList2 = new javax.swing.JList<>();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setMaximumSize(new java.awt.Dimension(538, 220));
@@ -66,18 +66,14 @@ public class EntradaRegistoClinico extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        javax.swing.GroupLayout motivoPanelLayout = new javax.swing.GroupLayout(motivoPanel);
-        motivoPanel.setLayout(motivoPanelLayout);
-        motivoPanelLayout.setHorizontalGroup(
-            motivoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        motivoPanelLayout.setVerticalGroup(
-            motivoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(motivoPanel);
+        jList1.setBackground(new java.awt.Color(242, 242, 242));
+        jList1.setBorder(null);
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", " ", " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -88,18 +84,14 @@ public class EntradaRegistoClinico extends javax.swing.JPanel {
         jScrollPane2.setBorder(null);
         jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        javax.swing.GroupLayout tratamentosPanelLayout = new javax.swing.GroupLayout(tratamentosPanel);
-        tratamentosPanel.setLayout(tratamentosPanelLayout);
-        tratamentosPanelLayout.setHorizontalGroup(
-            tratamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        tratamentosPanelLayout.setVerticalGroup(
-            tratamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jScrollPane2.setViewportView(tratamentosPanel);
+        jList2.setBackground(new java.awt.Color(242, 242, 242));
+        jList2.setBorder(null);
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", " ", " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -111,9 +103,9 @@ public class EntradaRegistoClinico extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel motivoPanel;
-    private javax.swing.JPanel tratamentosPanel;
     // End of variables declaration//GEN-END:variables
 }
