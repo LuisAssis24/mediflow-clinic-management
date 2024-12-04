@@ -44,7 +44,6 @@ public class ConsultaMedico extends javax.swing.JPanel {
         algo = new javax.swing.JLabel();
         fichaMedicaButton = new javax.swing.JButton();
         motivo = new javax.swing.JTextArea();
-        motivo.setLineWrap(true);
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setMaximumSize(new java.awt.Dimension(900, 100));
@@ -137,9 +136,9 @@ public class ConsultaMedico extends javax.swing.JPanel {
         add(fichaMedicaButton, gridBagConstraints);
 
         motivo.setEditable(false);
-        motivo.setBackground(new java.awt.Color(242, 242, 242));
         motivo.setColumns(20);
         motivo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        motivo.setLineWrap(true);
         motivo.setRows(5);
         motivo.setText("ssssssssssssssssssdddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffffffffffffffffffvc");
         motivo.setWrapStyleWord(true);
