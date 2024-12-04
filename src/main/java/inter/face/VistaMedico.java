@@ -4,6 +4,7 @@
  */
 package inter.face;
 import sql.server.SqlGeral;
+import sql.server.SqlMedico;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -26,11 +27,11 @@ public class VistaMedico extends javax.swing.JFrame {
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         consultasPanel.removeAll();
 
-        List<Integer> consultaIds = SqlGeral.obterTodasConsultas(); // Fetch consultation IDs from the database
+        List<Integer> consultaIds = SqlMedico.obterTodasConsultasMedico(); // Fetch consultation IDs from the database
         int tamanhoPainelConsultas = 0;
 
         for (int idConsulta : consultaIds) {
-            HashMap<String, String> dadosConsulta = SqlGeral.dadosConsulta(idConsulta); // Fetch consultation data
+            HashMap<String, String> dadosConsulta = SqlMedico.dadosConsultaMedico(idConsulta); // Fetch consultation data
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
