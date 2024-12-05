@@ -2,6 +2,9 @@ package sql.server;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
+
+import sql.server.SqlMedico;
 
 public class SqlGeral {
 
@@ -41,8 +44,9 @@ public class SqlGeral {
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
+                Date dataHoraAtual = new Date();
                 // Declara uma consulta SQL para obter todos os IDs das consultas
-                String sql = "SELECT ID_Consulta FROM Consulta";
+                String sql = "SELECT ID_Consulta, Data FROM Consulta";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
@@ -50,7 +54,9 @@ public class SqlGeral {
 
                 // Adiciona todos os IDs das consultas à lista
                 while (resultado.next()) {
-                    consultas.add(resultado.getInt("ID_Consulta"));
+                    if (resultado.getDate("Data").after(dataHoraAtual)) {
+                        consultas.add(resultado.getInt("ID_Consulta"));
+                    }
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter as consultas: " + e.getMessage());
@@ -79,6 +85,7 @@ public class SqlGeral {
 
                 // Verifica se encontrou um registo
                 if (resultado.next()) {
+
                     // Adiciona os dados da consulta ao mapa
                     dadosConsulta.put("data", resultado.getString("Data"));
                     dadosConsulta.put("hora", resultado.getString("Hora"));
@@ -89,6 +96,7 @@ public class SqlGeral {
                     dadosConsulta.put("numSala", resultado.getString("Num_Sala"));
                     dadosConsulta.put("idMedico", resultado.getString("ID_Medico"));
                     dadosConsulta.put("idConsulta", resultado.getString("ID_Consulta"));
+
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter os dados da consulta: " + e.getMessage());
@@ -96,7 +104,6 @@ public class SqlGeral {
         }
         return dadosConsulta; // Retorna o mapa com os dados da consulta
     }
-
 
 
     public static String verificarTipoUtilizador(String utilizador) {
@@ -112,7 +119,7 @@ public class SqlGeral {
                 // Executa a consulta e armazena o resultado
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) { // Se encontrar um registo
-                    if(rs.getString("Tipo_Utilizador").equals("Medico")){
+                    if (rs.getString("Tipo_Utilizador").equals("Medico")) {
                         SqlMedico.idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
                     }
                     return rs.getString("Tipo_Utilizador"); // Retorna o tipo de utilizador
