@@ -1,9 +1,8 @@
 package medi.flow;
 
-import inter.face.VistaDeLogin;
-import sql.server.SqlGeral;
-
-import java.sql.Connection;
+import inter.face.*;
+import sql.server.*;
+import java.sql.*;
 import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or

@@ -2,7 +2,6 @@ package sql.server;
 
 import java.sql.*;
 import java.util.*;
-import sql.server.SqlMedico;
 
 public class SqlGeral {
 

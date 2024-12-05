@@ -1,9 +1,8 @@
 package sql.server;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
+import java.text.*;
+import java.util.*;
 
 public class SqlFuncionario {
     public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {

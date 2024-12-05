@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
-import sql.server.SqlGeral;
-import sql.server.SqlMedico;
-
+import sql.server.*;
 import javax.swing.*;
 import java.util.*;
 

@@ -4,7 +4,7 @@
  */
 package inter.face;
 
-import sql.server.SqlGeral;
+import sql.server.*;
 import javax.swing.*;
 
 

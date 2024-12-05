@@ -9,8 +9,7 @@ import sql.server.*;
 import java.util.*;
 
 import static sql.server.SqlGestor.*;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
+
 
 /**
  *

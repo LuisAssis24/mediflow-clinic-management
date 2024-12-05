@@ -4,7 +4,7 @@
  */
 package inter.face;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  *

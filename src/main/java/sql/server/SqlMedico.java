@@ -1,11 +1,7 @@
 package sql.server;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.*;
+import java.util.*;
 
 public class SqlMedico {
     public static int idMedicoAUtilizarOSistema = 0;
