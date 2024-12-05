@@ -3,7 +3,10 @@ package medi.flow;
 import inter.face.*;
 import sql.server.*;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -24,6 +27,12 @@ public class Main {
 
         // Define o modelo processado na JList
         jList.setModel(modelo);
+    }
+
+    public static Date dataJavaParaSql(String data, String hora) throws ParseException {
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date novaData = dateTimeFormat.parse(data + " " + hora);
+        return novaData;
     }
 
     class RegistroClinico {
