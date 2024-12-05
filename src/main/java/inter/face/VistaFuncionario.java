@@ -704,7 +704,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
             // Chamar o método que cria o paciente caso ele não exista
             SqlFuncionario.criarPacienteMarcacao(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
-            //SqlMedico.criarRegistro(Integer.parseInt(numeroSnsStr));
+            SqlMedico.criarRegistro(Integer.parseInt(numeroSnsStr));
 
             // Chamar o método que cria a consulta
             int idConsultaGerada = SqlFuncionario.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
