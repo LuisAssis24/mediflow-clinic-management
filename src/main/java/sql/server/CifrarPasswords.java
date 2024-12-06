@@ -9,25 +9,34 @@ import java.sql.ResultSet;
 import java.util.Base64;
 
 public class CifrarPasswords {
+    // Define a chave criptografia. A chave é uma string fixa de 8 caracteres para o algaritmo DES
     private static final String password = "12345678";
 
     public static String cifrar(String texto) throws Exception {
+        // Criando a chave secreta a partir da senha fixa
         SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
+        // Inicializando o objeto Cipher para o algarismo DES
         Cipher cifra = Cipher.getInstance("DES");
+        // Configura o Cipher no modo de difragem
         cifra.init(Cipher.ENCRYPT_MODE, passwordkey);
+        // Cifra o texto fornecido e converte o resultado para Base64
         byte[] textoCifrado = cifra.doFinal(texto.getBytes());
         return Base64.getEncoder().encodeToString(textoCifrado); // Converte o texto cifrado para Base64
     }
 
     public static String decifrar(String textoCifrado) throws Exception {
+        // Criando a chave secreta a partir da senha fixa
         SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
+        // Inicialiaza o objeto Cipher para o algarismo DES
         Cipher cifra = Cipher.getInstance("DES");
+        // Configura o Cipher no modo de decifragem
         cifra.init(Cipher.DECRYPT_MODE, passwordkey);
+        //Decifra o texto cifrado fornecido e converte o resultado para texto
         byte[] textoDecifrado = cifra.doFinal(Base64.getDecoder().decode(textoCifrado));
-        return new String(textoDecifrado);
+        return new String(textoDecifrado); // converte o texto decifrado para String
     }
 
-    public static class AtualizarSenhas {
+    /*public static class AtualizarSenhas {
         public static void main(String[] args) {
             // Obtém a conexão com o banco de dados
             Connection conexao = SqlGeral.DatabaseConnection.getInstance();
@@ -65,7 +74,7 @@ public class CifrarPasswords {
             }
         }
     }
-
+*/
     public static void main(String[] args) {
         try {
             String senhaOriginal = "Sampas13"; // Senha original (antes da cifragem)
