@@ -1,38 +1,41 @@
 package sql.server;
 
 import java.sql.*;
-import java.text.*;
 import java.util.*;
+import java.util.Date;
+
+import sql.server.SqlMedico;
 
 public class SqlGeral {
 
-    public static boolean verificarLogin(String utilizador, String senha) {
+    public static boolean verificarLogin(String idUtilizador, String senha) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
-
-        if (conexao != null) {  // Verifica se a conexão foi estabelecida com sucesso
+        if (conexao != null) {
             try {
+                // Cifra a senha fornecida pelo usuário
+                String senhaCifrada = CifrarPasswords.cifrar(senha);
+
                 // Declara uma consulta SQL para verificar as credenciais
-                String sql = "SELECT * FROM Utilizador WHERE ID = ? AND Password = ?"; // Vai a tabela utilizador e verifica o Nome e a Password
+                String sql = "SELECT * FROM Utilizador WHERE ID = ? AND Password = ?";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Substitui os placeholders (?) pelos valores fornecidos pelo utilizador
-                statement.setString(1, utilizador);
-                statement.setString(2, senha);
+                statement.setString(1, idUtilizador);  // Usando ID para login
+                statement.setString(2, senhaCifrada); // Comparando com a senha cifrada
 
-                // Executa a consulta a base de dados e armazena o resultado
+                // Executa a consulta na base de dados e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
-                // Retorna verdadeiro se encontrar um registo correspondente
+                // Retorna verdadeiro se encontrar um registro correspondente
                 return resultado.next();
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
+            } catch (Exception e) {
                 System.out.println("Erro ao verificar as credenciais: " + e.getMessage());
             }
         } else {
-            // Se a conexão não for estabelecida, exibe uma mensagem de erro
             System.out.println("Erro de conexão com o banco de dados.");
         }
-        return false; // Retorna falso se a conexão falhar ou as credenciais forem inválidas
+        return false;
     }
 
 
@@ -42,8 +45,9 @@ public class SqlGeral {
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
+                Date dataHoraAtual = new Date();
                 // Declara uma consulta SQL para obter todos os IDs das consultas
-                String sql = "SELECT ID_Consulta FROM Consulta";
+                String sql = "SELECT ID_Consulta, Data FROM Consulta";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
@@ -51,7 +55,9 @@ public class SqlGeral {
 
                 // Adiciona todos os IDs das consultas à lista
                 while (resultado.next()) {
-                    consultas.add(resultado.getInt("ID_Consulta"));
+                    if (resultado.getDate("Data").after(dataHoraAtual)) {
+                        consultas.add(resultado.getInt("ID_Consulta"));
+                    }
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter as consultas: " + e.getMessage());
@@ -80,6 +86,7 @@ public class SqlGeral {
 
                 // Verifica se encontrou um registo
                 if (resultado.next()) {
+
                     // Adiciona os dados da consulta ao mapa
                     dadosConsulta.put("data", resultado.getString("Data"));
                     dadosConsulta.put("hora", resultado.getString("Hora"));
@@ -90,6 +97,7 @@ public class SqlGeral {
                     dadosConsulta.put("numSala", resultado.getString("Num_Sala"));
                     dadosConsulta.put("idMedico", resultado.getString("ID_Medico"));
                     dadosConsulta.put("idConsulta", resultado.getString("ID_Consulta"));
+
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter os dados da consulta: " + e.getMessage());
@@ -97,7 +105,6 @@ public class SqlGeral {
         }
         return dadosConsulta; // Retorna o mapa com os dados da consulta
     }
-
 
 
     public static String verificarTipoUtilizador(String utilizador) {
@@ -113,6 +120,9 @@ public class SqlGeral {
                 // Executa a consulta e armazena o resultado
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) { // Se encontrar um registo
+                    if (rs.getString("Tipo_Utilizador").equals("Medico")) {
+                        SqlMedico.idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
+                    }
                     return rs.getString("Tipo_Utilizador"); // Retorna o tipo de utilizador
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
@@ -184,7 +194,4 @@ public class SqlGeral {
             }
         }
     }
-
-
-
 }

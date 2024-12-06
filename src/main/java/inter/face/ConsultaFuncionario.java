@@ -9,7 +9,7 @@ import javax.swing.*;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class ConsultaFuncionario extends javax.swing.JPanel {
     int idConsulta;

@@ -3,15 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
-import sql.server.SqlGeral;
-
+import sql.server.*;
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class VistaMedico extends javax.swing.JFrame {
 
@@ -26,12 +24,14 @@ public class VistaMedico extends javax.swing.JFrame {
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         consultasPanel.removeAll();
 
-        List<Integer> consultaIds = SqlGeral.obterTodasConsultas(); // Fetch consultation IDs from the database
+
+        List<Integer> consultaIds = SqlMedico.obterTodasConsultasMedico(); 
         int tamanhoPainelConsultas = 0; // Variavel para controlar o tamanho do painel de consultas
 
         // Itera sobre todos os IDs das consultas obtidas
         for (int idConsulta : consultaIds) {
-            HashMap<String, String> dadosConsulta = SqlGeral.dadosConsulta(idConsulta);  // Obtem os dados de cada consulta da base de dados
+            HashMap<String, String> dadosConsulta = SqlMedico.dadosConsultaMedico(idConsulta); // Obtem os dados de cada consulta da base de dados
+
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
@@ -93,11 +93,13 @@ public class VistaMedico extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1080, 660));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
+        jScrollPane1.setBackground(new java.awt.Color(242, 242, 242));
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 132, 193), 6, true));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setColumnHeaderView(null);
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setMinimumSize(new java.awt.Dimension(960, 600));
+        jScrollPane1.setOpaque(false);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(960, 600));
         JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
         verticalScrollBar.setValue(verticalScrollBar.getMinimum());
@@ -110,6 +112,7 @@ public class VistaMedico extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         jPanel3.add(jScrollPane1, gridBagConstraints);
+        jScrollPane1.getViewport().setOpaque(false);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

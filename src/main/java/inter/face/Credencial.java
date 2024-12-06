@@ -4,11 +4,11 @@
  */
 package inter.face;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class Credencial extends javax.swing.JPanel {
 

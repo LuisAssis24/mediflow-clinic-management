@@ -3,19 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import javax.swing.*;
 import sql.server.*;
+import medi.flow.Main;
 
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
+import java.util.Date;
 
 /**
  *
- * @author draga
+ * @author Luis
  */
 public class VistaFuncionario extends javax.swing.JFrame {
     //ArrayList<> consultas = new ArrayList<Consulta>();
@@ -708,8 +707,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
 
             // Verificar se a data e hora da consulta são no futuro
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            Date dataHoraConsulta = dateTimeFormat.parse(data + " " + hora);
+            Date dataHoraConsulta = Main.dataJavaParaSql(data, hora);
             Date dataHoraAtual = new Date();
 
             if (dataHoraConsulta.before(dataHoraAtual)) {
@@ -719,6 +717,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
             // Chamar o método que cria o paciente caso ele não exista
             SqlFuncionario.criarPacienteMarcacao(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
+            SqlMedico.criarRegistro(Integer.parseInt(numeroSnsStr));
 
             // Chamar o método que cria a consulta
             int idConsultaGerada = SqlFuncionario.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);

@@ -1,14 +1,40 @@
 package medi.flow;
 
-import inter.face.VistaDeLogin;
-import sql.server.SqlGeral;
-
-import java.sql.Connection;
+import inter.face.*;
+import sql.server.*;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    public static void quebraPontos(javax.swing.JList<String> jList, String texto) {
+        // Divide o texto usando "." como separador
+        String[] partes = texto.split("\\.");
+
+        // Cria um novo modelo para o JList
+        javax.swing.DefaultListModel<String> modelo = new javax.swing.DefaultListModel<>();
+
+        // Adiciona cada parte ao modelo, ignorando itens vazios
+        for (String parte : partes) {
+            if (!parte.trim().isEmpty()) {
+                modelo.addElement(parte.trim());
+            }
+        }
+
+        // Define o modelo processado na JList
+        jList.setModel(modelo);
+    }
+
+    public static Date dataJavaParaSql(String data, String hora) throws ParseException {
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date novaData = dateTimeFormat.parse(data + " " + hora);
+        return novaData;
+    }
+
     class RegistroClinico {
         private String dataNascimento;
         private int cc;
@@ -142,6 +168,9 @@ public class Main {
         public Consulta verConsulta(String dia, String hora, Paciente paciente) { return null; }
     }
     public static void main(String[] args) {
+
+
+
     // Cria a conexão com a base de dados assim que o programa inicia
         Connection connection = SqlGeral.DatabaseConnection.getInstance();
 
