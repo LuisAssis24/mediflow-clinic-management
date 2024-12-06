@@ -18,7 +18,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
      * Creates new form VistaDeLogin
      */
     public VistaDeLogin() {
-        initComponents();
+        initComponents(); // Inicializa os componentes da interface gráfica
     }
 
     /**
@@ -175,7 +175,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeUtilizadorActionPerformed
 
 
-
+    // Ação para verificar login ao clicar no botão
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
         String utilizador = nomeUtilizador.getText();
@@ -215,8 +215,11 @@ public class VistaDeLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
+    //Adiciona um keyListener a todos os componentes da janela
     private void addKeyListenerToComponents(java.awt.Container container) {
+        //Percorre todos os componentes do conteiner passado como parametro
         for (java.awt.Component component : container.getComponents()) {
+            // Adiciona um keyListener para capturar eventos de tecla pressionada
             component.addKeyListener(new java.awt.event.KeyAdapter() {
                 public void keyPressed(java.awt.event.KeyEvent evt) {
                     formKeyPressed(evt);

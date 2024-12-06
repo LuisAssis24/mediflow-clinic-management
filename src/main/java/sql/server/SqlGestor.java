@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 public class SqlGestor {
+    // Obtem uma lista com todos os IDs dos utilizadores
     public static ArrayList<String> obterTodosUtilizadores() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         ArrayList<String> utilizadores = new ArrayList<>(); // Lista para armazenar os IDs dos utilizadores
@@ -29,6 +30,7 @@ public class SqlGestor {
         return utilizadores; // Retorna a lista com os IDs dos utilizadores
     }
 
+    // Obtem os dados detalhados de um utilizador especifico
     public static HashMap<String, String> dadosUtilizador(String IDUtilizador) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         HashMap<String, String> dadosUtilizador = new HashMap<>(); // Mapa para armazenar os dados do utilizador
@@ -61,6 +63,7 @@ public class SqlGestor {
         return dadosUtilizador; // Retorna o mapa com os dados do utilizador
     }
 
+    // Cria um utilizador e, se for medico, adiciona os detalhes na tabela medico
     public static int criarUtilizadorEAdicionarMedico(String nome, String password, String tipoUtilizador, int cc,
                                                       String especialidade, int numOrdem) {
         int idUtilizadorGerado = -1; // Variável para armazenar o ID gerado
@@ -106,6 +109,7 @@ public class SqlGestor {
         return idUtilizadorGerado; // Retorna o ID gerado para o utilizador
     }
 
+    // Elimina um utilizador da base de dados com base no ID
     public static boolean eliminarUtilizador(int id) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
@@ -125,6 +129,7 @@ public class SqlGestor {
         return false; // Retorna falso se algo deu errado
     }
 
+    // Obtem uma lista de todos os gestores
     public static List<HashMap<String, String>> obterTodosGestores() {
         List<HashMap<String, String>> gestores = new ArrayList<>();
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
@@ -149,6 +154,7 @@ public class SqlGestor {
         return gestores;
     }
 
+    // Procura um utilizador pelo ID usando um stored procedure
     public static HashMap<String, String> procurarUtilizadorPorID(int idUtilizador) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();  // Obtém a conexão com o banco de dados
         HashMap<String, String> resultadoUtilizador = new HashMap<>();  // Mapa para armazenar os dados do utilizador

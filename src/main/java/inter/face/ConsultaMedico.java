@@ -18,7 +18,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
      * Creates new form Consulta
      */
     public ConsultaMedico(HashMap<String, String> dadosConsulta) {
-        initComponents();
+        initComponents(); // Inicializa os componentes da interface
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
         data.setText(dadosConsulta.getOrDefault("data", "Data não disponível"));

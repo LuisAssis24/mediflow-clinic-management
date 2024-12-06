@@ -17,18 +17,21 @@ public class VistaMedico extends javax.swing.JFrame {
      * Creates new form VistaBase
      */
     public VistaMedico() {
-        initComponents();
-        carregarConsultasBaseDeDados();
+        initComponents(); // Inicializa os componentes da interface grafica
+        carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
     }
     
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         consultasPanel.removeAll();
 
-        List<Integer> consultaIds = SqlMedico.obterTodasConsultasMedico(); // Fetch consultation IDs from the database
-        int tamanhoPainelConsultas = 0;
 
+        List<Integer> consultaIds = SqlMedico.obterTodasConsultasMedico(); 
+        int tamanhoPainelConsultas = 0; // Variavel para controlar o tamanho do painel de consultas
+
+        // Itera sobre todos os IDs das consultas obtidas
         for (int idConsulta : consultaIds) {
-            HashMap<String, String> dadosConsulta = SqlMedico.dadosConsultaMedico(idConsulta); // Fetch consultation data
+            HashMap<String, String> dadosConsulta = SqlMedico.dadosConsultaMedico(idConsulta); // Obtem os dados de cada consulta da base de dados
+
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta(dadosConsulta); // Create and add the consultation panel

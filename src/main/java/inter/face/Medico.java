@@ -14,7 +14,7 @@ public class Medico extends javax.swing.JPanel {
      * Creates new form Medico
      */
     public Medico() {
-        initComponents();
+        initComponents(); // Inicializa os componentes da interface
     }
 
     /**

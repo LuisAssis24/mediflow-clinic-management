@@ -22,33 +22,34 @@ public class VistaGestor extends javax.swing.JFrame {
      */
     public VistaGestor() {
         initComponents();
-        carregarCredenciaisBaseDeDados();
+        carregarCredenciaisBaseDeDados(); // Carrega as credenciais existentes
     }
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll(); // Limpa o painel de credenciais
 
-        List<String> utilizadores = SqlGestor.obterTodosUtilizadores();
+        List<String> utilizadores = SqlGestor.obterTodosUtilizadores(); // Obtem os IDs de todos os utilizadores
 
-        // Sort the users by type: Secretaria, Médico, Gestor, and then by ID
+        // Ordena os utilizadores pelo tipo (secretaria, medico, gestor) e, depois, pelo ID
         utilizadores.sort((id1, id2) -> {
-            String tipo1 = SqlGestor.dadosUtilizador(id1).get("TipoUtilizador");
-            String tipo2 = SqlGestor.dadosUtilizador(id2).get("TipoUtilizador");
-            int tipoComparison = tipo1.compareToIgnoreCase(tipo2);
+            String tipo1 = SqlGestor.dadosUtilizador(id1).get("TipoUtilizador"); // Tipo de utilizador 1
+            String tipo2 = SqlGestor.dadosUtilizador(id2).get("TipoUtilizador"); // Tipo de utilizador 2
+            int tipoComparison = tipo1.compareToIgnoreCase(tipo2); // compara os tipos 
             if (tipoComparison != 0) {
-                return tipoComparison;
+                return tipoComparison; // Ordena por tipo, se forem diferentes
             }
-            return id1.compareTo(id2);
+            return id1.compareTo(id2); // Ordena por Id se o tipo for igual
         });
 
-        int tamanhoPainelCredenciais = 0;
+        int tamanhoPainelCredenciais = 0; // Contador para os elementos adicionados ao painel
 
+        // Itera pelos IDs dos utilizadores
         for (String id : utilizadores) {
-            dados = SqlGestor.dadosUtilizador(id);
-            if ("Gestor".equalsIgnoreCase(dados.get("TipoUtilizador"))) {
+            dados = SqlGestor.dadosUtilizador(id); // Obtem os dados do utilizador com base no ID
+            if ("Gestor".equalsIgnoreCase(dados.get("TipoUtilizador"))) { // Caso o utilizador seja do tipo "gestor"
                 String senha = dados.get("Password");
                 dados.put("Password", "*".repeat(senha.length())); // Esconde a senha com a quantidade correspondente de asteriscos
             }
-            criarPainelCredencial();
+            criarPainelCredencial(); // Cria e adiciona o painel individual do utilizador
             tamanhoPainelCredenciais++;
         }
 
@@ -58,14 +59,15 @@ public class VistaGestor extends javax.swing.JFrame {
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
 
+        // Atualiza o painel para refletir as mudanças na interface grafica
         credenciaisPanel.revalidate();
         credenciaisPanel.repaint();
         credenciaisPanel.setVisible(true);
     }
     
     void criarPainelCredencial(){ //Adiciona uma credencial ao painel
-        Credencial credencial = new Credencial(dados, this);
-        credenciaisPanel.add(credencial);
+        Credencial credencial = new Credencial(dados, this); // Cria uma instancia da classe credencial
+        credenciaisPanel.add(credencial); // Adiciona o painel de credencial ao painel principal
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,15 +76,15 @@ public class VistaGestor extends javax.swing.JFrame {
      */
 
     void mostrarPainelSenha(String id) {
-        JPasswordField passwordField = new JPasswordField();
+        JPasswordField passwordField = new JPasswordField(); // Campo para entrada da senha
         int option = JOptionPane.showConfirmDialog(this, passwordField, "Digite a senha do gestor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (option == JOptionPane.OK_OPTION) {
-            String senha = new String(passwordField.getPassword());
-            if (verificarSenhaGestor(senha)) {
-                eliminarUtilizador(id);
+        if (option == JOptionPane.OK_OPTION) { // Se o utilziador confirmar a operação:
+            String senha = new String(passwordField.getPassword()); // Obtem a senha inserida
+            if (verificarSenhaGestor(senha)) { // Verifica se a sneha está correta
+                eliminarUtilizador(id); // Elimina o utilizador com o ID fornecido
             } else {
-                JOptionPane.showMessageDialog(this, "Senha incorreta!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Senha incorreta!", "Erro", JOptionPane.ERROR_MESSAGE); // Exibe o erro
             }
         }
     }
@@ -102,8 +104,8 @@ public class VistaGestor extends javax.swing.JFrame {
 
     private void eliminarUtilizador(String id) {
         try {
-            int idInt = Integer.parseInt(id);
-            boolean eliminado = SqlGestor.eliminarUtilizador(idInt);
+            int idInt = Integer.parseInt(id); // Converte o ID de String para inteiro
+            boolean eliminado = SqlGestor.eliminarUtilizador(idInt); // Chama o metodo para eliminar o utilizador
             if (eliminado) {
                 JOptionPane.showMessageDialog(this, "Utilizador eliminado com sucesso!");
                 System.out.println("Utilizador eliminado, recarregando credenciais...");
@@ -112,7 +114,7 @@ public class VistaGestor extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Erro ao eliminar utilizador!");
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID inválido: " + id);
+            JOptionPane.showMessageDialog(this, "ID inválido: " + id); // exibe mesnagem de erro
         }
     }
 
@@ -491,26 +493,32 @@ public class VistaGestor extends javax.swing.JFrame {
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt) {
+        // Esconde a barra de pesquisa e o botao de pesquisa
         barraPesquisa.setVisible(false);
         botaoPesquisa.setVisible(false);
+        // Exibe o painel de criação de credencial
         criarCredencial.setVisible(true);
-        credenciaisPanel.setVisible(false);
-        eliminarCredencial.setVisible(false);
+        credenciaisPanel.setVisible(false); // Esconde o painel de credenciais
+        eliminarCredencial.setVisible(false); // Esconde o painel de eliminação de credenciais
     }                                                    
-
+    
+    // Metodo adicionado quando o botao para eliminar credenciais é clicado
     private void botaoEliminarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarCredencialActionPerformed
-        eliminarCredencial.setVisible(true);
+        eliminarCredencial.setVisible(true); // Exibe o painel para eliminar credenciais
+        // Exibe a barra de pesquisa e o botão de pesquisa
         barraPesquisa.setVisible(true);
         botaoPesquisa.setVisible(true);
-        credenciaisPanel.setVisible(true);
-        criarCredencial.setVisible(false);
+        credenciaisPanel.setVisible(true); // Exibe o painel de credenciais existentes
+        criarCredencial.setVisible(false); // Esconde o painel de criação de credenciais
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
+    // Metodo adionado quando o botão de pesquisa é pressionado
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            int idUtilizador = Integer.parseInt(barraPesquisa.getText());
-            HashMap<String, String> dadosUtilizador = SqlGestor.procurarUtilizadorPorID(idUtilizador);
+            int idUtilizador = Integer.parseInt(barraPesquisa.getText()); // Tenta converter o valor da barra de pesquisa para inteiro (ID do utilizador)
+            HashMap<String, String> dadosUtilizador = SqlGestor.procurarUtilizadorPorID(idUtilizador); // Chama o metodo para procurar o utilizador pelo ID
 
+            // Se o utilizador for encontrado, exibe os dados
             if (dadosUtilizador != null && !dadosUtilizador.isEmpty()) {
                 System.out.println("Dados do Utilizador: " + dadosUtilizador);
 
@@ -552,16 +560,18 @@ public class VistaGestor extends javax.swing.JFrame {
     }
 
 
-
+    // Metodo acionado quando a sleção do tipo de funcionario é alterada
     private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
         String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();
 
+        // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
         if ("Médico".equalsIgnoreCase(tipoSelecionado)) {
             especialidade.setVisible(true);
             numeroDeMedico.setVisible(true);
             nMedicoLabel.setVisible(true);
             especLabel.setVisible(true);
         } else {
+            // Caso contrario, esconde esses campos
             especialidade.setVisible(false);
             numeroDeMedico.setVisible(false);
             nMedicoLabel.setVisible(false);
@@ -573,6 +583,7 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel2.repaint();
     }//GEN-LAST:event_tipoFuncionarioActionPerformed
 
+    // metodo acionado quando o botao "Concluir" é pressionado para criar um novo utilizador
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
         try {
             // Obter dados da interface gráfica

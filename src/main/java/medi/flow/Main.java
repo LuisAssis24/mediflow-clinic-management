@@ -42,8 +42,10 @@ public class Main {
         private List<String> alergias;
         private List<String> historicoDoencas;
 
+        // Construtor
         public RegistroClinico(String dataNascimento, int cc, List<String> tratamentos, List<String> alergias, List<String> historicoDoencas) {}
 
+        // Metodos getters para acesso aos atributos privados
         public String getDataNascimento() { return dataNascimento; }
         public int getCc() { return cc; }
         public List<String> getTratamentos() { return null; }
@@ -58,8 +60,10 @@ public class Main {
         private String assunto;
         private List<String> tratamento;
 
+        //Construtor para inicializar os atributos
         public EntradaRegistroClinico(String data, Medico medico, String assunto, List<String> tratamento) {}
 
+        // metodos getters
         public String getData() { return data; }
         public Medico getMedico() { return medico; }
         public String getAssunto() { return assunto; }
@@ -71,8 +75,10 @@ public class Main {
         private String dataEmissao;
         private List<String> medicacaoPrescrita;
 
+        // Construtor para inicializar os atributos
         public Receita(int numeroReceita, String dataEmissao, List<String> medicacaoPrescrita) {}
 
+        // metodos getters
         public int getNumeroReceita() { return numeroReceita; }
         public String getDataEmissao() { return dataEmissao; }
         public List<String> getMedicacaoPrescrita() { return null; }
@@ -83,8 +89,10 @@ public class Main {
         private String nome;
         private String contacto;
 
+        // Construtor par ainicializar os atributos
     public Paciente(int numeroSns, String nome, String contacto) {}
 
+        // Metodos getters
         public int getNumeroSns() { return numeroSns; }
         public String getNome() { return nome; }
         public String getContacto() { return contacto; }
@@ -94,6 +102,7 @@ public class Main {
         private int numeroMedico;
         private String especialidade;
 
+        // Metodos getters e setters
         public int getNumeroMedico() { return numeroMedico; }
         public String getEspecialidade() { return especialidade; }
         public void setEspecialidade(String especialidade) {}
@@ -109,8 +118,10 @@ public class Main {
         private Medico medico;
         private Paciente paciente;
 
+        // COnstrutor para inicializar os atributos
     public Consulta(Sala sala, String data, String hora, boolean estado) {}
 
+        // Metodos getters e setters
         public Sala getSala() { return sala; }
         public String getData() { return data; }
         public String getHora() { return hora; }
@@ -123,6 +134,7 @@ public class Main {
         private int numero;
         private int especialidade;
 
+        // Metodos getters
         public int getNumero() { return numero; }
         public int getEspecialidade() { return especialidade; }
     }
@@ -133,8 +145,10 @@ public class Main {
         private int numeroClinica;
         private String nome;
 
+        // Construtor para inicializar os atributos
         public Utilizador(String nomeUtilizador, String password, int numeroClinica, String nome) {}
 
+        // Metodos getters
         public String getNomeUtilizador() { return nomeUtilizador; }
         public String getPassword() { return password; }
         public int getNumeroClinica() { return numeroClinica; }
