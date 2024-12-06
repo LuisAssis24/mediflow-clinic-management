@@ -95,11 +95,20 @@ public class VistaGestor extends javax.swing.JFrame {
 
         // Verifique se a senha fornecida corresponde a alguma senha de gestor
         for (HashMap<String, String> gestor : gestores) {
-            if (gestor.get("Password").equals(senha)) {
-                return true;
+            try {
+                // Descriptografa a senha armazenada do gestor
+                String senhaDescriptografada = CifrarPasswords.decifrar(gestor.get("Password"));
+
+                // Compara a senha fornecida com a senha descriptografada
+                if (senhaDescriptografada.equals(senha)) {
+                    return true; // A senha fornecida é válida
+                }
+            } catch (Exception e) {
+                // Se ocorrer algum erro na descriptografia, ignore esse gestor
+                System.out.println("Erro ao descriptografar a senha do gestor: " + e.getMessage());
             }
         }
-        return false;
+        return false; // Nenhuma senha correspondente foi encontrada
     }
 
     private void eliminarUtilizador(String id) {
