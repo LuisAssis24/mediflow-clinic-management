@@ -31,7 +31,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         String idConsultaStr = dadosConsulta.get("idConsulta");
         if (idConsultaStr != null) {
             try {
-                idConsulta = Integer.parseInt(idConsultaStr);
+                idConsulta = Integer.parseInt(idConsultaStr); //Converte o ID para inteiro
             } catch (NumberFormatException e) {
                 System.out.println("ID_Consulta inválido: " + idConsultaStr);
                 idConsulta = -1; // Define um valor padrão para erros
@@ -223,12 +223,12 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
-        SqlFuncionario.desmarcarConsulta(idConsulta);
-        JPanel parentPanel = (JPanel) this.getParent();
-        parentPanel.remove(this);
+        SqlFuncionario.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
+        JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
+        parentPanel.remove(this); // remove este painel
         parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));
-        parentPanel.revalidate();
-        parentPanel.repaint();
+        parentPanel.revalidate(); // Atualiza o painel
+        parentPanel.repaint(); // Redesenha o painel
     }//GEN-LAST:event_botaoDesmarcarActionPerformed
 
 

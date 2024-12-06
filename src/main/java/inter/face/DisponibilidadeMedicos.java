@@ -16,29 +16,33 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
      * Creates new form DisponibilidadeMedicos
      */
     public DisponibilidadeMedicos() {
-        initComponents();
-        carregarMedicosBaseDeDados();
+        initComponents(); // Inicializa os componentes da interface gráfica
+        carregarMedicosBaseDeDados(); // Carrega os dados simulados dos médicos na interface
     }
     
     void carregarMedicosBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         int tamanhoPainelConsultas = 0;
+        
+        // Simula a criação de 15 paineis de médicos
         for (int i = 0; i < 15; i++) {
             tamanhoPainelConsultas+=50; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
             medicosPanel.setPreferredSize(new java.awt.Dimension(720, tamanhoPainelConsultas));
-            criarPainelMedico();
+            criarPainelMedico(); // Adiciona um painel de medico ao conteiner
         }
          //Faz o scroll começar em cima
         SwingUtilities.invokeLater(() -> {
             JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
+        
+        // Atualiza a interface após a adição dos componentes
         medicosPanel.revalidate();
         medicosPanel.repaint();
     }
         
     void criarPainelMedico(){ //Adiciona uma consulta ao painel
-        Medico medico = new Medico();
-        medicosPanel.add(medico);
+        Medico medico = new Medico(); // Criação de um painel do tipo "Medico"
+        medicosPanel.add(medico); // Adiciona o painel ao conteiner principal
     }
     /**
      * This method is called from within the constructor to initialize the form.

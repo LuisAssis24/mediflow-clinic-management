@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class SqlFuncionario {
+    // Metodo para buscar uma consulta pelo numero SNS do paceinte
     public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com o banco de dados
         HashMap<String, String> resultadoConsulta = new HashMap<>(); // Mapa para armazenar os resultados
@@ -47,6 +48,7 @@ public class SqlFuncionario {
     }
 
 
+    // Metodo para criar uma nova consulta medica
     public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
         int idConsultaGerado = -1; // Variável para armazenar o ID gerado pela base de dados
@@ -92,6 +94,7 @@ public class SqlFuncionario {
         return idConsultaGerado; // Retorna o ID gerado para aprsentar ao utilizador
     }
 
+    // Metodo para desmarcar uma consulta existente
     public static void desmarcarConsulta(int IDConsulta){
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
@@ -111,6 +114,7 @@ public class SqlFuncionario {
         }
     }
 
+    // Metodo para verificar se um paciente já existe no banco de dados
     public static boolean verificarPacienteExiste(int numero) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
         String sqlVerificar = "SELECT COUNT(*) FROM Paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
@@ -132,6 +136,7 @@ public class SqlFuncionario {
         return false;
     }
 
+    // Metodo para criar um novo paciente caso eel nao exista
     public static void criarPacienteMarcacao(int numero, String nome, int contacto) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
         if (!verificarPacienteExiste(numero)) {

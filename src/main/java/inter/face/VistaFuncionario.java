@@ -23,36 +23,43 @@ public class VistaFuncionario extends javax.swing.JFrame {
      * Creates new form VistaBase
      */
     public VistaFuncionario() {
-        initComponents();
-        carregarConsultasBaseDeDados();
+        initComponents(); // Inicializa os componentes da interface
+        carregarConsultasBaseDeDados(); // Carrega as consultas da base de dados
     }
 
     void carregarConsultasBaseDeDados() {
-        consultasPanel.removeAll();
+        consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
 
+        // Obtem os IDs das consultas da base de dados
         List<Integer> consultaIds = SqlGeral.obterTodasConsultas(); // Fetch consultation IDs from the database
-        int tamanhoPainelConsultas = 0;
+        int tamanhoPainelConsultas = 0; // Variavel para controlar o tamanho do painel de consultas
 
+        // Itera sobre cada ID de consulta para carregar os dados associados
         for (int idConsulta : consultaIds) {
-            HashMap<String, String> dadosConsulta = SqlGeral.dadosConsulta(idConsulta); // Fetch consultation data
-            tamanhoPainelConsultas += 100; // Increase the size of the parent panel
+            // Obtem os dados da consulta em forma de HashMap com chave/valor
+            HashMap<String, String> dadosConsulta = SqlGeral.dadosConsulta(idConsulta); 
+            
+            // Ajusta o tamanho do painel de consultas
+            tamanhoPainelConsultas += 100;
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
+            criarPainelConsulta(dadosConsulta);  // Cria e adiciona o painel da consulta ao paienl principal
         }
 
-        // Scroll to the top
+        // Move a barra de scroll para o topo do painel de consultas
         SwingUtilities.invokeLater(() -> {
             JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
 
+        // Atualiza a interface gráfica para refletir as mudanças
         consultasPanel.revalidate();
         consultasPanel.repaint();
     }
 
     void criarPainelConsulta(HashMap<String, String> dadosConsulta) {
+        // Cria um painel de consulta com os dados fornecidos 
         ConsultaFuncionario consulta = new ConsultaFuncionario(dadosConsulta);
-        consultasPanel.add(consulta);
+        consultasPanel.add(consulta); // Adiciona o painel criado ao painel principal de consultas
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -540,6 +547,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
 
 
+        // Verifica se o painel "verConsultas" está oculto
         if (verConsultas.isVisible() == false){
             barraPesquisa.setVisible(true);
             botaoPesquisa.setVisible(true);
@@ -549,6 +557,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoVerConsultasActionPerformed
 
     private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
+        // Verifica se o painel "marcarConsultas" está oculto
         if (marcarConsultas.isVisible() == false){
             barraPesquisa.setVisible(false);
             botaoPesquisa.setVisible(false);
@@ -565,26 +574,30 @@ public class VistaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
-        String inputSNS = barraPesquisa.getText().trim();
+        String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
+        // Verifica se o campo de pesquisa está vazio
         if (inputSNS == null || inputSNS.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, insira um número de SNS.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Verifica se o valor inserido contém apenas numeros
         if (!inputSNS.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "Por favor, insira apenas números.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
-            int snsPaciente = Integer.parseInt(inputSNS);
+            int snsPaciente = Integer.parseInt(inputSNS); // Converte o texto em um numero inteiro
             System.out.println("Pesquisando consulta para SNS: " + snsPaciente);
 
+            // Realiza a busca na base de dados
             HashMap<String, String> dadosConsulta = SqlFuncionario.procurarConsultaPorSNS(snsPaciente);
 
-            consultasPanel.removeAll();
+            consultasPanel.removeAll(); // Limpa o painel de consultas
 
+            // Verifica se há resultados
             if (dadosConsulta.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -623,9 +636,9 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
     public void pacienteAutoFill() {
     try {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtem conexão com a base de dados
         // Obter o número do paciente
-        int numero = Integer.parseInt(nSns.getText());
+        int numero = Integer.parseInt(nSns.getText()); // Converte o texto do campo SNS em um numero
 
         // Verificar se o paciente existe
         if (SqlFuncionario.verificarPacienteExiste(numero)) {

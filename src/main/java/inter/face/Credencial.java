@@ -16,14 +16,17 @@ public class Credencial extends javax.swing.JPanel {
      * Creates new form Credencial
      */
 
+    // Referencia ao painel principal (Vista gestor), que controla a interface
     private VistaGestor vistaGestor;
-    private String id;
+    private String id; // ID da credencial a ser exibida
 
     public Credencial(HashMap<String, String> dados, VistaGestor vistaGestor) {
+        // Inicializa os atributos
         this.vistaGestor = vistaGestor;
         this.id = dados.get("ID");
-        initComponents();
+        initComponents(); // Inicializa os componentes da interface
 
+        // Define os valores nos componentes da interface com base nos dados fornecidos
         idCredencial.setText(dados.getOrDefault("ID", "ID não disponível"));
         nomeCredencial.setText(dados.getOrDefault("Nome", "Nome não disponível"));
         password.setText(dados.getOrDefault("Password", "Password não disponível"));
@@ -163,7 +166,7 @@ public class Credencial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoDesmarcar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcar1ActionPerformed
-        vistaGestor.mostrarPainelSenha(id);
+        vistaGestor.mostrarPainelSenha(id); // Chama a ação na vista principal para gerenciar a exclusão
     }//GEN-LAST:event_botaoDesmarcar1ActionPerformed
 
 
