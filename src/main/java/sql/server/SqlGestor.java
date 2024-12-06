@@ -73,7 +73,10 @@ public class SqlGestor {
             try (CallableStatement callableStatement = conexao.prepareCall(sqlCriarUtilizador)) {
                 callableStatement.setInt(1, cc);                // CC
                 callableStatement.setString(2, nome);           // Nome
-                callableStatement.setString(3, password);       // Password
+
+                String senhaCifrada = CifrarPasswords.cifrar(password);
+                callableStatement.setString(3, senhaCifrada); // Password cifrada
+
                 callableStatement.setString(4, tipoUtilizador); // Tipo de utilizador
                 callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // ID gerado
 
@@ -96,7 +99,8 @@ public class SqlGestor {
 
         } catch (SQLException e) {
             e.printStackTrace();
-
+        } catch (Exception e) { // Trata erros de cifragem
+            System.out.println("Erro ao cifrar a senha: " + e.getMessage());
         }
 
         return idUtilizadorGerado; // Retorna o ID gerado para o utilizador

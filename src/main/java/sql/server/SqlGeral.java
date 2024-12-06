@@ -8,33 +8,34 @@ import sql.server.SqlMedico;
 
 public class SqlGeral {
 
-    public static boolean verificarLogin(String utilizador, String senha) {
+    public static boolean verificarLogin(String idUtilizador, String senha) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
-
-        if (conexao != null) {  // Verifica se a conexão foi estabelecida com sucesso
+        if (conexao != null) {
             try {
+                // Cifra a senha fornecida pelo usuário
+                String senhaCifrada = CifrarPasswords.cifrar(senha);
+
                 // Declara uma consulta SQL para verificar as credenciais
-                String sql = "SELECT * FROM Utilizador WHERE ID = ? AND Password = ?"; // Vai a tabela utilizador e verifica o Nome e a Password
+                String sql = "SELECT * FROM Utilizador WHERE ID = ? AND Password = ?";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Substitui os placeholders (?) pelos valores fornecidos pelo utilizador
-                statement.setString(1, utilizador);
-                statement.setString(2, senha);
+                statement.setString(1, idUtilizador);  // Usando ID para login
+                statement.setString(2, senhaCifrada); // Comparando com a senha cifrada
 
-                // Executa a consulta a base de dados e armazena o resultado
+                // Executa a consulta na base de dados e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
-                // Retorna verdadeiro se encontrar um registo correspondente
+                // Retorna verdadeiro se encontrar um registro correspondente
                 return resultado.next();
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
+            } catch (Exception e) {
                 System.out.println("Erro ao verificar as credenciais: " + e.getMessage());
             }
         } else {
-            // Se a conexão não for estabelecida, exibe uma mensagem de erro
             System.out.println("Erro de conexão com o banco de dados.");
         }
-        return false; // Retorna falso se a conexão falhar ou as credenciais forem inválidas
+        return false;
     }
 
 

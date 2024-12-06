@@ -154,6 +154,9 @@ public class Main {
         public Consulta verConsulta(String dia, String hora, Paciente paciente) { return null; }
     }
     public static void main(String[] args) {
+
+
+
     // Cria a conexão com a base de dados assim que o programa inicia
         Connection connection = SqlGeral.DatabaseConnection.getInstance();
 
