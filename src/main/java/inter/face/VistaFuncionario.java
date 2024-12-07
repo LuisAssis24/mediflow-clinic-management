@@ -562,14 +562,15 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
 
-
         // Verifica se o painel "verConsultas" está oculto
         if (verConsultas.isVisible() == false){
             barraPesquisa.setVisible(true);
             botaoPesquisa.setVisible(true);
             verConsultas.setVisible(true);
             marcarConsultas.setVisible(false);
-        }// TODO add your handling code here:
+        }
+        // Recarrega as consultas da base de dados
+        carregarConsultasBaseDeDados();
     }//GEN-LAST:event_botaoVerConsultasActionPerformed
 
     private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
