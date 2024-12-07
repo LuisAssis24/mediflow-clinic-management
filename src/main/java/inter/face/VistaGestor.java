@@ -610,7 +610,7 @@ public class VistaGestor extends javax.swing.JFrame {
         String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();
 
         // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
-        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {
+        if ("Medico".equalsIgnoreCase(tipoSelecionado)) {
             especialidade.setVisible(true);
             numeroDeMedico.setVisible(true);
             nMedicoLabel.setVisible(true);
@@ -641,7 +641,7 @@ public class VistaGestor extends javax.swing.JFrame {
             String espcialidade = "";
             int numOrdem = 0;
 
-            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
                 // Obter os valores adicionais para médicos
                 espcialidade = especialidade.getText();
                 numOrdem = Integer.parseInt(numeroDeMedico.getText());

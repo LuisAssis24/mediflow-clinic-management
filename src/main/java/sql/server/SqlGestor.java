@@ -89,7 +89,7 @@ public class SqlGestor {
             }
 
             // 2. Verificar se o tipo de utilizador é "Médico"
-            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
                 // 3. Inserir os detalhes na tabela Medico
                 try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlAdicionarMedico)) {
                     preparedStatement.setInt(1, idUtilizadorGerado);    // ID do médico
