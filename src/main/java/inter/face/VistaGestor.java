@@ -6,6 +6,8 @@ package inter.face;
 
 import javax.swing.*;
 import sql.server.*;
+
+import java.sql.SQLException;
 import java.util.*;
 
 import static sql.server.SqlGestor.*;
@@ -114,7 +116,8 @@ public class VistaGestor extends javax.swing.JFrame {
     private void eliminarUtilizador(String id) {
         try {
             int idInt = Integer.parseInt(id); // Converte o ID de String para inteiro
-            boolean eliminado = SqlGestor.eliminarUtilizador(idInt); // Chama o metodo para eliminar o utilizador
+            boolean eliminado = SqlGestor.eliminarUtilizador(idInt); // Chama o método para eliminar o utilizador
+
             if (eliminado) {
                 JOptionPane.showMessageDialog(this, "Utilizador eliminado com sucesso!");
                 System.out.println("Utilizador eliminado, recarregando credenciais...");
@@ -122,10 +125,43 @@ public class VistaGestor extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao eliminar utilizador!");
             }
+
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID inválido: " + id); // exibe mesnagem de erro
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro: O ID fornecido é inválido. Por favor, insira um número válido.",
+                    "Erro ao eliminar utilizador",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } catch (SQLException e) {
+            // Captura o erro específico de chave estrangeira
+            if (e.getMessage().contains("foreign key") || e.getMessage().contains("constraint fails")) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Erro: Não é possível eliminar o utilizador porque ele está associado a outros registros no sistema.",
+                        "Erro ao eliminar utilizador",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Erro no banco de dados: " + e.getMessage(),
+                        "Erro ao eliminar utilizador",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro inesperado ao eliminar utilizador: " + e.getMessage(),
+                    "Erro ao eliminar utilizador",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
+
+
+
 
 
 

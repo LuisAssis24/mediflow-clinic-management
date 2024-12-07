@@ -110,23 +110,19 @@ public class SqlGestor {
     }
 
     // Elimina um utilizador da base de dados com base no ID
-    public static boolean eliminarUtilizador(int id) {
+    public static boolean eliminarUtilizador(int id) throws SQLException {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
         if (conexao != null) {
-            try {
-                String sql = "DELETE FROM Utilizador WHERE ID = ?";
-                PreparedStatement stmt = conexao.prepareStatement(sql);
+            String sql = "DELETE FROM Utilizador WHERE ID = ?";
+            try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
                 stmt.setInt(1, id);
 
                 int linhasAfetadas = stmt.executeUpdate();
                 return linhasAfetadas > 0; // Retorna true se alguma linha foi excluída
-            } catch (SQLException e) {
-                System.out.println("Erro ao eliminar utilizador: " + e.getMessage());
             }
         }
-
-        return false; // Retorna falso se algo deu errado
+        return false; // Retorna falso se a conexão for nula
     }
 
     // Obtem uma lista de todos os gestores
