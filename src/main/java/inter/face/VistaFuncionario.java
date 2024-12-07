@@ -23,6 +23,19 @@ public class VistaFuncionario extends javax.swing.JFrame {
     public VistaFuncionario() {
         initComponents(); // Inicializa os componentes da interface
         carregarConsultasBaseDeDados(); // Carrega as consultas da base de dados
+        addLoginImageFunctionality();
+    }
+
+    private void addLoginImageFunctionality() {
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // Close the current window
+                dispose();
+                // Open the VistaDeLogin window
+                new VistaDeLogin().setVisible(true);
+            }
+        });
     }
 
     void carregarConsultasBaseDeDados() {
