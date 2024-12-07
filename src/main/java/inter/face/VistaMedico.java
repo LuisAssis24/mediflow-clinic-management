@@ -19,6 +19,19 @@ public class VistaMedico extends javax.swing.JFrame {
     public VistaMedico() {
         initComponents(); // Inicializa os componentes da interface grafica
         carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
+        addLoginImageFunctionality();
+    }
+
+    private void addLoginImageFunctionality() {
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // Close the current window
+                dispose();
+                // Open the VistaDeLogin window
+                new VistaDeLogin().setVisible(true);
+            }
+        });
     }
     
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD

@@ -18,8 +18,13 @@ public class VistaDeLogin extends javax.swing.JFrame {
      * Creates new form VistaDeLogin
      */
     public VistaDeLogin() {
+
         initComponents(); // Inicializa os componentes da interface gráfica
+
+
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.

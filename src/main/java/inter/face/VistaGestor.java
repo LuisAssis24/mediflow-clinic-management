@@ -24,7 +24,21 @@ public class VistaGestor extends javax.swing.JFrame {
     public VistaGestor() {
         initComponents();
         carregarCredenciaisBaseDeDados(); // Carrega as credenciais existentes
+        addLoginImageFunctionality();
     }
+
+    private void addLoginImageFunctionality() {
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // Close the current window
+                dispose();
+                // Open the VistaDeLogin window
+                new VistaDeLogin().setVisible(true);
+            }
+        });
+    }
+
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll(); // Limpa o painel de credenciais
 
@@ -158,6 +172,7 @@ public class VistaGestor extends javax.swing.JFrame {
             );
         }
     }
+
 
 
 
@@ -688,7 +703,9 @@ public class VistaGestor extends javax.swing.JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
         }
-}                                              
+}
+
+
 
     /**
      * @param args the command line arguments
