@@ -7,9 +7,8 @@ package inter.face;
 import javax.swing.*;
 import sql.server.*;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
-
 import static sql.server.SqlGestor.*;
 
 
@@ -42,17 +41,17 @@ public class VistaGestor extends javax.swing.JFrame {
             return id1.compareTo(id2); // Ordena por Id se o tipo for igual
         });
 
-        int tamanhoPainelCredenciais = 0; // Contador para os elementos adicionados ao painel
+        int tamanhoPainelCredenciais = 0; // tamanho do painel inicial
 
         // Itera pelos IDs dos utilizadores
         for (String id : utilizadores) {
             dados = SqlGestor.dadosUtilizador(id); // Obtem os dados do utilizador com base no ID
-            if ("Gestor".equalsIgnoreCase(dados.get("TipoUtilizador"))) { // Caso o utilizador seja do tipo "gestor"
-                String senha = dados.get("Password");
-                dados.put("Password", "*".repeat(senha.length())); // Esconde a senha com a quantidade correspondente de asteriscos
-            }
+            String pass_word = dados.get("Password");
+            dados.put("Password", "*".repeat(pass_word.length())); // Esconde a senha com a quantidade correspondente de asteriscos
             criarPainelCredencial(); // Cria e adiciona o painel individual do utilizador
-            tamanhoPainelCredenciais++;
+            tamanhoPainelCredenciais += 100;
+            credenciaisPanel.setPreferredSize(new java.awt.Dimension(900, tamanhoPainelCredenciais));
+            
         }
 
         // Faz o scroll começar em cima
@@ -172,8 +171,6 @@ public class VistaGestor extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         botaoPesquisa = new javax.swing.JButton();
@@ -199,28 +196,14 @@ public class VistaGestor extends javax.swing.JFrame {
         eliminarCredencial = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         credenciaisPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        jPanel1.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jPanel1.setMinimumSize(new java.awt.Dimension(1080, 60));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 60));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("MediFlow");
-        jLabel1.setMaximumSize(new java.awt.Dimension(250, 25));
-        jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 900);
-        jPanel1.add(jLabel1, gridBagConstraints);
-
-        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         jPanel3.setMinimumSize(new java.awt.Dimension(1080, 660));
         jPanel3.setPreferredSize(new java.awt.Dimension(1080, 660));
@@ -463,7 +446,7 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
         jPanel2.add(concluirButton, gridBagConstraints);
 
-        tipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Medico", "Gestor" }));
+        tipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Médico", "Gestor" }));
         tipoFuncionario.setMaximumSize(new java.awt.Dimension(80, 30));
         tipoFuncionario.setMinimumSize(new java.awt.Dimension(80, 30));
         tipoFuncionario.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -497,6 +480,7 @@ public class VistaGestor extends javax.swing.JFrame {
         eliminarCredencial.setBackground(new java.awt.Color(0, 149, 218));
         eliminarCredencial.setMinimumSize(new java.awt.Dimension(960, 35));
         eliminarCredencial.setOpaque(true);
+        eliminarCredencial.setVisible(false);
         eliminarCredencial.setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -528,6 +512,40 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(jPanel3, gridBagConstraints);
+
+        jPanel1.setBackground(new java.awt.Color(0, 149, 218));
+        jPanel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jPanel1.setMinimumSize(new java.awt.Dimension(1080, 60));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 60));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("MediFlow");
+        jLabel1.setMaximumSize(new java.awt.Dimension(250, 25));
+        jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 825);
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1015, 0, 0);
+        jPanel1.add(jLabel11, gridBagConstraints);
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
+        jPanel1.add(jLabel12, gridBagConstraints);
+
+        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         pack();
         setLocationRelativeTo(null);
@@ -722,6 +740,8 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel especLabel;
     private javax.swing.JTextField especialidade;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

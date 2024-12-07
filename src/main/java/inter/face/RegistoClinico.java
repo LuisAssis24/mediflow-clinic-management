@@ -27,8 +27,6 @@ public class RegistoClinico extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         entradasPanel = new javax.swing.JPanel();
@@ -57,30 +55,15 @@ public class RegistoClinico extends javax.swing.JFrame {
         tratamentosPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         doencasPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1080, 720));
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        jPanel1.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jPanel1.setMinimumSize(new java.awt.Dimension(1080, 60));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 60));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("MediFlow");
-        jLabel1.setMaximumSize(new java.awt.Dimension(250, 25));
-        jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 900);
-        jPanel1.add(jLabel1, gridBagConstraints);
-
-        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         jPanel3.setMinimumSize(new java.awt.Dimension(1080, 660));
         jPanel3.setPreferredSize(new java.awt.Dimension(1080, 660));
@@ -396,6 +379,33 @@ public class RegistoClinico extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(jPanel3, gridBagConstraints);
 
+        jPanel1.setBackground(new java.awt.Color(0, 149, 218));
+        jPanel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jPanel1.setMinimumSize(new java.awt.Dimension(1080, 60));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 60));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("MediFlow");
+        jLabel1.setMaximumSize(new java.awt.Dimension(250, 25));
+        jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 825);
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
+        jPanel1.add(jLabel12, gridBagConstraints);
+
+        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -447,6 +457,7 @@ public class RegistoClinico extends javax.swing.JFrame {
     private javax.swing.JPanel doencasPanel;
     private javax.swing.JPanel entradasPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

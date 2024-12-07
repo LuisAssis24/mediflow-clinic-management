@@ -27,8 +27,6 @@ public class NovaEntradaRC extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -36,30 +34,14 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(720, 720));
         setMinimumSize(new java.awt.Dimension(720, 720));
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        jPanel1.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jPanel1.setMaximumSize(new java.awt.Dimension(720, 720));
-        jPanel1.setMinimumSize(new java.awt.Dimension(720, 60));
-        jPanel1.setPreferredSize(new java.awt.Dimension(720, 60));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("MediFlow");
-        jLabel1.setMaximumSize(new java.awt.Dimension(250, 25));
-        jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 540);
-        jPanel1.add(jLabel1, gridBagConstraints);
-
-        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         jPanel2.setPreferredSize(new java.awt.Dimension(720, 660));
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -124,6 +106,38 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         getContentPane().add(jPanel2, gridBagConstraints);
 
+        jPanel3.setBackground(new java.awt.Color(0, 149, 218));
+        jPanel3.setPreferredSize(new java.awt.Dimension(720, 60));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("MediFlow");
+        jLabel1.setMaximumSize(new java.awt.Dimension(150, 60));
+        jLabel1.setMinimumSize(new java.awt.Dimension(140, 60));
+        jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 430);
+        jPanel3.add(jLabel1, gridBagConstraints);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel5.setToolTipText("");
+        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 640);
+        jPanel3.add(jLabel5, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(jPanel3, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,10 +180,11 @@ public class NovaEntradaRC extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

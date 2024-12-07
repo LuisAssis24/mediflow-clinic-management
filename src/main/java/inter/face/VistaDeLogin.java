@@ -33,6 +33,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -66,8 +67,18 @@ public class VistaDeLogin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 520);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 430);
         jPanel2.add(jLabel1, gridBagConstraints);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel5.setToolTipText("");
+        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 640);
+        jPanel2.add(jLabel5, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -91,7 +102,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 149, 218));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("ID de Utilizador");
+        jLabel3.setText("Nome de Utilizador");
         jLabel3.setMaximumSize(new java.awt.Dimension(250, 25));
         jLabel3.setMinimumSize(new java.awt.Dimension(250, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(250, 25));
@@ -167,7 +178,6 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        addKeyListenerToComponents(this);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeUtilizadorActionPerformed
@@ -280,6 +290,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField nomeUtilizador;

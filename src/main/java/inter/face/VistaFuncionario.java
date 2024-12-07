@@ -8,7 +8,6 @@ import javax.swing.*;
 import sql.server.*;
 import medi.flow.Main;
 
-import java.text.*;
 import java.util.*;
 import java.util.Date;
 
@@ -72,6 +71,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         botaoPesquisa = new javax.swing.JButton();
@@ -124,8 +125,24 @@ public class VistaFuncionario extends javax.swing.JFrame {
         jLabel1.setMaximumSize(new java.awt.Dimension(250, 25));
         jLabel1.setPreferredSize(new java.awt.Dimension(140, 60));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 900);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 825);
         jPanel1.add(jLabel1, gridBagConstraints);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1015, 0, 0);
+        jPanel1.add(jLabel11, gridBagConstraints);
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
+        jPanel1.add(jLabel12, gridBagConstraints);
 
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
@@ -797,6 +814,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField idMedico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
