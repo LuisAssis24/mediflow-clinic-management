@@ -191,35 +191,30 @@ public class VistaDeLogin extends javax.swing.JFrame {
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
         String utilizador = nomeUtilizador.getText();
-        String senha = new String(password.getPassword());
+        String password = new String(this.password.getPassword());
 
         // Verifica se as credenciais são válidas
-        if (SqlGeral.verificarLogin(utilizador, senha)) {
-            // Determina o tipo de utilizador com base no nome fornecido
-            String tipoUtilizador = SqlGeral.verificarTipoUtilizador(utilizador);
-
-            if ("Secretaria".equalsIgnoreCase(tipoUtilizador)) {
-                // Caso seja um funcionário, abre a vista correspondente
-                VistaFuncionario vistaFuncionario = new VistaFuncionario();
-                dispose(); // Fecha a janela de login
-                vistaFuncionario.setVisible(true); // Mostra a nova janela
-            } else if ("Gestor".equalsIgnoreCase(tipoUtilizador)) {
-                // Caso seja um gestor, abre a vista correspondente
-                VistaGestor vistaGestor = new VistaGestor();
-                dispose(); // Fecha a janela de login
-                vistaGestor.setVisible(true); // Mostra a nova janela
-            } else if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
-                VistaMedico vistaMedico = new VistaMedico();
-                dispose();
-                vistaMedico.setVisible(true);
-            } else {
-                // Caso o tipo de utilizador não seja reconhecido, mostra uma mensagem de erro
-                JOptionPane.showMessageDialog(this, "Usuário não autorizado.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } else {
-            // Se as credenciais forem inválidas, exibe uma mensagem de erro
-            JOptionPane.showMessageDialog(this, "Credenciais incorretas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);
+        switch (tipoUtilizador) {
+            case "Gestor":
+                // Abre a vista de administrador
+                new VistaGestor().setVisible(true);
+                this.dispose();
+                break;
+            case "Médico":
+                // Abre a vista de médico
+                new VistaMedico().setVisible(true);
+                this.dispose();
+                break;
+            case "Secretaria":
+                // Abre a vista de rececionista
+                new VistaSecretaria().setVisible(true);
+                this.dispose();
+                break;
+            default:
+                // Mostra uma mensagem de erro
+                JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                break;
         }
     }
 
