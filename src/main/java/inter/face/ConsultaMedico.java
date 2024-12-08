@@ -4,9 +4,7 @@
  */
 package inter.face;
 
-import java.util.*;
-
-import static medi.flow.Text.quebraPontos;
+import medi.flow.Clinica;
 
 /**
  *
@@ -17,17 +15,14 @@ public class ConsultaMedico extends javax.swing.JPanel {
     /**
      * Creates new form Consulta
      */
-    public ConsultaMedico(HashMap<String, String> dadosConsulta) {
+    public ConsultaMedico(Clinica.Consulta consulta) {
         initComponents(); // Inicializa os componentes da interface
 
-        // Preenche os componentes da interface, verificando nulos e usando valores padrão
-        data.setText(dadosConsulta.getOrDefault("data", "Data não disponível"));
-        hora.setText(dadosConsulta.getOrDefault("hora", "Hora não disponível"));
-        nomePaciente.setText(dadosConsulta.getOrDefault("nomePaciente", "Paciente desconhecido"));
+        // Preenche os componentes da interface
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
+        hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
 
-        String motivo = dadosConsulta.getOrDefault("motivo","Motivo desconhecido");
-
-        quebraPontos(listaConsulta, motivo);
     }
 
     /**

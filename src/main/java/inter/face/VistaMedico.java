@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
+import medi.flow.Clinica;
 import sql.server.*;
 import javax.swing.*;
 import java.util.*;
+
+import static sql.server.SqlMedico.idMedicoAUtilizarOSistema;
 
 /**
  *
@@ -22,35 +25,36 @@ public final class VistaMedico extends javax.swing.JFrame {
     
     }
 
-    void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
-        consultasPanel.removeAll();
+    void carregarConsultasBaseDeDados() {
+        consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
+        int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
-
-        List<Integer> consultaIds = SqlMedico.obterTodasConsultasMedico(); 
-        int tamanhoPainelConsultas = 0; // Variavel para controlar o tamanho do painel de consultas
-
-        // Itera sobre todos os IDs das consultas obtidas
-        for (int idConsulta : consultaIds) {
-            HashMap<String, String> dadosConsulta = SqlMedico.dadosConsultaMedico(idConsulta); // Obtem os dados de cada consulta da base de dados
-
-            tamanhoPainelConsultas += 100; // Increase the size of the parent panel
-            consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            criarPainelConsulta(dadosConsulta); // Create and add the consultation panel
+        // Obtem os IDs das consultas da base de dados
+        List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas();
+        for(Clinica.Consulta consulta : consultas) {
+            // Cria um painel com os dados da Consulta
+            if (consulta.getIdMedico() == idMedicoAUtilizarOSistema ) { //Verifica o médico que está a usar a aplicação
+                tamanhoPainelConsultas += 100; // Aumenta o tamanho do painel pai
+                consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
+                criarPainelConsulta(consulta); // Cria e adiciona o painel de consulta
+            }
         }
 
-        // Scroll to the top
+        // Move a barra de scroll para o topo do painel de consultas
         SwingUtilities.invokeLater(() -> {
             JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
 
+        // Atualiza a interface gráfica para refletir as mudanças
         consultasPanel.revalidate();
         consultasPanel.repaint();
     }
-    
-    void criarPainelConsulta(HashMap<String, String> dadosConsulta){ //Adiciona uma consulta ao painel
-        ConsultaMedico consulta = new ConsultaMedico(dadosConsulta);
-        consultasPanel.add(consulta);
+
+    void criarPainelConsulta(Clinica.Consulta consulta) {
+        // Cria um painel de consulta com os dados fornecidos, tendo em conta o médico que está a usar a aplicação
+        ConsultaMedico consultaPanel = new ConsultaMedico(consulta);
+        consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas
     }
     /**
      * This method is called from within the constructor to initialize the form.

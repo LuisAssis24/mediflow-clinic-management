@@ -77,46 +77,6 @@ public class SqlGeral {
         return consultas; // Retorna a lista com os IDs das consultas
     }
 
-    public static Clinica.Consulta dadosConsulta(int IDConsulta) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        Clinica.Consulta consulta = null; // Declara uma consulta para armazenar os dados
-
-        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
-            try {
-                // Declara uma consulta SQL para obter os dados da consulta
-                String sql = "SELECT * FROM Consulta WHERE ID_Consulta = ?";
-                PreparedStatement statement = conexao.prepareStatement(sql);
-
-                // Substitui o placeholder (?) pelo valor do ID da consulta
-                statement.setInt(1, IDConsulta);
-
-                // Executa a consulta e armazena o resultado
-                ResultSet resultado = statement.executeQuery();
-
-                // Verifica se encontrou um registo
-                if (resultado.next()) {
-
-                    // Cria um objeto Consulta com os dados obtidos
-                    consulta = new Clinica.Consulta(
-                            resultado.getInt("ID_Consulta"),
-                            resultado.getString("Data"),
-                            resultado.getString("Hora"),
-                            resultado.getString("Motivo"),
-                            resultado.getString("Nome_Paciente"),
-                            resultado.getInt("SNS_Paciente"),
-                            resultado.getInt("Num_Sala"),
-                            resultado.getInt("ID_Medico"),
-                            resultado.getInt("Contacto")
-                    );
-                }
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os dados da consulta: " + e.getMessage());
-            }
-        }
-        return consulta; // Retorna o objeto Consulta com os dados obtidos
-    }
-
-
     public static String verificarTipoUtilizador(String utilizador) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
 

@@ -4,6 +4,8 @@
  */
 package inter.face;
 
+import medi.flow.Clinica;
+
 import java.util.*;
 
 /**
@@ -20,17 +22,14 @@ public class Credencial extends javax.swing.JPanel {
     private VistaGestor vistaGestor;
     private String id; // ID da credencial a ser exibida
 
-    public Credencial(HashMap<String, String> dados, VistaGestor vistaGestor) {
-        // Inicializa os atributos
-        this.vistaGestor = vistaGestor;
-        this.id = dados.get("ID");
+    public Credencial(Clinica.Utilizador utilizador) {
         initComponents(); // Inicializa os componentes da interface
 
         // Define os valores nos componentes da interface com base nos dados fornecidos
-        idCredencial.setText(dados.getOrDefault("ID", "ID não disponível"));
-        nomeCredencial.setText(dados.getOrDefault("Nome", "Nome não disponível"));
-        password.setText(dados.getOrDefault("Password", "Password não disponível"));
-        funcao.setText(dados.getOrDefault("TipoUtilizador", "Função não disponível"));
+        idCredencial.setText(String.valueOf(utilizador.getId()));
+        nomeCredencial.setText(utilizador.getNome());
+        password.setText("********");
+        funcao.setText(utilizador.getTipoUtilizador());
     }
 
     /**
@@ -166,7 +165,7 @@ public class Credencial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoDesmarcar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcar1ActionPerformed
-        vistaGestor.mostrarPainelSenha(id); // Chama a ação na vista principal para gerenciar a exclusão
+        vistaGestor.mostrarPainelPassword(id); // Chama a ação na vista principal para gerenciar a exclusão
     }//GEN-LAST:event_botaoDesmarcar1ActionPerformed
 
 

@@ -1,66 +1,55 @@
 package sql.server;
 
+import medi.flow.Clinica;
+
 import java.sql.*;
 import java.util.*;
 
 public class SqlGestor {
     // Obtem uma lista com todos os IDs dos utilizadores
-    public static ArrayList<String> obterTodosUtilizadores() {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        ArrayList<String> utilizadores = new ArrayList<>(); // Lista para armazenar os IDs dos utilizadores
+    public static List<Clinica.Utilizador> obterTodosUtilizadores() {
+    Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+    List<Clinica.Utilizador> utilizadores = new ArrayList<>(); // Lista para armazenar os utilizadores
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
-                // Declara uma consulta SQL para obter todos os IDs dos utilizadores
-                String sql = "SELECT ID FROM Utilizador";
+                // Declara uma consulta SQL para obter todos os utilizadores
+                String sql = "SELECT ID, CC, Nome, Password, Tipo_Utilizador FROM Utilizador";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
-                // Adiciona todos os IDs dos utilizadores à lista
+                // Adiciona todos os utilizadores à lista
                 while (resultado.next()) {
-                    utilizadores.add(resultado.getString("ID"));
+                    int id = resultado.getInt("ID");
+                    int cc = resultado.getInt("CC");
+                    String nome = resultado.getString("Nome");
+                    String password = resultado.getString("Password");
+                    String tipoUtilizador = resultado.getString("Tipo_Utilizador");
+
+                    if (tipoUtilizador.equals("Medico")){
+                        String sqlMedico = "SELECT Num_Ordem, Especialidade FROM Medico WHERE ID = ?";
+                        PreparedStatement statementMedico = conexao.prepareStatement(sqlMedico);
+                        statementMedico.setInt(1, id);
+                        ResultSet resultadoMedico = statementMedico.executeQuery();
+                        if (resultadoMedico.next()){
+                            int numOrdem = resultadoMedico.getInt("Num_Ordem");
+                            String especialidade = resultadoMedico.getString("Especialidade");
+                            Clinica.Medico medico = new Clinica.Medico(id, cc, nome, password, tipoUtilizador, numOrdem, especialidade);
+                            utilizadores.add(medico);
+                        }
+                    } else {
+                        Clinica.Utilizador utilizador = new Clinica.Utilizador(id, cc, nome, password, tipoUtilizador);
+                        utilizadores.add(utilizador);
+                    }
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter os utilizadores: " + e.getMessage());
             }
         }
 
-        return utilizadores; // Retorna a lista com os IDs dos utilizadores
-    }
-
-    // Obtem os dados detalhados de um utilizador especifico
-    public static HashMap<String, String> dadosUtilizador(String IDUtilizador) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        HashMap<String, String> dadosUtilizador = new HashMap<>(); // Mapa para armazenar os dados do utilizador
-
-        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
-            try {
-                // Declara uma consulta SQL para obter os dados do utilizador
-                String sql = "SELECT * FROM Utilizador WHERE ID = ?";
-                PreparedStatement statement = conexao.prepareStatement(sql);
-
-                // Substitui o placeholder (?) pelo valor do ID do utilizador
-                statement.setString(1, IDUtilizador);
-
-                // Executa a consulta e armazena o resultado
-                ResultSet resultado = statement.executeQuery();
-
-                // Verifica se encontrou um registo
-                if (resultado.next()) {
-                    // Adiciona os dados do utilizador ao mapa
-                    dadosUtilizador.put("ID", resultado.getString("ID"));
-                    dadosUtilizador.put("Nome", resultado.getString("Nome"));
-                    dadosUtilizador.put("Password", resultado.getString("Password"));
-                    dadosUtilizador.put("TipoUtilizador", SqlGeral.verificarTipoUtilizador(IDUtilizador));
-                    // Adicionar mais campos aqui, se necessário
-                }
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os dados do utilizador: " + e.getMessage());
-            }
-        }
-        return dadosUtilizador; // Retorna o mapa com os dados do utilizador
+        return utilizadores; // Retorna a lista com os utilizadores
     }
 
     // Cria um utilizador e, se for medico, adiciona os detalhes na tabela medico

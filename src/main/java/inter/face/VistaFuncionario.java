@@ -11,7 +11,6 @@ import javax.swing.*;
 import medi.flow.Clinica;
 import medi.flow.Text;
 import sql.server.*;
-import medi.flow.Main;
 import java.util.*;
 import java.util.Date;
 
@@ -168,7 +167,7 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // botaoPesquisaActionPerformed(evt);
+                botaoPesquisaActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -595,8 +594,8 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         } // TODO add your handling code here:
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
-    /*private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
-        String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
+    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        /*String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
         if (inputSNS == null || inputSNS.isEmpty()) {
@@ -632,8 +631,8 @@ public final class VistaFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao converter o SNS: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (HeadlessException ex) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_botaoPesquisaActionPerformed*/
+        } */
+    }                                               
 
     private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
         // TODO add your handling code here:

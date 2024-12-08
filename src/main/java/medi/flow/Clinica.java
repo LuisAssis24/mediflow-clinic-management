@@ -3,6 +3,99 @@ package medi.flow;
 import java.util.List;
 
 public class Clinica {
+    public static class Utilizador {
+        private int id;
+        private int cc;
+        private String nome, password, tipoUtilizador;
+
+        // Construtor para inicializar todos os campos
+        public Utilizador(int id, int cc, String nome, String password, String tipoUtilizador) {
+            this.id = id;
+            this.cc = cc;
+            this.nome = nome;
+            this.password = password;
+            this.tipoUtilizador = tipoUtilizador;
+        }
+
+        // Getters
+        public int getId() { return id; }
+        public int getCc() { return cc; }
+        public String getNome() { return nome; }
+        public String getPassword() { return password; }
+        public String getTipoUtilizador() { return tipoUtilizador; }
+    }
+
+    public static class Medico extends Utilizador {
+        private int numOrdem; // Número da Ordem dos Médicos
+        private String especialidade; // Especialidade médica
+
+        // Construtor para inicializar os campos do Médico e da classe Utilizador
+        public Medico(int id, int cc, String nome, String password, String tipoUtilizador, int numOrdem, String especialidade) {
+            super(id, cc, nome, password, tipoUtilizador); // Chama o construtor da classe pai (Utilizador)
+            this.numOrdem = numOrdem;
+            this.especialidade = especialidade;
+        }
+
+        // Getters
+        public int getNumOrdem() { return numOrdem; }
+        public String getEspecialidade() { return especialidade; }
+    }
+
+    public static class Consulta {
+        private int idConsulta;
+        private String data, hora, motivo, nomePaciente;
+        private int snsPaciente, numSala, idMedico, contacto;
+
+        // Construtor para inicializar todos os campos
+        public Consulta(int idConsulta, String data, String hora, String motivo, String nomePaciente, int snsPaciente, int numSala, int idMedico, int contacto) {
+            this.idConsulta = idConsulta;
+            this.data = data;
+            this.hora = hora;
+            this.motivo = motivo;
+            this.nomePaciente = nomePaciente;
+            this.snsPaciente = snsPaciente;
+            this.numSala = numSala;
+            this.idMedico = idMedico;
+            this.contacto = contacto;
+        }
+
+        // Getters
+        public int getIdConsulta() { return idConsulta; }
+        public String getData() { return data; }
+        public String getHora() { return hora; }
+        public String getMotivo() { return motivo; }
+        public String getNomePaciente() { return nomePaciente; }
+        public int getSnsPaciente() { return snsPaciente; }
+        public int getNumSala() { return numSala; }
+        public int getIdMedico() { return idMedico; }
+        public int getContacto() { return contacto; }
+    }
+
+    class Paciente {
+        private int numSns, contacto;
+        private String nome;
+
+        // Construtor
+        public Paciente(int numSns, int contacto, String nome) {
+            this.numSns = numSns;
+            this.contacto = contacto;
+            this.nome = nome;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        public int getNumSns() {
+            return numSns;
+        }
+
+        public int getContacto() {
+            return contacto;
+        }
+
+    }
+
     class RegistroClinico {
         private String dataNascimento;
         private int cc;
@@ -52,142 +145,4 @@ public class Clinica {
         public List<String> getMedicacaoPrescrita() { return null; }
     }
 
-    class Paciente {
-        private int numSns, contacto;
-        private String nome;
-
-        // Construtor
-        public Paciente(int numSns, int contacto, String nome) {
-            this.numSns = numSns;
-            this.contacto = contacto;
-            this.nome = nome;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-        public int getNumSns() {
-            return numSns;
-        }
-
-        public int getContacto() {
-            return contacto;
-        }
-
-    }
-
-
-    class Medico {
-        private int numeroMedico;
-        private String especialidade;
-
-        // Metodos getters e setters
-        public int getNumeroMedico() { return numeroMedico; }
-        public String getEspecialidade() { return especialidade; }
-        public void setEspecialidade(String especialidade) {}
-        public Receita receitaMedica(Receita receita) { return null; }
-        public void imprimirReceita(Receita receita) {}
-    }
-
-    public static class Consulta {
-        private int idConsulta;
-        private String data;
-        private String hora;
-        private String motivo;
-        private String nomePaciente;
-        private int snsPaciente;
-        private int numSala;
-        private int idMedico;
-        private int contacto;
-
-        // Construtor para inicializar todos os campos
-        public Consulta(int idConsulta, String data, String hora, String motivo, String nomePaciente, int snsPaciente, int numSala, int idMedico, int contacto) {
-            this.idConsulta = idConsulta;
-            this.data = data;
-            this.hora = hora;
-            this.motivo = motivo;
-            this.nomePaciente = nomePaciente;
-            this.snsPaciente = snsPaciente;
-            this.numSala = numSala;
-            this.idMedico = idMedico;
-            this.contacto = contacto;
-        }
-
-        // Getters
-        public int getIdConsulta() {
-            return idConsulta;
-        }
-
-        public String getData() {
-            return data;
-        }
-
-        public String getHora() {
-            return hora;
-        }
-
-        public String getMotivo() {
-            return motivo;
-        }
-
-        public String getNomePaciente() {
-            return nomePaciente;
-        }
-
-        public int getSnsPaciente() {
-            return snsPaciente;
-        }
-
-        public int getNumSala() {
-            return numSala;
-        }
-
-        public int getIdMedico() {
-            return idMedico;
-        }
-
-        public int getContacto() {
-            return contacto;
-        }
-    }
-
-
-    class Sala {
-        private int numero;
-        private int especialidade;
-
-        // Metodos getters
-        public int getNumero() { return numero; }
-        public int getEspecialidade() { return especialidade; }
-    }
-
-    class Utilizador {
-        private String nomeUtilizador;
-        private String password;
-        private int numeroClinica;
-        private String nome;
-
-        // Construtor para inicializar os atributos
-        public Utilizador(String nomeUtilizador, String password, int numeroClinica, String nome) {}
-
-        // Metodos getters
-        public String getNomeUtilizador() { return nomeUtilizador; }
-        public String getPassword() { return password; }
-        public int getNumeroClinica() { return numeroClinica; }
-        public String getNome() { return nome; }
-    }
-
-    class Gestor {
-        public void criarUtilizador(String nomeUtilizador, String password, String tipoUtilizador) {}
-        public void apagarUtilizador(String nomeUtilizador, String password) {}
-    }
-
-    class Funcionario {
-        public Consulta marcarConsulta(Sala sala, String data, String hora) { return null; }
-        public void desmarcarConsulta(Sala sala, String data, String hora) {}
-        public void dispMedicos(String dia, String hora) {}
-        public void dispSalas(String dia, String hora) {}
-        public Consulta verConsulta(String dia, String hora, Paciente paciente) { return null; }
-    }
 }
