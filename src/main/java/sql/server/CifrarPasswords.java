@@ -13,7 +13,7 @@ public class CifrarPasswords {
     private static final String password = "12345678";
 
     public static String cifrar(String texto) throws Exception {
-        // Criando a chave secreta a partir da senha fixa
+        // Criando a chave secreta a partir da password fixa
         SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
         // Inicializando o objeto Cipher para o algarismo DES
         Cipher cifra = Cipher.getInstance("DES");
@@ -25,7 +25,7 @@ public class CifrarPasswords {
     }
 
     public static String decifrar(String textoCifrado) throws Exception {
-        // Criando a chave secreta a partir da senha fixa
+        // Criando a chave secreta a partir da password fixa
         SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
         // Inicialiaza o objeto Cipher para o algarismo DES
         Cipher cifra = Cipher.getInstance("DES");
@@ -36,38 +36,38 @@ public class CifrarPasswords {
         return new String(textoDecifrado); // converte o texto decifrado para String
     }
 
-    /*public static class AtualizarSenhas {
+    /*public static class AtualizarPassowrds {
         public static void main(String[] args) {
             // Obtém a conexão com o banco de dados
             Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
             if (conexao != null) {
                 try {
-                    // 1. Seleciona todos os registros com senhas atuais
+                    // 1. Seleciona todos os registros com passowrds atuais
                     String sqlSelect = "SELECT ID, Password FROM Utilizador";
                     PreparedStatement selectStmt = conexao.prepareStatement(sqlSelect);
                     ResultSet resultado = selectStmt.executeQuery();
 
-                    // 2. Prepara a query de atualização das senhas
+                    // 2. Prepara a query de atualização das passwords
                     String sqlUpdate = "UPDATE Utilizador SET Password = ? WHERE ID = ?";
                     PreparedStatement updateStmt = conexao.prepareStatement(sqlUpdate);
 
-                    // 3. Itera pelos resultados e atualiza cada senha
+                    // 3. Itera pelos resultados e atualiza cada password
                     while (resultado.next()) {
                         int id = resultado.getInt("ID");
-                        String senhaAtual = resultado.getString("Password");
+                        String passwordAtual = resultado.getString("Password");
 
-                        // Cifra a senha atual
-                        String senhaCifrada = CifrarPasswords.cifrar(senhaAtual);
+                        // Cifra a password atual
+                        String passwordCifrada = CifrarPasswords.cifrar(passwordAtual);
 
-                        // Atualiza a senha cifrada no banco de dados
-                        updateStmt.setString(1, senhaCifrada);
+                        // Atualiza a password cifrada no banco de dados
+                        updateStmt.setString(1, passwordCifrada);
                         updateStmt.setInt(2, id);
                         updateStmt.executeUpdate();
-                        System.out.println("Senha atualizada para o ID: " + id);
+                        System.out.println("Password atualizada para o ID: " + id);
                     }
                 } catch (Exception e) {
-                    System.out.println("Erro ao atualizar senhas: " + e.getMessage());
+                    System.out.println("Erro ao atualizar passwords: " + e.getMessage());
                 }
             } else {
                 System.out.println("Erro de conexão com o banco de dados.");
@@ -77,18 +77,18 @@ public class CifrarPasswords {
 */
     public static void main(String[] args) {
         try {
-            String senhaOriginal = "Sampas13"; // Senha original (antes da cifragem)
+            String passwordOriginal = "Sampas13"; // Password original (antes da cifragem)
 
-            // Cifrar a senha
-            String senhaCifrada = CifrarPasswords.cifrar(senhaOriginal);
-            System.out.println("Senha Cifrada: " + senhaCifrada); // Mostra a senha cifrada
+            // Cifrar a password
+            String passwordCifrada = CifrarPasswords.cifrar(passwordOriginal);
+            System.out.println("Password Cifrada: " + passwordCifrada); // Mostra a password cifrada
 
-            // Decifrar a senha
-            String senhaDecifrada = CifrarPasswords.decifrar(senhaCifrada);
-            System.out.println("Senha Decifrada: " + senhaDecifrada); // Mostra a senha decifrada
+            // Decifrar a password
+            String passwordDecifrada = CifrarPasswords.decifrar(passwordCifrada);
+            System.out.println("Password Decifrada: " + passwordDecifrada); // Mostra a password decifrada
 
-            // Verifica se a senha original e a senha decifrada são iguais
-            System.out.println("A senha original é igual à senha decifrada? " + senhaOriginal.equals(senhaDecifrada));
+            // Verifica se a password original e a password decifrada são iguais
+            System.out.println("A password original é igual à password decifrada? " + passwordOriginal.equals(passwordDecifrada));
         } catch (Exception e) {
             System.out.println("Erro ao cifrar ou decifrar: " + e.getMessage());
         }

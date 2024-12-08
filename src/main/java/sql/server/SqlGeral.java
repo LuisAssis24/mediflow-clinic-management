@@ -8,13 +8,13 @@ import medi.flow.Clinica;
 
 public class SqlGeral {
 
-    public static boolean verificarLogin(String idUtilizador, String senha) {
+    public static boolean verificarLogin(String idUtilizador, String password) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
         if (conexao != null) {
             try {
-                // Cifra a senha fornecida pelo usuário
-                String senhaCifrada = CifrarPasswords.cifrar(senha);
+                // Cifra a password fornecida pelo usuário
+                String passwordCifrada = CifrarPasswords.cifrar(password);
 
                 // Declara uma consulta SQL para verificar as credenciais
                 String sql = "SELECT * FROM Utilizador WHERE ID = ? AND Password = ?";
@@ -22,7 +22,7 @@ public class SqlGeral {
 
                 // Substitui os placeholders (?) pelos valores fornecidos pelo utilizador
                 statement.setString(1, idUtilizador);  // Usando ID para login
-                statement.setString(2, senhaCifrada); // Comparando com a senha cifrada
+                statement.setString(2, passwordCifrada); // Comparando com a password cifrada
 
                 // Executa a consulta na base de dados e armazena o resultado
                 ResultSet resultado = statement.executeQuery();

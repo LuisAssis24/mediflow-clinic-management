@@ -75,39 +75,39 @@ public final class VistaGestor extends javax.swing.JFrame {
      */
 
     void mostrarPainelPassword(String id) {
-        JPasswordField passwordField = new JPasswordField(); // Campo para entrada da senha
-        int option = JOptionPane.showConfirmDialog(this, passwordField, "Digite a senha do gestor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        JPasswordField passwordField = new JPasswordField(); // Campo para entrada da password
+        int option = JOptionPane.showConfirmDialog(this, passwordField, "Digite a password do gestor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) { // Se o utilziador confirmar a operação:
-            String senha = new String(passwordField.getPassword()); // Obtem a senha inserida
-            if (verificarSenhaGestor(senha)) { // Verifica se a sneha está correta
+            String password = new String(passwordField.getPassword()); // Obtem a password inserida
+            if (verificarPasswordGestor(password)) { // Verifica se a password está correta
                 eliminarUtilizador(id); // Elimina o utilizador com o ID fornecido
             } else {
-                JOptionPane.showMessageDialog(this, "Senha incorreta!", "Erro", JOptionPane.ERROR_MESSAGE); // Exibe o erro
+                JOptionPane.showMessageDialog(this, "Password incorreta!", "Erro", JOptionPane.ERROR_MESSAGE); // Exibe o erro
             }
         }
     }
 
-    private boolean verificarSenhaGestor(String senha) {
+    private boolean verificarPasswordGestor(String password) {
         // Obtenha a lista de gestores do banco de dados
         List<HashMap<String, String>> gestores = SqlGestor.obterTodosGestores();
 
-        // Verifique se a senha fornecida corresponde a alguma senha de gestor
+        // Verifique se a Password fornecida corresponde a alguma password de gestor
         for (HashMap<String, String> gestor : gestores) {
             try {
-                // Descriptografa a senha armazenada do gestor
-                String senhaDescriptografada = CifrarPasswords.decifrar(gestor.get("Password"));
+                // Descriptografa a password armazenada do gestor
+                String passwordDescriptografada = CifrarPasswords.decifrar(gestor.get("Password"));
 
-                // Compara a senha fornecida com a senha descriptografada
-                if (senhaDescriptografada.equals(senha)) {
-                    return true; // A senha fornecida é válida
+                // Compara a password fornecida com a password descriptografada
+                if (passwordDescriptografada.equals(password)) {
+                    return true; // A password fornecida é válida
                 }
             } catch (Exception e) {
                 // Se ocorrer algum erro na descriptografia, ignore esse gestor
-                System.out.println("Erro ao descriptografar a senha do gestor: " + e.getMessage());
+                System.out.println("Erro ao descriptografar a password do gestor: " + e.getMessage());
             }
         }
-        return false; // Nenhuma senha correspondente foi encontrada
+        return false; // Nenhuma password correspondente foi encontrada
     }
 
     private void eliminarUtilizador(String id) {
@@ -596,11 +596,11 @@ public final class VistaGestor extends javax.swing.JFrame {
                 }
                 System.out.println("Tipo de Utilizador para exibição: " + tipoUtilizador);
 
-                // Esconde a senha, se necessário
+                // Esconde a passowrd, se necessário
                 if ("Gestor".equalsIgnoreCase(tipoUtilizador)) {
-                    String senha = dados.get("Password");
-                    if (senha != null) {
-                        dados.put("Password", "*".repeat(senha.length())); // Esconde a senha
+                    String password = dados.get("Password");
+                    if (password != null) {
+                        dados.put("Password", "*".repeat(password.length())); // Esconde a passowrd
                     }
                 }
 
