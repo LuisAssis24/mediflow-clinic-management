@@ -4,7 +4,7 @@
  */
 package inter.face;
 
-import java.util.*;
+import medi.flow.Clinica;
 
 /**
  *
@@ -16,21 +16,15 @@ public class Credencial extends javax.swing.JPanel {
      * Creates new form Credencial
      */
 
-    // Referencia ao painel principal (Vista gestor), que controla a interface
-    private VistaGestor vistaGestor;
-    private String id; // ID da credencial a ser exibida
 
-    public Credencial(HashMap<String, String> dados, VistaGestor vistaGestor) {
-        // Inicializa os atributos
-        this.vistaGestor = vistaGestor;
-        this.id = dados.get("ID");
+    public Credencial(Clinica.Utilizador utilizador) {
         initComponents(); // Inicializa os componentes da interface
 
         // Define os valores nos componentes da interface com base nos dados fornecidos
-        idCredencial.setText(dados.getOrDefault("ID", "ID não disponível"));
-        nomeCredencial.setText(dados.getOrDefault("Nome", "Nome não disponível"));
-        password.setText(dados.getOrDefault("Password", "Password não disponível"));
-        funcao.setText(dados.getOrDefault("TipoUtilizador", "Função não disponível"));
+        idCredencial.setText(String.valueOf(utilizador.getId()));
+        nomeCredencial.setText(utilizador.getNome());
+        password.setText("********");
+        funcao.setText(utilizador.getTipoUtilizador());
     }
 
     /**
@@ -51,7 +45,7 @@ public class Credencial extends javax.swing.JPanel {
         sala = new javax.swing.JLabel();
         password = new javax.swing.JLabel();
         funcao = new javax.swing.JLabel();
-        botaoDesmarcar1 = new javax.swing.JButton();
+        botaoEliminar = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setLayout(new java.awt.GridBagLayout());
@@ -148,30 +142,30 @@ public class Credencial extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         add(funcao, gridBagConstraints);
 
-        botaoDesmarcar1.setBackground(new java.awt.Color(0, 132, 193));
-        botaoDesmarcar1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoDesmarcar1.setForeground(new java.awt.Color(245, 245, 245));
-        botaoDesmarcar1.setText("Eliminar");
-        botaoDesmarcar1.setPreferredSize(new java.awt.Dimension(100, 35));
-        botaoDesmarcar1.addActionListener(new java.awt.event.ActionListener() {
+        botaoEliminar.setBackground(new java.awt.Color(0, 132, 193));
+        botaoEliminar.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoEliminar.setForeground(new java.awt.Color(245, 245, 245));
+        botaoEliminar.setText("Eliminar");
+        botaoEliminar.setPreferredSize(new java.awt.Dimension(100, 35));
+        botaoEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoDesmarcar1ActionPerformed(evt);
+                botaoEliminarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
-        add(botaoDesmarcar1, gridBagConstraints);
+        add(botaoEliminar, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoDesmarcar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcar1ActionPerformed
-        vistaGestor.mostrarPainelSenha(id); // Chama a ação na vista principal para gerenciar a exclusão
-    }//GEN-LAST:event_botaoDesmarcar1ActionPerformed
+    private void botaoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarActionPerformed
+        //vistaGestor.mostrarPainelPassword(id); // Chama a ação na vista principal para gerenciar a exclusão
+    }//GEN-LAST:event_botaoEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoDesmarcar1;
+    private javax.swing.JButton botaoEliminar;
     private javax.swing.JLabel funcao;
     private javax.swing.JLabel idCredencial;
     private javax.swing.JLabel medico;

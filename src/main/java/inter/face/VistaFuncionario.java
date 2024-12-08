@@ -7,8 +7,10 @@ import java.awt.HeadlessException;
 import java.sql.*;
 import java.text.*;
 import javax.swing.*;
+
+import medi.flow.Clinica;
+import medi.flow.Text;
 import sql.server.*;
-import medi.flow.Main;
 import java.util.*;
 import java.util.Date;
 
@@ -29,20 +31,15 @@ public final class VistaFuncionario extends javax.swing.JFrame {
 
     void carregarConsultasBaseDeDados() {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
+        int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem os IDs das consultas da base de dados
-        List<Integer> consultaIds = SqlGeral.obterTodasConsultas(); // Fetch consultation IDs from the database
-        int tamanhoPainelConsultas = 0; // Variavel para controlar o tamanho do painel de consultas
-
-        // Itera sobre cada ID de consulta para carregar os dados associados
-        for (int idConsulta : consultaIds) {
-            // Obtem os dados da consulta em forma de HashMap com chave/valor
-            HashMap<String, String> dadosConsulta = SqlGeral.dadosConsulta(idConsulta); 
-            
-            // Ajusta o tamanho do painel de consultas
-            tamanhoPainelConsultas += 100;
+        List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas();
+        for(Clinica.Consulta consulta : consultas) {
+            // Cria um painel com os dados da Consulta
+            tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            criarPainelConsulta(dadosConsulta);  // Cria e adiciona o painel da consulta ao paienl principal
+            criarPainelConsulta(consulta); // Create and add the consultation panel
         }
 
         // Move a barra de scroll para o topo do painel de consultas
@@ -56,10 +53,10 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
 
-    void criarPainelConsulta(HashMap<String, String> dadosConsulta) {
+    void criarPainelConsulta(Clinica.Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos 
-        ConsultaFuncionario consulta = new ConsultaFuncionario(dadosConsulta);
-        consultasPanel.add(consulta); // Adiciona o painel criado ao painel principal de consultas
+        ConsultaFuncionario consultaPanel = new ConsultaFuncionario(consulta);
+        consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -597,8 +594,8 @@ public final class VistaFuncionario extends javax.swing.JFrame {
         } // TODO add your handling code here:
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
-    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
-        String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
+    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        /*String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
         if (inputSNS == null || inputSNS.isEmpty()) {
@@ -634,8 +631,8 @@ public final class VistaFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao converter o SNS: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (HeadlessException ex) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_botaoPesquisaActionPerformed
+        } */
+    }                                               
 
     private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
         // TODO add your handling code here:
@@ -734,7 +731,7 @@ public final class VistaFuncionario extends javax.swing.JFrame {
 
 
             // Verificar se a data e hora da consulta são no futuro
-            Date dataHoraConsulta = Main.dataJavaParaSql(data, hora);
+            Date dataHoraConsulta = Text.dataJavaParaSql(data, hora);
             Date dataHoraAtual = new Date();
 
             if (dataHoraConsulta.before(dataHoraAtual)) {

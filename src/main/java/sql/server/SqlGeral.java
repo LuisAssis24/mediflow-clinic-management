@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import sql.server.SqlMedico;
+import medi.flow.Clinica;
 
 public class SqlGeral {
 
@@ -39,73 +39,43 @@ public class SqlGeral {
     }
 
 
-    public static ArrayList<Integer> obterTodasConsultas() {
+    public static List<Clinica.Consulta> obterTodasConsultas() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        ArrayList<Integer> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
+        List<Clinica.Consulta> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
-                Date dataHoraAtual = new Date();
+                Date dataHoraAtual = new Date(); // Obtém a data e hora atuais para carregar apenas as consultas futuras.
                 // Declara uma consulta SQL para obter todos os IDs das consultas
-                String sql = "SELECT ID_Consulta, Data FROM Consulta";
+                String sql = "SELECT ID_Consulta, Data, Hora, Motivo, Nome_Paciente, SNS_Paciente, Num_Sala, ID_Medico, Contacto FROM Consulta";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
-                // Adiciona todos os IDs das consultas à lista
+                // Adiciona todas as consultas à lista
                 while (resultado.next()) {
                     if (resultado.getDate("Data").after(dataHoraAtual)) {
-                        consultas.add(resultado.getInt("ID_Consulta"));
+                        int idConsulta = resultado.getInt("ID_Consulta");
+                        String data = resultado.getString("Data");
+                        String hora = resultado.getString("Hora");
+                        String motivo = resultado.getString("Motivo");
+                        String nomePaciente = resultado.getString("Nome_Paciente");
+                        int snsPaciente = resultado.getInt("SNS_Paciente");
+                        int numSala = resultado.getInt("Num_Sala");
+                        int idMedico = resultado.getInt("ID_Medico");
+                        int contacto = resultado.getInt("Contacto");
+
+                        Clinica.Consulta consulta = new Clinica.Consulta(idConsulta, data, hora, motivo, nomePaciente, snsPaciente, numSala, idMedico, contacto);
+                        consultas.add(consulta);
                     }
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter as consultas: " + e.getMessage());
             }
         }
-
         return consultas; // Retorna a lista com os IDs das consultas
-
     }
-
-    public static HashMap<String, String> dadosConsulta(int IDConsulta) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        HashMap<String, String> dadosConsulta = new HashMap<>(); // Mapa para armazenar os dados da consulta
-
-        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
-            try {
-                // Declara uma consulta SQL para obter os dados da consulta
-                String sql = "SELECT * FROM Consulta WHERE ID_Consulta = ?";
-                PreparedStatement statement = conexao.prepareStatement(sql);
-
-                // Substitui o placeholder (?) pelo valor do ID da consulta
-                statement.setInt(1, IDConsulta);
-
-                // Executa a consulta e armazena o resultado
-                ResultSet resultado = statement.executeQuery();
-
-                // Verifica se encontrou um registo
-                if (resultado.next()) {
-
-                    // Adiciona os dados da consulta ao mapa
-                    dadosConsulta.put("data", resultado.getString("Data"));
-                    dadosConsulta.put("hora", resultado.getString("Hora"));
-                    dadosConsulta.put("motivo", resultado.getString("Motivo"));
-                    dadosConsulta.put("nomePaciente", resultado.getString("Nome_Paciente"));
-                    dadosConsulta.put("snsPaciente", resultado.getString("Sns_Paciente"));
-                    dadosConsulta.put("contacto", resultado.getString("Contacto"));
-                    dadosConsulta.put("numSala", resultado.getString("Num_Sala"));
-                    dadosConsulta.put("idMedico", resultado.getString("ID_Medico"));
-                    dadosConsulta.put("idConsulta", resultado.getString("ID_Consulta"));
-
-                }
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os dados da consulta: " + e.getMessage());
-            }
-        }
-        return dadosConsulta; // Retorna o mapa com os dados da consulta
-    }
-
 
     public static String verificarTipoUtilizador(String utilizador) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
@@ -166,20 +136,17 @@ public class SqlGeral {
 
         // Método estático para obter a conexão com a base de dados
         public static Connection getInstance() {
-
-            // Verifica se a conexão já foi criada
-            if (connection == null) { // Se a conexão ainda não foi estabelecida
-                try {
-                    // Tenta estabelecer uma nova conexão com a base de dados usando os parâmetros fornecidos
+            try {
+                if (connection == null || connection.isClosed()) { // Verifica se a conexão é nula ou foi encerrada
                     connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                    System.out.println("Conexão com MySQL bem-sucedida!"); // Mensagem de sucesso na conexão na consola
-                } catch (SQLException e) { // Captura exceções relacionadas ao SQL
-                    System.out.println("Erro ao conectar ao MySQL: " + e.getMessage()); // Mensagem de erro em caso de falha
+                    System.out.println("Conexão com MySQL foi recriada!");
                 }
+            } catch (SQLException e) {
+                System.out.println("Erro ao conectar ao MySQL: " + e.getMessage());
             }
-            // Retorna a instância da conexão, que pode ser null se não for criada
             return connection;
         }
+
 
 
         // Método estático para fechar a conexão com a base de dados
