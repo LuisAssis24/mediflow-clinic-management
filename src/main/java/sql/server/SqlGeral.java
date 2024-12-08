@@ -136,20 +136,17 @@ public class SqlGeral {
 
         // Método estático para obter a conexão com a base de dados
         public static Connection getInstance() {
-
-            // Verifica se a conexão já foi criada
-            if (connection == null) { // Se a conexão ainda não foi estabelecida
-                try {
-                    // Tenta estabelecer uma nova conexão com a base de dados usando os parâmetros fornecidos
+            try {
+                if (connection == null || connection.isClosed()) { // Verifica se a conexão é nula ou foi encerrada
                     connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                    System.out.println("Conexão com MySQL bem-sucedida!"); // Mensagem de sucesso na conexão na consola
-                } catch (SQLException e) { // Captura exceções relacionadas ao SQL
-                    System.out.println("Erro ao conectar ao MySQL: " + e.getMessage()); // Mensagem de erro em caso de falha
+                    System.out.println("Conexão com MySQL foi recriada!");
                 }
+            } catch (SQLException e) {
+                System.out.println("Erro ao conectar ao MySQL: " + e.getMessage());
             }
-            // Retorna a instância da conexão, que pode ser null se não for criada
             return connection;
         }
+
 
 
         // Método estático para fechar a conexão com a base de dados

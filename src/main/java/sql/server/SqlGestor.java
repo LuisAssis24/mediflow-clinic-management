@@ -1,7 +1,6 @@
 package sql.server;
 
 import medi.flow.Clinica;
-
 import java.sql.*;
 import java.util.*;
 
@@ -53,11 +52,10 @@ public class SqlGestor {
     }
 
     // Cria um utilizador e, se for medico, adiciona os detalhes na tabela medico
-    public static int criarUtilizadorEAdicionarMedico(String nome, String password, String tipoUtilizador, int cc,
-                                                      String especialidade, int numOrdem) {
+    public static int criarUtilizador(String nome, String password, String tipoUtilizador, int cc, String especialidade, int numOrdem) {
         int idUtilizadorGerado = -1; // Variável para armazenar o ID gerado
         String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}"; // Procedure SQL para criar utilizador
-        String sqlAdicionarMedico = "INSERT INTO Medico (ID, Especialidade, Num_Ordem) VALUES (?, ?, ?)";
+        String sqlAdicionarMedico = "{CALL InserirMedico(?, ?, ?)}"; // Procedure SQL para adicionar médico
 
         try (Connection conexao = SqlGeral.DatabaseConnection.getInstance()) {
 
@@ -78,7 +76,7 @@ public class SqlGestor {
             }
 
             // 2. Verificar se o tipo de utilizador é "Médico"
-            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
                 // 3. Inserir os detalhes na tabela Medico
                 try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlAdicionarMedico)) {
                     preparedStatement.setInt(1, idUtilizadorGerado);    // ID do médico

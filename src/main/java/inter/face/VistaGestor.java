@@ -62,7 +62,6 @@ public final class VistaGestor extends javax.swing.JFrame {
         // Atualiza o painel para refletir as mudanças na interface grafica
         credenciaisPanel.revalidate();
         credenciaisPanel.repaint();
-        credenciaisPanel.setVisible(true);
     }
     
     void criarPainelCredencial(Clinica.Utilizador utilizador){ //Adiciona uma credencial ao painel
@@ -305,11 +304,11 @@ public final class VistaGestor extends javax.swing.JFrame {
         password.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         password.setMaximumSize(new java.awt.Dimension(200, 30));
         password.setMinimumSize(new java.awt.Dimension(200, 30));
-        password.setPreferredSize(new java.awt.Dimension(250, 30));
+        password.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 200);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel2.add(password, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
@@ -566,14 +565,12 @@ public final class VistaGestor extends javax.swing.JFrame {
     // Metodo adicionado quando o botao para eliminar credenciais é clicado
     private void botaoEliminarCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarCredencialActionPerformed
         eliminarCredencial.setVisible(true); // Exibe o painel para eliminar credenciais
+        credenciaisPanel.setVisible(true); // Exibe o painel de credenciais
         // Exibe a barra de pesquisa e o botão de pesquisa
         barraPesquisa.setVisible(true);
         botaoPesquisa.setVisible(true);
-        credenciaisPanel.setVisible(true); // Exibe o painel de credenciais existentes
         criarCredencial.setVisible(false); // Esconde o painel de criação de credenciais
-        
-        //Carrega as Credencias
-        carregarCredenciaisBaseDeDados();
+
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
     // Metodo adionado quando o botão de pesquisa é pressionado
@@ -672,12 +669,20 @@ public final class VistaGestor extends javax.swing.JFrame {
             }
 
             // Chamar o método para criar o utilizador e verificar se é médico
-            int idUtilizador = criarUtilizadorEAdicionarMedico(nome, pessword, tipoUtilizador, cc, espcialidade, numOrdem);
+            int idUtilizador = criarUtilizador(nome, pessword, tipoUtilizador, cc, espcialidade, numOrdem);
 
             // Exibir mensagem de sucesso
             if (idUtilizador != -1) {
-                JOptionPane.showMessageDialog(null,
-                        "Utilizador criado com sucesso! ID: " + idUtilizador);
+                JOptionPane.showMessageDialog(null,"Utilizador criado com sucesso! ID: " + idUtilizador);
+                // Limpa os campos
+                nomeCompleto.setText("");
+                password.setText("");
+                numeroCC.setText("");
+                especialidade.setText("");
+                numeroDeMedico.setText("");
+
+                //Recarrega as Credencias
+                carregarCredenciaisBaseDeDados();
             } else {
                 JOptionPane.showMessageDialog(null,
                         "Erro ao criar utilizador. Verifique os dados inseridos.");
@@ -693,7 +698,7 @@ public final class VistaGestor extends javax.swing.JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
         }
-}
+    }
 
     /**
      * @param args the command line arguments
