@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package inter.face;
-import java.util.*;
+
+import medi.flow.Clinica;
 import sql.server.*;
 import javax.swing.*;
 
@@ -16,29 +17,17 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
     /**
      * Creates new form Consulta
      */
-    public ConsultaFuncionario(HashMap<String, String> dadosConsulta) {
+    public ConsultaFuncionario(Clinica.Consulta consulta) {
         initComponents();
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
-        data.setText(dadosConsulta.getOrDefault("data", "Data não disponível"));
-        hora.setText(dadosConsulta.getOrDefault("hora", "Hora não disponível"));
-        nomePaciente.setText(dadosConsulta.getOrDefault("nomePaciente", "Paciente desconhecido"));
-        nSns.setText(dadosConsulta.getOrDefault("snsPaciente", "N/A"));
-        sala.setText(dadosConsulta.getOrDefault("numSala", "Sala desconhecida"));
-        medico.setText(dadosConsulta.getOrDefault("idMedico", "N/A"));
-
-        // Trata o ID de forma segura
-        String idConsultaStr = dadosConsulta.get("idConsulta");
-        if (idConsultaStr != null) {
-            try {
-                idConsulta = Integer.parseInt(idConsultaStr); //Converte o ID para inteiro
-            } catch (NumberFormatException e) {
-                System.out.println("ID_Consulta inválido: " + idConsultaStr);
-                idConsulta = -1; // Define um valor padrão para erros
-            }
-        } else {
-            idConsulta = -1; // Valor padrão caso o ID seja nulo
-        }
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
+        nSns.setText(Integer.toString(consulta.getSnsPaciente()));
+        medico.setText(Integer.toString(consulta.getIdMedico()));
+        sala.setText(Integer.toString(consulta.getNumSala()));
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
+        hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
+        idConsulta = consulta.getIdConsulta();
     }
 
     /**

@@ -6,7 +6,7 @@ package inter.face;
 
 import java.util.*;
 
-import static medi.flow.Main.quebraPontos;
+import static medi.flow.Text.quebraPontos;
 
 /**
  *
