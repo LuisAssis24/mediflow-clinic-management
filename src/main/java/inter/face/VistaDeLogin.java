@@ -236,12 +236,13 @@ public class VistaDeLogin extends javax.swing.JFrame {
         for (java.awt.Component component : container.getComponents()) {
             // Adiciona um keyListener para capturar eventos de tecla pressionada
             component.addKeyListener(new java.awt.event.KeyAdapter() {
+                @Override
                 public void keyPressed(java.awt.event.KeyEvent evt) {
                     formKeyPressed(evt);
                 }
             });
-            if (component instanceof java.awt.Container) {
-                addKeyListenerToComponents((java.awt.Container) component);
+            if (component instanceof java.awt.Container container1) {
+                addKeyListenerToComponents(container1);
             }
         }
     }
@@ -282,10 +283,8 @@ public class VistaDeLogin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaDeLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaDeLogin().setVisible(true);
         });
     }
 

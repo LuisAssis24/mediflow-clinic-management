@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
+import java.awt.HeadlessException;
 import java.sql.*;
+import java.text.*;
 import javax.swing.*;
 import sql.server.*;
 import medi.flow.Main;
-
 import java.util.*;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
  *
  * @author Luis
  */
-public class VistaFuncionario extends javax.swing.JFrame {
+public final class VistaFuncionario extends javax.swing.JFrame {
     //ArrayList<> consultas = new ArrayList<Consulta>();
     /**
      * Creates new form VistaBase
@@ -23,20 +24,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
     public VistaFuncionario() {
         initComponents(); // Inicializa os componentes da interface
         carregarConsultasBaseDeDados(); // Carrega as consultas da base de dados
-        addLoginImageFunctionality();
     }
 
-    private void addLoginImageFunctionality() {
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // Close the current window
-                dispose();
-                // Open the VistaDeLogin window
-                new VistaDeLogin().setVisible(true);
-            }
-        });
-    }
 
     void carregarConsultasBaseDeDados() {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
@@ -84,7 +73,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -141,12 +130,17 @@ public class VistaFuncionario extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 825);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 1015, 0, 0);
-        jPanel1.add(jLabel11, gridBagConstraints);
+        jPanel1.add(exitButton, gridBagConstraints);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
@@ -638,7 +632,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao converter o SNS: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
+        } catch (HeadlessException ex) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botaoPesquisaActionPerformed
@@ -664,6 +658,12 @@ public class VistaFuncionario extends javax.swing.JFrame {
         pacienteAutoFill();
     }//GEN-LAST:event_botaoPacientesActionPerformed
 
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();
+        // Abir VistaDeLogin 
+        new VistaDeLogin().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_exitButtonMouseClicked
+
     public void pacienteAutoFill() {
     try {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtem conexão com a base de dados
@@ -688,15 +688,11 @@ public class VistaFuncionario extends javax.swing.JFrame {
         } else {
             // Se o paciente não existir
             JOptionPane.showMessageDialog(this, "Paciente inexistente", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
         }
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Insira um número de SNS válido", "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
     } catch (SQLException e) {
-        e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Erro ao acessar o banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
     }
 }
 
@@ -772,7 +768,7 @@ public class VistaFuncionario extends javax.swing.JFrame {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Certifique-se de que os campos numéricos (SNS, Contacto, Médico, Sala) contêm apenas números.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
+        } catch (HeadlessException | ParseException e) {
             JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -806,10 +802,8 @@ public class VistaFuncionario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaFuncionario().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaFuncionario().setVisible(true);
         });
     }
 
@@ -824,11 +818,11 @@ public class VistaFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel consultasPanel;
     private javax.swing.JTextField contactoPaciente;
     private javax.swing.JFormattedTextField dataConsulta;
+    private javax.swing.JLabel exitButton;
     private javax.swing.JFormattedTextField horaConsulta;
     private javax.swing.JTextField idMedico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

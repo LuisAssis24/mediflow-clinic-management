@@ -4,9 +4,9 @@
  */
 package inter.face;
 
+import java.awt.HeadlessException;
 import javax.swing.*;
 import sql.server.*;
-
 import java.sql.*;
 import java.util.*;
 import static sql.server.SqlGestor.*;
@@ -16,7 +16,7 @@ import static sql.server.SqlGestor.*;
  *
  * @author Luis
  */
-public class VistaGestor extends javax.swing.JFrame {
+public final class VistaGestor extends javax.swing.JFrame {
     HashMap<String, String> dados = new HashMap<>();
     /**
      * Creates new form VistaBase
@@ -24,19 +24,6 @@ public class VistaGestor extends javax.swing.JFrame {
     public VistaGestor() {
         initComponents();
         carregarCredenciaisBaseDeDados(); // Carrega as credenciais existentes
-        addLoginImageFunctionality();
-    }
-
-    private void addLoginImageFunctionality() {
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // Close the current window
-                dispose();
-                // Open the VistaDeLogin window
-                new VistaDeLogin().setVisible(true);
-            }
-        });
     }
 
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
@@ -163,7 +150,7 @@ public class VistaGestor extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE
                 );
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(
                     this,
                     "Erro inesperado ao eliminar utilizador: " + e.getMessage(),
@@ -172,14 +159,6 @@ public class VistaGestor extends javax.swing.JFrame {
             );
         }
     }
-
-
-
-
-
-
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -213,7 +192,7 @@ public class VistaGestor extends javax.swing.JFrame {
         credenciaisPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -544,12 +523,17 @@ public class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 825);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 1015, 0, 0);
-        jPanel1.add(jLabel11, gridBagConstraints);
+        jPanel1.add(exitButton, gridBagConstraints);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
@@ -631,8 +615,7 @@ public class VistaGestor extends javax.swing.JFrame {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, coloque um ID válido.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Erro ao procurar utilizador: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -660,6 +643,12 @@ public class VistaGestor extends javax.swing.JFrame {
         jPanel2.revalidate();
         jPanel2.repaint();
     }//GEN-LAST:event_tipoFuncionarioActionPerformed
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();
+        // Abir VistaDeLogin 
+        new VistaDeLogin().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_exitButtonMouseClicked
 
     // metodo acionado quando o botao "Concluir" é pressionado para criar um novo utilizador
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
@@ -696,16 +685,13 @@ public class VistaGestor extends javax.swing.JFrame {
                     "Por favor, insira dados válidos para CC ou Número do Médico.",
                     "Erro de Validação",
                     JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (HeadlessException ex) {
             JOptionPane.showMessageDialog(null,
                     "Erro ao processar os dados: " + ex.getMessage(),
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
         }
 }
-
-
 
     /**
      * @param args the command line arguments
@@ -738,10 +724,8 @@ public class VistaGestor extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaGestor().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaGestor().setVisible(true);
         });
     }
 
@@ -756,8 +740,8 @@ public class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JLayeredPane eliminarCredencial;
     private javax.swing.JLabel especLabel;
     private javax.swing.JTextField especialidade;
+    private javax.swing.JLabel exitButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

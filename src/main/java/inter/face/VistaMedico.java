@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Luis
  */
-public class VistaMedico extends javax.swing.JFrame {
+public final class VistaMedico extends javax.swing.JFrame {
 
     /**
      * Creates new form VistaBase
@@ -19,21 +19,9 @@ public class VistaMedico extends javax.swing.JFrame {
     public VistaMedico() {
         initComponents(); // Inicializa os componentes da interface grafica
         carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
-        addLoginImageFunctionality();
+    
     }
 
-    private void addLoginImageFunctionality() {
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // Close the current window
-                dispose();
-                // Open the VistaDeLogin window
-                new VistaDeLogin().setVisible(true);
-            }
-        });
-    }
-    
     void carregarConsultasBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         consultasPanel.removeAll();
 
@@ -79,7 +67,7 @@ public class VistaMedico extends javax.swing.JFrame {
         consultasPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,12 +121,17 @@ public class VistaMedico extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 825);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 1015, 0, 0);
-        jPanel1.add(jLabel11, gridBagConstraints);
+        jPanel1.add(exitButton, gridBagConstraints);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
@@ -154,6 +147,12 @@ public class VistaMedico extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+         dispose();
+        // Abir VistaDeLogin 
+        new VistaDeLogin().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_exitButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,17 +185,15 @@ public class VistaMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaMedico().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaMedico().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel consultasPanel;
+    private javax.swing.JLabel exitButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
