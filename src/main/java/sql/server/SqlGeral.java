@@ -49,7 +49,7 @@ public class SqlGeral {
             try {
                 Date dataHoraAtual = new Date(); // Obtém a data e hora atuais para carregar apenas as consultas futuras.
                 // Declara uma consulta SQL para obter todos os IDs das consultas
-                String sql = "SELECT ID_Consulta, Data, Hora, Motivo, Nome_Paciente, SNS_Paciente, Num_Sala, ID_Medico, Contacto FROM Consulta";
+                String sql = "CALL SelecionarConsultas()";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
@@ -77,25 +77,6 @@ public class SqlGeral {
             }
         }
         return consultas; // Retorna a lista com os IDs das consultas
-    }
-
-
-    private static boolean idExisteNaTabela(Connection conexao, int id, String tabela, String colunaId) {
-        try {
-            // Declara uma consulta SQL para verificar a existência do ID na tabela
-            String sql = "SELECT " + colunaId + " FROM " + tabela + " WHERE " + colunaId + " = ?";
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-
-            // Substitui o placeholder (?) pelo valor do ID
-            stmt.setInt(1, id);
-
-            // Executa a consulta e verifica se existe pelo menos um registo correspondente
-            ResultSet rs = stmt.executeQuery();
-            return rs.next(); // Retorna verdadeiro se encontrar um registo
-        } catch (SQLException e) { // Trata erros relacionados ao SQL
-            System.out.println("Erro ao verificar a tabela " + tabela + ": " + e.getMessage());
-        }
-        return false; // Retorna falso se ocorrer um erro ou não encontrar o ID
     }
 
     // A classe DatabaseConnection é a responsavel por criar a conexão com a base de dados

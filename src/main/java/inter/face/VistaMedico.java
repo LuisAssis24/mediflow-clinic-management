@@ -8,7 +8,7 @@ import sql.server.*;
 import javax.swing.*;
 import java.util.*;
 
-import static sql.server.SqlMedico.idMedicoAUtilizarOSistema;
+import static inter.face.VistaDeLogin.idMedicoAUtilizarOSistema;
 
 /**
  *

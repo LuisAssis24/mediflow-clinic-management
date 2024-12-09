@@ -6,6 +6,7 @@ package inter.face;
 
 import sql.server.*;
 import javax.swing.*;
+import java.awt.*;
 
 
 /**
@@ -13,12 +14,13 @@ import javax.swing.*;
  * @author rodri
  */
 public class VistaDeLogin extends javax.swing.JFrame {
-
+    static int idMedicoAUtilizarOSistema;
     /**
      * Creates new form VistaDeLogin
      */
     public VistaDeLogin() {
         initComponents(); // Inicializa os componentes da interface gráfica
+        addKeyListenerToComponents(this.getContentPane());
     }
 
 
@@ -189,32 +191,37 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
     // Ação para verificar login ao clicar no botão
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
-        // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
+    // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
         String utilizador = nomeUtilizador.getText();
         String password = new String(this.password.getPassword());
 
         // Verifica se as credenciais são válidas
         String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);
-        switch (tipoUtilizador) {
-            case "Gestor":
-                // Abre a vista de administrador
-                new VistaGestor().setVisible(true);
-                this.dispose();
-                break;
-            case "Médico":
-                // Abre a vista de médico
-                new VistaMedico().setVisible(true);
-                this.dispose();
-                break;
-            case "Secretaria":
-                // Abre a vista de rececionista
-                new VistaSecretaria().setVisible(true);
-                this.dispose();
-                break;
-            default:
-                // Mostra uma mensagem de erro
-                JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-                break;
+        try {
+            switch (tipoUtilizador) {
+                case "Gestor":
+                    // Abre a vista de administrador
+                    new VistaGestor().setVisible(true);
+                    this.dispose();
+                    break;
+                case "Médico":
+                    // Abre a vista de médico
+                    new VistaMedico().setVisible(true);
+                    idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
+                    this.dispose();
+                    break;
+                case "Secretaria":
+                    // Abre a vista de rececionista
+                    new VistaSecretaria().setVisible(true);
+                    this.dispose();
+                    break;
+                default:
+                    // Mostra uma mensagem de erro
+                    JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        } catch (NumberFormatException | HeadlessException | NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -222,9 +229,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
-    //Adiciona um keyListener a todos os componentes da janela
+    // Adiciona um keyListener a todos os componentes da janela
     private void addKeyListenerToComponents(java.awt.Container container) {
-        //Percorre todos os componentes do conteiner passado como parametro
+        // Percorre todos os componentes do conteiner passado como parametro
         for (java.awt.Component component : container.getComponents()) {
             // Adiciona um keyListener para capturar eventos de tecla pressionada
             component.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -233,8 +240,8 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     formKeyPressed(evt);
                 }
             });
-            if (component instanceof java.awt.Container container1) {
-                addKeyListenerToComponents(container1);
+            if (component instanceof java.awt.Container) {
+                addKeyListenerToComponents((java.awt.Container) component);
             }
         }
     }
