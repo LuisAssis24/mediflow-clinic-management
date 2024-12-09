@@ -71,30 +71,23 @@ public class Clinica {
         public int getContacto() { return contacto; }
     }
 
-    class Paciente {
-        private int numSns, contacto;
+    public static class Paciente {
+        private int numeroSNS;
         private String nome;
+        private int contacto;
 
-        // Construtor
-        public Paciente(int numSns, int contacto, String nome) {
-            this.numSns = numSns;
-            this.contacto = contacto;
+        public Paciente(int numeroSNS, String nome, int contacto) {
+            this.numeroSNS = numeroSNS;
             this.nome = nome;
+            this.contacto = contacto;
         }
 
-        public String getNome() {
-            return nome;
-        }
-
-        public int getNumSns() {
-            return numSns;
-        }
-
-        public int getContacto() {
-            return contacto;
-        }
-
+        // Getters
+        public int getNumeroSNS() { return numeroSNS; }
+        public String getNome() { return nome; }
+        public int getContacto() { return contacto; }
     }
+
 
     class RegistroClinico {
         private String dataNascimento;

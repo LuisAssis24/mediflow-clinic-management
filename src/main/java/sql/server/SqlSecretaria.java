@@ -1,10 +1,12 @@
 package sql.server;
 
+import medi.flow.Clinica;
+
 import java.sql.*;
 import java.text.*;
 import java.util.*;
 
-public class SqlFuncionario {
+public class SqlSecretaria {
     // Metodo para buscar uma consulta pelo numero SNS do paceinte
     public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com o banco de dados
@@ -114,43 +116,42 @@ public class SqlFuncionario {
     }
 
     // Metodo para verificar se um paciente já existe no banco de dados
-    public static boolean verificarPacienteExiste(int numero) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        String sqlVerificar = "SELECT COUNT(*) FROM Paciente WHERE Numero_SNS = ?"; //Apartir do numero de tuplos existentes na relação Paciente compara p numero do TextField com o numero de sns
-        try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlVerificar)) {
-            preparedStatement.setInt(1, numero);
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                if (rs.next()) {
-                    if (rs.getInt(1) > 0) {
-                        return true;
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public static Clinica.Paciente verificarPacienteExiste(int numero) {
+    Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+    String sqlVerificar = "SELECT Numero_SNS, Nome, Contacto FROM Paciente WHERE Numero_SNS = ?";
+
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlVerificar)) {
+        preparedStatement.setInt(1, numero);
+        try (ResultSet rs = preparedStatement.executeQuery()) {
+            if (rs.next()) {
+                int numeroSNS = rs.getInt("Numero_SNS");
+                String nome = rs.getString("Nome");
+                int contacto = rs.getInt("Contacto");
+                return new Clinica.Paciente(numeroSNS, nome, contacto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao verificar paciente: " + e.getMessage());
         }
-        return false;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new RuntimeException("Erro ao verificar paciente: " + e.getMessage());
     }
+    return null;
+}
 
     // Metodo para criar um novo paciente caso eel nao exista
-    public static void criarPacienteMarcacao(int numero, String nome, int contacto) {
+    public static void criarPaciente(int numero, String nome, int contacto) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        if (!verificarPacienteExiste(numero)) {
-            String sql = "{CALL CriarPaciente(?, ?, ?)}"; // Chama a stored procedure MarcarConsulta
-
-            try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-                // Definir parâmetros de entrada
-                callableStatement.setInt(1, numero); // SNS do paciente
-                callableStatement.setString(2, nome); // Nome do paciente
-                callableStatement.setInt(3, contacto); // Contacto do paciente
-
-                // Executar a stored procedure
-                callableStatement.execute();
+        if (verificarPacienteExiste(numero) == null) {
+            String sql = "CALL CriarPaciente(?, ?, ?)";
+            try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+                preparedStatement.setInt(1, numero);
+                preparedStatement.setString(2, nome);
+                preparedStatement.setInt(3, contacto);
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
+                throw new RuntimeException("Erro ao criar paciente: " + e.getMessage());
             }
         }
     }

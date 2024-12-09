@@ -4,7 +4,6 @@
  */
 package inter.face;
 import java.awt.HeadlessException;
-import java.sql.*;
 import java.text.*;
 import javax.swing.*;
 
@@ -13,6 +12,10 @@ import medi.flow.Text;
 import sql.server.*;
 import java.util.*;
 import java.util.Date;
+
+import sql.server.SqlSecretaria;
+
+import static sql.server.SqlSecretaria.verificarPacienteExiste;
 
 /**
  *
@@ -614,7 +617,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             System.out.println("Pesquisando consulta para SNS: " + snsPaciente);
 
             // Realiza a busca na base de dados
-            HashMap<String, String> dadosConsulta = SqlFuncionario.procurarConsultaPorSNS(snsPaciente);
+            HashMap<String, String> dadosConsulta = SqlSecretaria.procurarConsultaPorSNS(snsPaciente);
 
             consultasPanel.removeAll(); // Limpa o painel de consultas
 
@@ -652,46 +655,22 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
 
     private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
-        pacienteAutoFill();
+        int num = Integer.parseInt(nSns.getText());
+
+        if (verificarPacienteExiste(num) != null){
+            nomePaciente.setText(verificarPacienteExiste(num).getNome());
+            contactoPaciente.setText(Integer.toString(verificarPacienteExiste(num).getContacto()));
+        } else {
+            JOptionPane.showMessageDialog(this, "Paciente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botaoPacientesActionPerformed
 
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
         dispose();
         // Abir VistaDeLogin 
-        new VistaDeLogin().setVisible(true);        // TODO add your handling code here:
+        new VistaDeLogin().setVisible(true);
     }//GEN-LAST:event_exitButtonMouseClicked
 
-    public void pacienteAutoFill() {
-    try {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtem conexão com a base de dados
-        // Obter o número do paciente
-        int numero = Integer.parseInt(nSns.getText()); // Converte o texto do campo SNS em um numero
-
-        // Verificar se o paciente existe
-        if (SqlFuncionario.verificarPacienteExiste(numero)) {
-            // Buscar o nome e contacto do paciente no banco
-            String sql = "SELECT Nome, Contacto FROM Paciente WHERE Numero_SNS = ?";
-            try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-
-                preparedStatement.setInt(1, numero);
-                try (ResultSet rs = preparedStatement.executeQuery()) {
-                    if (rs.next()) {
-                        // Preencher os campos da interface
-                        nomePaciente.setText(rs.getString("Nome")); // Nome do paciente
-                        contactoPaciente.setText(String.valueOf(rs.getInt("Contacto"))); // Contacto do paciente
-                    }
-                }
-            }
-        } else {
-            // Se o paciente não existir
-            JOptionPane.showMessageDialog(this, "Paciente inexistente", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Insira um número de SNS válido", "Erro", JOptionPane.ERROR_MESSAGE);
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Erro ao acessar o banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-}
 
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
@@ -740,11 +719,11 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             }
 
             // Chamar o método que cria o paciente caso ele não exista
-            SqlFuncionario.criarPacienteMarcacao(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
+            SqlSecretaria.criarPaciente(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
             SqlMedico.criarRegistro(Integer.parseInt(numeroSnsStr));
 
             // Chamar o método que cria a consulta
-            int idConsultaGerada = SqlFuncionario.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
+            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {

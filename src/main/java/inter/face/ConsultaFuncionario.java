@@ -212,7 +212,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
-        SqlFuncionario.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
+        SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
         JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
         parentPanel.remove(this); // remove este painel
         parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));
