@@ -39,7 +39,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         // Obtem os IDs das consultas da base de dados
         List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas();
         for(Clinica.Consulta consulta : consultas) {
-            // Cria um painel com os dados da Consulta
+            // Cria um painel com os dados da Consulta>
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
             criarPainelConsulta(consulta); // Create and add the consultation panel
@@ -59,7 +59,10 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     void criarPainelConsulta(Clinica.Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos 
         ConsultaFuncionario consultaPanel = new ConsultaFuncionario(consulta);
-        consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas
+        consultaPanel.setPreferredSize(new java.awt.Dimension(900, 100)); // Define o tamanho preferido do painel de consulta
+        consultaPanel.setMaximumSize(new java.awt.Dimension(900, 100)); // Define o tamanho máximo do painel de consulta
+        consultaPanel.setMinimumSize(new java.awt.Dimension(900, 100)); // Define o tamanho mínimo do painel de consulta
+        consultasPanel.add(consultaPanel);  // Adiciona o painel criado ao painel principal de consultas
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -598,6 +601,49 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        String inputPesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
+
+        // Verifica se o campo de pesquisa está vazio
+        if (inputPesquisa == null || inputPesquisa.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira um número de SNS ou nome do paciente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas(); // Obtem todas as consultas da base de dados
+        List<Clinica.Consulta> consultasFiltradas = new ArrayList<>();
+
+        // Verifica se o valor inserido é um número (pesquisa por nSns)
+        if (inputPesquisa.matches("\\d+")) {
+            int snsPaciente = Integer.parseInt(inputPesquisa);
+            for (Clinica.Consulta consulta : consultas) {
+                if (consulta.getSnsPaciente() == snsPaciente) {
+                    consultasFiltradas.add(consulta);
+                }
+            }
+        } else { // Pesquisa por nome do paciente
+            for (Clinica.Consulta consulta : consultas) {
+                if (consulta.getNomePaciente().toLowerCase().contains(inputPesquisa.toLowerCase())) {
+                    consultasFiltradas.add(consulta);
+                }
+            }
+        }
+
+        consultasPanel.removeAll(); // Limpa o painel de consultas
+
+        // Verifica se há resultados
+        if (consultasFiltradas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Erro", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int tamanhoPainelConsultas = 0;
+            for (Clinica.Consulta consulta : consultasFiltradas) {
+                criarPainelConsulta(consulta); // Cria e adiciona o painel de consulta
+                tamanhoPainelConsultas += 100; // Incrementa o tamanho do painel
+            }
+            consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
+            consultasPanel.revalidate();
+            consultasPanel.repaint();
+        }
+
         /*String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
