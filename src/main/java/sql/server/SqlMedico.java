@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.Date;
 
 public class SqlMedico {
-    public static int idMedicoAUtilizarOSistema = 0;
 
     public static void criarRegistro(int numeroSns) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();

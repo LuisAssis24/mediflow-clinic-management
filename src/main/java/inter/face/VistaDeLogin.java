@@ -6,6 +6,7 @@ package inter.face;
 
 import sql.server.*;
 import javax.swing.*;
+import java.awt.*;
 
 
 /**
@@ -13,12 +14,13 @@ import javax.swing.*;
  * @author rodri
  */
 public class VistaDeLogin extends javax.swing.JFrame {
-
+    static int idMedicoAUtilizarOSistema;
     /**
      * Creates new form VistaDeLogin
      */
     public VistaDeLogin() {
         initComponents(); // Inicializa os componentes da interface gráfica
+        addKeyListenerToComponents(this.getContentPane());
     }
 
 
@@ -189,37 +191,37 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
     // Ação para verificar login ao clicar no botão
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
-        // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
+    // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
         String utilizador = nomeUtilizador.getText();
-        String senha = new String(password.getPassword());
+        String password = new String(this.password.getPassword());
 
         // Verifica se as credenciais são válidas
-        if (SqlGeral.verificarLogin(utilizador, senha)) {
-            // Determina o tipo de utilizador com base no nome fornecido
-            String tipoUtilizador = SqlGeral.verificarTipoUtilizador(utilizador);
-
-            if ("Secretaria".equalsIgnoreCase(tipoUtilizador)) {
-                // Caso seja um funcionário, abre a vista correspondente
-                VistaFuncionario vistaFuncionario = new VistaFuncionario();
-                dispose(); // Fecha a janela de login
-                vistaFuncionario.setVisible(true); // Mostra a nova janela
-            } else if ("Gestor".equalsIgnoreCase(tipoUtilizador)) {
-                // Caso seja um gestor, abre a vista correspondente
-                VistaGestor vistaGestor = new VistaGestor();
-                dispose(); // Fecha a janela de login
-                vistaGestor.setVisible(true); // Mostra a nova janela
-            } else if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
-                VistaMedico vistaMedico = new VistaMedico();
-                dispose();
-                vistaMedico.setVisible(true);
-            } else {
-                // Caso o tipo de utilizador não seja reconhecido, mostra uma mensagem de erro
-                JOptionPane.showMessageDialog(this, "Usuário não autorizado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);
+        try {
+            switch (tipoUtilizador) {
+                case "Gestor":
+                    // Abre a vista de administrador
+                    new VistaGestor().setVisible(true);
+                    this.dispose();
+                    break;
+                case "Médico":
+                    // Abre a vista de médico
+                    new VistaMedico().setVisible(true);
+                    idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
+                    this.dispose();
+                    break;
+                case "Secretaria":
+                    // Abre a vista de rececionista
+                    new VistaSecretaria().setVisible(true);
+                    this.dispose();
+                    break;
+                default:
+                    // Mostra uma mensagem de erro
+                    JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
-
-        } else {
-            // Se as credenciais forem inválidas, exibe uma mensagem de erro
-            JOptionPane.showMessageDialog(this, "Credenciais incorretas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException | HeadlessException | NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -227,9 +229,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
-    //Adiciona um keyListener a todos os componentes da janela
+    // Adiciona um keyListener a todos os componentes da janela
     private void addKeyListenerToComponents(java.awt.Container container) {
-        //Percorre todos os componentes do conteiner passado como parametro
+        // Percorre todos os componentes do conteiner passado como parametro
         for (java.awt.Component component : container.getComponents()) {
             // Adiciona um keyListener para capturar eventos de tecla pressionada
             component.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -238,8 +240,8 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     formKeyPressed(evt);
                 }
             });
-            if (component instanceof java.awt.Container container1) {
-                addKeyListenerToComponents(container1);
+            if (component instanceof java.awt.Container) {
+                addKeyListenerToComponents((java.awt.Container) component);
             }
         }
     }
