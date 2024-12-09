@@ -571,10 +571,52 @@ public final class VistaGestor extends javax.swing.JFrame {
         botaoPesquisa.setVisible(true);
         criarCredencial.setVisible(false); // Esconde o painel de criação de credenciais
 
+        // Chama o método para carregar as credenciais do banco de dados
+        carregarCredenciaisBaseDeDados();
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
+
+    private void filterUsers(String query) {
+        // Obtem uma lista de todos os utilziadores através do método "obterTodosUtilizadores"
+        List<Clinica.Utilizador> utilizadores = SqlGestor.obterTodosUtilizadores();
+        // Cria uma nova lista para armazenar os utilizadores que correspondem ao filtro
+        List<Clinica.Utilizador> filteredUsers = new ArrayList<>();
+
+        // Itera pela lista de utilizadores
+        for (Clinica.Utilizador utilizador : utilizadores) {
+            // Veerifica se o ID ou nome contem a query fornecida
+            if (String.valueOf(utilizador.getId()).contains(query) || utilizador.getNome().toLowerCase().contains(query.toLowerCase())) {
+                // Adiciona o utilizador à lista filtrada se a condiçãofor satisfeita
+                filteredUsers.add(utilizador);
+            }
+        }
+
+        // Se nenhum utilizador foi encontrasdo na pesquisa
+        if (filteredUsers.isEmpty()) {
+            // Mostra uma mensagem ao utilizador informado que nenhum resultado foi encontrado
+            JOptionPane.showMessageDialog(this, "Nenhum utilizador encontrado.", "Pesquisa", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            credenciaisPanel.removeAll();
+            int tamanhoPainelCredenciais = 0;
+
+            // Itera pela lista de utilizadores filtrados
+            for (Clinica.Utilizador utilizador : filteredUsers) {
+                tamanhoPainelCredenciais += 100;
+                credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
+                // Chama um metodo que cria e adiciona o painel correspondente ao utilizador
+                criarPainelCredencial(utilizador);
+            }
+
+            // revalida o painel para refletir as alterações feitas dinamicamente
+            credenciaisPanel.revalidate();
+            credenciaisPanel.repaint();
+        }
+    }
 
     // Metodo adionado quando o botão de pesquisa é pressionado
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        String query = barraPesquisa.getText();
+        filterUsers(query);
+
         /*try {
             int idUtilizador = Integer.parseInt(barraPesquisa.getText()); // Tenta converter o valor da barra de pesquisa para inteiro (ID do utilizador)
             HashMap<String, String> dadosUtilizador = SqlGestor.procurarUtilizadorPorID(idUtilizador); // Chama o metodo para procurar o utilizador pelo ID
