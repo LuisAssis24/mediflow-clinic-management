@@ -89,23 +89,36 @@ public class Clinica {
     }
 
 
-    class RegistroClinico {
-        private String dataNascimento;
-        private int cc;
-        private List<String> tratamentos;
+    public static class RegistroClinico {
+        private int idFicha;
+        private List<String> historicoClinico;
         private List<String> alergias;
-        private List<String> historicoDoencas;
+        private List<String> doencasCronicas;
+        private List<String> cirurgiasAnteriores;
+        private List<String> historicoMedicamentos;
+        private int numeroSns;
+
 
         // Construtor
-        public RegistroClinico(String dataNascimento, int cc, List<String> tratamentos, List<String> alergias, List<String> historicoDoencas) {}
+        public RegistroClinico(int idFicha, List<String> historicoClinico, List<String> alergias, List<String> doencasCronicas, List<String> cirurgiasAnteriores, List<String> historicoMedicamentos, int numeroSns) {
+            this.idFicha = idFicha;
+            this.historicoClinico = historicoClinico;
+            this.alergias = alergias;
+            this.doencasCronicas = doencasCronicas;
+            this.cirurgiasAnteriores = cirurgiasAnteriores;
+            this.historicoMedicamentos = historicoMedicamentos;
+            this.numeroSns = numeroSns;
+        }
+
 
         // Metodos getters para acesso aos atributos privados
-        public String getDataNascimento() { return dataNascimento; }
-        public int getCc() { return cc; }
-        public List<String> getTratamentos() { return null; }
-        public List<String> getAlergias() { return null; }
-        public List<String> getHistoricoDoencas() { return null; }
-        public void addHistoricoDoencas(String doenca) {}
+        public int getIdFicha() { return idFicha; }
+        public List<String> getHistoricoClinico() { return historicoClinico; }
+        public List<String> getAlergias() { return alergias; }
+        public List<String> getDoencasCronicas() { return doencasCronicas; }
+        public List<String> getCirurgiasAnteriores() { return cirurgiasAnteriores; }
+        public List<String> getHistoricoMedicamentos() { return historicoMedicamentos; }
+        public int getNumeroSns() { return numeroSns; }
     }
 
     class EntradaRegistroClinico {
