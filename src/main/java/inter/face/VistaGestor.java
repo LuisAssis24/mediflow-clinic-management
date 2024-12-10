@@ -210,8 +210,8 @@ public final class VistaGestor extends javax.swing.JFrame {
         botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoPesquisa.setForeground(new java.awt.Color(245, 245, 245));
         botaoPesquisa.setText("PESQUISAR");
-        botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
+        botaoPesquisa.setMaximumSize(new java.awt.Dimension(140, 35));
+        botaoPesquisa.setMinimumSize(new java.awt.Dimension(140, 35));
         botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

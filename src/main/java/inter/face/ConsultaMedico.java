@@ -121,7 +121,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
         fichaMedicaButton.setBackground(new java.awt.Color(0, 132, 193));
         fichaMedicaButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         fichaMedicaButton.setForeground(new java.awt.Color(245, 245, 245));
-        fichaMedicaButton.setText("Ficha Médica");
+        fichaMedicaButton.setText("Registo Clínico");
         fichaMedicaButton.setMaximumSize(new java.awt.Dimension(125, 35));
         fichaMedicaButton.setMinimumSize(new java.awt.Dimension(125, 35));
         fichaMedicaButton.setPreferredSize(new java.awt.Dimension(125, 35));
