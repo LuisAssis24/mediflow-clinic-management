@@ -5,6 +5,7 @@
 package inter.face;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static sql.server.SqlSecretaria.obterTodosMedicos;
@@ -135,7 +136,39 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
+        String especialidadePesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
+        // Verifica se o campo de pesquisa está vazio
+        if (especialidadePesquisa == null || especialidadePesquisa.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira uma especialidade.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<String[]> medicos = obterTodosMedicos(); // Obtem todos os médicos da base de dados
+        List<String[]> medicosFiltrados = new ArrayList<>();
+
+        // Filtra os médicos pela especialidade
+        for (String[] medico : medicos) {
+            if (medico[1].equalsIgnoreCase(especialidadePesquisa)) {
+                medicosFiltrados.add(medico);
+            }
+        }
+
+        medicosPanel.removeAll(); // Limpa o painel de médicos
+
+        // Verifica se há resultados
+        if (medicosFiltrados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum médico encontrado com a especialidade: " + especialidadePesquisa, "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int tamanhoPainelMedicos = 0;
+            for (String[] medico : medicosFiltrados) {
+                criarPainelMedico(medico[0], medico[1]); // Cria e adiciona o painel de médico
+                tamanhoPainelMedicos += 50; // Incrementa o tamanho do painel
+            }
+            medicosPanel.setPreferredSize(new java.awt.Dimension(520, tamanhoPainelMedicos));
+            medicosPanel.revalidate();
+            medicosPanel.repaint();
+        }
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
     private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
