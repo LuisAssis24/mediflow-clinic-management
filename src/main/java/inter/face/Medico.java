@@ -13,8 +13,10 @@ public class Medico extends javax.swing.JPanel {
     /**
      * Creates new form Medico
      */
-    public Medico() {
+    public Medico(String id, String espec) {
         initComponents(); // Inicializa os componentes da interface
+        idMedico.setText(id);
+        especMedico.setText(espec);
     }
 
     /**
@@ -28,47 +30,78 @@ public class Medico extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        idMedico = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        especMedico = new javax.swing.JLabel();
+        botaoHorarios = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
-        setMaximumSize(new java.awt.Dimension(720, 50));
-        setMinimumSize(new java.awt.Dimension(720, 50));
-        setPreferredSize(new java.awt.Dimension(720, 100));
+        setMaximumSize(new java.awt.Dimension(510, 50));
+        setMinimumSize(new java.awt.Dimension(510, 50));
+        setPreferredSize(new java.awt.Dimension(510, 50));
         setLayout(new java.awt.GridBagLayout());
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel1.setText("ID:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("xxxxxxxxxx");
+        idMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        idMedico.setText("112244559");
+        idMedico.setMaximumSize(new java.awt.Dimension(80, 20));
+        idMedico.setMinimumSize(new java.awt.Dimension(80, 20));
+        idMedico.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        add(jLabel2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 15);
+        add(idMedico, gridBagConstraints);
 
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel3.setText("Especialidade:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(jLabel3, gridBagConstraints);
 
-        jLabel4.setText("eeeeeeeeeeeeeeee");
+        especMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        especMedico.setText("Eletrocardiologia");
+        especMedico.setPreferredSize(new java.awt.Dimension(120, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        add(jLabel4, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 15);
+        add(especMedico, gridBagConstraints);
+
+        botaoHorarios.setBackground(new java.awt.Color(0, 132, 193));
+        botaoHorarios.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoHorarios.setForeground(new java.awt.Color(242, 242, 242));
+        botaoHorarios.setText("HORÁRIOS");
+        botaoHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoHorariosActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        add(botaoHorarios, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoHorariosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoHorarios;
+    private javax.swing.JLabel especMedico;
+    private javax.swing.JLabel idMedico;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

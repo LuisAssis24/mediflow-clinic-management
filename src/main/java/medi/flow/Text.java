@@ -26,4 +26,15 @@ public class Text {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return dateTimeFormat.parse(data + " " + hora);
     }
+
+    // Método para formatar o nome do médico
+    public static String nomeMedicoTransform(String nome) {
+        String[] partes = nome.split(" ");
+        if (partes.length < 2) {
+            return "Dr. " + nome; // Se o nome só tiver 2 nomes, retorna o nome completo
+        }
+        String primeiroNome = partes[0];
+        String ultimoNome = partes[partes.length - 1];
+        return "Dr. " + primeiroNome + " " + ultimoNome;
+    }
 }

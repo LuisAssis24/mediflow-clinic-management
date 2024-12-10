@@ -15,6 +15,8 @@ import java.util.Date;
 
 import sql.server.SqlSecretaria;
 
+import static medi.flow.Main.clinica;
+import static medi.flow.Text.nomeMedicoTransform;
 import static sql.server.SqlSecretaria.verificarPacienteExiste;
 
 /**
@@ -37,7 +39,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem os IDs das consultas da base de dados
-        List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas();
+        List<Clinica.Consulta> consultas = clinica.getConsultas();
         for(Clinica.Consulta consulta : consultas) {
             // Cria um painel com os dados da Consulta>
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
@@ -103,7 +105,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoMarcar = new javax.swing.JButton();
         label = new javax.swing.JLabel();
         horaConsulta = new javax.swing.JFormattedTextField();
-        botaoDisponibilidade = new javax.swing.JButton();
+        botaoHorarios = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         idMedico = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -439,16 +441,16 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
         jPanel2.add(horaConsulta, gridBagConstraints);
 
-        botaoDisponibilidade.setBackground(new java.awt.Color(0, 132, 193));
-        botaoDisponibilidade.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoDisponibilidade.setForeground(new java.awt.Color(242, 242, 242));
-        botaoDisponibilidade.setText("DISPONIBILIDADE ");
-        botaoDisponibilidade.setMaximumSize(new java.awt.Dimension(150, 35));
-        botaoDisponibilidade.setMinimumSize(new java.awt.Dimension(150, 35));
-        botaoDisponibilidade.setPreferredSize(new java.awt.Dimension(150, 35));
-        botaoDisponibilidade.addActionListener(new java.awt.event.ActionListener() {
+        botaoHorarios.setBackground(new java.awt.Color(0, 132, 193));
+        botaoHorarios.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        botaoHorarios.setForeground(new java.awt.Color(242, 242, 242));
+        botaoHorarios.setText("DISPONIBILIDADE");
+        botaoHorarios.setMaximumSize(new java.awt.Dimension(150, 35));
+        botaoHorarios.setMinimumSize(new java.awt.Dimension(150, 35));
+        botaoHorarios.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoHorarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoDisponibilidadeActionPerformed(evt);
+                botaoHorariosActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -456,7 +458,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         gridBagConstraints.gridy = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        jPanel2.add(botaoDisponibilidade, gridBagConstraints);
+        jPanel2.add(botaoHorarios, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(242, 242, 242));
@@ -573,7 +575,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
 
         // Verifica se o painel "verConsultas" está oculto
-        if (verConsultas.isVisible() == false){
+        if (!verConsultas.isVisible()){
             barraPesquisa.setVisible(true);
             botaoPesquisa.setVisible(true);
             verConsultas.setVisible(true);
@@ -585,7 +587,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
 
     private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
         // Verifica se o painel "marcarConsultas" está oculto
-        if (marcarConsultas.isVisible() == false){
+        if (!marcarConsultas.isVisible()){
             barraPesquisa.setVisible(false);
             botaoPesquisa.setVisible(false);
             marcarConsultas.setVisible(true);
@@ -695,10 +697,10 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_contactoPacienteActionPerformed
 
-    private void botaoDisponibilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDisponibilidadeActionPerformed
+    private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
         DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
         disp.setVisible(true);
-    }//GEN-LAST:event_botaoDisponibilidadeActionPerformed
+    }//GEN-LAST:event_botaoHorariosActionPerformed
 
     private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
         int num = Integer.parseInt(nSns.getText());
@@ -768,8 +770,15 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             SqlSecretaria.criarPaciente(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
             SqlMedico.criarRegistro(Integer.parseInt(numeroSnsStr));
 
+            String nomeMedico = null;
+            for (String[] m : clinica.getMedicos()){
+                if (Integer.parseInt(m[0]) == idMedicoInt){
+                    nomeMedico = nomeMedicoTransform(m[1]);
+                }
+            }
+
             // Chamar o método que cria a consulta
-            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt);
+            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMedico);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {
@@ -831,7 +840,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField barraPesquisa;
-    private javax.swing.JButton botaoDisponibilidade;
+    private javax.swing.JButton botaoHorarios;
     private javax.swing.JButton botaoMarcar;
     private javax.swing.JButton botaoMarcarConsultas;
     private javax.swing.JButton botaoPacientes;

@@ -49,8 +49,8 @@ public class SqlGeral {
             try {
                 Date dataHoraAtual = new Date(); // Obtém a data e hora atuais para carregar apenas as consultas futuras.
                 // Declara uma consulta SQL para obter todos os IDs das consultas
-                String sql = "CALL SelecionarConsultas()";
-                PreparedStatement statement = conexao.prepareStatement(sql);
+                String sql = "{CALL SelecionarConsultas()}";
+                CallableStatement statement = conexao.prepareCall(sql);
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
@@ -63,12 +63,13 @@ public class SqlGeral {
                         String hora = resultado.getString("Hora");
                         String motivo = resultado.getString("Motivo");
                         String nomePaciente = resultado.getString("Nome_Paciente");
+                        String nomeMedico = resultado.getString("Nome_Medico");
                         int snsPaciente = resultado.getInt("SNS_Paciente");
                         int numSala = resultado.getInt("Num_Sala");
                         int idMedico = resultado.getInt("ID_Medico");
                         int contacto = resultado.getInt("Contacto");
 
-                        Clinica.Consulta consulta = new Clinica.Consulta(idConsulta, data, hora, motivo, nomePaciente, snsPaciente, numSala, idMedico, contacto);
+                        Clinica.Consulta consulta = new Clinica.Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);
                         consultas.add(consulta);
                     }
                 }

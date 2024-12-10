@@ -34,6 +34,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -101,6 +102,24 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         jPanel2.add(jScrollPane2, gridBagConstraints);
 
+        jButton1.setBackground(new java.awt.Color(0, 132, 193));
+        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(242, 242, 242));
+        jButton1.setText("GUARDAR");
+        jButton1.setMaximumSize(new java.awt.Dimension(120, 35));
+        jButton1.setMinimumSize(new java.awt.Dimension(120, 35));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 35));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(20, 380, 0, 0);
+        jPanel2.add(jButton1, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -141,6 +160,10 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -177,6 +200,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
