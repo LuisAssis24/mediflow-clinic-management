@@ -101,11 +101,11 @@ public class SqlGestor {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
         if (conexao != null) {
-            String sql = "DELETE FROM Utilizador WHERE ID = ?";
-            try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                stmt.setInt(1, id);
+            String sql = "{CALL EliminarUtilizador(?)}";
+            try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
+                callableStatement.setInt(1, id);
 
-                int linhasAfetadas = stmt.executeUpdate();
+                int linhasAfetadas = callableStatement.executeUpdate();
                 return linhasAfetadas > 0; // Retorna true se alguma linha foi excluída
             }
         }

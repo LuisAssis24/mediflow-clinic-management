@@ -5,6 +5,9 @@
 package inter.face;
 
 import javax.swing.*;
+import java.util.List;
+
+import static sql.server.SqlSecretaria.obterTodosMedicos;
 
 /**
  *
@@ -17,17 +20,19 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
      */
     public DisponibilidadeMedicos() {
         initComponents(); // Inicializa os componentes da interface gráfica
-        carregarMedicosBaseDeDados(); // Carrega os dados simulados dos médicos na interface
+        carregarMedicosBaseDeDados(obterTodosMedicos()); // Carrega os dados simulados dos médicos na interface
     }
     
-    void carregarMedicosBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
+    void carregarMedicosBaseDeDados(List<String[]> medicos){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         int tamanhoPainelConsultas = 0;
         
         // Simula a criação de 15 paineis de médicos
-        for (int i = 0; i < 15; i++) {
-            tamanhoPainelConsultas+=50; //aumenta o painel Pai em 100 (tamanho do painel Consulta)
-            medicosPanel.setPreferredSize(new java.awt.Dimension(720, tamanhoPainelConsultas));
-            criarPainelMedico(); // Adiciona um painel de medico ao conteiner
+        for (String [] medico : medicos) {
+            String id = medico[0]; // ID do médico
+            String espec = medico[1]; // Especialidade do médico
+            tamanhoPainelConsultas += 50; // Aumenta o tamanho do painel de consultas
+            medicosPanel.setPreferredSize(new java.awt.Dimension(520, tamanhoPainelConsultas));
+            criarPainelMedico(id,espec); // Adiciona um painel de medico ao conteiner
         }
          //Faz o scroll começar em cima
         SwingUtilities.invokeLater(() -> {
@@ -40,8 +45,8 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         medicosPanel.repaint();
     }
         
-    void criarPainelMedico(){ //Adiciona uma consulta ao painel
-        Medico medico = new Medico(); // Criação de um painel do tipo "Medico"
+    void criarPainelMedico(String id , String espec){ //Adiciona uma consulta ao painel
+        Medico medico = new Medico(id, espec); // Criação de um painel do tipo "Medico"
         medicosPanel.add(medico); // Adiciona o painel ao conteiner principal
     }
     /**
@@ -61,13 +66,15 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         medicosPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(720, 720));
-        setMinimumSize(new java.awt.Dimension(720, 720));
+        setMaximumSize(new java.awt.Dimension(520, 520));
+        setMinimumSize(new java.awt.Dimension(520, 520));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel7.setBackground(new java.awt.Color(0, 149, 218));
-        jPanel7.setPreferredSize(new java.awt.Dimension(720, 50));
+        jPanel7.setMaximumSize(new java.awt.Dimension(520, 50));
+        jPanel7.setMinimumSize(new java.awt.Dimension(520, 50));
+        jPanel7.setPreferredSize(new java.awt.Dimension(520, 50));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
@@ -85,7 +92,6 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
         jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -100,7 +106,6 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel7.add(barraPesquisa, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -109,9 +114,14 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         getContentPane().add(jPanel7, gridBagConstraints);
 
+        jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(720, 670));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(520, 0));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(520, 470));
 
+        medicosPanel.setMaximumSize(new java.awt.Dimension(520, 100000));
+        medicosPanel.setMinimumSize(new java.awt.Dimension(520, 0));
+        medicosPanel.setPreferredSize(new java.awt.Dimension(520, 470));
         medicosPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         jScrollPane1.setViewportView(medicosPanel);
 

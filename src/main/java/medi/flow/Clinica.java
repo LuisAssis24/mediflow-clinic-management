@@ -1,8 +1,28 @@
 package medi.flow;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static sql.server.SqlGeral.*;
+import static sql.server.SqlGestor.*;
+import static sql.server.SqlSecretaria.*;
+
 public class Clinica {
+
+    private List<Consulta> consultas = new ArrayList<>();
+    private List<String[]> medicos = new ArrayList<>();
+    private List<Utilizador> utilizador = new ArrayList<>();
+
+    public Clinica() {
+        this.consultas = obterTodasConsultas();
+        this.medicos = obterTodosMedicos();
+        this.utilizador = obterTodosUtilizadores();
+    }
+
+    public List<Consulta> getConsultas() {return consultas;}
+    public List<String[]> getMedicos() {return medicos;}
+    public List<Utilizador> getUtilizador() {return utilizador;}
+
     public static class Utilizador {
         private int id;
         private int cc;
@@ -43,16 +63,17 @@ public class Clinica {
 
     public static class Consulta {
         private int idConsulta;
-        private String data, hora, motivo, nomePaciente;
+        private String data, hora, motivo, nomePaciente, nomeMedico;
         private int snsPaciente, numSala, idMedico, contacto;
 
         // Construtor para inicializar todos os campos
-        public Consulta(int idConsulta, String data, String hora, String motivo, String nomePaciente, int snsPaciente, int numSala, int idMedico, int contacto) {
+        public Consulta(int idConsulta, String data, String hora, String motivo, String nomePaciente, String nomeMedico, int snsPaciente, int numSala, int idMedico, int contacto) {
             this.idConsulta = idConsulta;
             this.data = data;
             this.hora = hora;
             this.motivo = motivo;
             this.nomePaciente = nomePaciente;
+            this.nomeMedico = nomeMedico;
             this.snsPaciente = snsPaciente;
             this.numSala = numSala;
             this.idMedico = idMedico;
@@ -65,6 +86,7 @@ public class Clinica {
         public String getHora() { return hora; }
         public String getMotivo() { return motivo; }
         public String getNomePaciente() { return nomePaciente; }
+        public String getNomeMedico() { return nomeMedico; }
         public int getSnsPaciente() { return snsPaciente; }
         public int getNumSala() { return numSala; }
         public int getIdMedico() { return idMedico; }

@@ -11,6 +11,8 @@ import medi.flow.Clinica;
 import sql.server.*;
 import java.sql.*;
 import java.util.*;
+
+import static medi.flow.Main.clinica;
 import static sql.server.SqlGestor.*;
 
 
@@ -19,7 +21,6 @@ import static sql.server.SqlGestor.*;
  * @author Luis
  */
 public final class VistaGestor extends javax.swing.JFrame {
-    HashMap<String, String> dados = new HashMap<>();
     /**
      * Creates new form VistaBase
      */
@@ -31,7 +32,7 @@ public final class VistaGestor extends javax.swing.JFrame {
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll(); // Limpa o painel de credenciais
 
-        List<Clinica.Utilizador> utilizadores = SqlGestor.obterTodosUtilizadores(); // Obtem todos os utilizadores
+        List<Clinica.Utilizador> utilizadores = clinica.getUtilizador(); // Obtem todos os utilizadores
 
         // Ordena os utilizadores pelo tipo (secretaria, medico, gestor) e, depois, pelo ID
         /*utilizadores.sort((id1, id2) -> {

@@ -8,6 +8,8 @@ import medi.flow.Clinica;
 import sql.server.*;
 import javax.swing.*;
 
+import static medi.flow.Main.clinica;
+
 /**
  *
  * @author Luis
@@ -23,7 +25,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
         nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
         nSns.setText(Integer.toString(consulta.getSnsPaciente()));
-        medico.setText(Integer.toString(consulta.getIdMedico()));
+        medico.setText(consulta.getNomeMedico());
         sala.setText(Integer.toString(consulta.getNumSala()));
         data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
         hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
@@ -213,6 +215,8 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
 
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
         SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
+        clinica = new Clinica(); // Atualiza a lista de consultas
+
         JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
         parentPanel.remove(this); // remove este painel
         parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));

@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.util.*;
 
 import static inter.face.VistaDeLogin.idMedicoAUtilizarOSistema;
+import static medi.flow.Main.clinica;
 
 /**
  *
@@ -30,7 +31,7 @@ public final class VistaMedico extends javax.swing.JFrame {
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem os IDs das consultas da base de dados
-        List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas();
+        List<Clinica.Consulta> consultas = clinica.getConsultas();
         for(Clinica.Consulta consulta : consultas) {
             // Cria um painel com os dados da Consulta
             if (consulta.getIdMedico() == idMedicoAUtilizarOSistema ) { //Verifica o médico que está a usar a aplicação
