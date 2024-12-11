@@ -97,7 +97,7 @@ public class SqlGestor {
     }
 
     // Elimina um utilizador da base de dados com base no ID
-    public static boolean eliminarUtilizador(int id) throws SQLException {
+    /*public static boolean eliminarUtilizador(int id) throws SQLException {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
         if (conexao != null) {
@@ -110,7 +110,7 @@ public class SqlGestor {
             }
         }
         return false; // Retorna falso se a conexão for nula
-    }
+    }*/
 
     // Obtem uma lista de todos os gestores
     public static List<HashMap<String, String>> obterTodosGestores() {
@@ -179,7 +179,26 @@ public class SqlGestor {
     }
 
 
+    public static boolean eliminarUtilizador(int idUtilizador) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
 
+        if (conexao != null) {
+            try {
+                // Chama a stored procedure EliminarUtilizador
+                String sql = "{CALL EliminarUtilizador(?)}";
+                CallableStatement statement = conexao.prepareCall(sql);
+
+                // Define o parâmetro de entrada (ID do utilizador)
+                statement.setInt(1, idUtilizador);
+
+                // Executa a stored procedure
+                statement.execute();
+            } catch (SQLException e) {
+                System.out.println("Erro ao executar a stored procedure EliminarUtilizador: " + e.getMessage());
+            }
+        }
+        return false;
+    }
 
 
 }
