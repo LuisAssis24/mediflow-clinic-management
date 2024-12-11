@@ -1,6 +1,5 @@
 package medi.flow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static sql.server.SqlGeral.*;
@@ -9,19 +8,53 @@ import static sql.server.SqlSecretaria.*;
 
 public class Clinica {
 
-    private List<Consulta> consultas = new ArrayList<>();
-    private List<String[]> medicos = new ArrayList<>();
-    private List<Utilizador> utilizador = new ArrayList<>();
+    private List<Consulta> consultas;
+    private List<String[]> medicos;
+    private List<Utilizador> utilizadores;
+    private List<Paciente> pacientes;
 
     public Clinica() {
         this.consultas = obterTodasConsultas();
         this.medicos = obterTodosMedicos();
-        this.utilizador = obterTodosUtilizadores();
+        this.utilizadores = obterTodosUtilizadores();
+        this.pacientes = obterTodosPacientes();
     }
 
+    //Getters
     public List<Consulta> getConsultas() {return consultas;}
     public List<String[]> getMedicos() {return medicos;}
-    public List<Utilizador> getUtilizador() {return utilizador;}
+    public List<Utilizador> getUtilizador() {return utilizadores;}
+    public List<Paciente> getPacientes() { return pacientes; }
+
+    public String obterNomeMedicoPorId(int id) {
+        for (Utilizador medico : utilizadores) {
+            if (medico.getId() == id) {
+                return medico.getNome();
+            }
+        }
+        return null;
+    }
+
+    public String[] obterPacientePorSns(int sns) {
+        for (Paciente paciente : pacientes) {
+            if (paciente.getNumeroSNS() == sns) {
+                return new String[]{paciente.getNome(), String.valueOf(paciente.getContacto())};
+            }
+        }
+        return null;
+    }
+
+    //Adders
+    public void addConsulta(Consulta consulta) {consultas.add(consulta);}
+    public void addMedico(String[] medico) {medicos.add(medico);}
+    public void addUtilizador(Utilizador utilizador) {utilizadores.add(utilizador);}
+    public void addPaciente(Paciente paciente) {pacientes.add(paciente);}
+
+    //Removers
+    public void removeConsulta(Consulta consulta) {consultas.remove(consulta);}
+    public void removeMedico(String[] medico) {medicos.remove(medico);}
+    public void removeUtilizador(Utilizador utilizador) {utilizadores.remove(utilizador);}
+    public void removePaciente(Paciente paciente) {pacientes.remove(paciente);}
 
     public static class Utilizador {
         private int id;

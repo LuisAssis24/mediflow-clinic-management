@@ -6,6 +6,8 @@ import java.sql.*;
 import java.text.*;
 import java.util.*;
 
+import static medi.flow.Main.clinica;
+
 public class SqlSecretaria {
     // Metodo para buscar uma consulta pelo numero SNS do paceinte
     public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {
@@ -50,6 +52,35 @@ public class SqlSecretaria {
             }
         }
         return medicos;
+    }
+
+    public static List<Clinica.Paciente> obterTodosPacientes() {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        List<Clinica.Paciente> pacientes = new ArrayList<>(); // Lista para armazenar os pacientes
+
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Declara uma consulta SQL para obter todos os pacientes
+                String sql = "{CALL ObterTodosPacientes()}";
+                CallableStatement statement = conexao.prepareCall(sql);
+
+                // Executa a consulta e armazena o resultado
+                ResultSet resultado = statement.executeQuery();
+
+                // Adiciona todos os pacientes à lista
+                while (resultado.next()) {
+                    int numeroSNS = resultado.getInt("Numero_SNS");
+                    String nome = resultado.getString("Nome");
+                    int contacto = resultado.getInt("Contacto");
+
+                    pacientes.add(new Clinica.Paciente(numeroSNS, nome, contacto)); // Adiciona o paciente à lista
+                }
+                return pacientes; // Retorna a lista com os pacientes
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao obter os pacientes: " + e.getMessage());
+            }
+        }
+        return pacientes;
     }
 
     // Metodo para criar uma nova consulta medica
@@ -119,34 +150,10 @@ public class SqlSecretaria {
         }
     }
 
-    // Metodo para verificar se um paciente já existe no banco de dados
-    public static Clinica.Paciente verificarPacienteExiste(int numero) {
-    Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-    String sqlVerificar = "{CALL ObterPacientePorSNS(?)}";
-
-    try (CallableStatement callableStatement = conexao.prepareCall(sqlVerificar)) {
-        callableStatement.setInt(1, numero);
-        try (ResultSet rs = callableStatement.executeQuery()) {
-            if (rs.next()) {
-                int numeroSNS = rs.getInt("Numero_SNS");
-                String nome = rs.getString("Nome");
-                int contacto = rs.getInt("Contacto");
-                return new Clinica.Paciente(numeroSNS, nome, contacto);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        throw new RuntimeException("Erro ao verificar paciente: " + e.getMessage());
-    }
-    return null;
-}
-
     // Metodo para criar um novo paciente caso eel nao exista
     public static void criarPaciente(int numero, String nome, int contacto) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        if (verificarPacienteExiste(numero) == null) {
+        if (clinica.obterPacientePorSns(numero) == null) {
             String sql = "CALL CriarPaciente(?, ?, ?)";
             try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
                 preparedStatement.setInt(1, numero);

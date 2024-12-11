@@ -17,14 +17,12 @@ import sql.server.SqlSecretaria;
 
 import static medi.flow.Main.clinica;
 import static medi.flow.Text.nomeMedicoTransform;
-import static sql.server.SqlSecretaria.verificarPacienteExiste;
 
 /**
  *
  * @author Luis
  */
 public final class VistaSecretaria extends javax.swing.JFrame {
-    //ArrayList<> consultas = new ArrayList<Consulta>();
     /**
      * Creates new form VistaBase
      */
@@ -611,7 +609,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             return;
         }
 
-        List<Clinica.Consulta> consultas = SqlGeral.obterTodasConsultas(); // Obtem todas as consultas da base de dados
+        List<Clinica.Consulta> consultas = clinica.getConsultas(); // Obtem todas as consultas da base de dados
         List<Clinica.Consulta> consultasFiltradas = new ArrayList<>();
 
         // Verifica se o valor inserido é um número (pesquisa por nSns)
@@ -645,44 +643,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             consultasPanel.revalidate();
             consultasPanel.repaint();
         }
-
-        /*String inputSNS = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
-
-        // Verifica se o campo de pesquisa está vazio
-        if (inputSNS == null || inputSNS.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira um número de SNS.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Verifica se o valor inserido contém apenas numeros
-        if (!inputSNS.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira apenas números.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            int snsPaciente = Integer.parseInt(inputSNS); // Converte o texto em um numero inteiro
-            System.out.println("Pesquisando consulta para SNS: " + snsPaciente);
-
-            // Realiza a busca na base de dados
-            HashMap<String, String> dadosConsulta = SqlSecretaria.procurarConsultaPorSNS(snsPaciente);
-
-            consultasPanel.removeAll(); // Limpa o painel de consultas
-
-            // Verifica se há resultados
-            if (dadosConsulta.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                ConsultaFuncionario consulta = new ConsultaFuncionario(dadosConsulta);
-                consultasPanel.add(consulta);
-                consultasPanel.revalidate();
-                consultasPanel.repaint();
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao converter o SNS: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (HeadlessException ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } */
     }                                               
 
     private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
@@ -705,9 +665,11 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
         int num = Integer.parseInt(nSns.getText());
 
-        if (verificarPacienteExiste(num) != null){
-            nomePaciente.setText(verificarPacienteExiste(num).getNome());
-            contactoPaciente.setText(Integer.toString(verificarPacienteExiste(num).getContacto()));
+        // Verificar se o paciente existe
+        String[] dadosPaciennte = clinica.obterPacientePorSns(num);
+        if (dadosPaciennte != null) {
+            nomePaciente.setText(dadosPaciennte[0]);
+            contactoPaciente.setText(dadosPaciennte[1]);
         } else {
             JOptionPane.showMessageDialog(this, "Paciente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -766,19 +728,17 @@ public final class VistaSecretaria extends javax.swing.JFrame {
                 return;
             }
 
-            // Chamar o método que cria o paciente caso ele não exista
-            SqlSecretaria.criarPaciente(Integer.parseInt(numeroSnsStr), nome, Integer.parseInt(contacto));
-            SqlMedico.criarRegistro(Integer.parseInt(numeroSnsStr));
+            // Criar o Paciente Caso ele não exista e adcionar ao objeto clinica
+            SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);
+            clinica.addPaciente(new Clinica.Paciente(numeroSns, nome, contactoInt));
 
-            String nomeMedico = null;
-            for (String[] m : clinica.getMedicos()){
-                if (Integer.parseInt(m[0]) == idMedicoInt){
-                    nomeMedico = nomeMedicoTransform(m[1]);
-                }
-            }
+            // Obter o nome do médico e formatá-lo
+            String nomeMedUnformat = clinica.obterNomeMedicoPorId(idMedicoInt);
+            String nomeMed = nomeMedicoTransform(nomeMedUnformat);
 
-            // Chamar o método que cria a consulta
-            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMedico);
+            // Chamar o método que cria a consulta e adicionar a consulta ao objeto clínica
+            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);
+            Clinica.Consulta consulta = new Clinica.Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {
@@ -792,7 +752,9 @@ public final class VistaSecretaria extends javax.swing.JFrame {
                 idMedico.setText("");
                 salaConsulta.setText("");
                 contactoPaciente.setText("");
-                // Atualizar o painel verConsultas
+
+                // Adicionar a consulta ao objeto clínica
+                clinica.addConsulta(consulta);
                 carregarConsultasBaseDeDados();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
