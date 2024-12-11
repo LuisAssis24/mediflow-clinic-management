@@ -9,22 +9,6 @@ import java.util.*;
 import static medi.flow.Main.clinica;
 
 public class SqlSecretaria {
-    // Metodo para buscar uma consulta pelo numero SNS do paceinte
-    public static HashMap<String, String> procurarConsultaPorSNS(int snsPaciente) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com o banco de dados
-        HashMap<String, String> resultadoConsulta = new HashMap<>(); // Mapa para armazenar os resultados
-
-        if (conexao != null) { // Verifica se a conexão foi estabelecida
-            /*try {
-
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao executar a *stored procedure* VerConsultaPorSNS: " + e.getMessage());
-            }*/
-        }
-
-        return resultadoConsulta; // Retorna os dados da consulta
-    }
-
     // Metodo para carregar os medicos
     public static List<String[]> obterTodosMedicos() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
@@ -153,13 +137,15 @@ public class SqlSecretaria {
     // Metodo para criar um novo paciente caso eel nao exista
     public static void criarPaciente(int numero, String nome, int contacto) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+
         if (clinica.obterPacientePorSns(numero) == null) {
-            String sql = "CALL CriarPaciente(?, ?, ?)";
-            try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-                preparedStatement.setInt(1, numero);
-                preparedStatement.setString(2, nome);
-                preparedStatement.setInt(3, contacto);
-                preparedStatement.executeUpdate();
+            String sql = "{CALL CriarPaciente(?, ?, ?)}";
+            try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
+                callableStatement.setInt(1, numero);
+                callableStatement.setString(2, nome);
+                callableStatement.setInt(3, contacto);
+                callableStatement.executeUpdate();
+                System.out.println("Paciente criado com sucesso!");
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException("Erro ao criar paciente: " + e.getMessage());

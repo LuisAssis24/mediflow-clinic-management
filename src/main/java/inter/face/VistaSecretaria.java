@@ -276,11 +276,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         nomePaciente.setMaximumSize(new java.awt.Dimension(450, 30));
         nomePaciente.setMinimumSize(new java.awt.Dimension(450, 30));
         nomePaciente.setPreferredSize(new java.awt.Dimension(450, 30));
-        nomePaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomePacienteActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -302,11 +297,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         contactoPaciente.setMaximumSize(new java.awt.Dimension(200, 30));
         contactoPaciente.setMinimumSize(new java.awt.Dimension(200, 30));
         contactoPaciente.setPreferredSize(new java.awt.Dimension(200, 30));
-        contactoPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contactoPacienteActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -386,11 +376,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         dataConsulta.setMaximumSize(new java.awt.Dimension(200, 30));
         dataConsulta.setMinimumSize(new java.awt.Dimension(200, 30));
         dataConsulta.setPreferredSize(new java.awt.Dimension(200, 30));
-        dataConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataConsultaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
@@ -644,18 +629,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             consultasPanel.repaint();
         }
     }                                               
-
-    private void nomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomePacienteActionPerformed
-
-    private void dataConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataConsultaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataConsultaActionPerformed
-
-    private void contactoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactoPacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contactoPacienteActionPerformed
 
     private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
         DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
