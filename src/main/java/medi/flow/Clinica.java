@@ -51,10 +51,38 @@ public class Clinica {
     public void addPaciente(Paciente paciente) {pacientes.add(paciente);}
 
     //Removers
-    public void removeConsulta(Consulta consulta) {consultas.remove(consulta);}
-    public void removeMedico(String[] medico) {medicos.remove(medico);}
-    public void removeUtilizador(Utilizador utilizador) {utilizadores.remove(utilizador);}
-    public void removePaciente(Paciente paciente) {pacientes.remove(paciente);}
+    public void removeConsulta(int id) {
+        for (Consulta consulta : consultas) {
+            if (consulta.getIdConsulta() == id) {
+                consultas.remove(consulta);
+                break;
+            }
+        }
+    }
+    public void removeMedico(int id) {
+        for (String[] medico : medicos) {
+            if (Integer.parseInt(medico[0]) == id) {
+                medicos.remove(medico);
+                break;
+            }
+        }
+    }
+    public void removeUtilizador(int id) {
+        for (Utilizador utilizador : utilizadores) {
+            if (utilizador.getId() == id) {
+                utilizadores.remove(utilizador);
+                break;
+            }
+        }
+    }
+    public void removePaciente(int nSns) {
+        for (Paciente paciente : pacientes) {
+            if (paciente.getNumeroSNS() == nSns) {
+                pacientes.remove(paciente);
+                break;
+            }
+        }
+    }
 
     public static class Utilizador {
         private int id;

@@ -215,7 +215,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
 
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
         SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
-        clinica = new Clinica(); // Atualiza a lista de consultas
+        clinica.removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
 
         JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
         parentPanel.remove(this); // remove este painel
