@@ -5,13 +5,20 @@
 package inter.face;
 
 import medi.flow.Clinica;
+import sql.server.SqlGestor;
+
+import javax.swing.*;
+
+import java.sql.SQLException;
+
+import static medi.flow.Main.clinica;
 
 /**
  *
  * @author Luis
  */
 public class Credencial extends javax.swing.JPanel {
-
+    int idUtilizador;
     /**
      * Creates new form Credencial
      */
@@ -25,6 +32,7 @@ public class Credencial extends javax.swing.JPanel {
         nomeCredencial.setText(utilizador.getNome());
         password.setText("********");
         funcao.setText(utilizador.getTipoUtilizador());
+        idUtilizador = utilizador.getId();
     }
 
     /**
@@ -160,6 +168,15 @@ public class Credencial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarActionPerformed
+        SqlGestor.eliminarUtilizador(idUtilizador);
+        clinica.removeUtilizador(idUtilizador);
+
+        JPanel parentPanel = (JPanel) this.getParent();
+        parentPanel.remove(this);
+        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 40));
+        parentPanel.revalidate();
+        parentPanel.repaint();
+
         //vistaGestor.mostrarPainelPassword(id); // Chama a ação na vista principal para gerenciar a exclusão
     }//GEN-LAST:event_botaoEliminarActionPerformed
 
