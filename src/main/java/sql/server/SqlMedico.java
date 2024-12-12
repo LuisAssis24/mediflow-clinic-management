@@ -2,6 +2,9 @@ package sql.server;
 
 import medi.flow.Clinica;
 
+import inter.face.EntradaRegistoClinico;
+import medi.flow.Clinica;
+
 import java.sql.*;
 import java.util.*;
 
@@ -88,4 +91,53 @@ public class SqlMedico {
             e.printStackTrace();
         }
     }
+
+    public static void criarEntradaRegisto(int numeroSns, int iD_Medico, int iD_Ficha, int data, String motivo, String tratamento) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        String sql = "{CALL CriarEntradaRegistro(?, ?, ?, ?, ?, ?)}";
+
+        try(CallableStatement callableStatement = conexao.prepareCall(sql)){
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /*public static List<Clinica.EntradaRegistroClinico> obterTodasEntradas(){
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        List<Clinica.EntradaRegistroClinico> entradas = new ArrayList<>();
+
+        if (conexao != null){
+            try{
+                String sql = "SELECT ID_Registro, ID_Ficha, Data, ID_Medico, Tratamento, ID_Consulta, Assunto FROM EntradaRegistoClinico";
+                PreparedStatement statement = conexao.prepareStatement(sql);
+
+                ResultSet resultado = statement.executeQuery();
+
+                while(resultado.next()){
+                    int id_Registro = resultado.getInt("ID_Registro");
+                    int id_Ficha = resultado.getInt("ID_Ficha");
+                    String data = resultado.getString("Data");
+                    int id_Medico = resultado.getInt("ID_Medico");
+                    String tratamento = resultado.getString("Tratamento");
+                    int id_Consulta = resultado.getInt("ID_Consulta");
+                    String assunto = resultado.getString("Assunto");
+                }
+                
+                Clinica.EntradaRegistroClinico entradas = new Clinica.EntradaRegistroClinico();
+
+
+                Clinica.EntradaRegistroClinico entradaRegistroClinico = new Clinica.EntradaRegistroClinico()
+
+            }catch(SQLException e){
+
+            }
+
+
+        }
+
+
+
+        return entradas;
+    }*/
 }
