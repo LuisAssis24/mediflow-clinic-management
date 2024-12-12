@@ -4,11 +4,11 @@
  */
 package inter.face;
 
-import medi.flow.Clinica;
+import medi.flow.*;
 import sql.server.*;
 import javax.swing.*;
 
-import static medi.flow.Main.clinica;
+import static medi.flow.Main.getClinica;
 
 /**
  *
@@ -19,7 +19,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
     /**
      * Creates new form Consulta
      */
-    public ConsultaFuncionario(Clinica.Consulta consulta) {
+    public ConsultaFuncionario(Consulta consulta) {
         initComponents();
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
@@ -215,7 +215,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
 
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
         SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
-        clinica.removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
+        getClinica().removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
 
         JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
         parentPanel.remove(this); // remove este painel

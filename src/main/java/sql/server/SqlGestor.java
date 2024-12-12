@@ -1,14 +1,15 @@
 package sql.server;
 
-import medi.flow.Clinica;
+import medi.flow.*;
+
 import java.sql.*;
 import java.util.*;
 
 public class SqlGestor {
     // Obtem uma lista com todos os IDs dos utilizadores
-    public static List<Clinica.Utilizador> obterTodosUtilizadores() {
+    public static List<Utilizador> obterTodosUtilizadores() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        List<Clinica.Utilizador> utilizadores = new ArrayList<>(); // Lista para armazenar os utilizadores
+        List<Utilizador> utilizadores = new ArrayList<>(); // Lista para armazenar os utilizadores
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -35,11 +36,11 @@ public class SqlGestor {
                         if (resultadoMedico.next()) {
                             int numOrdem = resultadoMedico.getInt("Num_Ordem");
                             String especialidade = resultadoMedico.getString("Especialidade");
-                            Clinica.Medico medico = new Clinica.Medico(id, cc, nome, password, tipoUtilizador, numOrdem, especialidade);
+                            Medico medico = new Medico(id, cc, nome, password, tipoUtilizador, numOrdem, especialidade);
                             utilizadores.add(medico);
                         }
                     } else {
-                        Clinica.Utilizador utilizador = new Clinica.Utilizador(id, cc, nome, password, tipoUtilizador);
+                        Utilizador utilizador = new Utilizador(id, cc, nome, password, tipoUtilizador);
                         utilizadores.add(utilizador);
                     }
                 }

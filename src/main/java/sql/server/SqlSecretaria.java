@@ -1,12 +1,12 @@
 package sql.server;
 
-import medi.flow.Clinica;
+import medi.flow.*;
 
 import java.sql.*;
 import java.text.*;
 import java.util.*;
 
-import static medi.flow.Main.clinica;
+import static medi.flow.Main.getClinica;
 
 public class SqlSecretaria {
     // Metodo para carregar os medicos
@@ -38,9 +38,9 @@ public class SqlSecretaria {
         return medicos;
     }
 
-    public static List<Clinica.Paciente> obterTodosPacientes() {
+    public static List<Paciente> obterTodosPacientes() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        List<Clinica.Paciente> pacientes = new ArrayList<>(); // Lista para armazenar os pacientes
+        List<Paciente> pacientes = new ArrayList<>(); // Lista para armazenar os pacientes
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -57,7 +57,7 @@ public class SqlSecretaria {
                     String nome = resultado.getString("Nome");
                     int contacto = resultado.getInt("Contacto");
 
-                    pacientes.add(new Clinica.Paciente(numeroSNS, nome, contacto)); // Adiciona o paciente à lista
+                    pacientes.add(new Paciente(numeroSNS, nome, contacto)); // Adiciona o paciente à lista
                 }
                 return pacientes; // Retorna a lista com os pacientes
             } catch (SQLException e) { // Trata erros relacionados ao SQL
@@ -115,7 +115,7 @@ public class SqlSecretaria {
     }
 
     // Metodo para desmarcar uma consulta existente
-    public static void desmarcarConsulta(int IDConsulta){
+    public static void desmarcarConsulta(int IDConsulta) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -138,7 +138,7 @@ public class SqlSecretaria {
     public static void criarPaciente(int numero, String nome, int contacto) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
-        if (clinica.obterPacientePorSns(numero) == null) {
+        if (getClinica().obterPacientePorSns(numero) == null) {
             String sql = "{CALL CriarPaciente(?, ?, ?)}";
             try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
                 callableStatement.setInt(1, numero);
@@ -151,5 +151,61 @@ public class SqlSecretaria {
                 throw new RuntimeException("Erro ao criar paciente: " + e.getMessage());
             }
         }
+    }
+
+    //Metodo para armazenar todos os horarios de todos os medicos
+    public static List<Medico.HorarioMedico> todosHorariosMedicos() {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        List<Medico.HorarioMedico> todosHorarios = new ArrayList<>();
+
+        if (conexao != null) {
+            try {
+                // Retrieve all doctor IDs
+                String sql = "{CALL ObterTodosMedicos()}";
+                CallableStatement statement = conexao.prepareCall(sql);
+                ResultSet resultado = statement.executeQuery();
+
+                // For each doctor ID, get their schedules
+                while (resultado.next()) {
+                    int idMedico = resultado.getInt("ID");
+                    Medico.HorarioMedico horarioMedico = new Medico.HorarioMedico(idMedico, horariosOcupadosMedico(idMedico));
+                    todosHorarios.add(horarioMedico);
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao obter os horários de todos os médicos: " + e.getMessage());
+            }
+        }
+        return todosHorarios;
+    }
+
+    //metodo para obter os horarios de um médico especifico
+    public static List<String[]> horariosOcupadosMedico(int id) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        List<String[]> horarios = new ArrayList<>(); // Lista para armazenar os horários ocupados dos médicos
+
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Declara uma consulta SQL para obter os horários ocupados do médico
+                String sql = "{CALL ObterHorariosMedico(?)}";
+                CallableStatement statement = conexao.prepareCall(sql);
+
+                // Substitui o placeholder (?) pelo valor do ID do médico
+                statement.setInt(1, id);
+
+                // Executa a consulta e armazena o resultado
+                ResultSet resultado = statement.executeQuery();
+
+                // Adiciona todos os horários à lista
+                while (resultado.next()) {
+                    String data = resultado.getString("Data");
+                    String hora = resultado.getString("Hora");
+
+                    horarios.add(new String[]{data, hora});
+                }
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao obter os horários ocupados do médico: " + e.getMessage());
+            }
+        }
+        return horarios; // Retorna a lista com os horários ocupados
     }
 }

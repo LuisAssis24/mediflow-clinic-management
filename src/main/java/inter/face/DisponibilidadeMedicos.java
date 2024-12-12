@@ -21,7 +21,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
      */
     public DisponibilidadeMedicos() {
         initComponents(); // Inicializa os componentes da interface gráfica
-        carregarMedicosBaseDeDados(obterTodosMedicos()); // Carrega os dados simulados dos médicos na interface
+        carregarMedicosBaseDeDados(obterTodosMedicos()); // Carrega os dados  dos médicos na interface
     }
     
     void carregarMedicosBaseDeDados(List<String[]> medicos){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
@@ -47,7 +47,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     }
         
     void criarPainelMedico(String id , String espec){ //Adiciona uma consulta ao painel
-        Medico medico = new Medico(id, espec); // Criação de um painel do tipo "Medico"
+        MedicoPanel medico = new MedicoPanel(id, espec); // Criação de um painel do tipo "Medico"
         medicosPanel.add(medico); // Adiciona o painel ao conteiner principal
     }
     /**
@@ -63,6 +63,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         botaoPesquisa = new javax.swing.JButton();
         barraPesquisa = new javax.swing.JTextField();
+        refresh = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         medicosPanel = new javax.swing.JPanel();
 
@@ -84,7 +85,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         botaoPesquisa.setText("PESQUISAR");
         botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
         botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
+        botaoPesquisa.setPreferredSize(new java.awt.Dimension(120, 35));
         botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoPesquisaActionPerformed(evt);
@@ -93,12 +94,13 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 75);
         jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barraPesquisa.setText("Especialidade");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
-        barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
+        barraPesquisa.setPreferredSize(new java.awt.Dimension(250, 35));
         barraPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 barraPesquisaActionPerformed(evt);
@@ -108,6 +110,20 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel7.add(barraPesquisa, gridBagConstraints);
+
+        refresh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        refresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
+        jPanel7.add(refresh, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -175,6 +191,10 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
+    private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
+        carregarMedicosBaseDeDados(obterTodosMedicos());
+    }//GEN-LAST:event_refreshMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -216,5 +236,6 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel medicosPanel;
+    private javax.swing.JLabel refresh;
     // End of variables declaration//GEN-END:variables
 }

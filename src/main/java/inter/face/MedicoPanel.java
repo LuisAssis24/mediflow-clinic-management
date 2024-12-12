@@ -8,12 +8,12 @@ package inter.face;
  *
  * @author Luis
  */
-public class Medico extends javax.swing.JPanel {
+public class MedicoPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Medico
      */
-    public Medico(String id, String espec) {
+    public MedicoPanel(String id, String espec) {
         initComponents(); // Inicializa os componentes da interface
         idMedico.setText(id);
         especMedico.setText(espec);
@@ -93,7 +93,8 @@ public class Medico extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
-        // TODO add your handling code here:
+        HorariosMedico horarios = new HorariosMedico();
+        horarios.setVisible(true);
     }//GEN-LAST:event_botaoHorariosActionPerformed
 
 

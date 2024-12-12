@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import medi.flow.Clinica;
+import medi.flow.*;
 
 public class SqlGeral {
 
@@ -41,9 +41,9 @@ public class SqlGeral {
         return tipoUtilizador;
     }
 
-    public static List<Clinica.Consulta> obterTodasConsultas() {
+    public static List<Consulta> obterTodasConsultas() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        List<Clinica.Consulta> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
+        List<Consulta> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -69,7 +69,7 @@ public class SqlGeral {
                         int idMedico = resultado.getInt("ID_Medico");
                         int contacto = resultado.getInt("Contacto");
 
-                        Clinica.Consulta consulta = new Clinica.Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);
+                        Consulta consulta = new Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);
                         consultas.add(consulta);
                     }
                 }

@@ -8,7 +8,11 @@ import java.sql.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    public static Clinica clinica = new Clinica(); // Cria uma instância da classe Clinica
+    private static Clinica clinica = new Clinica(); // Cria uma instância da classe Clinica
+
+    public static Clinica getClinica() {
+        return clinica;
+    }
 
     public static void main(String[] args) {
         // Cria a conexão com a base de dados assim que o programa inicia

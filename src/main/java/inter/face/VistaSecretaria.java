@@ -8,14 +8,13 @@ import java.text.*;
 import javax.swing.*;
 
 import medi.flow.Clinica;
-import medi.flow.Text;
-import sql.server.*;
+import medi.flow.*;
 import java.util.*;
 import java.util.Date;
 
 import sql.server.SqlSecretaria;
 
-import static medi.flow.Main.clinica;
+import static medi.flow.Main.getClinica;
 import static medi.flow.Text.nomeMedicoTransform;
 
 /**
@@ -23,8 +22,10 @@ import static medi.flow.Text.nomeMedicoTransform;
  * @author Luis
  */
 public final class VistaSecretaria extends javax.swing.JFrame {
+    static String dataConsultaHorario = null;
+
     /**
-     * Creates new form VistaBase
+     * Creates new form VistaSecretaria
      */
     public VistaSecretaria() {
         initComponents(); // Inicializa os componentes da interface
@@ -37,8 +38,8 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem os IDs das consultas da base de dados
-        List<Clinica.Consulta> consultas = clinica.getConsultas();
-        for(Clinica.Consulta consulta : consultas) {
+        List<Consulta> consultas = getClinica().getConsultas();
+        for(Consulta consulta : consultas) {
             // Cria um painel com os dados da Consulta>
             tamanhoPainelConsultas += 100; // Increase the size of the parent panel
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
@@ -56,7 +57,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
 
-    void criarPainelConsulta(Clinica.Consulta consulta) {
+    void criarPainelConsulta(Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos 
         ConsultaFuncionario consultaPanel = new ConsultaFuncionario(consulta);
         consultaPanel.setPreferredSize(new java.awt.Dimension(900, 100)); // Define o tamanho preferido do painel de consulta
@@ -186,11 +187,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         barraPesquisa.setText("Pesquisar...");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
         barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
-        barraPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                barraPesquisaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -551,12 +547,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
-        
-    }//GEN-LAST:event_barraPesquisaActionPerformed
-
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
-
         // Verifica se o painel "verConsultas" está oculto
         if (!verConsultas.isVisible()){
             barraPesquisa.setVisible(true);
@@ -582,7 +573,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             dataConsulta.setText("");
             horaConsulta.setText("");
             idMedico.setText("");
-        } // TODO add your handling code here:
+        }
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -594,19 +585,19 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             return;
         }
 
-        List<Clinica.Consulta> consultas = clinica.getConsultas(); // Obtem todas as consultas da base de dados
-        List<Clinica.Consulta> consultasFiltradas = new ArrayList<>();
+        List<Consulta> consultas = getClinica().getConsultas(); // Obtem todas as consultas da base de dados
+        List<Consulta> consultasFiltradas = new ArrayList<>();
 
         // Verifica se o valor inserido é um número (pesquisa por nSns)
         if (inputPesquisa.matches("\\d+")) {
             int snsPaciente = Integer.parseInt(inputPesquisa);
-            for (Clinica.Consulta consulta : consultas) {
+            for (Consulta consulta : consultas) {
                 if (consulta.getSnsPaciente() == snsPaciente) {
                     consultasFiltradas.add(consulta);
                 }
             }
         } else { // Pesquisa por nome do paciente
-            for (Clinica.Consulta consulta : consultas) {
+            for (Consulta consulta : consultas) {
                 if (consulta.getNomePaciente().toLowerCase().contains(inputPesquisa.toLowerCase())) {
                     consultasFiltradas.add(consulta);
                 }
@@ -620,7 +611,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Erro", JOptionPane.INFORMATION_MESSAGE);
         } else {
             int tamanhoPainelConsultas = 0;
-            for (Clinica.Consulta consulta : consultasFiltradas) {
+            for (Consulta consulta : consultasFiltradas) {
                 criarPainelConsulta(consulta); // Cria e adiciona o painel de consulta
                 tamanhoPainelConsultas += 100; // Incrementa o tamanho do painel
             }
@@ -631,6 +622,11 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     }                                               
 
     private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
+        if (dataConsulta.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira a data da consulta.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        dataConsultaHorario = dataConsulta.getText(); // Armazena a data da consulta pra usar na disponibilidade de médicos
         DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
         disp.setVisible(true);
     }//GEN-LAST:event_botaoHorariosActionPerformed
@@ -639,7 +635,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         int num = Integer.parseInt(nSns.getText());
 
         // Verificar se o paciente existe
-        String[] dadosPaciennte = clinica.obterPacientePorSns(num);
+        String[] dadosPaciennte = getClinica().obterPacientePorSns(num);
         if (dadosPaciennte != null) {
             nomePaciente.setText(dadosPaciennte[0]);
             contactoPaciente.setText(dadosPaciennte[1]);
@@ -703,15 +699,15 @@ public final class VistaSecretaria extends javax.swing.JFrame {
 
             // Criar o Paciente Caso ele não exista e adcionar ao objeto clinica
             SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);
-            clinica.addPaciente(new Clinica.Paciente(numeroSns, nome, contactoInt));
+            getClinica().addPaciente(new Paciente(numeroSns, nome, contactoInt));
 
             // Obter o nome do médico e formatá-lo
-            String nomeMedUnformat = clinica.obterNomeMedicoPorId(idMedicoInt);
+            String nomeMedUnformat = getClinica().obterNomeMedicoPorId(idMedicoInt);
             String nomeMed = nomeMedicoTransform(nomeMedUnformat);
 
             // Chamar o método que cria a consulta e adicionar a consulta ao objeto clínica
             int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);
-            Clinica.Consulta consulta = new Clinica.Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
+            Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {
@@ -727,7 +723,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
                 contactoPaciente.setText("");
 
                 // Adicionar a consulta ao objeto clínica
-                clinica.addConsulta(consulta);
+                getClinica().addConsulta(consulta);
                 carregarConsultasBaseDeDados();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);

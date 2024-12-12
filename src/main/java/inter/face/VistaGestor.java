@@ -7,12 +7,11 @@ package inter.face;
 import java.awt.HeadlessException;
 import javax.swing.*;
 
-import medi.flow.Clinica;
+import medi.flow.*;
 import sql.server.*;
-import java.sql.*;
 import java.util.*;
 
-import static medi.flow.Main.clinica;
+import static medi.flow.Main.getClinica;
 import static sql.server.SqlGestor.*;
 
 
@@ -22,7 +21,7 @@ import static sql.server.SqlGestor.*;
  */
 public final class VistaGestor extends javax.swing.JFrame {
     /**
-     * Creates new form VistaBase
+     * Creates new form VistaGestor
      */
     public VistaGestor() {
         initComponents();
@@ -32,7 +31,7 @@ public final class VistaGestor extends javax.swing.JFrame {
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll(); // Limpa o painel de credenciais
 
-        List<Clinica.Utilizador> utilizadores = clinica.getUtilizador(); // Obtem todos os utilizadores
+        List<Utilizador> utilizadores = getClinica().getUtilizador(); // Obtem todos os utilizadores
 
         // Ordena os utilizadores pelo tipo (secretaria, medico, gestor) e, depois, pelo ID
         /*utilizadores.sort((id1, id2) -> {
@@ -48,7 +47,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         int tamanhoPainelCredenciais = 0; // tamanho do painel inicial
 
         // Itera pelos utilizadores
-        for (Clinica.Utilizador utilizador : utilizadores) {
+        for (Utilizador utilizador : utilizadores) {
             tamanhoPainelCredenciais += 100; // Incrementa o tamanho do painel
             credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
             criarPainelCredencial(utilizador); // Adiciona uma credencial ao painel
@@ -65,7 +64,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         credenciaisPanel.repaint();
     }
     
-    void criarPainelCredencial(Clinica.Utilizador utilizador){ //Adiciona uma credencial ao painel
+    void criarPainelCredencial(Utilizador utilizador){ //Adiciona uma credencial ao painel
         Credencial credencial = new Credencial(utilizador); // Cria uma instancia da classe credencial
         credenciaisPanel.add(credencial); // Adiciona o painel de credencial ao painel principal
     }
@@ -578,14 +577,17 @@ public final class VistaGestor extends javax.swing.JFrame {
         carregarCredenciaisBaseDeDados();
     }//GEN-LAST:event_botaoEliminarCredencialActionPerformed
 
-    private void filterUsers(String query) {
+    // Metodo adionado quando o botão de pesquisa é pressionado
+    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        String query = barraPesquisa.getText();
+
         // Obtem uma lista de todos os utilziadores através do método "obterTodosUtilizadores"
-        List<Clinica.Utilizador> utilizadores = SqlGestor.obterTodosUtilizadores();
+        List<Utilizador> utilizadores = SqlGestor.obterTodosUtilizadores();
         // Cria uma nova lista para armazenar os utilizadores que correspondem ao filtro
-        List<Clinica.Utilizador> filteredUsers = new ArrayList<>();
+        List<Utilizador> filteredUsers = new ArrayList<>();
 
         // Itera pela lista de utilizadores
-        for (Clinica.Utilizador utilizador : utilizadores) {
+        for (Utilizador utilizador : utilizadores) {
             // Veerifica se o ID ou nome contem a query fornecida
             if (String.valueOf(utilizador.getId()).contains(query) || utilizador.getNome().toLowerCase().contains(query.toLowerCase())) {
                 // Adiciona o utilizador à lista filtrada se a condiçãofor satisfeita
@@ -602,7 +604,7 @@ public final class VistaGestor extends javax.swing.JFrame {
             int tamanhoPainelCredenciais = 0;
 
             // Itera pela lista de utilizadores filtrados
-            for (Clinica.Utilizador utilizador : filteredUsers) {
+            for (Utilizador utilizador : filteredUsers) {
                 tamanhoPainelCredenciais += 100;
                 credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
                 // Chama um metodo que cria e adiciona o painel correspondente ao utilizador
@@ -613,55 +615,6 @@ public final class VistaGestor extends javax.swing.JFrame {
             credenciaisPanel.revalidate();
             credenciaisPanel.repaint();
         }
-    }
-
-    // Metodo adionado quando o botão de pesquisa é pressionado
-    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
-        String query = barraPesquisa.getText();
-        filterUsers(query);
-
-        /*try {
-            int idUtilizador = Integer.parseInt(barraPesquisa.getText()); // Tenta converter o valor da barra de pesquisa para inteiro (ID do utilizador)
-            HashMap<String, String> dadosUtilizador = SqlGestor.procurarUtilizadorPorID(idUtilizador); // Chama o metodo para procurar o utilizador pelo ID
-
-            // Se o utilizador for encontrado, exibe os dados
-            if (dadosUtilizador != null && !dadosUtilizador.isEmpty()) {
-                System.out.println("Dados do Utilizador: " + dadosUtilizador);
-
-                // Limpa o painel de credenciais
-                credenciaisPanel.removeAll();
-
-                // Adiciona o utilizador encontrado ao painel de credenciais
-                dados = dadosUtilizador;
-
-                // Verifica e exibe o tipo de utilizador
-                String tipoUtilizador = dados.get("TipoUtilizador");
-                if (tipoUtilizador == null || tipoUtilizador.isEmpty()) {
-                    tipoUtilizador = "Função não disponível";
-                }
-                System.out.println("Tipo de Utilizador para exibição: " + tipoUtilizador);
-
-                // Esconde a passowrd, se necessário
-                if ("Gestor".equalsIgnoreCase(tipoUtilizador)) {
-                    String password = dados.get("Password");
-                    if (password != null) {
-                        dados.put("Password", "*".repeat(password.length())); // Esconde a passowrd
-                    }
-                }
-
-                criarPainelCredencial();
-
-                // Atualiza o painel de credenciais
-                credenciaisPanel.revalidate();
-                credenciaisPanel.repaint();
-            } else {
-                JOptionPane.showMessageDialog(this, "Nenhum utilizador encontrado com ID: " + idUtilizador);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, coloque um ID válido.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao procurar utilizador: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }*/
     } 
 
 

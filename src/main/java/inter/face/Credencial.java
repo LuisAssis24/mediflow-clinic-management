@@ -4,7 +4,7 @@
  */
 package inter.face;
 
-import medi.flow.Clinica;
+import medi.flow.*;
 import sql.server.CifrarPasswords;
 import sql.server.SqlGestor;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 
 import java.sql.SQLException;
 
-import static medi.flow.Main.clinica;
+import static medi.flow.Main.getClinica;
 
 /**
  *
@@ -25,7 +25,7 @@ public class Credencial extends javax.swing.JPanel {
      */
 
 
-    public Credencial(Clinica.Utilizador utilizador) {
+    public Credencial(Utilizador utilizador) {
         initComponents(); // Inicializa os componentes da interface
 
         // Define os valores nos componentes da interface com base nos dados fornecidos
@@ -191,7 +191,7 @@ public class Credencial extends javax.swing.JPanel {
                 if (inputPassword != null && encryptedInputPassword.equals(actualEncryptedPassword)) {
                     boolean sucesso = SqlGestor.eliminarUtilizador(idUtilizador);
                     if (sucesso) {
-                        clinica.removeUtilizador(idUtilizador);
+                        getClinica().removeUtilizador(idUtilizador);
 
                         JPanel parentPanel = (JPanel) this.getParent();
                         parentPanel.remove(this);

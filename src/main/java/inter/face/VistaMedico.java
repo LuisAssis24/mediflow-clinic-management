@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inter.face;
-import medi.flow.Clinica;
-import sql.server.*;
+import medi.flow.*;
 import javax.swing.*;
+
+
 import java.util.*;
 
 import static inter.face.VistaDeLogin.idMedicoAUtilizarOSistema;
-import static medi.flow.Main.clinica;
+import static medi.flow.Main.getClinica;
 
 /**
  *
@@ -18,7 +19,7 @@ import static medi.flow.Main.clinica;
 public final class VistaMedico extends javax.swing.JFrame {
 
     /**
-     * Creates new form VistaBase
+     * Creates new form VistaMedico
      */
     public VistaMedico() {
         initComponents(); // Inicializa os componentes da interface grafica
@@ -31,8 +32,8 @@ public final class VistaMedico extends javax.swing.JFrame {
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem os IDs das consultas da base de dados
-        List<Clinica.Consulta> consultas = clinica.getConsultas();
-        for(Clinica.Consulta consulta : consultas) {
+        List<Consulta> consultas = getClinica().getConsultas();
+        for(Consulta consulta : consultas) {
             // Cria um painel com os dados da Consulta
             if (consulta.getIdMedico() == idMedicoAUtilizarOSistema ) { //Verifica o médico que está a usar a aplicação
                 tamanhoPainelConsultas += 100; // Aumenta o tamanho do painel pai
@@ -52,7 +53,7 @@ public final class VistaMedico extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
 
-    void criarPainelConsulta(Clinica.Consulta consulta) {
+    void criarPainelConsulta(Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos, tendo em conta o médico que está a usar a aplicação
         ConsultaMedico consultaPanel = new ConsultaMedico(consulta);
         consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas

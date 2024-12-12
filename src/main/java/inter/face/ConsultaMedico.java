@@ -4,7 +4,7 @@
  */
 package inter.face;
 
-import medi.flow.Clinica;
+import medi.flow.*;
 
 /**
  *
@@ -15,7 +15,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
     /**
      * Creates new form Consulta
      */
-    public ConsultaMedico(Clinica.Consulta consulta) {
+    public ConsultaMedico(Consulta consulta) {
         initComponents(); // Inicializa os componentes da interface
 
         // Preenche os componentes da interface
