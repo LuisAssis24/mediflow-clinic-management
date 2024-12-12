@@ -191,7 +191,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
     // Ação para verificar login ao clicar no botão
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
-    // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
+        // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
         String utilizador = nomeUtilizador.getText();
         String password = new String(this.password.getPassword());
 
@@ -205,9 +205,11 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     this.dispose();
                     break;
                 case "Médico":
-                    // Abre a vista de médico
-                    new VistaMedico().setVisible(true);
+                    // Define o ID do médico antes de abrir a vista
                     idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
+                    // Abre a vista de médico
+                    VistaMedico vistaMedico = new VistaMedico();
+                    vistaMedico.setVisible(true);
                     this.dispose();
                     break;
                 case "Secretaria":
