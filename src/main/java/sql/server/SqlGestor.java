@@ -7,8 +7,8 @@ import java.util.*;
 public class SqlGestor {
     // Obtem uma lista com todos os IDs dos utilizadores
     public static List<Clinica.Utilizador> obterTodosUtilizadores() {
-    Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-    List<Clinica.Utilizador> utilizadores = new ArrayList<>(); // Lista para armazenar os utilizadores
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        List<Clinica.Utilizador> utilizadores = new ArrayList<>(); // Lista para armazenar os utilizadores
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -27,12 +27,12 @@ public class SqlGestor {
                     String password = resultado.getString("Password");
                     String tipoUtilizador = resultado.getString("Tipo_Utilizador");
 
-                    if (tipoUtilizador.equals("Medico")){
+                    if (tipoUtilizador.equals("Medico")) {
                         String sqlMedico = "SELECT Num_Ordem, Especialidade FROM Medico WHERE ID = ?";
                         PreparedStatement statementMedico = conexao.prepareStatement(sqlMedico);
                         statementMedico.setInt(1, id);
                         ResultSet resultadoMedico = statementMedico.executeQuery();
-                        if (resultadoMedico.next()){
+                        if (resultadoMedico.next()) {
                             int numOrdem = resultadoMedico.getInt("Num_Ordem");
                             String especialidade = resultadoMedico.getString("Especialidade");
                             Clinica.Medico medico = new Clinica.Medico(id, cc, nome, password, tipoUtilizador, numOrdem, especialidade);
@@ -179,26 +179,30 @@ public class SqlGestor {
     }
 
 
-    public static boolean eliminarUtilizador(int idUtilizador) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-
-        if (conexao != null) {
-            try {
-                // Chama a stored procedure EliminarUtilizador
-                String sql = "{CALL EliminarUtilizador(?)}";
-                CallableStatement statement = conexao.prepareCall(sql);
-
-                // Define o parâmetro de entrada (ID do utilizador)
-                statement.setInt(1, idUtilizador);
-
-                // Executa a stored procedure
-                statement.execute();
-            } catch (SQLException e) {
-                System.out.println("Erro ao executar a stored procedure EliminarUtilizador: " + e.getMessage());
-            }
+    public static boolean eliminarUtilizador(int idUtilizador) throws SQLException {
+        String sql = "DELETE FROM Utilizador WHERE id = ?";
+        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            pstmt.setInt(1, idUtilizador);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            // Log the exception and rethrow it
+            System.err.println("Erro ao eliminar utilizador: " + e.getMessage());
+            throw e;
         }
-        return false;
     }
 
-
+    public static String obterPasswordGestor() throws SQLException {
+        String sql = "SELECT Password FROM Utilizador WHERE Tipo_Utilizador = 'Gestor' LIMIT 1"; // Ajuste a consulta conforme necessário
+        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+             Statement stmt = conexao.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getString("Password");
+            } else {
+                throw new SQLException("Gestor não encontrado.");
+            }
+        }
+    }
 }
