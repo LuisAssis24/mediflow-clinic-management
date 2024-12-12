@@ -204,14 +204,27 @@ public class Clinica {
         public int getNumeroSns() { return numeroSns; }
     }
 
-    class EntradaRegistroClinico {
+    public static class EntradaRegistroClinico {
+        private int id_consulta;
+        private int id_medico;
+        private int id_registro;
+        private int id_ficha;
         private String data;
         private Medico medico;
         private String assunto;
         private List<String> tratamento;
 
         //Construtor para inicializar os atributos
-        public EntradaRegistroClinico(String data, Medico medico, String assunto, List<String> tratamento) {}
+        public EntradaRegistroClinico(int id_ficha , int id_registro ,int id_medico, int id_consulta, String data, Medico medico, String assunto, List<String> tratamento) {
+            this.id_ficha = id_ficha;
+            this.id_registro = id_registro;
+            this.id_medico = id_medico;
+            this.id_consulta = id_consulta;
+            this.data = data;
+            this.medico = medico;
+            this.assunto = assunto;
+            this.tratamento = tratamento;
+        }
 
         // metodos getters
         public String getData() { return data; }

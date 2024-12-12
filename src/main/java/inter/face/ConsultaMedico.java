@@ -6,6 +6,8 @@ package inter.face;
 
 import medi.flow.Clinica;
 
+import static medi.flow.Text.quebraPontos;
+
 /**
  *
  * @author Luis
@@ -23,6 +25,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
         data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
         hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
 
+        quebraPontos(listaConsulta, consulta.getMotivo());
     }
 
     /**
