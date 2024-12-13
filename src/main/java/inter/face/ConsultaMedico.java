@@ -6,6 +6,9 @@ package inter.face;
 
 import medi.flow.*;
 
+import java.util.List;
+
+import static medi.flow.Main.getClinica;
 import static medi.flow.Text.quebraPontos;
 
 /**
@@ -17,8 +20,14 @@ public class ConsultaMedico extends javax.swing.JPanel {
     /**
      * Creates new form Consulta
      */
+
+    int nSns;
+
     public ConsultaMedico(Consulta consulta) {
         initComponents(); // Inicializa os componentes da interface
+
+        // Atributos escondidos da consulta
+        this.nSns = consulta.getSnsPaciente();
 
         // Preenche os componentes da interface
         nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
@@ -163,7 +172,13 @@ public class ConsultaMedico extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fichaMedicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaMedicaButtonActionPerformed
-
+        List<Clinica.RegistroClinico> listaRegistroClinico = getClinica().getRegistros();
+        for(Clinica.RegistroClinico registroClinico : listaRegistroClinico){
+            if(registroClinico.getNumeroSns() == nSns){
+                RegistoClinico registoClinico = new RegistoClinico(registroClinico);
+                registoClinico.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_fichaMedicaButtonActionPerformed
 
 

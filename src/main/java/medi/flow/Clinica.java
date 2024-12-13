@@ -1,9 +1,11 @@
 package medi.flow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static sql.server.SqlGeral.*;
 import static sql.server.SqlGestor.*;
+import static sql.server.SqlMedico.obterTodosRegistros;
 import static sql.server.SqlSecretaria.*;
 
 public class Clinica {
@@ -11,8 +13,9 @@ public class Clinica {
     private List<Consulta> consultas;
     private List<String[]> medicos;
     private List<Medico.HorarioMedico> horariosMedicos;
-    private List<Utilizador> utilizadores;
+    private static List<Utilizador> utilizadores;
     private List<Paciente> pacientes;
+    private List<RegistroClinico> registros;
 
     public Clinica() {
         this.consultas = obterTodasConsultas();
@@ -20,6 +23,7 @@ public class Clinica {
         this.utilizadores = obterTodosUtilizadores();
         this.pacientes = obterTodosPacientes();
         this.horariosMedicos = todosHorariosMedicos();
+        this.registros = obterTodosRegistros();
     }
 
     //Getters
@@ -27,16 +31,10 @@ public class Clinica {
     public List<String[]> getMedicos() {return medicos;}
     public List<Utilizador> getUtilizador() {return utilizadores;}
     public List<Paciente> getPacientes() { return pacientes; }
-    public Medico.HorarioMedico getHorarioMedico(int id) {
-        for (Medico.HorarioMedico horarioMedico : horariosMedicos) {
-            if (horarioMedico.getIdMedico() == id) {
-                return horarioMedico;
-            }
-        }
-        return null;
-    }
+    public List<Medico.HorarioMedico> getHorariosMedicos() { return horariosMedicos; }
+    public List<RegistroClinico> getRegistros() { return registros; }
 
-    public String obterNomeMedicoPorId(int id) {
+    public static String obterNomeMedicoPorId(int id) {
         for (Utilizador medico : utilizadores) {
             if (medico.getId() == id) {
                 return medico.getNome();
@@ -54,6 +52,9 @@ public class Clinica {
         return null;
     }
 
+    public void adicionarHorarioMedico() {
+
+    }
 
     //Adders
     public void addConsulta(Consulta consulta) {consultas.add(consulta);}
@@ -95,36 +96,51 @@ public class Clinica {
         }
     }
 
+
+
+
     public static class RegistroClinico {
         private int idFicha;
-        private List<String> historicoClinico;
+        private List<String> historicoDoencas;
         private List<String> alergias;
-        private List<String> doencasCronicas;
-        private List<String> cirurgiasAnteriores;
-        private List<String> historicoMedicamentos;
+        private List<String> operacoes;
         private int numeroSns;
 
 
         // Construtor
-        public RegistroClinico(int idFicha, List<String> historicoClinico, List<String> alergias, List<String> doencasCronicas, List<String> cirurgiasAnteriores, List<String> historicoMedicamentos, int numeroSns) {
+        public RegistroClinico(int idFicha, List<String> historicoDoencas, List<String> alergias, List<String> operacoes, int numeroSns) {
             this.idFicha = idFicha;
-            this.historicoClinico = historicoClinico;
+            this.historicoDoencas = historicoDoencas;
             this.alergias = alergias;
-            this.doencasCronicas = doencasCronicas;
-            this.cirurgiasAnteriores = cirurgiasAnteriores;
-            this.historicoMedicamentos = historicoMedicamentos;
+            this.operacoes = operacoes;
+            this.numeroSns = numeroSns;
+        }
+
+        public RegistroClinico(int idFicha, int numeroSns){
+            this.idFicha = idFicha;
+            this.historicoDoencas = new ArrayList<String>();
+            this.alergias = new ArrayList<>();
+            this.operacoes = new ArrayList<>();
             this.numeroSns = numeroSns;
         }
 
 
         // Metodos getters para acesso aos atributos privados
         public int getIdFicha() { return idFicha; }
-        public List<String> getHistoricoClinico() { return historicoClinico; }
+        public List<String> getHistoricoDoencas() { return historicoDoencas; }
         public List<String> getAlergias() { return alergias; }
-        public List<String> getDoencasCronicas() { return doencasCronicas; }
-        public List<String> getCirurgiasAnteriores() { return cirurgiasAnteriores; }
-        public List<String> getHistoricoMedicamentos() { return historicoMedicamentos; }
+        public List<String> getOperacoes() { return operacoes; }
         public int getNumeroSns() { return numeroSns; }
+    }
+
+    public int ultimoIdRegistro(){
+        int maiorId = 0;
+        for (RegistroClinico registroClinico : registros){
+            if (registroClinico.idFicha >= maiorId){
+                maiorId = registroClinico.idFicha;
+            }
+        }
+        return maiorId;
     }
 
     public static class EntradaRegistroClinico {
