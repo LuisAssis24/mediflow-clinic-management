@@ -7,7 +7,6 @@ import java.awt.HeadlessException;
 import java.text.*;
 import javax.swing.*;
 
-import medi.flow.Clinica;
 import medi.flow.*;
 import java.util.*;
 import java.util.Date;

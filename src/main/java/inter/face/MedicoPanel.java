@@ -4,6 +4,8 @@
  */
 package inter.face;
 
+import java.text.ParseException;
+
 /**
  *
  * @author Luis
@@ -83,7 +85,11 @@ public class MedicoPanel extends javax.swing.JPanel {
         botaoHorarios.setText("HORÁRIOS");
         botaoHorarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoHorariosActionPerformed(evt);
+                try {
+                    botaoHorariosActionPerformed(evt);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -92,8 +98,9 @@ public class MedicoPanel extends javax.swing.JPanel {
         add(botaoHorarios, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
-        HorariosMedico horarios = new HorariosMedico();
+    private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_botaoHorariosActionPerformed
+        int idMedicoPassar = Integer.parseInt(idMedico.getText());
+        HorariosMedico horarios = new HorariosMedico(idMedicoPassar);
         horarios.setVisible(true);
     }//GEN-LAST:event_botaoHorariosActionPerformed
 

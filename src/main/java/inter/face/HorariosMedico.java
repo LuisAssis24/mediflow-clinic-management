@@ -4,23 +4,193 @@
  */
 package inter.face;
 
-import medi.flow.Clinica;
+import javax.swing.*;
+import java.awt.*;
+import java.text.*;
+import java.util.*;
+import java.util.List;
+
+import static inter.face.VistaSecretaria.dataConsultaHorario;
+import static medi.flow.Main.getClinica;
+import static medi.flow.Text.*;
 
 /**
  *
  * @author draga
  */
-public class HorariosMedico extends javax.swing.JFrame {
+public class HorariosMedico extends JFrame {
+    private int idMedico;
+    private String[] todosDias;
+    private List<String[]> horarios;
+    private List<String[]> horariosFiltered;
 
-    /**
-     * Creates new form HorariosMedico
-     */
-    public HorariosMedico() {
+    public HorariosMedico(int id) throws ParseException {
+        this.idMedico = id;
+        this.horarios = getClinica().getHorarioMedico(id).getHorarios();
+        this.horariosFiltered = filtrarPorAno(horarios, isolarAno(dataConsultaHorario));
+
+        // Inicializa todosDias
+        this.todosDias = diasAntesEDepois(dataConsultaHorario);
+
         initComponents();
+        carregarHorarios(); // Agora todosDias já estará inicializado
+        updateHorarios();
+        carregarTexto();
     }
 
-    public void carregarHorarios() {
+    public void carregarTexto() throws ParseException {
+        String nomeMedicoFortmat = nomeMedicoTransform(getClinica().obterNomeMedicoPorId(idMedico));
+        nomeMedico.setText(nomeMedicoFortmat);
 
+        String[] diasAD = diasAntesEDepois(dataConsultaHorario);
+
+        // Atribui os dias calculados corretamente
+        dia1.setText(diasAD[0]);
+        dia2.setText(diasAD[1]);
+        dia3.setText(diasAD[2]);
+        dia4.setText(diasAD[3]);
+        dia5.setText(diasAD[4]);
+
+        horariosDias.setText("Horarios dos dias: " + diasAD[0] + " - " + diasAD[4]);
+    }
+
+
+    public String[] diasAntesEDepois(String data) throws ParseException {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = inputFormat.parse(data);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        String[] result = new String[5];
+
+        // Calcula dois dias antes
+        calendar.add(Calendar.DAY_OF_MONTH, -2);
+        result[0] = dataFormat(inputFormat.format(calendar.getTime()));
+
+        // Calcula um dia antes
+        calendar.add(Calendar.DAY_OF_MONTH, 1); // Incrementa +1 para corrigir
+        result[1] = dataFormat(inputFormat.format(calendar.getTime()));
+
+        // Reseta para a data original
+        calendar.setTime(date);
+        result[2] = dataFormat(inputFormat.format(calendar.getTime()));
+
+        // Calcula um dia depois
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        result[3] = dataFormat(inputFormat.format(calendar.getTime()));
+
+        // Calcula dois dias depois
+        calendar.add(Calendar.DAY_OF_MONTH, 1); // Incrementa +1 para corrigir
+        result[4] = dataFormat(inputFormat.format(calendar.getTime()));
+
+        return result;
+    }
+
+
+    public void carregarHorarios() {
+        if (todosDias == null) {
+            throw new IllegalStateException("todosDias não foi inicializado.");
+        }
+
+        DefaultListModel<String> modelDia1 = new DefaultListModel<>();
+        DefaultListModel<String> modelDia2 = new DefaultListModel<>();
+        DefaultListModel<String> modelDia3 = new DefaultListModel<>();
+        DefaultListModel<String> modelDia4 = new DefaultListModel<>();
+        DefaultListModel<String> modelDia5 = new DefaultListModel<>();
+
+        for (String[] horario : horariosFiltered) {
+            String dia = horario[0];
+            String hora = horario[1];
+
+            // Adiciona o horário ao modelo do dia correspondente
+            if (dia.equals(todosDias[0])) modelDia1.addElement(hora);
+            else if (dia.equals(todosDias[1])) modelDia2.addElement(hora);
+            else if (dia.equals(todosDias[2])) modelDia3.addElement(hora);
+            else if (dia.equals(todosDias[3])) modelDia4.addElement(hora);
+            else if (dia.equals(todosDias[4])) modelDia5.addElement(hora);
+        }
+
+        // Define os modelos nas JList correspondentes
+        horariosDia1.setModel(modelDia1);
+        horariosDia2.setModel(modelDia2);
+        horariosDia3.setModel(modelDia3);
+        horariosDia4.setModel(modelDia4);
+        horariosDia5.setModel(modelDia5);
+    }
+
+    public void updateHorarios() {
+        horariosDia1.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[0]));
+        horariosDia2.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[1]));
+        horariosDia3.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[2]));
+        horariosDia4.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[3]));
+        horariosDia5.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[4]));
+    }
+
+    private static class CustomCellRenderer extends DefaultListCellRenderer {
+        private final List<String[]> horariosOcupados;
+        private final String diaAtual;
+
+        public CustomCellRenderer(List<String[]> horariosOcupados, String diaAtual) {
+            this.horariosOcupados = horariosOcupados;
+            this.diaAtual = diaAtual;
+        }
+
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            String horario = (String) value;
+
+            // Define o fundo padrão para horários disponíveis
+            label.setBackground(isSelected ? Color.BLUE : Color.WHITE);
+            label.setForeground(isSelected ? Color.WHITE : Color.BLACK);
+
+            // Verifica se o horário está ocupado
+            for (String[] ocupado : horariosOcupados) {
+                if (ocupado[0].equals(diaAtual) && ocupado[1].equals(horario)) {
+                    label.setBackground(Color.RED); // Fundo vermelho para horários ocupados
+                    label.setForeground(Color.WHITE); // Texto branco
+                    break;
+                }
+            }
+            return label;
+        }
+    }
+
+    public List<String[]> filtrarPorAno(List<String[]> horarios, int ano) throws ParseException {
+        List<String[]> horariosFiltrados = new ArrayList<>();
+        for (String[] horario : horarios) {
+            String data = horario[0];
+
+            // Adiciona o ano atual se faltar
+            if (data.matches("\\d{2}/\\d{2}")) {
+                data += "/" + ano;
+            }
+
+            if (isolarAno(data) == ano) {
+                String[] horarioFormat = new String[]{dataFormat(data), timeFormat(horario[1])};
+                horariosFiltrados.add(horarioFormat);
+            }
+        }
+        return horariosFiltrados;
+    }
+
+    public int isolarAno(String data) throws ParseException {
+        SimpleDateFormat dateFormat;
+
+        // Verifica se a string contém o ano
+        if (data.matches("\\d{2}/\\d{2}/\\d{4}")) { // Formato dd/MM/yyyy
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        } else if (data.matches("\\d{2}/\\d{2}")) { // Formato dd/MM
+            data += "/" + Calendar.getInstance().get(Calendar.YEAR); // Adiciona o ano atual
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        } else {
+            throw new ParseException("Formato de data inválido: " + data, 0);
+        }
+
+        Date date = dateFormat.parse(data);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR);
     }
 
     /**
@@ -217,7 +387,7 @@ public class HorariosMedico extends javax.swing.JFrame {
 
 
 
-    public static void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -242,7 +412,13 @@ public class HorariosMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HorariosMedico().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new HorariosMedico(idMedico).setVisible(true);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

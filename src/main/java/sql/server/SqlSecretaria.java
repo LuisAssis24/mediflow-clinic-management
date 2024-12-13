@@ -7,6 +7,8 @@ import java.text.*;
 import java.util.*;
 
 import static medi.flow.Main.getClinica;
+import static medi.flow.Text.dataFormat;
+import static medi.flow.Text.dataSqlParaJava;
 
 public class SqlSecretaria {
     // Metodo para carregar os medicos
@@ -200,10 +202,13 @@ public class SqlSecretaria {
                     String data = resultado.getString("Data");
                     String hora = resultado.getString("Hora");
 
-                    horarios.add(new String[]{data, hora});
+                    String dataFormatada = dataFormat(dataSqlParaJava(data));
+                    horarios.add(new String[]{dataFormatada, hora});
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter os horários ocupados do médico: " + e.getMessage());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
         }
         return horarios; // Retorna a lista com os horários ocupados

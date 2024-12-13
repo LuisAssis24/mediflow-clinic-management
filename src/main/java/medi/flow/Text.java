@@ -28,6 +28,14 @@ public class Text {
         return dateTimeFormat.parse(data + " " + hora);
     }
 
+    public static String dataSqlParaJava(String dateString) throws ParseException {
+        SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sqlDateFormat.parse(dateString);
+        return dateFormat.format(date);
+    }
+
+
     public static String dataFormat(String data) throws ParseException {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM");
@@ -59,5 +67,16 @@ public class Text {
         String primeiroNome = partes[0];
         String ultimoNome = partes[partes.length - 1];
         return "Dr. " + primeiroNome + " " + ultimoNome;
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println(dataJavaParaSql("01/01/2021", "12:00"));
+            System.out.println(dataFormat("01/01/2021"));
+            System.out.println(timeFormat("12:00:00"));
+            System.out.println(nomeMedicoTransform("João Silva"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

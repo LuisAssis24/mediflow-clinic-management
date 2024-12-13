@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static medi.flow.Main.getClinica;
 import static sql.server.SqlSecretaria.obterTodosMedicos;
 
 /**
@@ -21,12 +22,13 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
      */
     public DisponibilidadeMedicos() {
         initComponents(); // Inicializa os componentes da interface gráfica
-        carregarMedicosBaseDeDados(obterTodosMedicos()); // Carrega os dados  dos médicos na interface
+        carregarMedicosBaseDeDados(); // Carrega os dados  dos médicos na interface
     }
     
-    void carregarMedicosBaseDeDados(List<String[]> medicos){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
+    void carregarMedicosBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         int tamanhoPainelConsultas = 0;
-        
+        List<String[]> medicos = getClinica().getMedicos(); // Obtem todos os médicos da base de dados
+
         // Simula a criação de 15 paineis de médicos
         for (String [] medico : medicos) {
             String id = medico[0]; // ID do médico
@@ -192,7 +194,8 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
     private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
-        carregarMedicosBaseDeDados(obterTodosMedicos());
+        medicosPanel.removeAll(); // Limpa o painel de médicos
+        carregarMedicosBaseDeDados(); // Carrega os médicos da base de dados
     }//GEN-LAST:event_refreshMouseClicked
 
     /**

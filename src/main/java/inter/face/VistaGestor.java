@@ -34,15 +34,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         List<Utilizador> utilizadores = getClinica().getUtilizador(); // Obtem todos os utilizadores
 
         // Ordena os utilizadores pelo tipo (secretaria, medico, gestor) e, depois, pelo ID
-        /*utilizadores.sort((id1, id2) -> {
-            String tipo1 = SqlGestor.dadosUtilizador(id1).get("TipoUtilizador"); // Tipo de utilizador 1
-            String tipo2 = SqlGestor.dadosUtilizador(id2).get("TipoUtilizador"); // Tipo de utilizador 2
-            int tipoComparison = tipo1.compareToIgnoreCase(tipo2); // compara os tipos
-            if (tipoComparison != 0) {
-                return tipoComparison; // Ordena por tipo, se forem diferentes
-            }
-            return id1.compareTo(id2); // Ordena por Id se o tipo for igual
-        });*/
+        utilizadores.sort(Comparator.comparing(Utilizador::getTipoUtilizador).thenComparing(Utilizador::getId));
 
         int tamanhoPainelCredenciais = 0; // tamanho do painel inicial
 

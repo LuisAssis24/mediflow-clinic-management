@@ -11,7 +11,7 @@ public class Clinica {
     private List<Consulta> consultas;
     private List<String[]> medicos;
     private List<Medico.HorarioMedico> horariosMedicos;
-    private static List<Utilizador> utilizadores;
+    private List<Utilizador> utilizadores;
     private List<Paciente> pacientes;
 
     public Clinica() {
@@ -27,9 +27,16 @@ public class Clinica {
     public List<String[]> getMedicos() {return medicos;}
     public List<Utilizador> getUtilizador() {return utilizadores;}
     public List<Paciente> getPacientes() { return pacientes; }
-    public List<Medico.HorarioMedico> getHorariosMedicos() { return horariosMedicos; }
+    public Medico.HorarioMedico getHorarioMedico(int id) {
+        for (Medico.HorarioMedico horarioMedico : horariosMedicos) {
+            if (horarioMedico.getIdMedico() == id) {
+                return horarioMedico;
+            }
+        }
+        return null;
+    }
 
-    public static String obterNomeMedicoPorId(int id) {
+    public String obterNomeMedicoPorId(int id) {
         for (Utilizador medico : utilizadores) {
             if (medico.getId() == id) {
                 return medico.getNome();
@@ -47,9 +54,6 @@ public class Clinica {
         return null;
     }
 
-    public void adicionarHorarioMedico() {
-
-    }
 
     //Adders
     public void addConsulta(Consulta consulta) {consultas.add(consulta);}
@@ -90,9 +94,6 @@ public class Clinica {
             }
         }
     }
-
-
-
 
     public static class RegistroClinico {
         private int idFicha;

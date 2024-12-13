@@ -213,7 +213,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     this.dispose();
                     break;
                 case "Secretaria":
-                    // Abre a vista de rececionista
+                    // Abre a vista de secretaria
                     new VistaSecretaria().setVisible(true);
                     this.dispose();
                     break;
