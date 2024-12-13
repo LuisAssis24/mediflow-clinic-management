@@ -31,7 +31,15 @@ public class Clinica {
     public List<String[]> getMedicos() {return medicos;}
     public List<Utilizador> getUtilizador() {return utilizadores;}
     public List<Paciente> getPacientes() { return pacientes; }
-    public List<Medico.HorarioMedico> getHorariosMedicos() { return horariosMedicos; }
+    public Medico.HorarioMedico getHorarioMedico(int id) {
+        List<Medico.HorarioMedico> horarios = new ArrayList<>();
+        for (Medico.HorarioMedico horario : horariosMedicos) {
+            if (horario.getIdMedico() == id) {
+                return horario;
+            }
+        }
+        return null;
+    }
     public List<RegistroClinico> getRegistros() { return registros; }
 
     public static String obterNomeMedicoPorId(int id) {
