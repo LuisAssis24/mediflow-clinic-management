@@ -16,7 +16,7 @@ public class SqlMedico {
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
-                String sql = "SELECT ID_Ficha, Historico_Clinico, Alergias, Doencas_Cronicas, Cirurgias_Anteriores, Historico_Medicamentos, Numero_Utente FROM RegistroClinico";
+                String sql = "SELECT ID_Ficha, Historico_Doencas, Alergias, Operacoes, Numero_Utente FROM RegistroClinico";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
@@ -27,25 +27,19 @@ public class SqlMedico {
                     int idFicha = resultado.getInt("ID_Ficha");
 
                     //Pega da base de dados o elemento como string e depois cria uma List com elementos da String separados a cada espaço
-                    String historicoClinicoString = resultado.getString("Historico_Clinico");
-                    List<String> historicoClinico = new ArrayList<>(Arrays.asList(historicoClinicoString.split(" ")));
+                    String historicoDoencasString = resultado.getString("Historico_Doencas");
+                    List<String> historicoDoencas = new ArrayList<>(Arrays.asList(historicoDoencasString.split(" ")));
 
                     String alergiasString = resultado.getString("Alergias");
                     List<String> alergias = new ArrayList<>(Arrays.asList(alergiasString.split(" ")));
 
-                    String doencasCronicasString = resultado.getString("Doencas_Cronicas");
-                    List<String> doencasCronicas = new ArrayList<>(Arrays.asList(doencasCronicasString.split(" ")));
-
-                    String cirurgiasAnterioresString = resultado.getString("Cirurgias_Anteriores");
-                    List<String> cirurgiasAnteriores = new ArrayList<>(Arrays.asList(cirurgiasAnterioresString.split(" ")));
-
-                    String historicoMedicamentosString = resultado.getString("Historico_Medicamentos");
-                    List<String> historicoMedicamentos = new ArrayList<>(Arrays.asList(historicoMedicamentosString.split(" ")));
+                    String operacoesString = resultado.getString("Operacoes");
+                    List<String> operacoes = new ArrayList<>(Arrays.asList(operacoesString.split(" ")));
 
                     int numeroSns = resultado.getInt("Numero_Utente");
 
 
-                    Clinica.RegistroClinico registroClinico = new Clinica.RegistroClinico(idFicha, historicoClinico, alergias, doencasCronicas, cirurgiasAnteriores, historicoMedicamentos, numeroSns);
+                    Clinica.RegistroClinico registroClinico = new Clinica.RegistroClinico(idFicha, historicoDoencas, alergias, operacoes, numeroSns);
                     registros.add(registroClinico);
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL

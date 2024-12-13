@@ -4,6 +4,13 @@
  */
 package inter.face;
 
+import medi.flow.Clinica;
+import medi.flow.Paciente;
+
+import java.util.List;
+
+import static medi.flow.Main.getClinica;
+
 /**
  *
  * @author Luis
@@ -13,8 +20,27 @@ public class RegistoClinico extends javax.swing.JFrame {
     /**
      * Creates new form FichaMedica
      */
-    public RegistoClinico() {
+    public RegistoClinico(Clinica.RegistroClinico registroClinico) {
         initComponents();
+
+        String nome = "";
+        int contactoPaciente = 0;
+        int sns = registroClinico.getNumeroSns();
+        List<Paciente> listaPacientes = getClinica().getPacientes();
+        for (Paciente paciente : listaPacientes) {
+            if (paciente.getNumeroSNS() == sns){
+                nome = paciente.getNome();
+                contactoPaciente = paciente.getContacto();
+            }
+        }
+        int numeroSns = registroClinico.getNumeroSns();
+        List<String> alergias = registroClinico.getAlergias();
+        List<String> operacoes = registroClinico.getOperacoes();
+        List<String> historicoDoencas = registroClinico.getHistoricoDoencas();
+
+        nomePaciente.setText(nome);
+        nSns.setText(String.valueOf(sns));
+        contacto.setText(String.valueOf(contactoPaciente));
     }
 
     /**
@@ -444,7 +470,7 @@ public class RegistoClinico extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new RegistoClinico().setVisible(true);
+            //new RegistoClinico().setVisible(true);
         });
     }
 
