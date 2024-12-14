@@ -1,6 +1,5 @@
 package medi.flow;
 
-import java.util.List;
 
 public class Utilizador {
     private int id;
@@ -22,6 +21,5 @@ public class Utilizador {
     public String getNome() { return nome; }
     public String getPassword() { return password; }
     public String getTipoUtilizador() { return tipoUtilizador; }
-
 
 }

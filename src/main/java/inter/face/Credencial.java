@@ -5,14 +5,15 @@
 package inter.face;
 
 import medi.flow.*;
-import sql.server.CifrarPasswords;
 import sql.server.SqlGestor;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 import static medi.flow.Main.getClinica;
+import static inter.face.VistaGestor.passwordGestor;
 
 /**
  *
@@ -23,8 +24,6 @@ public class Credencial extends javax.swing.JPanel {
     /**
      * Creates new form Credencial
      */
-
-
     public Credencial(Utilizador utilizador) {
         initComponents(); // Inicializa os componentes da interface
 
@@ -168,51 +167,40 @@ public class Credencial extends javax.swing.JPanel {
         add(botaoEliminar, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEliminarActionPerformed
-        try {
-            // Create a JPasswordField to input the password
-            JPasswordField passwordField = new JPasswordField();
-            passwordField.setEchoChar('*');
+    private void botaoEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        String tipoUtilizador = funcao.getText();
+        // Criar um campo de texto para a password
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setEchoChar('*');
 
-            // Show the password dialog in the center of the parent window
-            int option = JOptionPane.showConfirmDialog(this, passwordField, "Por favor introduza a password de gestor:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        // Obter o painel pai
+        JPanel parentPanel = (JPanel) this.getParent();
 
-            if (option == JOptionPane.OK_OPTION) {
-                // Retrieve the input password
-                String inputPassword = new String(passwordField.getPassword());
+        // Mostrar um diálogo para introduzir a password
+        int option = JOptionPane.showConfirmDialog(parentPanel, passwordField, "Por favor introduza a password de gestor:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-                // Retrieve the actual encrypted password from the database
-                String actualEncryptedPassword = SqlGestor.obterPasswordGestor();
+        if (option == JOptionPane.OK_OPTION) {
+            String inputPassword = new String(passwordField.getPassword());
 
-                // Encrypt the input password
-                String encryptedInputPassword = CifrarPasswords.cifrar(inputPassword);
-
-                // Check if the encrypted input password matches the actual encrypted password
-                if (inputPassword != null && encryptedInputPassword.equals(actualEncryptedPassword)) {
-                    boolean sucesso = SqlGestor.eliminarUtilizador(idUtilizador);
-                    if (sucesso) {
-                        getClinica().removeUtilizador(idUtilizador);
-
-                        JPanel parentPanel = (JPanel) this.getParent();
-                        parentPanel.remove(this);
-                        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 40));
-                        parentPanel.revalidate();
-                        parentPanel.repaint();
-
-                        JOptionPane.showMessageDialog(this, "Utilizador eliminado com sucesso!");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Erro ao eliminar utilizador. Verifique o ID inserido.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Password incorreta. Utilizador não eliminado.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+            if (inputPassword.equals(passwordGestor)) {
+                try {
+                    SqlGestor.eliminarUtilizador(idUtilizador, tipoUtilizador);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(parentPanel, "Erro ao eliminar o utilizador: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
+
+                getClinica().removeUtilizador(idUtilizador);
+
+                parentPanel.remove(this);
+                parentPanel.setPreferredSize(new Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 40));
+                parentPanel.revalidate();
+                parentPanel.repaint();
+            } else {
+                JOptionPane.showMessageDialog(parentPanel, "Password incorreta. Utilizador não eliminado.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao verificar a password: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao cifrar a password: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botaoEliminarActionPerformed
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

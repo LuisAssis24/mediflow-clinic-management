@@ -8,8 +8,6 @@ import javax.swing.*;
 
 
 import java.util.*;
-
-import static inter.face.VistaDeLogin.idMedicoAUtilizarOSistema;
 import static medi.flow.Main.getClinica;
 
 /**
@@ -17,14 +15,14 @@ import static medi.flow.Main.getClinica;
  * @author Luis
  */
 public final class VistaMedico extends javax.swing.JFrame {
-
+    static int idMedico = 1; // ID do médico que está a usar o sistema
     /**
      * Creates new form VistaMedico
      */
-    public VistaMedico() {
+    public VistaMedico(int idMedico) {
         initComponents(); // Inicializa os componentes da interface grafica
         carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
-    
+        this.idMedico = idMedico; // Define o ID do médico que está a usar o sistema
     }
 
     void carregarConsultasBaseDeDados() {
@@ -35,7 +33,7 @@ public final class VistaMedico extends javax.swing.JFrame {
         List<Consulta> consultas = getClinica().getConsultas();
         for(Consulta consulta : consultas) {
             // Cria um painel com os dados da Consulta
-            if (consulta.getIdMedico() == idMedicoAUtilizarOSistema ) { //Verifica o médico que está a usar a aplicação
+            if (consulta.getIdMedico() == idMedico ) { //Verifica o médico que está a usar a aplicação
                 tamanhoPainelConsultas += 100; // Aumenta o tamanho do painel pai
                 consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
                 criarPainelConsulta(consulta); // Cria e adiciona o painel de consulta
@@ -192,7 +190,7 @@ public final class VistaMedico extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new VistaMedico().setVisible(true);
+            new VistaMedico(idMedico).setVisible(true);
         });
     }
 

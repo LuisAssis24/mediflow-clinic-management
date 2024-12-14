@@ -14,7 +14,6 @@ import java.awt.*;
  * @author rodri
  */
 public class VistaDeLogin extends javax.swing.JFrame {
-    static int idMedicoAUtilizarOSistema;
     /**
      * Creates new form VistaDeLogin
      */
@@ -195,20 +194,24 @@ public class VistaDeLogin extends javax.swing.JFrame {
         String utilizador = nomeUtilizador.getText();
         String password = new String(this.password.getPassword());
 
+        int idMedico;
+        String passwordGestor;
+
         // Verifica se as credenciais são válidas
         String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);
         try {
             switch (tipoUtilizador) {
                 case "Gestor":
+                    passwordGestor = password;
                     // Abre a vista de administrador
-                    new VistaGestor().setVisible(true);
+                    new VistaGestor(passwordGestor).setVisible(true);
                     this.dispose();
                     break;
                 case "Médico":
                     // Define o ID do médico antes de abrir a vista
-                    idMedicoAUtilizarOSistema = Integer.parseInt(utilizador);
+                    idMedico = Integer.parseInt(utilizador);
                     // Abre a vista de médico
-                    VistaMedico vistaMedico = new VistaMedico();
+                    VistaMedico vistaMedico = new VistaMedico(idMedico);
                     vistaMedico.setVisible(true);
                     this.dispose();
                     break;

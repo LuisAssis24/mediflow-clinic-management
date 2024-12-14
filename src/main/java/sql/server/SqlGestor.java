@@ -54,156 +54,80 @@ public class SqlGestor {
 
     // Cria um utilizador e, se for medico, adiciona os detalhes na tabela medico
     public static int criarUtilizador(String nome, String password, String tipoUtilizador, int cc, String especialidade, int numOrdem) {
-        int idUtilizadorGerado = -1; // Variável para armazenar o ID gerado
-        String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}"; // Procedure SQL para criar utilizador
-        String sqlAdicionarMedico = "{CALL InserirMedico(?, ?, ?)}"; // Procedure SQL para adicionar médico
+        int idUtilizadorGerado = -1;
 
         try (Connection conexao = SqlGeral.DatabaseConnection.getInstance()) {
 
-            // 1. Criar o utilizador
+            // Criar o utilizador
+            String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}";
             try (CallableStatement callableStatement = conexao.prepareCall(sqlCriarUtilizador)) {
                 callableStatement.setInt(1, cc);                // CC
-                callableStatement.setString(2, nome);           // Nome
+                callableStatement.setString(2, nome);           // Name
 
                 String passwordCifrada = CifrarPasswords.cifrar(password);
-                callableStatement.setString(3, passwordCifrada); // Password cifrada
+                callableStatement.setString(3, passwordCifrada); // Encrypted password
 
-                callableStatement.setString(4, tipoUtilizador); // Tipo de utilizador
-                callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // ID gerado
+                callableStatement.setString(4, tipoUtilizador); // User type
+                callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // Generated ID
 
                 callableStatement.execute();
-                idUtilizadorGerado = callableStatement.getInt(5); // Obter o ID gerado
-                System.out.println("Utilizador criado com ID: " + idUtilizadorGerado);
+                idUtilizadorGerado = callableStatement.getInt(5); // Get the generated ID
+                System.out.println("User created with ID: " + idUtilizadorGerado);
             }
 
-            // 2. Verificar se o tipo de utilizador é "Médico"
-            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
-                // 3. Inserir os detalhes na tabela Medico
-                try (PreparedStatement preparedStatement = conexao.prepareStatement(sqlAdicionarMedico)) {
-                    preparedStatement.setInt(1, idUtilizadorGerado);    // ID do médico
-                    preparedStatement.setString(2, especialidade);      // Especialidade
-                    preparedStatement.setInt(3, numOrdem);              // Número do médico
-                    preparedStatement.executeUpdate();
-                    System.out.println("Detalhes do médico adicionados com sucesso!");
+            // Ver se o utilizador é um médico
+            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+                // Adicionar os detalhes do médico
+                String sqlInserirMedico = "{CALL InserirMedico(?, ?, ?)}";
+                try (CallableStatement callableStatement = conexao.prepareCall(sqlInserirMedico)) {
+                    callableStatement.setInt(1, idUtilizadorGerado);    // Doctor's ID
+                    callableStatement.setString(2, especialidade);      // Specialty
+                    callableStatement.setInt(3, numOrdem);              // Doctor's number
+                    callableStatement.executeUpdate();
+                    System.out.println("Doctor details added successfully!");
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (Exception e) { // Trata erros de cifragem
-            System.out.println("Erro ao cifrar a password: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error encrypting the password: " + e.getMessage());
         }
 
-        return idUtilizadorGerado; // Retorna o ID gerado para o utilizador
+        return idUtilizadorGerado; // retornar o id do utilizador criado
     }
 
-    // Elimina um utilizador da base de dados com base no ID
-    /*public static boolean eliminarUtilizador(int id) throws SQLException {
+    public static boolean eliminarUtilizador(int idUtilizador, String tipoUtilizador) throws SQLException {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-
-        if (conexao != null) {
-            String sql = "{CALL EliminarUtilizador(?)}";
-            try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-                callableStatement.setInt(1, id);
-
-                int linhasAfetadas = callableStatement.executeUpdate();
-                return linhasAfetadas > 0; // Retorna true se alguma linha foi excluída
-            }
-        }
-        return false; // Retorna falso se a conexão for nula
-    }*/
-
-    // Obtem uma lista de todos os gestores
-    public static List<HashMap<String, String>> obterTodosGestores() {
-        List<HashMap<String, String>> gestores = new ArrayList<>();
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        boolean deletado = false;
 
         if (conexao != null) {
             try {
-                String sql = "SELECT ID, Nome, Password FROM Utilizador WHERE Tipo_Utilizador = 'Gestor'";
-                PreparedStatement statement = conexao.prepareStatement(sql);
-                ResultSet resultado = statement.executeQuery();
+                // Ver se o utilizador é um médico para eliminar da tabela Medico
+                if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+                    String sqlMedico = "{CALL EliminarMedico(?)}";
+                    try (CallableStatement callableStatement = conexao.prepareCall(sqlMedico)) {
+                        callableStatement.setInt(1, idUtilizador);
+                        callableStatement.executeUpdate();
+                    }
+                }
 
-                while (resultado.next()) {
-                    HashMap<String, String> gestor = new HashMap<>();
-                    gestor.put("ID", resultado.getString("ID"));
-                    gestor.put("Nome", resultado.getString("Nome"));
-                    gestor.put("Password", resultado.getString("Password"));
-                    gestores.add(gestor);
+                // Deleter o utilizador
+                String sqlUtilizador = "{CALL EliminarUtilizador(?)}";
+                try (CallableStatement callableStatement = conexao.prepareCall(sqlUtilizador)) {
+                    callableStatement.setInt(1, idUtilizador);
+                    int affectedRows = callableStatement.executeUpdate();
+                    deletado = affectedRows > 0;
                 }
             } catch (SQLException e) {
-                System.out.println("Erro ao obter gestores: " + e.getMessage());
-            }
-        }
-        return gestores;
-    }
-
-    // Procura um utilizador pelo ID usando um stored procedure
-    public static HashMap<String, String> procurarUtilizadorPorID(int idUtilizador) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();  // Obtém a conexão com o banco de dados
-        HashMap<String, String> resultadoUtilizador = new HashMap<>();  // Mapa para armazenar os dados do utilizador
-
-        if (conexao != null) {
-            try {
-                // Chama a stored procedure ProcurarUtilizadorPorID
-                String sql = "{CALL ProcurarUtilizadorPorID(?)}";
-                CallableStatement callableStatement = conexao.prepareCall(sql);
-
-                // Define o parâmetro de entrada (ID do utilizador)
-                callableStatement.setInt(1, idUtilizador);
-
-                // Executa a stored procedure e obtém o resultado
-                ResultSet resultado = callableStatement.executeQuery();
-
-                // Verifica se a consulta encontrou um utilizador
-                if (resultado.next()) {
-                    System.out.println("Utilizador encontrado com ID: " + idUtilizador);
-
-                    // Preenche o mapa com os dados do utilizador
-                    resultadoUtilizador.put("ID", String.valueOf(resultado.getInt("ID")));
-                    resultadoUtilizador.put("CC", resultado.getString("CC"));
-                    resultadoUtilizador.put("Nome", resultado.getString("Nome"));
-                    resultadoUtilizador.put("Password", resultado.getString("Password"));
-                    resultadoUtilizador.put("TipoUtilizador", resultado.getString("Tipo_Utilizador"));  // Atualize o nome da coluna aqui
-
-                    // Debugging: Print the retrieved data
-                    System.out.println("Dados do Utilizador: " + resultadoUtilizador);
+                if (e.getMessage().contains("foreign key constraint fails")) {
+                    System.err.println("Erro ao eliminar utilizador: O utilizador tem consultas associadas.");
                 } else {
-                    System.out.println("Nenhum utilizador encontrado com ID: " + idUtilizador);
+                    System.err.println("Erro ao eliminar utilizador: " + e.getMessage());
+                    throw e;
                 }
-            } catch (SQLException e) {
-                System.out.println("Erro ao executar a stored procedure ProcurarUtilizadorPorID: " + e.getMessage());
             }
         }
-
-        return resultadoUtilizador;  // Retorna os dados do utilizador (ou vazio se não encontrado)
-    }
-
-
-    public static boolean eliminarUtilizador(int idUtilizador) throws SQLException {
-        String sql = "DELETE FROM Utilizador WHERE id = ?";
-        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setInt(1, idUtilizador);
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException e) {
-            // Log the exception and rethrow it
-            System.err.println("Erro ao eliminar utilizador: " + e.getMessage());
-            throw e;
-        }
-    }
-
-    public static String obterPasswordGestor() throws SQLException {
-        String sql = "SELECT Password FROM Utilizador WHERE Tipo_Utilizador = 'Gestor' LIMIT 1"; // Ajuste a consulta conforme necessário
-        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-             Statement stmt = conexao.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            if (rs.next()) {
-                return rs.getString("Password");
-            } else {
-                throw new SQLException("Gestor não encontrado.");
-            }
-        }
+        return deletado;
     }
 }

@@ -68,15 +68,4 @@ public class Text {
         String ultimoNome = partes[partes.length - 1];
         return "Dr. " + primeiroNome + " " + ultimoNome;
     }
-
-    public static void main(String[] args) {
-        try {
-            System.out.println(dataJavaParaSql("01/01/2021", "12:00"));
-            System.out.println(dataFormat("01/01/2021"));
-            System.out.println(timeFormat("12:00:00"));
-            System.out.println(nomeMedicoTransform("João Silva"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 }
