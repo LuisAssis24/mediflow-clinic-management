@@ -14,7 +14,7 @@ public class SqlMedico {
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
-                String sql = "SELECT ID_Ficha, Historico_Doencas, Alergias, Operacoes, Numero_Utente FROM RegistoClinico";
+                String sql = "SELECT Historico_Doencas, Alergias, Operacoes, Numero_Sns FROM RegistoClinico";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
@@ -22,8 +22,6 @@ public class SqlMedico {
 
                 // Adiciona todas as consultas à lista
                 while (resultado.next()) {
-                    int idFicha = resultado.getInt("ID_Ficha");
-
                     //Pega da base de dados o elemento como string e depois cria uma List com elementos da String separados a cada espaço
                     String historicoDoencasString = resultado.getString("Historico_Doencas");
                     List<String> historicoDoencas = new ArrayList<>(Arrays.asList(historicoDoencasString.split(" ")));
@@ -34,7 +32,7 @@ public class SqlMedico {
                     String operacoesString = resultado.getString("Operacoes");
                     List<String> operacoes = new ArrayList<>(Arrays.asList(operacoesString.split(" ")));
 
-                    int numeroSns = resultado.getInt("Numero_Utente");
+                    int numeroSns = resultado.getInt("Numero_Sns");
 
 
                     RegistoClinico registoClinico = new RegistoClinico(historicoDoencas, alergias, operacoes, numeroSns);
