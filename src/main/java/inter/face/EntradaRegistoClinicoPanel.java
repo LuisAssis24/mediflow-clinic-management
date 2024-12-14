@@ -8,12 +8,12 @@ package inter.face;
  *
  * @author draga
  */
-public class EntradaRegistoClinico extends javax.swing.JPanel {
+public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form EntradaRegistoClinico
+     * Creates new form EntradaRegistoClinicoPanel
      */
-    public EntradaRegistoClinico() {
+    public EntradaRegistoClinicoPanel() {
         initComponents();
     }
 

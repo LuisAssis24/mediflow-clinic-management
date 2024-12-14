@@ -4,8 +4,8 @@
  */
 package inter.face;
 
-import medi.flow.Clinica;
-import medi.flow.Paciente;
+
+import medi.flow.*;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import static medi.flow.Main.getClinica;
  *
  * @author Luis
  */
-public class RegistoClinico extends javax.swing.JFrame {
+public class RegistoClinicoPanel extends javax.swing.JFrame {
 
     /**
      * Creates new form FichaMedica
      */
-    public RegistoClinico(Clinica.RegistroClinico registroClinico) {
+    public RegistoClinicoPanel(RegistoClinico registroClinico) {
         initComponents();
 
         String nome = "";

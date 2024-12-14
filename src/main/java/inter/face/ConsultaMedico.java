@@ -172,11 +172,11 @@ public class ConsultaMedico extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fichaMedicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaMedicaButtonActionPerformed
-        List<Clinica.RegistroClinico> listaRegistroClinico = getClinica().getRegistros();
-        for(Clinica.RegistroClinico registroClinico : listaRegistroClinico){
-            if(registroClinico.getNumeroSns() == nSns){
-                RegistoClinico registoClinico = new RegistoClinico(registroClinico);
-                registoClinico.setVisible(true);
+        List<RegistoClinico> listaRegistroClinico = getClinica().getRegistros();
+        for(RegistoClinico registoClinico : listaRegistroClinico){
+            if(registoClinico.getNumeroSns() == nSns){
+                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico);
+                registoClinicoPanel.setVisible(true);
             }
         }
     }//GEN-LAST:event_fichaMedicaButtonActionPerformed

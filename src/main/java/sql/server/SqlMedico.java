@@ -1,18 +1,15 @@
 package sql.server;
 
-import medi.flow.Clinica;
-
-import inter.face.EntradaRegistoClinico;
-import medi.flow.Clinica;
+import medi.flow.RegistoClinico;
 
 import java.sql.*;
 import java.util.*;
 
 public class SqlMedico {
 
-    public static List<Clinica.RegistroClinico> obterTodosRegistros() {
+    public static List<RegistoClinico> obterTodosRegistros() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        List<Clinica.RegistroClinico> registros = new ArrayList<>(); // Lista para armazenar os registros clinicos
+        List<RegistoClinico> registros = new ArrayList<>(); // Lista para armazenar os registros clinicos
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
@@ -39,8 +36,8 @@ public class SqlMedico {
                     int numeroSns = resultado.getInt("Numero_Utente");
 
 
-                    Clinica.RegistroClinico registroClinico = new Clinica.RegistroClinico(idFicha, historicoDoencas, alergias, operacoes, numeroSns);
-                    registros.add(registroClinico);
+                    RegistoClinico registoClinico = new RegistoClinico(idFicha, historicoDoencas, alergias, operacoes, numeroSns);
+                    registros.add(registoClinico);
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter as consultas: " + e.getMessage());
@@ -103,7 +100,7 @@ public class SqlMedico {
 
         if (conexao != null){
             try{
-                String sql = "SELECT ID_Registro, ID_Ficha, Data, ID_Medico, Tratamento, ID_Consulta, Assunto FROM EntradaRegistoClinico";
+                String sql = "SELECT ID_Registro, ID_Ficha, Data, ID_Medico, Tratamento, ID_Consulta, Assunto FROM EntradaRegistoClinicoPanel";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 ResultSet resultado = statement.executeQuery();
