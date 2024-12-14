@@ -1,13 +1,14 @@
 package sql.server;
 
 import medi.flow.RegistoClinico;
+import medi.flow.RegistoClinico.EntradaRegistoClinico;
 
 import java.sql.*;
 import java.util.*;
 
 public class SqlMedico {
 
-    public static List<RegistoClinico> obterTodosRegistros() {
+    public static List<RegistoClinico> obterTodosRegistos() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         List<RegistoClinico> registros = new ArrayList<>(); // Lista para armazenar os registros clinicos
 
@@ -36,99 +37,45 @@ public class SqlMedico {
                     int numeroSns = resultado.getInt("Numero_Utente");
 
 
-                    RegistoClinico registoClinico = new RegistoClinico(idFicha, historicoDoencas, alergias, operacoes, numeroSns);
+                    RegistoClinico registoClinico = new RegistoClinico(historicoDoencas, alergias, operacoes, numeroSns);
+                    registoClinico.setEntradasRegistosClinicos(obterTodasEntradas(registoClinico));
                     registros.add(registoClinico);
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter as consultas: " + e.getMessage());
+                System.out.println("Erro ao obter registos: " + e.getMessage());
             }
         }
         return registros; // Retorna a lista com os IDs das consultas
     }
 
-    public static void criarRegistro(int numeroSns) {
+
+    public static List<EntradaRegistoClinico> obterTodasEntradas(RegistoClinico registoClinico){
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-
-        String sql = "{CALL CriarRegistro(?)}"; // Chama a stored procedure CriarRegistro
-
-        try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-            // Definir parâmetros de entrada
-            callableStatement.setInt(1, numeroSns); // SNS do paciente
-
-            // Executar a stored procedure
-            callableStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void editarRegistro(String historicoClinico, String alergias, String doencasCronicas, String cirurgiasAnteriores, String historicoMedicamentos) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-
-        String sql = "{CALL EditarRegistro(?, ?, ?, ?, ?)}"; // Chama a stored procedure CriarRegistro
-
-        try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-            // Definir parâmetros de entrada
-            callableStatement.setString(1, historicoClinico);
-            callableStatement.setString(2, alergias);
-            callableStatement.setString(3, doencasCronicas);
-            callableStatement.setString(4, cirurgiasAnteriores);
-            callableStatement.setString(5, historicoMedicamentos);
-
-            // Executar a stored procedure
-            callableStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void criarEntradaRegisto(int numeroSns, int iD_Medico, int iD_Ficha, int data, String motivo, String tratamento) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        String sql = "{CALL CriarEntradaRegistro(?, ?, ?, ?, ?, ?)}";
-
-        try(CallableStatement callableStatement = conexao.prepareCall(sql)){
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /*public static List<Clinica.EntradaRegistroClinico> obterTodasEntradas(){
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        List<Clinica.EntradaRegistroClinico> entradas = new ArrayList<>();
+        List<EntradaRegistoClinico> entradas = new ArrayList<>();
 
         if (conexao != null){
             try{
-                String sql = "SELECT ID_Registro, ID_Ficha, Data, ID_Medico, Tratamento, ID_Consulta, Assunto FROM EntradaRegistoClinicoPanel";
+                String sql = "SELECT Data, ID_Medico, Tratamento, ID_Consulta, Assunto FROM EntradaRegistoClinicoPanel";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 ResultSet resultado = statement.executeQuery();
 
                 while(resultado.next()){
-                    int id_Registro = resultado.getInt("ID_Registro");
-                    int id_Ficha = resultado.getInt("ID_Ficha");
+
                     String data = resultado.getString("Data");
-                    int id_Medico = resultado.getInt("ID_Medico");
-                    String tratamento = resultado.getString("Tratamento");
-                    int id_Consulta = resultado.getInt("ID_Consulta");
+                    int idMedico = resultado.getInt("ID_Medico");
+                    String tratamentoString = resultado.getString("Tratamento");
+                    List<String> tratamento = new ArrayList<>(Arrays.asList(tratamentoString.split(" ")));
+                    int idConsulta = resultado.getInt("ID_Consulta");
                     String assunto = resultado.getString("Assunto");
+
+                    EntradaRegistoClinico entrada = registoClinico.new EntradaRegistoClinico(data, idMedico, tratamento, idConsulta, assunto);
+                    entradas.add(entrada);
                 }
-                
-                Clinica.EntradaRegistroClinico entradas = new Clinica.EntradaRegistroClinico();
-
-
-                Clinica.EntradaRegistroClinico entradaRegistroClinico = new Clinica.EntradaRegistroClinico()
-
             }catch(SQLException e){
-
+                System.out.println("Erro ao obter entradas: " + e.getMessage());
             }
-
-
         }
-
-
-
         return entradas;
-    }*/
+    }
 }

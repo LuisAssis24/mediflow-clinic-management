@@ -5,7 +5,7 @@ import java.util.List;
 
 import static sql.server.SqlGeral.*;
 import static sql.server.SqlGestor.*;
-import static sql.server.SqlMedico.obterTodosRegistros;
+import static sql.server.SqlMedico.obterTodosRegistos;
 import static sql.server.SqlSecretaria.*;
 
 public class Clinica {
@@ -23,7 +23,7 @@ public class Clinica {
         this.utilizadores = obterTodosUtilizadores();
         this.pacientes = obterTodosPacientes();
         this.horariosMedicos = todosHorariosMedicos();
-        this.registros = obterTodosRegistros();
+        this.registros = obterTodosRegistos();
     }
 
     //Getters
