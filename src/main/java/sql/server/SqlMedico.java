@@ -13,7 +13,7 @@ public class SqlMedico {
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
-                String sql = "SELECT ID_Ficha, Historico_Doencas, Alergias, Operacoes, Numero_Utente FROM RegistroClinico";
+                String sql = "SELECT ID_Ficha, Historico_Doencas, Alergias, Operacoes, Numero_Utente FROM RegistoClinico";
                 PreparedStatement statement = conexao.prepareStatement(sql);
 
                 // Executa a consulta e armazena o resultado
