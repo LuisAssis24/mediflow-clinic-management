@@ -15,14 +15,15 @@ import static medi.flow.Main.getClinica;
  * @author Luis
  */
 public final class VistaMedico extends javax.swing.JFrame {
-    static int idMedico = 1; // ID do médico que está a usar o sistema
+    static int idMedico; // ID do médico que está a usar o sistema
     /**
      * Creates new form VistaMedico
      */
     public VistaMedico(int idMedico) {
-        initComponents(); // Inicializa os componentes da interface grafica
+        initComponents();
+        this.idMedico = idMedico;// Inicializa os componentes da interface grafica
         carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
-        this.idMedico = idMedico; // Define o ID do médico que está a usar o sistema
+         // Define o ID do médico que está a usar o sistema
     }
 
     void carregarConsultasBaseDeDados() {
