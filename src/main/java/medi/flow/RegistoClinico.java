@@ -1,31 +1,25 @@
 package medi.flow;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static medi.flow.Main.getClinica;
 
 public class RegistoClinico {
+    private int numeroSns;
     private List<String> historicoDoencas;
     private List<String> alergias;
     private List<String> operacoes;
-    private int numeroSns;
-    private List<EntradaRegistoClinico> entradasRegistosClinicos;
+    private List<EntradaRegistoClinico> entradasRegistoClinico;
 
 
     // Construtor
-    public RegistoClinico(List<String> historicoDoencas, List<String> alergias, List<String> operacoes, int numeroSns) {
-        this.historicoDoencas = historicoDoencas;
-        this.alergias = alergias;
-        this.operacoes = operacoes;
-        this.numeroSns = numeroSns;
-    }
-
     public RegistoClinico(int numeroSns){
-        this.historicoDoencas = new ArrayList<String>();
+        this.numeroSns = numeroSns;
+        this.historicoDoencas = new ArrayList<>();
         this.alergias = new ArrayList<>();
         this.operacoes = new ArrayList<>();
-        this.numeroSns = numeroSns;
+        this.entradasRegistoClinico = new ArrayList<>();
     }
-
 
     // Metodos getters para acesso aos atributos privados
     public List<String> getHistoricoDoencas() { return historicoDoencas; }
@@ -34,33 +28,62 @@ public class RegistoClinico {
     public int getNumeroSns() { return numeroSns; }
 
     // Metodos setters
+    public void setHistoricoDoencas(List<String> historicoDoencas) {
+        this.historicoDoencas = historicoDoencas;
+    }
+    public void setAlergias(List<String> alergias) {
+        this.alergias = alergias;
+    }
+    public void setOperacoes(List<String> operacoes) {
+        this.operacoes = operacoes;
+    }
     public void setEntradasRegistosClinicos(List<EntradaRegistoClinico> entradasRegistosClinicos) {
-        this.entradasRegistosClinicos = entradasRegistosClinicos;
+        this.entradasRegistoClinico = entradasRegistosClinicos;
     }
 
+    //Metodo toString para imprimir os atributos do objeto
+    public String listToString(List<String> lista) {
+        StringBuilder sb = new StringBuilder();
+        for (String item : lista) {
+            sb.append(item).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
+    //Metodo para obter as informações do Paciente atráves da instância consulta
+    public String[] getInfoPaciente() {
+        String[] infoPaciente = new String[2];
+        for (Paciente paciente : getClinica().getPacientes()) {
+            if (paciente.getNumeroSNS() == numeroSns) {
+                infoPaciente[0] = paciente.getNome();
+                infoPaciente[1] = String.valueOf(paciente.getContacto());
+                break;
+            }
+        }
+        return infoPaciente;
+    }
 
     public class EntradaRegistoClinico {
-        private String data;
         private int id_medico;
-        private List<String> tratamento;
         private int id_consulta;
+        private String data;
         private String assunto;
+        private String tratamento;
 
         //Construtor para inicializar os atributos
-        public EntradaRegistoClinico(String data, int id_medico, List<String> tratamento, int id_consulta, String assunto) {
-            this.data = data;
+        public EntradaRegistoClinico(int id_medico, int id_consulta, String data, String assunto, String tratamento) {
             this.id_medico = id_medico;
-            this.tratamento = tratamento;
             this.id_consulta = id_consulta;
+            this.data = data;
             this.assunto = assunto;
-
+            this.tratamento = tratamento;
         }
 
         // metodos getters
-        public String getData() { return data; }
         public int getIdMedico() { return id_medico; }
-        public List<String> getTratamento() { return tratamento; }
-        public int getId_consulta() { return id_consulta; }
+        public int getIdConsulta() { return id_consulta; }
+        public String getData() { return data; }
         public String getAssunto() { return assunto; }
+        public String getTratamento() { return tratamento; }
     }
 }

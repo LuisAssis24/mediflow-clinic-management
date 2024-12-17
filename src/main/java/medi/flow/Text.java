@@ -1,26 +1,12 @@
 package medi.flow;
 
 import java.text.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class Text {
-    public static void quebraPontos(javax.swing.JList<String> jList, String texto) {
-        // Divide o texto usando "." como separador
-        String[] partes = texto.split("\\.");
 
-        // Cria um novo modelo para o JList
-        javax.swing.DefaultListModel<String> modelo = new javax.swing.DefaultListModel<>();
-
-        // Adiciona cada parte ao modelo, ignorando itens vazios
-        for (String parte : partes) {
-            if (!parte.trim().isEmpty()) {
-                modelo.addElement(parte.trim());
-            }
-        }
-
-        // Define o modelo processado na JList
-        jList.setModel(modelo);
+    public static List<String> splitStringToList(String string) {
+        return new ArrayList<>(Arrays.asList(string.split("\\.")));
     }
 
     public static Date dataJavaParaSql(String data, String hora) throws ParseException {
@@ -34,7 +20,6 @@ public class Text {
         Date date = sqlDateFormat.parse(dateString);
         return dateFormat.format(date);
     }
-
 
     public static String dataFormat(String data) throws ParseException {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");

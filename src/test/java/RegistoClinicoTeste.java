@@ -14,7 +14,7 @@ public class RegistoClinicoTeste {
         List<String> operacoes = Arrays.asList("Cirurgia de apendicite");
 
         // Cria o registo clínico com os dados
-        RegistoClinico registo = new RegistoClinico(doencas, alergias, operacoes, 123456789);
+        RegistoClinico registo = new RegistoClinico(123456789);
 
         // Verifica se os dados foram inicializados corretamente
         assertEquals(123456789, registo.getNumeroSns());

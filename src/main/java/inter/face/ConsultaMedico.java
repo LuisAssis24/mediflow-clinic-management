@@ -9,7 +9,7 @@ import medi.flow.*;
 import java.util.List;
 
 import static medi.flow.Main.getClinica;
-import static medi.flow.Text.quebraPontos;
+import static medi.flow.Text.splitStringToList;
 
 /**
  *
@@ -34,7 +34,9 @@ public class ConsultaMedico extends javax.swing.JPanel {
         data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
         hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
 
-        quebraPontos(listaConsulta, consulta.getMotivo());
+        // Preenche a lista de motivos da consulta
+        List<String> motivoList = splitStringToList(consulta.getMotivo());
+        motivos.setListData(motivoList.toArray(new String[0]));
     }
 
     /**
@@ -55,7 +57,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
         algo = new javax.swing.JLabel();
         fichaMedicaButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaConsulta = new javax.swing.JList<>();
+        motivos = new javax.swing.JList<>();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setMaximumSize(new java.awt.Dimension(900, 100));
@@ -150,19 +152,19 @@ public class ConsultaMedico extends javax.swing.JPanel {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 60));
         jScrollPane1.setRequestFocusEnabled(false);
 
-        listaConsulta.setBackground(new java.awt.Color(242, 242, 242));
-        listaConsulta.setBorder(null);
-        listaConsulta.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        listaConsulta.setModel(new javax.swing.AbstractListModel<String>() {
+        motivos.setBackground(new java.awt.Color(242, 242, 242));
+        motivos.setBorder(null);
+        motivos.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        motivos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        listaConsulta.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        listaConsulta.setFocusable(false);
-        listaConsulta.setOpaque(false);
-        listaConsulta.setRequestFocusEnabled(false);
-        jScrollPane1.setViewportView(listaConsulta);
+        motivos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        motivos.setFocusable(false);
+        motivos.setOpaque(false);
+        motivos.setRequestFocusEnabled(false);
+        jScrollPane1.setViewportView(motivos);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -172,8 +174,8 @@ public class ConsultaMedico extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fichaMedicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaMedicaButtonActionPerformed
-        List<RegistoClinico> listaRegistroClinico = getClinica().getRegistros();
-        for(RegistoClinico registoClinico : listaRegistroClinico){
+        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();
+        for(RegistoClinico registoClinico : listaRegistrosClinico){
             if(registoClinico.getNumeroSns() == nSns){
                 RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico);
                 registoClinicoPanel.setVisible(true);
@@ -190,7 +192,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
     private javax.swing.JLabel hora;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label;
-    private javax.swing.JList<String> listaConsulta;
+    private javax.swing.JList<String> motivos;
     private javax.swing.JLabel nomePaciente;
     // End of variables declaration//GEN-END:variables
 }

@@ -697,8 +697,13 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             }
 
             // Criar o Paciente Caso ele não exista e adcionar ao objeto clinica
-            SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);
-            getClinica().addPaciente(new Paciente(numeroSns, nome, contactoInt));
+            boolean bool = SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);
+            if (bool == true) {
+                getClinica().addPaciente(new Paciente(numeroSns, nome, contactoInt));
+                SqlSecretaria.criarNovoRC(numeroSns);
+            }
+
+
 
             // Obter o nome do médico e formatá-lo
             String nomeMedUnformat = getClinica().obterNomeMedicoPorId(idMedicoInt);

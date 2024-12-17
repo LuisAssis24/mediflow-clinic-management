@@ -60,9 +60,6 @@ public class NovaEntradaRC extends javax.swing.JFrame {
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Tratamentos:");
-        jLabel3.setMaximumSize(new java.awt.Dimension(70, 16));
-        jLabel3.setMinimumSize(new java.awt.Dimension(70, 16));
-        jLabel3.setPreferredSize(new java.awt.Dimension(70, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;

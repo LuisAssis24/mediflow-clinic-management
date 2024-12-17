@@ -9,7 +9,7 @@ import medi.flow.*;
 
 import java.util.List;
 
-import static medi.flow.Main.getClinica;
+
 
 /**
  *
@@ -20,27 +20,25 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     /**
      * Creates new form FichaMedica
      */
-    public RegistoClinicoPanel(RegistoClinico registroClinico) {
+    public RegistoClinicoPanel(RegistoClinico rc) {
         initComponents();
 
-        String nome = "";
-        int contactoPaciente = 0;
-        int sns = registroClinico.getNumeroSns();
-        List<Paciente> listaPacientes = getClinica().getPacientes();
-        for (Paciente paciente : listaPacientes) {
-            if (paciente.getNumeroSNS() == sns){
-                nome = paciente.getNome();
-                contactoPaciente = paciente.getContacto();
-            }
-        }
-        int numeroSns = registroClinico.getNumeroSns();
-        List<String> alergias = registroClinico.getAlergias();
-        List<String> operacoes = registroClinico.getOperacoes();
-        List<String> historicoDoencas = registroClinico.getHistoricoDoencas();
+        String[] infoPaciente = rc.getInfoPaciente();
 
-        nomePaciente.setText(nome);
-        nSns.setText(String.valueOf(sns));
-        contacto.setText(String.valueOf(contactoPaciente));
+        //Obter as informações do paciente a partir do número de sns
+        nomePaciente.setText(infoPaciente[0]);
+        nSns.setText(String.valueOf(rc.getNumeroSns()));
+        contacto.setText(infoPaciente[1]);;
+
+        //Obter os dados das Listas
+        List<String> alergias = rc.getAlergias();
+        List<String> tratamentos = rc.getOperacoes();
+        List<String> doencas = rc.getHistoricoDoencas();
+
+        //Preencher as listas de alergias, tratamentos e doenças
+        alergiasList.setListData(alergias.toArray(new String[0]));
+        operacoesList.setListData(tratamentos.toArray(new String[0]));
+        histDoencasList.setListData(doencas.toArray(new String[0]));
     }
 
     /**
@@ -75,12 +73,12 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        alergiasPanel = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tratamentosPanel = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        doencasPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        alergiasList = new javax.swing.JList<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        operacoesList = new javax.swing.JList<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        histDoencasList = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -216,7 +214,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(2, 10, 0, 0);
         jPanel9.add(nomePaciente, gridBagConstraints);
 
         nSns.setText("12457845121");
@@ -226,7 +224,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 160);
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 160);
         jPanel9.add(nSns, gridBagConstraints);
 
         contacto.setText("123456789");
@@ -237,7 +235,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 250);
         jPanel9.add(contacto, gridBagConstraints);
 
         jPanel2.setPreferredSize(new java.awt.Dimension(100, 0));
@@ -311,6 +309,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 300);
         jPanel11.add(jLabel6, gridBagConstraints);
 
@@ -323,19 +322,19 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 350);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 0);
         jPanel11.add(jLabel7, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Tratamentos:");
+        jLabel8.setText("Operações:");
         jLabel8.setMaximumSize(new java.awt.Dimension(140, 20));
         jLabel8.setMinimumSize(new java.awt.Dimension(140, 20));
         jLabel8.setPreferredSize(new java.awt.Dimension(140, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 350);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 0);
         jPanel11.add(jLabel8, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
@@ -347,47 +346,65 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 350);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 0);
         jPanel11.add(jLabel9, gridBagConstraints);
 
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 120));
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setMinimumSize(new java.awt.Dimension(300, 120));
+        jScrollPane5.setPreferredSize(new java.awt.Dimension(300, 120));
 
-        alergiasPanel.setPreferredSize(new java.awt.Dimension(298, 0));
-        alergiasPanel.setLayout(new java.awt.GridLayout(0, 1, 0, 2));
-        jScrollPane1.setViewportView(alergiasPanel);
+        alergiasList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        alergiasList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        alergiasList.setPreferredSize(new java.awt.Dimension(300, 120));
+        jScrollPane5.setViewportView(alergiasList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 100, 0, 0);
-        jPanel11.add(jScrollPane1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 70);
+        jPanel11.add(jScrollPane5, gridBagConstraints);
 
-        jScrollPane3.setBorder(null);
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(300, 120));
+        jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane6.setMinimumSize(new java.awt.Dimension(300, 120));
+        jScrollPane6.setPreferredSize(new java.awt.Dimension(300, 120));
 
-        tratamentosPanel.setPreferredSize(new java.awt.Dimension(298, 0));
-        tratamentosPanel.setLayout(new java.awt.GridLayout(0, 1, 0, 2));
-        jScrollPane3.setViewportView(tratamentosPanel);
+        operacoesList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        operacoesList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        operacoesList.setPreferredSize(new java.awt.Dimension(300, 120));
+        jScrollPane6.setViewportView(operacoesList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 100, 0, 0);
-        jPanel11.add(jScrollPane3, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 70);
+        jPanel11.add(jScrollPane6, gridBagConstraints);
 
-        jScrollPane4.setBorder(null);
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(300, 120));
+        jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane7.setMinimumSize(new java.awt.Dimension(300, 120));
+        jScrollPane7.setPreferredSize(new java.awt.Dimension(300, 120));
 
-        doencasPanel.setPreferredSize(new java.awt.Dimension(298, 0));
-        doencasPanel.setLayout(new java.awt.GridLayout(0, 1, 0, 2));
-        jScrollPane4.setViewportView(doencasPanel);
+        histDoencasList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        histDoencasList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        histDoencasList.setPreferredSize(new java.awt.Dimension(300, 120));
+        jScrollPane7.setViewportView(histDoencasList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 100, 0, 0);
-        jPanel11.add(jScrollPane4, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 70);
+        jPanel11.add(jScrollPane7, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -476,10 +493,10 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarEntrada;
-    private javax.swing.JPanel alergiasPanel;
+    private javax.swing.JList<String> alergiasList;
     private javax.swing.JLabel contacto;
-    private javax.swing.JPanel doencasPanel;
     private javax.swing.JPanel entradasPanel;
+    private javax.swing.JList<String> histDoencasList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -498,13 +515,13 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel nSns;
     private javax.swing.JLabel nomePaciente;
+    private javax.swing.JList<String> operacoesList;
     private javax.swing.JButton receitarMed;
-    private javax.swing.JPanel tratamentosPanel;
     // End of variables declaration//GEN-END:variables
 }

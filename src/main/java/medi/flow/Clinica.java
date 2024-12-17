@@ -15,7 +15,7 @@ public class Clinica {
     private List<Medico.HorarioMedico> horariosMedicos;
     private static List<Utilizador> utilizadores;
     private List<Paciente> pacientes;
-    private List<RegistoClinico> registros;
+    private List<RegistoClinico> registos;
 
     public Clinica() {
         this.consultas = obterTodasConsultas();
@@ -23,7 +23,7 @@ public class Clinica {
         this.utilizadores = obterTodosUtilizadores();
         this.pacientes = obterTodosPacientes();
         this.horariosMedicos = todosHorariosMedicos();
-        this.registros = obterTodosRegistos();
+        this.registos = obterTodosRegistos();
     }
 
     //Getters
@@ -32,7 +32,6 @@ public class Clinica {
     public List<Utilizador> getUtilizador() {return utilizadores;}
     public List<Paciente> getPacientes() { return pacientes; }
     public Medico.HorarioMedico getHorarioMedico(int id) {
-        List<Medico.HorarioMedico> horarios = new ArrayList<>();
         for (Medico.HorarioMedico horario : horariosMedicos) {
             if (horario.getIdMedico() == id) {
                 return horario;
@@ -40,9 +39,9 @@ public class Clinica {
         }
         return null;
     }
-    public List<RegistoClinico> getRegistros() { return registros; }
+    public List<RegistoClinico> getRegistos() { return registos; }
 
-    public static String obterNomeMedicoPorId(int id) {
+    public String obterNomeMedicoPorId(int id) {
         for (Utilizador medico : utilizadores) {
             if (medico.getId() == id) {
                 return medico.getNome();

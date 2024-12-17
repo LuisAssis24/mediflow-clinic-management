@@ -14,8 +14,8 @@ public class SqlGestor {
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Declara uma consulta SQL para obter todos os utilizadores
-                String sql = "SELECT ID, CC, Nome, Password, Tipo_Utilizador FROM Utilizador";
-                PreparedStatement statement = conexao.prepareStatement(sql);
+                String sql = "{CALL ObterTodosUtilizadores()}";
+                CallableStatement statement = conexao.prepareCall(sql);
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
@@ -28,11 +28,11 @@ public class SqlGestor {
                     String password = resultado.getString("Password");
                     String tipoUtilizador = resultado.getString("Tipo_Utilizador");
 
-                    if (tipoUtilizador.equals("Medico")) {
-                        String sqlMedico = "SELECT Num_Ordem, Especialidade FROM Medico WHERE ID = ?";
-                        PreparedStatement statementMedico = conexao.prepareStatement(sqlMedico);
-                        statementMedico.setInt(1, id);
-                        ResultSet resultadoMedico = statementMedico.executeQuery();
+                    if (tipoUtilizador.equals("Médico")) {
+                        String sqlMedico = "{CALL ObterMedicoPorId(?)}";
+                        CallableStatement callableStatement = conexao.prepareCall(sqlMedico);
+                        callableStatement.setInt(1, id);
+                        ResultSet resultadoMedico = callableStatement.executeQuery();
                         if (resultadoMedico.next()) {
                             int numOrdem = resultadoMedico.getInt("Num_Ordem");
                             String especialidade = resultadoMedico.getString("Especialidade");
@@ -48,7 +48,6 @@ public class SqlGestor {
                 System.out.println("Erro ao obter os utilizadores: " + e.getMessage());
             }
         }
-
         return utilizadores; // Retorna a lista com os utilizadores
     }
 
@@ -76,7 +75,7 @@ public class SqlGestor {
             }
 
             // Ver se o utilizador é um médico
-            if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
                 // Adicionar os detalhes do médico
                 String sqlInserirMedico = "{CALL InserirMedico(?, ?, ?)}";
                 try (CallableStatement callableStatement = conexao.prepareCall(sqlInserirMedico)) {
@@ -97,14 +96,14 @@ public class SqlGestor {
         return idUtilizadorGerado; // retornar o id do utilizador criado
     }
 
-    public static boolean eliminarUtilizador(int idUtilizador, String tipoUtilizador) throws SQLException {
+    public static void eliminarUtilizador(int idUtilizador, String tipoUtilizador) throws SQLException {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        boolean deletado = false;
+
 
         if (conexao != null) {
             try {
                 // Ver se o utilizador é um médico para eliminar da tabela Medico
-                if ("Medico".equalsIgnoreCase(tipoUtilizador)) {
+                if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
                     String sqlMedico = "{CALL EliminarMedico(?)}";
                     try (CallableStatement callableStatement = conexao.prepareCall(sqlMedico)) {
                         callableStatement.setInt(1, idUtilizador);
@@ -116,8 +115,7 @@ public class SqlGestor {
                 String sqlUtilizador = "{CALL EliminarUtilizador(?)}";
                 try (CallableStatement callableStatement = conexao.prepareCall(sqlUtilizador)) {
                     callableStatement.setInt(1, idUtilizador);
-                    int affectedRows = callableStatement.executeUpdate();
-                    deletado = affectedRows > 0;
+                    callableStatement.executeUpdate();
                 }
             } catch (SQLException e) {
                 if (e.getMessage().contains("foreign key constraint fails")) {
@@ -128,6 +126,5 @@ public class SqlGestor {
                 }
             }
         }
-        return deletado;
     }
 }

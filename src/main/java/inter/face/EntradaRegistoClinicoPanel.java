@@ -53,9 +53,6 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Tratamentos:");
-        jLabel2.setMaximumSize(new java.awt.Dimension(70, 16));
-        jLabel2.setMinimumSize(new java.awt.Dimension(70, 16));
-        jLabel2.setPreferredSize(new java.awt.Dimension(70, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -78,6 +75,7 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(jScrollPane1, gridBagConstraints);
 
         jScrollPane2.setBackground(new java.awt.Color(242, 242, 242));
@@ -96,6 +94,7 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(jScrollPane2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

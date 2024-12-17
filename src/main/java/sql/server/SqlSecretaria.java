@@ -137,7 +137,7 @@ public class SqlSecretaria {
     }
 
     // Metodo para criar um novo paciente caso eel nao exista
-    public static void criarPaciente(int numero, String nome, int contacto) {
+    public static boolean criarPaciente(int numero, String nome, int contacto) {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();
 
         if (getClinica().obterPacientePorSns(numero) == null) {
@@ -148,9 +148,29 @@ public class SqlSecretaria {
                 callableStatement.setInt(3, contacto);
                 callableStatement.executeUpdate();
                 System.out.println("Paciente criado com sucesso!");
+                return true;
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException("Erro ao criar paciente: " + e.getMessage());
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static void criarNovoRC(int numeroSns){
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+
+        if (conexao != null){
+            try{
+                String sql = "{CALL CriarNovoRegisto(?)}";
+                CallableStatement statement = conexao.prepareCall(sql);
+
+                statement.setInt(1, numeroSns);
+
+                statement.execute();
+            }catch(SQLException e){
+                System.out.println("Erro ao criar novo registo: " + e.getMessage());
             }
         }
     }
