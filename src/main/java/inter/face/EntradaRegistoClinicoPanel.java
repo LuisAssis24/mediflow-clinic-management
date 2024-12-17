@@ -4,17 +4,21 @@
  */
 package inter.face;
 
+import java.util.List;
+
 /**
  *
- * @author draga
+ * @author Luís
  */
 public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form EntradaRegistoClinicoPanel
      */
-    public EntradaRegistoClinicoPanel() {
+    public EntradaRegistoClinicoPanel(List<String> assunto, List<String> tratamento) {
         initComponents();
+        motivoList.setListData(assunto.toArray(new String[0]));
+        tratamentoList.setListData(tratamento.toArray(new String[0]));
     }
 
     /**
@@ -30,9 +34,9 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        motivoList = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        tratamentoList = new javax.swing.JList<>();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
         setMaximumSize(new java.awt.Dimension(538, 220));
@@ -40,17 +44,19 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(538, 220));
         setLayout(new java.awt.GridBagLayout());
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Motivo:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(70, 16));
-        jLabel1.setMinimumSize(new java.awt.Dimension(70, 16));
-        jLabel1.setPreferredSize(new java.awt.Dimension(70, 16));
+        jLabel1.setMaximumSize(new java.awt.Dimension(80, 20));
+        jLabel1.setMinimumSize(new java.awt.Dimension(80, 20));
+        jLabel1.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 80, 5);
         add(jLabel1, gridBagConstraints);
 
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Tratamentos:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -63,38 +69,38 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        jList1.setBackground(new java.awt.Color(242, 242, 242));
-        jList1.setBorder(null);
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        motivoList.setBackground(new java.awt.Color(242, 242, 242));
+        motivoList.setBorder(null);
+        motivoList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        motivoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", " ", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(motivoList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(jScrollPane1, gridBagConstraints);
 
         jScrollPane2.setBackground(new java.awt.Color(242, 242, 242));
         jScrollPane2.setBorder(null);
         jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        jList2.setBackground(new java.awt.Color(242, 242, 242));
-        jList2.setBorder(null);
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        tratamentoList.setBackground(new java.awt.Color(242, 242, 242));
+        tratamentoList.setBorder(null);
+        tratamentoList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        tratamentoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", " ", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(tratamentoList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(jScrollPane2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -102,9 +108,9 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> motivoList;
+    private javax.swing.JList<String> tratamentoList;
     // End of variables declaration//GEN-END:variables
 }

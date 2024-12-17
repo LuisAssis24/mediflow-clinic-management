@@ -13,7 +13,7 @@ public class Clinica {
     private List<Consulta> consultas;
     private List<String[]> medicos;
     private List<Medico.HorarioMedico> horariosMedicos;
-    private static List<Utilizador> utilizadores;
+    private List<Utilizador> utilizadores;
     private List<Paciente> pacientes;
     private List<RegistoClinico> registos;
 

@@ -6,10 +6,12 @@ package inter.face;
 
 import medi.flow.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static medi.flow.Main.getClinica;
 import static medi.flow.Text.splitStringToList;
+import static medi.flow.Text.timeFormat;
 
 /**
  *
@@ -23,7 +25,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
 
     int nSns;
 
-    public ConsultaMedico(Consulta consulta) {
+    public ConsultaMedico(Consulta consulta) throws ParseException {
         initComponents(); // Inicializa os componentes da interface
 
         // Atributos escondidos da consulta
@@ -31,8 +33,9 @@ public class ConsultaMedico extends javax.swing.JPanel {
 
         // Preenche os componentes da interface
         nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
+        String horaFormtatada = timeFormat(consulta.getHora());
         data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
-        hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
+        hora.setText(horaFormtatada);
 
         // Preenche a lista de motivos da consulta
         List<String> motivoList = splitStringToList(consulta.getMotivo());
@@ -103,13 +106,14 @@ public class ConsultaMedico extends javax.swing.JPanel {
         data.setText("dd/mm/yyyy");
         data.setMaximumSize(new java.awt.Dimension(120, 30));
         data.setMinimumSize(new java.awt.Dimension(120, 30));
-        data.setPreferredSize(new java.awt.Dimension(120, 30));
+        data.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 180);
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 200);
         add(data, gridBagConstraints);
 
+        hora.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         hora.setText("hh/mm");
         hora.setMaximumSize(new java.awt.Dimension(120, 30));
         hora.setMinimumSize(new java.awt.Dimension(120, 30));
@@ -117,7 +121,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 80, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
         add(hora, gridBagConstraints);
 
         algo.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N

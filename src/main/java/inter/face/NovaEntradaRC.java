@@ -47,17 +47,19 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(720, 660));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Assunto:");
-        jLabel2.setMaximumSize(new java.awt.Dimension(70, 16));
-        jLabel2.setMinimumSize(new java.awt.Dimension(70, 16));
-        jLabel2.setPreferredSize(new java.awt.Dimension(70, 16));
+        jLabel2.setMaximumSize(new java.awt.Dimension(81, 20));
+        jLabel2.setMinimumSize(new java.awt.Dimension(81, 20));
+        jLabel2.setPreferredSize(new java.awt.Dimension(81, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 230, 0);
         jPanel2.add(jLabel2, gridBagConstraints);
 
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Tratamentos:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -70,6 +72,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
 
         jList1.setBackground(new java.awt.Color(242, 242, 242));
         jList1.setBorder(null);
+        jList1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", " " };
             public int getSize() { return strings.length; }
@@ -87,6 +90,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
 
         jList2.setBackground(new java.awt.Color(242, 242, 242));
         jList2.setBorder(null);
+        jList2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", " " };
             public int getSize() { return strings.length; }

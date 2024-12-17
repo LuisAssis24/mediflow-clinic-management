@@ -1,4 +1,3 @@
-package test.java;
 
 import medi.flow.Text;
 import org.junit.jupiter.api.Test;

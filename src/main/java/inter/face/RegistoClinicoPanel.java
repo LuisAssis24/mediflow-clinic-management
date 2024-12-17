@@ -7,6 +7,7 @@ package inter.face;
 
 import medi.flow.*;
 
+import javax.swing.*;
 import java.util.List;
 
 
@@ -28,7 +29,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         //Obter as informações do paciente a partir do número de sns
         nomePaciente.setText(infoPaciente[0]);
         nSns.setText(String.valueOf(rc.getNumeroSns()));
-        contacto.setText(infoPaciente[1]);;
+        contacto.setText(infoPaciente[1]);
 
         //Obter os dados das Listas
         List<String> alergias = rc.getAlergias();
@@ -39,6 +40,34 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         alergiasList.setListData(alergias.toArray(new String[0]));
         operacoesList.setListData(tratamentos.toArray(new String[0]));
         histDoencasList.setListData(doencas.toArray(new String[0]));
+        
+        //Carregar as entradas do registo clinico
+        carregarEntradas(rc.getEntradasRegistoClinico());
+    }
+
+    public void carregarEntradas(List<RegistoClinico.EntradaRegistoClinico> entradas) {
+        int tamanhoPainelEntradas = 0;
+        entradasPanel.removeAll();
+        for (RegistoClinico.EntradaRegistoClinico entrada : entradas) {
+            tamanhoPainelEntradas += 220;
+            entradasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelEntradas));
+            criarPainelEntrada(entrada.getAssunto(), entrada.getTratamentos());
+        }
+
+        // Move a barra de scroll para o topo do painel de consultas
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = entradasScroll.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        });
+
+        entradasPanel.revalidate();
+        entradasPanel.repaint();
+    }
+
+    void criarPainelEntrada(List<String> assunto, List<String> tratamento){
+        //cria um painel para cada entrada
+        EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);
+        entradasPanel.add(entradaPanel);
     }
 
     /**
@@ -52,7 +81,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        entradasScroll = new javax.swing.JScrollPane();
         entradasPanel = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -84,7 +113,6 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1080, 720));
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -93,29 +121,18 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1080, 660));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setMaximumSize(new java.awt.Dimension(538, 10000));
-        jScrollPane2.setMinimumSize(new java.awt.Dimension(538, 10000));
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(538, 10000));
+        entradasScroll.setBorder(null);
+        entradasScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        entradasScroll.setMinimumSize(new java.awt.Dimension(538, 660));
+        entradasScroll.setPreferredSize(new java.awt.Dimension(538, 660));
 
-        entradasPanel.setMaximumSize(new java.awt.Dimension(538, 0));
+        entradasPanel.setMaximumSize(new java.awt.Dimension(538, 100000));
         entradasPanel.setMinimumSize(new java.awt.Dimension(538, 0));
         entradasPanel.setPreferredSize(new java.awt.Dimension(538, 0));
+        entradasPanel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        entradasScroll.setViewportView(entradasPanel);
 
-        javax.swing.GroupLayout entradasPanelLayout = new javax.swing.GroupLayout(entradasPanel);
-        entradasPanel.setLayout(entradasPanelLayout);
-        entradasPanelLayout.setHorizontalGroup(
-            entradasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 538, Short.MAX_VALUE)
-        );
-        entradasPanelLayout.setVerticalGroup(
-            entradasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5328, Short.MAX_VALUE)
-        );
-
-        jScrollPane2.setViewportView(entradasPanel);
-
-        jPanel3.add(jScrollPane2, new java.awt.GridBagConstraints());
+        jPanel3.add(entradasScroll, new java.awt.GridBagConstraints());
 
         jPanel7.setBackground(new java.awt.Color(0, 149, 218));
         jPanel7.setMaximumSize(new java.awt.Dimension(4, 660));
@@ -214,9 +231,10 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(2, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         jPanel9.add(nomePaciente, gridBagConstraints);
 
+        nSns.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         nSns.setText("12457845121");
         nSns.setMaximumSize(new java.awt.Dimension(100, 20));
         nSns.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -224,9 +242,10 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 160);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 160);
         jPanel9.add(nSns, gridBagConstraints);
 
+        contacto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         contacto.setText("123456789");
         contacto.setMaximumSize(new java.awt.Dimension(100, 20));
         contacto.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -235,7 +254,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 250);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 250);
         jPanel9.add(contacto, gridBagConstraints);
 
         jPanel2.setPreferredSize(new java.awt.Dimension(100, 0));
@@ -349,10 +368,13 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 0);
         jPanel11.add(jLabel9, gridBagConstraints);
 
+        jScrollPane5.setBorder(null);
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setMinimumSize(new java.awt.Dimension(300, 120));
         jScrollPane5.setPreferredSize(new java.awt.Dimension(300, 120));
 
+        alergiasList.setBackground(new java.awt.Color(242, 242, 242));
+        alergiasList.setBorder(null);
         alergiasList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         alergiasList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -368,10 +390,13 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 70);
         jPanel11.add(jScrollPane5, gridBagConstraints);
 
+        jScrollPane6.setBorder(null);
         jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane6.setMinimumSize(new java.awt.Dimension(300, 120));
         jScrollPane6.setPreferredSize(new java.awt.Dimension(300, 120));
 
+        operacoesList.setBackground(new java.awt.Color(242, 242, 242));
+        operacoesList.setBorder(null);
         operacoesList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         operacoesList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -387,10 +412,13 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 70);
         jPanel11.add(jScrollPane6, gridBagConstraints);
 
+        jScrollPane7.setBorder(null);
         jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane7.setMinimumSize(new java.awt.Dimension(300, 120));
         jScrollPane7.setPreferredSize(new java.awt.Dimension(300, 120));
 
+        histDoencasList.setBackground(new java.awt.Color(242, 242, 242));
+        histDoencasList.setBorder(null);
         histDoencasList.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         histDoencasList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -496,6 +524,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     private javax.swing.JList<String> alergiasList;
     private javax.swing.JLabel contacto;
     private javax.swing.JPanel entradasPanel;
+    private javax.swing.JScrollPane entradasScroll;
     private javax.swing.JList<String> histDoencasList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -515,7 +544,6 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;

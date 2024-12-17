@@ -36,13 +36,13 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
-        // Obtem os IDs das consultas da base de dados
+        // Obtem as consultas da base de dados
         List<Consulta> consultas = getClinica().getConsultas();
         for(Consulta consulta : consultas) {
             // Cria um painel com os dados da Consulta>
-            tamanhoPainelConsultas += 100; // Increase the size of the parent panel
+            tamanhoPainelConsultas += 100; // aumenta o tamanho do painel de consultas
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            criarPainelConsulta(consulta); // Create and add the consultation panel
+            criarPainelConsulta(consulta); // cria um painel de consulta
         }
 
         // Move a barra de scroll para o topo do painel de consultas
@@ -59,9 +59,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     void criarPainelConsulta(Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos 
         ConsultaFuncionario consultaPanel = new ConsultaFuncionario(consulta);
-        consultaPanel.setPreferredSize(new java.awt.Dimension(900, 100)); // Define o tamanho preferido do painel de consulta
-        consultaPanel.setMaximumSize(new java.awt.Dimension(900, 100)); // Define o tamanho máximo do painel de consulta
-        consultaPanel.setMinimumSize(new java.awt.Dimension(900, 100)); // Define o tamanho mínimo do painel de consulta
         consultasPanel.add(consultaPanel);  // Adiciona o painel criado ao painel principal de consultas
     }
     /**

@@ -26,6 +26,7 @@ public class RegistoClinico {
     public List<String> getAlergias() { return alergias; }
     public List<String> getOperacoes() { return operacoes; }
     public int getNumeroSns() { return numeroSns; }
+    public List<EntradaRegistoClinico> getEntradasRegistoClinico() { return entradasRegistoClinico; }
 
     // Metodos setters
     public void setHistoricoDoencas(List<String> historicoDoencas) {
@@ -67,13 +68,12 @@ public class RegistoClinico {
         private int id_medico;
         private int id_consulta;
         private String data;
-        private String assunto;
-        private String tratamento;
+        private List<String> assunto;
+        private List<String> tratamento;
 
         //Construtor para inicializar os atributos
-        public EntradaRegistoClinico(int id_medico, int id_consulta, String data, String assunto, String tratamento) {
+        public EntradaRegistoClinico(int id_medico, String data, List<String> assunto, List<String> tratamento) {
             this.id_medico = id_medico;
-            this.id_consulta = id_consulta;
             this.data = data;
             this.assunto = assunto;
             this.tratamento = tratamento;
@@ -81,9 +81,8 @@ public class RegistoClinico {
 
         // metodos getters
         public int getIdMedico() { return id_medico; }
-        public int getIdConsulta() { return id_consulta; }
         public String getData() { return data; }
-        public String getAssunto() { return assunto; }
-        public String getTratamento() { return tratamento; }
+        public List<String> getAssunto() { return assunto; }
+        public List<String> getTratamentos() { return tratamento; }
     }
 }

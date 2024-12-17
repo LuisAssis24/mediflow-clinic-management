@@ -5,6 +5,7 @@ import medi.flow.RegistoClinico.*;
 import java.sql.*;
 import java.util.*;
 
+import static medi.flow.Text.listToString;
 import static medi.flow.Text.splitStringToList;
 
 public class SqlMedico {
@@ -75,12 +76,14 @@ public class SqlMedico {
                 while(resultado.next()){
                     if (resultado.getInt("Numero_Sns") == registoClinico.getNumeroSns()){
                         int idMedico = resultado.getInt("Id_Medico");
-                        int idConsulta = resultado.getInt("Id_Consulta");
                         String data = resultado.getString("Data");
-                        String assunto = resultado.getString("Assunto");
-                        String tratamento = resultado.getString("Tratamento");
+                        String assuntoStr = resultado.getString("Assunto");
+                        String tratamentoStr = resultado.getString("Tratamento");
 
-                        EntradaRegistoClinico entrada = registoClinico.new EntradaRegistoClinico(idMedico, idConsulta, data, assunto, tratamento);
+                        List<String> assunto = splitStringToList(assuntoStr);
+                        List<String> tratamento = splitStringToList(tratamentoStr);
+
+                        EntradaRegistoClinico entrada = registoClinico.new EntradaRegistoClinico(idMedico, data, assunto, tratamento);
                         entradas.add(entrada);
                     }
                 }
@@ -100,10 +103,13 @@ public class SqlMedico {
                 CallableStatement statement = conexao.prepareCall(sql);
 
                 statement.setInt(1, entrada.getIdMedico());
-                statement.setInt(2, entrada.getIdConsulta());
                 statement.setString(3, entrada.getData());
-                statement.setString(4, entrada.getAssunto());
-                statement.setString(5, entrada.getTratamento());
+
+                String entradaStr = listToString(entrada.getAssunto());
+                String tratamentoStr = listToString(entrada.getTratamentos());
+
+                statement.setString(4, entradaStr);
+                statement.setString(5, tratamentoStr);
 
                 statement.execute();
             }catch(SQLException e){

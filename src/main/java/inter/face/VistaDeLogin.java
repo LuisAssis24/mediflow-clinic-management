@@ -7,6 +7,7 @@ package inter.face;
 import sql.server.*;
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
 
 
 /**
@@ -227,6 +228,8 @@ public class VistaDeLogin extends javax.swing.JFrame {
             }
         } catch (NumberFormatException | HeadlessException | NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 

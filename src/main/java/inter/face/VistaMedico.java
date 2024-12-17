@@ -7,6 +7,7 @@ import medi.flow.*;
 import javax.swing.*;
 
 
+import java.text.ParseException;
 import java.util.*;
 import static medi.flow.Main.getClinica;
 
@@ -19,14 +20,14 @@ public final class VistaMedico extends javax.swing.JFrame {
     /**
      * Creates new form VistaMedico
      */
-    public VistaMedico(int idMedico) {
+    public VistaMedico(int idMedico) throws ParseException {
         initComponents();
         this.idMedico = idMedico;// Inicializa os componentes da interface grafica
         carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
          // Define o ID do médico que está a usar o sistema
     }
 
-    void carregarConsultasBaseDeDados() {
+    void carregarConsultasBaseDeDados() throws ParseException {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
@@ -52,7 +53,7 @@ public final class VistaMedico extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
 
-    void criarPainelConsulta(Consulta consulta) {
+    void criarPainelConsulta(Consulta consulta) throws ParseException {
         // Cria um painel de consulta com os dados fornecidos, tendo em conta o médico que está a usar a aplicação
         ConsultaMedico consultaPanel = new ConsultaMedico(consulta);
         consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas
@@ -191,7 +192,11 @@ public final class VistaMedico extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new VistaMedico(idMedico).setVisible(true);
+            try {
+                new VistaMedico(idMedico).setVisible(true);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

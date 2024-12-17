@@ -9,6 +9,14 @@ public class Text {
         return new ArrayList<>(Arrays.asList(string.split("\\.")));
     }
 
+    public static String listToString(List<String> lista) {
+        StringBuilder sb = new StringBuilder();
+        for (String item : lista) {
+            sb.append(item).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
     public static Date dataJavaParaSql(String data, String hora) throws ParseException {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return dateTimeFormat.parse(data + " " + hora);
