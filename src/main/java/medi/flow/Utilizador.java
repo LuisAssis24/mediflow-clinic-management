@@ -1,4 +1,5 @@
 package medi.flow;
+import static medi.flow.Main.getClinica;
 
 
 public class Utilizador {
@@ -13,6 +14,16 @@ public class Utilizador {
         this.nome = nome;
         this.password = password;
         this.tipoUtilizador = tipoUtilizador;
+    }
+
+    public static int ultimoIdUtilizador(){
+        int maiorId = 0;
+        for (Utilizador utilizador : getClinica().getUtilizador()){
+            if (utilizador.id >= maiorId){
+                maiorId = utilizador.id;
+            }
+        }
+        return maiorId;
     }
 
     // Getters

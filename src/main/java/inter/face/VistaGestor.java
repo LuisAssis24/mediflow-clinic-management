@@ -465,7 +465,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
-    private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt) {
+    private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt){
         // Esconde a barra de pesquisa e o botao de pesquisa
         barraPesquisa.setVisible(false);
         botaoPesquisa.setVisible(false);
@@ -580,7 +580,7 @@ public final class VistaGestor extends javax.swing.JFrame {
             String ccString = String.valueOf(cc);
             if (ccString.length() != 9) {
                 JOptionPane.showMessageDialog(null,
-                        "Por favor, insira um número de CC válido.",
+                        "O número do CC deve ter exatamente 9 dígitos.",
                         "Erro de Validação",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -609,7 +609,10 @@ public final class VistaGestor extends javax.swing.JFrame {
                 especialidade.setText("");
                 numeroDeMedico.setText("");
 
-                //Recarrega as Credencias
+                //Cria o objeto utilizador e carrega a base de dados
+                List<Utilizador> listaUtilizadores = getClinica().getUtilizador();
+                Utilizador utilizador = new Utilizador( Utilizador.ultimoIdUtilizador() + 1,cc, nome, pessword, espcialidade);
+                getClinica().getUtilizador().add(utilizador);
                 carregarCredenciaisBaseDeDados();
             } else {
                 JOptionPane.showMessageDialog(null,
