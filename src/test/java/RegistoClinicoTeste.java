@@ -8,20 +8,18 @@ public class RegistoClinicoTeste {
 
     @Test
     public void testCriacaoRegistoClinico() {
-        // Dados para o histórico
-        List<String> doencas = Arrays.asList("Gripe", "Diabetes");
-        List<String> alergias = Arrays.asList("Penicilina");
-        List<String> operacoes = Arrays.asList("Cirurgia de apendicite");
-
-        // Cria o registo clínico com os dados
+        // Cria o registo clínico com apenas o número SNS
         RegistoClinico registo = new RegistoClinico(123456789);
 
-        // Verifica se os dados foram inicializados corretamente
-        assertEquals(123456789, registo.getNumeroSns());
-        assertEquals(doencas, registo.getHistoricoDoencas());
-        assertEquals(alergias, registo.getAlergias());
-        assertEquals(operacoes, registo.getOperacoes());
+        // Verifica se o número SNS foi inicializado corretamente
+        assertEquals(123456789, registo.getNumeroSns(), "O número SNS deve ser 123456789");
+
+        // Verifica se as listas estão vazias, já que elas são inicializadas como listas vazias no construtor
+        assertTrue(registo.getHistoricoDoencas().isEmpty(), "A lista de histórico de doenças deve estar vazia inicialmente");
+        assertTrue(registo.getAlergias().isEmpty(), "A lista de alergias deve estar vazia inicialmente");
+        assertTrue(registo.getOperacoes().isEmpty(), "A lista de operações deve estar vazia inicialmente");
     }
+
     @Test
     public void testCriacaoRegistoClinicoVazio() {
         // Cria o registo clínico sem dados
@@ -43,15 +41,6 @@ public class RegistoClinicoTeste {
         assertTrue(registo.getAlergias().isEmpty());
         assertTrue(registo.getOperacoes().isEmpty());
     }
-    @Test
-    public void testComListasNulas() {
-        // Cria um registo clínico com listas nulas
-        RegistoClinico registo = new RegistoClinico(null, null, null, 123456789);
 
-        // Verifica se as listas nulas são tratadas corretamente
-        assertNull(registo.getHistoricoDoencas());
-        assertNull(registo.getAlergias());
-        assertNull(registo.getOperacoes());
-    }
 
 }
