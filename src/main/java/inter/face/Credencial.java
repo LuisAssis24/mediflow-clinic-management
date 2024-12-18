@@ -24,15 +24,16 @@ public class Credencial extends javax.swing.JPanel {
     /**
      * Creates new form Credencial
      */
+    // Construtor da classe
     public Credencial(Utilizador utilizador) {
         initComponents(); // Inicializa os componentes da interface
 
         // Define os valores nos componentes da interface com base nos dados fornecidos
-        idCredencial.setText(String.valueOf(utilizador.getId()));
-        nomeCredencial.setText(utilizador.getNome());
-        password.setText("********");
-        funcao.setText(utilizador.getTipoUtilizador());
-        idUtilizador = utilizador.getId();
+        idCredencial.setText(String.valueOf(utilizador.getId()));// Preenche o ID do utilizador
+        nomeCredencial.setText(utilizador.getNome());// Preenche o nome do utilizador
+        password.setText("********");// Preenche a password do utilizador
+        funcao.setText(utilizador.getTipoUtilizador());// Preenche a função do utilizador
+        idUtilizador = utilizador.getId();// Guarda o ID do utilizador
     }
 
     /**
@@ -166,9 +167,9 @@ public class Credencial extends javax.swing.JPanel {
         gridBagConstraints.gridheight = 2;
         add(botaoEliminar, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
+    //Botão para eliminar um utilizador
     private void botaoEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        String tipoUtilizador = funcao.getText();
+        String tipoUtilizador = funcao.getText();// Obter o tipo de utilizador
         // Criar um campo de texto para a password
         JPasswordField passwordField = new JPasswordField();
         passwordField.setEchoChar('*');
@@ -179,25 +180,25 @@ public class Credencial extends javax.swing.JPanel {
         // Mostrar um diálogo para introduzir a password
         int option = JOptionPane.showConfirmDialog(parentPanel, passwordField, "Por favor introduza a password de gestor:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (option == JOptionPane.OK_OPTION) {
-            String inputPassword = new String(passwordField.getPassword());
+        if (option == JOptionPane.OK_OPTION) {// Se a opção for OK
+            String inputPassword = new String(passwordField.getPassword());// Obter a password introduzida
 
-            if (inputPassword.equals(passwordGestor)) {
+            if (inputPassword.equals(passwordGestor)) {// Se a password introduzida for igual à password de gestor
                 try {
-                    SqlGestor.eliminarUtilizador(idUtilizador, tipoUtilizador);
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(parentPanel, "Erro ao eliminar o utilizador: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    SqlGestor.eliminarUtilizador(idUtilizador, tipoUtilizador);// Eliminar o utilizador
+                } catch (SQLException e) {// Em caso de erro
+                    JOptionPane.showMessageDialog(parentPanel, "Erro ao eliminar o utilizador: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
                     return;
                 }
 
-                getClinica().removeUtilizador(idUtilizador);
+                getClinica().removeUtilizador(idUtilizador);// Remover o utilizador da lista de utilizadores
 
-                parentPanel.remove(this);
-                parentPanel.setPreferredSize(new Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 40));
-                parentPanel.revalidate();
-                parentPanel.repaint();
+                parentPanel.remove(this);// Remover o painel atual
+                parentPanel.setPreferredSize(new Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 40));// Atualizar o tamanho do painel pai
+                parentPanel.revalidate();// Atualizar o painel pai
+                parentPanel.repaint();// Atualizar o painel pai
             } else {
-                JOptionPane.showMessageDialog(parentPanel, "Password incorreta. Utilizador não eliminado.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parentPanel, "Password incorreta. Utilizador não eliminado.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
             }
         }
     }

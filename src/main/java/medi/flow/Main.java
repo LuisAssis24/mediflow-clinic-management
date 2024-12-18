@@ -14,15 +14,16 @@ public class Main {
         return clinica;
     }
 
+    // Método principal
     public static void main(String[] args) {
         // Cria a conexão com a base de dados assim que o programa inicia
         Connection connection = SqlGeral.DatabaseConnection.getInstance();
 
         // Verifica se a conexão foi bem-sucedida
-        if (connection != null) {
-            System.out.println("Conexão inicializada.");
-        } else {
-            System.out.println("Falha ao conectar a base de dados.");
+        if (connection != null) {// Se a conexão foi bem-sucedida
+            System.out.println("Conexão inicializada.");// Mostra uma mensagem de sucesso
+        } else {// Se a conexão falhou
+            System.out.println("Falha ao conectar a base de dados.");// Mostra uma mensagem de erro
         }
 
 

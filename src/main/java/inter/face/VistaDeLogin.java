@@ -14,13 +14,15 @@ import java.text.ParseException;
  *
  * @author rodri
  */
+// Classe que representa a vista de login
 public class VistaDeLogin extends javax.swing.JFrame {
     /**
      * Creates new form VistaDeLogin
      */
+    // Construtor da classe
     public VistaDeLogin() {
         initComponents(); // Inicializa os componentes da interface gráfica
-        addKeyListenerToComponents(this.getContentPane());
+        addKeyListenerToComponents(this.getContentPane());// Adiciona um keyListener a todos os componentes da janela
     }
 
 
@@ -184,6 +186,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método para verificar login ao clicar no botão
     private void nomeUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeUtilizadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeUtilizadorActionPerformed
@@ -192,23 +195,23 @@ public class VistaDeLogin extends javax.swing.JFrame {
     // Ação para verificar login ao clicar no botão
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // Obtém o nome de utilizador e a palavra-passe inseridos pelo utilizador
-        String utilizador = nomeUtilizador.getText();
-        String password = new String(this.password.getPassword());
+        String utilizador = nomeUtilizador.getText();// Obtém o nome de utilizador inserido pelo utilizador
+        String password = new String(this.password.getPassword());// Obtém a palavra-passe inserida pelo utilizador
 
-        int idMedico;
-        String passwordGestor;
+        int idMedico;// ID do médico
+        String passwordGestor;// Palavra-passe do gestor
 
         // Verifica se as credenciais são válidas
-        String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);
-        try {
-            switch (tipoUtilizador) {
-                case "Gestor":
-                    passwordGestor = password;
+        String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);// Verifica se as credenciais são válidas
+        try {// Tenta abrir a vista correspondente ao tipo de utilizador
+            switch (tipoUtilizador) {// Verifica o tipo de utilizador
+                case "Gestor":// Caso seja um gestor
+                    passwordGestor = password;// Obtém a palavra-passe do gestor
                     // Abre a vista de administrador
                     new VistaGestor(passwordGestor).setVisible(true);
                     this.dispose();
                     break;
-                case "Médico":
+                case "Médico":// Caso seja um médico
                     // Define o ID do médico antes de abrir a vista
                     idMedico = Integer.parseInt(utilizador);
                     // Abre a vista de médico
@@ -216,23 +219,24 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     vistaMedico.setVisible(true);
                     this.dispose();
                     break;
-                case "Secretaria":
+                case "Secretaria":// Caso seja uma secretária
                     // Abre a vista de secretaria
                     new VistaSecretaria().setVisible(true);
                     this.dispose();
                     break;
-                default:
+                default:// Caso as credenciais sejam inválidas
                     // Mostra uma mensagem de erro
-                    JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
                     break;
             }
-        } catch (NumberFormatException | HeadlessException | NullPointerException e) {
-            JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        } catch (NumberFormatException | HeadlessException | NullPointerException e) {// Caso ocorra um erro
+            JOptionPane.showMessageDialog(this, "Credenciais inválidas. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
+        } catch (ParseException e) {// Caso ocorra um erro
+            throw new RuntimeException(e);// Lança uma exceção
         }
     }
 
+    // Ação para verificar login ao clicar no botão
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
@@ -248,20 +252,22 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     formKeyPressed(evt);
                 }
             });
-            if (component instanceof java.awt.Container) {
-                addKeyListenerToComponents((java.awt.Container) component);
+            if (component instanceof java.awt.Container) {// Se o componente for um container
+                addKeyListenerToComponents((java.awt.Container) component);// Adiciona um keyListener a todos os componentes do container
             }
         }
     }
+    // Método para verificar login ao pressionar a tecla Enter
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            botaoLogin.doClick();
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {// Se a tecla pressionada for Enter
+            botaoLogin.doClick();// Simula um clique no botão de login
         }// TODO add your handling code here:
     }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
      */
+    // Método main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -8,10 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Base64;
 
+// Classe para cifrar e decifrar passwords
 public class CifrarPasswords {
     // Define a chave criptografia. A chave é uma string fixa de 8 caracteres para o algaritmo DES
     private static final String password = "12345678";
 
+    // Método para cifrar um texto
     public static String cifrar(String texto) throws Exception {
         // Criando a chave secreta a partir da password fixa
         SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
@@ -24,6 +26,7 @@ public class CifrarPasswords {
         return Base64.getEncoder().encodeToString(textoCifrado); // Converte o texto cifrado para Base64
     }
 
+    // Método para decifrar um texto
     public static String decifrar(String textoCifrado) throws Exception {
         // Criando a chave secreta a partir da password fixa
         SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
@@ -75,6 +78,7 @@ public class CifrarPasswords {
         }
     }
 */
+    // Método principal para testar a cifragem e decifragem de passwords
     public static void main(String[] args) {
         try {
             String passwordOriginal = "Sampas13"; // Password original (antes da cifragem)

@@ -8,11 +8,13 @@ package inter.face;
  *
  * @author draga
  */
+// Classe que cria a interface gráfica para a criação de uma nova entrada de registo clínico
 public class NovaEntradaRC extends javax.swing.JFrame {
 
     /**
      * Creates new form NovaEntradaRC
      */
+    // Construtor da classe
     public NovaEntradaRC() {
         initComponents();
     }
@@ -161,6 +163,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método que é chamado quando o botão de guardar é pressionado
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -168,6 +171,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    // Método main que cria a interface gráfica
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

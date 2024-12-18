@@ -10,6 +10,7 @@ import static medi.flow.Main.getClinica;
 import static medi.flow.Text.dataFormat;
 import static medi.flow.Text.dataSqlParaJava;
 
+// Classe para executar consultas SQL relacionadas com a secretaria
 public class SqlSecretaria {
     // Metodo para carregar os medicos
     public static List<String[]> obterTodosMedicos() {
@@ -19,27 +20,28 @@ public class SqlSecretaria {
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Declara uma consulta SQL para obter todos os IDs dos médicos
-                String sql = "{CALL ObterTodosMedicos()}";
-                CallableStatement statement = conexao.prepareCall(sql);
+                String sql = "{CALL ObterTodosMedicos()}";// Declara uma consulta SQL para obter todos os médicos
+                CallableStatement statement = conexao.prepareCall(sql);// Prepara a consulta
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
                 // Adiciona todos os médicos à lista
                 while (resultado.next()) {
-                    int idMedico = resultado.getInt("ID");
-                    String especialidade = resultado.getString("Especialidade");
+                    int idMedico = resultado.getInt("ID");// Obtém o ID do médico
+                    String especialidade = resultado.getString("Especialidade");// Obtém a especialidade do médico
 
-                    medicos.add(new String[]{String.valueOf(idMedico), especialidade});
+                    medicos.add(new String[]{String.valueOf(idMedico), especialidade});// Adiciona o ID e a especialidade do médico à lista
                 }
                 return medicos; // Retorna a lista com os IDs dos médicos
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os médicos: " + e.getMessage());
+                System.out.println("Erro ao obter os médicos: " + e.getMessage());// Mensagem de erro
             }
         }
         return medicos;
     }
 
+    // Metodo para carregar os pacientes
     public static List<Paciente> obterTodosPacientes() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         List<Paciente> pacientes = new ArrayList<>(); // Lista para armazenar os pacientes
@@ -55,39 +57,39 @@ public class SqlSecretaria {
 
                 // Adiciona todos os pacientes à lista
                 while (resultado.next()) {
-                    int numeroSNS = resultado.getInt("Numero_SNS");
-                    String nome = resultado.getString("Nome");
-                    int contacto = resultado.getInt("Contacto");
+                    int numeroSNS = resultado.getInt("Numero_SNS");//   Obtém o número de SNS do paciente
+                    String nome = resultado.getString("Nome");// Obtém o nome do paciente
+                    int contacto = resultado.getInt("Contacto");// Obtém o contacto do paciente
 
                     pacientes.add(new Paciente(numeroSNS, nome, contacto)); // Adiciona o paciente à lista
                 }
                 return pacientes; // Retorna a lista com os pacientes
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os pacientes: " + e.getMessage());
+                System.out.println("Erro ao obter os pacientes: " + e.getMessage());// Mensagem de erro
             }
         }
         return pacientes;
     }
 
     // Metodo para criar uma nova consulta medica
-    public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico, String nomeMedico) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+    public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico, String nomeMedico) {// Método para criar uma nova consulta
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
         int idConsultaGerado = -1; // Variable to store the generated ID
 
-        // Reformat the date to SQL format
+        // Converte a data para o formato de SQL
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dataSql = "";
         try {
-            dataSql = sqlDateFormat.format(inputDateFormat.parse(data));
+            dataSql = sqlDateFormat.format(inputDateFormat.parse(data));//
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        // Add :00 to the end of the time
+        // Adiciona :00 para ai fim da hora
         String horaSql = hora + ":00";
 
-        // Call the stored procedure
+        // Chama o procedure
         String sql = "{CALL MarcarConsulta(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Call the stored procedure MarcarConsulta
 
         try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
@@ -109,8 +111,8 @@ public class SqlSecretaria {
             // Retrieve the generated ID
             idConsultaGerado = callableStatement.getInt(10); // Get the generated primary key value
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {// Trata erros relacionados ao SQL
+            e.printStackTrace();// Mensagem de erro
         }
 
         return idConsultaGerado; // Return the generated ID to present to the user
@@ -138,63 +140,64 @@ public class SqlSecretaria {
 
     // Metodo para criar um novo paciente caso eel nao exista
     public static boolean criarPaciente(int numero, String nome, int contacto) {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
 
-        if (getClinica().obterPacientePorSns(numero) == null) {
-            String sql = "{CALL CriarPaciente(?, ?, ?)}";
+        if (getClinica().obterPacientePorSns(numero) == null) {// Verifica se o paciente já existe
+            String sql = "{CALL CriarPaciente(?, ?, ?)}";// Declara a query para criar um paciente
             try (CallableStatement callableStatement = conexao.prepareCall(sql)) {
-                callableStatement.setInt(1, numero);
-                callableStatement.setString(2, nome);
-                callableStatement.setInt(3, contacto);
-                callableStatement.executeUpdate();
-                System.out.println("Paciente criado com sucesso!");
+                callableStatement.setInt(1, numero);// Substitui o placeholder (?) pelo número de SNS
+                callableStatement.setString(2, nome);// Substitui o placeholder (?) pelo nome
+                callableStatement.setInt(3, contacto);// Substitui o placeholder (?) pelo contacto
+                callableStatement.executeUpdate();// Executa a query
+                System.out.println("Paciente criado com sucesso!");// Mensagem de sucesso
                 return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw new RuntimeException("Erro ao criar paciente: " + e.getMessage());
+            } catch (SQLException e) {// Trata erros relacionados ao SQL
+                e.printStackTrace();// Mensagem de erro
+                throw new RuntimeException("Erro ao criar paciente: " + e.getMessage());// Mensagem de erro
             }
-        } else {
+        } else {//  Mensagem de erro se o paciente já existir
             return false;
         }
     }
 
+    // Metodo para criar um novo registo clinico
     public static void criarNovoRC(int numeroSns){
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
 
-        if (conexao != null){
+        if (conexao != null){// Verifica se a conexão foi estabelecida com sucesso
             try{
-                String sql = "{CALL CriarNovoRegisto(?)}";
-                CallableStatement statement = conexao.prepareCall(sql);
+                String sql = "{CALL CriarNovoRegisto(?)}";// Declara uma consulta SQL para criar um novo registo
+                CallableStatement statement = conexao.prepareCall(sql);// Prepara a consulta
 
-                statement.setInt(1, numeroSns);
+                statement.setInt(1, numeroSns);// Substitui o placeholder (?) pelo número de SNS
 
-                statement.execute();
-            }catch(SQLException e){
-                System.out.println("Erro ao criar novo registo: " + e.getMessage());
+                statement.execute();// Executa a consulta
+            }catch(SQLException e){// Trata erros relacionados ao SQL
+                System.out.println("Erro ao criar novo registo: " + e.getMessage());// Mensagem de erro
             }
         }
     }
 
     //Metodo para armazenar todos os horarios de todos os medicos
     public static List<Medico.HorarioMedico> todosHorariosMedicos() {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-        List<Medico.HorarioMedico> todosHorarios = new ArrayList<>();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
+        List<Medico.HorarioMedico> todosHorarios = new ArrayList<>();// Lista para armazenar os horários de todos os médicos
 
-        if (conexao != null) {
+        if (conexao != null) {// Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Retrieve all doctor IDs
-                String sql = "{CALL ObterTodosMedicos()}";
-                CallableStatement statement = conexao.prepareCall(sql);
-                ResultSet resultado = statement.executeQuery();
+                String sql = "{CALL ObterTodosMedicos()}";// Declara uma consulta SQL para obter todos os médicos
+                CallableStatement statement = conexao.prepareCall(sql);// Prepara a consulta
+                ResultSet resultado = statement.executeQuery();// Executa a consulta e armazena o resultado
 
-                // For each doctor ID, get their schedules
-                while (resultado.next()) {
-                    int idMedico = resultado.getInt("ID");
-                    Medico.HorarioMedico horarioMedico = new Medico.HorarioMedico(idMedico, horariosOcupadosMedico(idMedico));
-                    todosHorarios.add(horarioMedico);
+                // Adiciona todos os horários à lista
+                while (resultado.next()) {// Adiciona todos os horários à lista
+                    int idMedico = resultado.getInt("ID");// Obtém o ID do médico
+                    Medico.HorarioMedico horarioMedico = new Medico.HorarioMedico(idMedico, horariosOcupadosMedico(idMedico));// Cria um objeto HorarioMedico
+                    todosHorarios.add(horarioMedico);// Adiciona o objeto à lista
                 }
-            } catch (SQLException e) {
-                System.out.println("Erro ao obter os horários de todos os médicos: " + e.getMessage());
+            } catch (SQLException e) {// Trata erros relacionados ao SQL
+                System.out.println("Erro ao obter os horários de todos os médicos: " + e.getMessage());// Mensagem de erro
             }
         }
         return todosHorarios;
@@ -219,16 +222,16 @@ public class SqlSecretaria {
 
                 // Adiciona todos os horários à lista
                 while (resultado.next()) {
-                    String data = resultado.getString("Data");
-                    String hora = resultado.getString("Hora");
+                    String data = resultado.getString("Data");// Obtém a data
+                    String hora = resultado.getString("Hora");// Obtém a hora
 
-                    String dataFormatada = dataFormat(dataSqlParaJava(data));
-                    horarios.add(new String[]{dataFormatada, hora});
+                    String dataFormatada = dataFormat(dataSqlParaJava(data));// Formata a data
+                    horarios.add(new String[]{dataFormatada, hora});// Adiciona a data e a hora à lista
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os horários ocupados do médico: " + e.getMessage());
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+                System.out.println("Erro ao obter os horários ocupados do médico: " + e.getMessage());// Mensagem de erro
+            } catch (ParseException e) {// Trata erros relacionados à formatação da data
+                throw new RuntimeException(e);// Mensagem de erro
             }
         }
         return horarios; // Retorna a lista com os horários ocupados

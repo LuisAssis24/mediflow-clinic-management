@@ -1,5 +1,6 @@
 package medi.flow;
 
+// Classe que contém todas as listas de consultas, médicos, utilizadores, pacientes e registos
 public class Consulta {
     private int idConsulta;
     private String data, hora, motivo, nomePaciente, nomeMedico;

@@ -15,10 +15,11 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
     /**
      * Creates new form EntradaRegistoClinicoPanel
      */
+    // Construtor da classe
     public EntradaRegistoClinicoPanel(List<String> assunto, List<String> tratamento) {
-        initComponents();
-        motivoList.setListData(assunto.toArray(new String[0]));
-        tratamentoList.setListData(tratamento.toArray(new String[0]));
+        initComponents();// Inicializa os componentes da interface
+        motivoList.setListData(assunto.toArray(new String[0]));// Preenche a lista de motivos da consulta
+        tratamentoList.setListData(tratamento.toArray(new String[0]));// Preenche a lista de tratamentos da consulta
     }
 
     /**
