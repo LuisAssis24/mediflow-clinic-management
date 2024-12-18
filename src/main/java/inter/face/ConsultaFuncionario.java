@@ -15,21 +15,22 @@ import static medi.flow.Main.getClinica;
  * @author Luis
  */
 public class ConsultaFuncionario extends javax.swing.JPanel {
-    int idConsulta;
+    int idConsulta; // Id da consulta
     /**
      * Creates new form Consulta
      */
+    // Construtor da classe
     public ConsultaFuncionario(Consulta consulta) {
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
-        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
-        nSns.setText(Integer.toString(consulta.getSnsPaciente()));
-        medico.setText(consulta.getNomeMedico());
-        sala.setText(Integer.toString(consulta.getNumSala()));
-        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
-        hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");
-        idConsulta = consulta.getIdConsulta();
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");// Preenche o nome do paciente
+        nSns.setText(Integer.toString(consulta.getSnsPaciente()));// Preenche o número de sns do paciente
+        medico.setText(consulta.getNomeMedico());// Preenche o nome do médico
+        sala.setText(Integer.toString(consulta.getNumSala()));// Preenche o número da sala
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");// Preenche a data da consulta
+        hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");// Preenche a hora da consulta
+        idConsulta = consulta.getIdConsulta();// Atribui o id da consulta
     }
 
     /**
@@ -219,7 +220,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
 
         JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
         parentPanel.remove(this); // remove este painel
-        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));
+        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));// Atualiza a dimensão do painel pai
         parentPanel.revalidate(); // Atualiza o painel
         parentPanel.repaint(); // Redesenha o painel
     }//GEN-LAST:event_botaoDesmarcarActionPerformed

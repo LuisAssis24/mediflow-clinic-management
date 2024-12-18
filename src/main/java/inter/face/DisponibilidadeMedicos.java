@@ -26,7 +26,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     }
     
     void carregarMedicosBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
-        int tamanhoPainelConsultas = 0;
+        int tamanhoPainelConsultas = 0;// Tamanho do painel de consultas
         List<String[]> medicos = getClinica().getMedicos(); // Obtem todos os médicos da base de dados
 
         // Simula a criação de 15 paineis de médicos
@@ -157,35 +157,35 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         String especialidadePesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
-        if (especialidadePesquisa == null || especialidadePesquisa.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira uma especialidade.", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (especialidadePesquisa == null || especialidadePesquisa.isEmpty()) {// Se o campo de pesquisa estiver vazio
+            JOptionPane.showMessageDialog(this, "Por favor, insira uma especialidade.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
             return;
         }
 
         List<String[]> medicos = obterTodosMedicos(); // Obtem todos os médicos da base de dados
-        List<String[]> medicosFiltrados = new ArrayList<>();
+        List<String[]> medicosFiltrados = new ArrayList<>();// Lista de médicos filtrados
 
         // Filtra os médicos pela especialidade
-        for (String[] medico : medicos) {
-            if (medico[1].equalsIgnoreCase(especialidadePesquisa)) {
-                medicosFiltrados.add(medico);
+        for (String[] medico : medicos) {// Para cada médico
+            if (medico[1].equalsIgnoreCase(especialidadePesquisa)) {// Se a especialidade do médico for igual à especialidade pesquisada
+                medicosFiltrados.add(medico);// Adiciona o médico à lista de médicos filtrados
             }
         }
 
         medicosPanel.removeAll(); // Limpa o painel de médicos
 
         // Verifica se há resultados
-        if (medicosFiltrados.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum médico encontrado com a especialidade: " + especialidadePesquisa, "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            int tamanhoPainelMedicos = 0;
-            for (String[] medico : medicosFiltrados) {
+        if (medicosFiltrados.isEmpty()) {// Se não houver resultados
+            JOptionPane.showMessageDialog(this, "Nenhum médico encontrado com a especialidade: " + especialidadePesquisa, "Informação", JOptionPane.INFORMATION_MESSAGE);// Mostra uma mensagem de informação
+        } else {// Se houver resultados
+            int tamanhoPainelMedicos = 0;// Tamanho do painel de médicos
+            for (String[] medico : medicosFiltrados) {// Para cada médico filtrado
                 criarPainelMedico(medico[0], medico[1]); // Cria e adiciona o painel de médico
                 tamanhoPainelMedicos += 50; // Incrementa o tamanho do painel
             }
-            medicosPanel.setPreferredSize(new java.awt.Dimension(520, tamanhoPainelMedicos));
-            medicosPanel.revalidate();
-            medicosPanel.repaint();
+            medicosPanel.setPreferredSize(new java.awt.Dimension(520, tamanhoPainelMedicos));// Define o tamanho do painel de médicos
+            medicosPanel.revalidate();// Atualiza o painel de médicos
+            medicosPanel.repaint();// Atualiza o painel de médicos
         }
     }//GEN-LAST:event_botaoPesquisaActionPerformed
 
@@ -201,6 +201,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    // Método principal
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -226,10 +227,10 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {// Cria e mostra a interface
             public void run() {
                 new DisponibilidadeMedicos().setVisible(true);
-            }
+            }// Executa a interface
         });
     }
 

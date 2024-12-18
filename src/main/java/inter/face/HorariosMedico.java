@@ -18,31 +18,35 @@ import static medi.flow.Text.*;
  *
  * @author draga
  */
-public class HorariosMedico extends JFrame {
-    private int idMedico;
-    private String[] todosDias;
-    private List<String[]> horarios;
-    private List<String[]> horariosFiltered;
 
+// Classe que cria a interface gráfica para a visualização dos horários de um médico
+public class HorariosMedico extends JFrame {
+    private int idMedico;// Atributo que guarda o id do médico
+    private String[] todosDias;// Atributo que guarda os dias da semana
+    private List<String[]> horarios;// Atributo que guarda os horários do médico
+    private List<String[]> horariosFiltered;// Atributo que guarda os horários filtrados
+
+    // Construtor da classe
     public HorariosMedico(int id) throws ParseException {
-        this.idMedico = id;
-        this.horarios = getClinica().getHorarioMedico(id).getHorarios();
-        this.horariosFiltered = filtrarPorAno(horarios, isolarAno(dataConsultaHorario));
+        this.idMedico = id;// Atribui o id do médico
+        this.horarios = getClinica().getHorarioMedico(id).getHorarios();// Atribui os horários do médico
+        this.horariosFiltered = filtrarPorAno(horarios, isolarAno(dataConsultaHorario));// Filtra os horários por ano
 
         // Inicializa todosDias
         this.todosDias = diasAntesEDepois(dataConsultaHorario);
 
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
         carregarHorarios(); // Agora todosDias já estará inicializado
-        updateHorarios();
-        carregarTexto();
+        updateHorarios();// Atualiza os horários
+        carregarTexto();// Carrega o texto
     }
 
+    // Método que carrega o texto
     public void carregarTexto() throws ParseException {
-        String nomeMedicoFortmat = nomeMedicoTransform(getClinica().obterNomeMedicoPorId(idMedico));
-        nomeMedico.setText(nomeMedicoFortmat);
+        String nomeMedicoFortmat = nomeMedicoTransform(getClinica().obterNomeMedicoPorId(idMedico));// Formata o nome do médico
+        nomeMedico.setText(nomeMedicoFortmat);// Preenche o nome do médico
 
-        String[] diasAD = diasAntesEDepois(dataConsultaHorario);
+        String[] diasAD = diasAntesEDepois(dataConsultaHorario);// Calcula os dias antes e depois
 
         // Atribui os dias calculados corretamente
         dia1.setText(diasAD[0]);
@@ -51,17 +55,17 @@ public class HorariosMedico extends JFrame {
         dia4.setText(diasAD[3]);
         dia5.setText(diasAD[4]);
 
-        horariosDias.setText("Horarios dos dias: " + diasAD[0] + " - " + diasAD[4]);
+        horariosDias.setText("Horarios dos dias: " + diasAD[0] + " - " + diasAD[4]);// Preenche o texto dos horários dos dias
     }
 
-
+    // Método que formata o nome do médico
     public String[] diasAntesEDepois(String data) throws ParseException {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = inputFormat.parse(data);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");// Formato de data
+        Date date = inputFormat.parse(data);// Converte a data para o formato
+        Calendar calendar = Calendar.getInstance();// Cria um calendário
+        calendar.setTime(date);// Atribui a data ao calendário
 
-        String[] result = new String[5];
+        String[] result = new String[5];// Cria um array de strings
 
         // Calcula dois dias antes
         calendar.add(Calendar.DAY_OF_MONTH, -2);
@@ -83,21 +87,23 @@ public class HorariosMedico extends JFrame {
         calendar.add(Calendar.DAY_OF_MONTH, 1); // Incrementa +1 para corrigir
         result[4] = dataFormat(inputFormat.format(calendar.getTime()));
 
-        return result;
+        return result;// Retorna o array de strings
     }
 
-
+    // Método que carrega os horários
     public void carregarHorarios() {
-        if (todosDias == null) {
-            throw new IllegalStateException("todosDias não foi inicializado.");
+        if (todosDias == null) {// Verifica se todosDias está inicializado
+            throw new IllegalStateException("todosDias não foi inicializado.");// Lança uma exceção
         }
 
+        // Cria os modelos de lista
         DefaultListModel<String> modelDia1 = new DefaultListModel<>();
         DefaultListModel<String> modelDia2 = new DefaultListModel<>();
         DefaultListModel<String> modelDia3 = new DefaultListModel<>();
         DefaultListModel<String> modelDia4 = new DefaultListModel<>();
         DefaultListModel<String> modelDia5 = new DefaultListModel<>();
 
+        // Percorre os horários filtrados
         for (String[] horario : horariosFiltered) {
             String dia = horario[0];
             String hora = horario[1];
@@ -118,6 +124,7 @@ public class HorariosMedico extends JFrame {
         horariosDia5.setModel(modelDia5);
     }
 
+    // Método que atualiza os horários
     public void updateHorarios() {
         horariosDia1.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[0]));
         horariosDia2.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[1]));
@@ -126,19 +133,22 @@ public class HorariosMedico extends JFrame {
         horariosDia5.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[4]));
     }
 
+    // Classe que define o renderizador de células personalizado
     private static class CustomCellRenderer extends DefaultListCellRenderer {
-        private final List<String[]> horariosOcupados;
-        private final String diaAtual;
+        private final List<String[]> horariosOcupados;// Atributo que guarda os horários ocupados
+        private final String diaAtual;// Atributo que guarda o dia atual
 
+        // Construtor da classe
         public CustomCellRenderer(List<String[]> horariosOcupados, String diaAtual) {
-            this.horariosOcupados = horariosOcupados;
-            this.diaAtual = diaAtual;
+            this.horariosOcupados = horariosOcupados;// Atribui os horários ocupados
+            this.diaAtual = diaAtual;// Atribui o dia atual
         }
 
+        // Método que renderiza a célula
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            String horario = (String) value;
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);// Cria um novo JLabel
+            String horario = (String) value;// Converte o valor para string
 
             // Define o fundo padrão para horários disponíveis
             label.setBackground(isSelected ? Color.BLUE : Color.WHITE);
@@ -156,16 +166,18 @@ public class HorariosMedico extends JFrame {
         }
     }
 
+    // Método que filtra os horários por ano
     public List<String[]> filtrarPorAno(List<String[]> horarios, int ano) throws ParseException {
-        List<String[]> horariosFiltrados = new ArrayList<>();
-        for (String[] horario : horarios) {
-            String data = horario[0];
+        List<String[]> horariosFiltrados = new ArrayList<>();// Cria uma nova lista de horários
+        for (String[] horario : horarios) {// Percorre os horários
+            String data = horario[0];// Atribui a data
 
             // Adiciona o ano atual se faltar
             if (data.matches("\\d{2}/\\d{2}")) {
                 data += "/" + ano;
             }
 
+            // Verifica se o ano é igual ao ano passado como argumento
             if (isolarAno(data) == ano) {
                 String[] horarioFormat = new String[]{dataFormat(data), timeFormat(horario[1])};
                 horariosFiltrados.add(horarioFormat);
@@ -174,23 +186,25 @@ public class HorariosMedico extends JFrame {
         return horariosFiltrados;
     }
 
+    // Método que isola o ano
     public int isolarAno(String data) throws ParseException {
-        SimpleDateFormat dateFormat;
+        SimpleDateFormat dateFormat;// Cria um novo formato de data
 
         // Verifica se a string contém o ano
         if (data.matches("\\d{2}/\\d{2}/\\d{4}")) { // Formato dd/MM/yyyy
             dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         } else if (data.matches("\\d{2}/\\d{2}")) { // Formato dd/MM
             data += "/" + Calendar.getInstance().get(Calendar.YEAR); // Adiciona o ano atual
-            dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        } else {
-            throw new ParseException("Formato de data inválido: " + data, 0);
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy");// Formato dd/MM/yyyy
+        } else {// Formato inválido
+            throw new ParseException("Formato de data inválido: " + data, 0);// Lança uma exceção
         }
 
+        // Converte a string para data
         Date date = dateFormat.parse(data);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return calendar.get(Calendar.YEAR);
+        return calendar.get(Calendar.YEAR);// Retorna o ano
     }
 
     /**
@@ -412,11 +426,11 @@ public class HorariosMedico extends JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new HorariosMedico(idMedico).setVisible(true);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+        java.awt.EventQueue.invokeLater(() -> {// Cria e exibe o formulário
+            try {// Tenta
+                new HorariosMedico(idMedico).setVisible(true);// Cria e exibe o formulário
+            } catch (ParseException e) {// Captura uma exceção de análise
+                throw new RuntimeException(e);// Lança uma exceção de tempo de execução
             }
         });
     }

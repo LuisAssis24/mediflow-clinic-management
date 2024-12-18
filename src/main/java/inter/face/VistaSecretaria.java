@@ -20,28 +20,30 @@ import static medi.flow.Text.nomeMedicoTransform;
  *
  * @author Luis
  */
+// Classe que representa a interface gráfica da secretária
 public final class VistaSecretaria extends javax.swing.JFrame {
-    static String dataConsultaHorario = null;
+    static String dataConsultaHorario = null; // Variável que armazena a data da consulta
 
     /**
      * Creates new form VistaSecretaria
      */
+    // Construtor da classe
     public VistaSecretaria() {
         initComponents(); // Inicializa os componentes da interface
         carregarConsultasBaseDeDados(); // Carrega as consultas da base de dados
     }
 
-
+    // Método que carrega as consultas da base de dados
     void carregarConsultasBaseDeDados() {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem as consultas da base de dados
         List<Consulta> consultas = getClinica().getConsultas();
-        for(Consulta consulta : consultas) {
+        for(Consulta consulta : consultas) {// Para cada consulta
             // Cria um painel com os dados da Consulta>
             tamanhoPainelConsultas += 100; // aumenta o tamanho do painel de consultas
-            consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
+            consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));// Define o tamanho do painel de consultas
             criarPainelConsulta(consulta); // cria um painel de consulta
         }
 
@@ -56,9 +58,10 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
 
+    // Método que cria um painel de consulta
     void criarPainelConsulta(Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos 
-        ConsultaFuncionario consultaPanel = new ConsultaFuncionario(consulta);
+        ConsultaFuncionario consultaPanel = new ConsultaFuncionario(consulta); // Cria um painel de consulta
         consultasPanel.add(consultaPanel);  // Adiciona o painel criado ao painel principal de consultas
     }
     /**
@@ -543,6 +546,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método que é chamado quando o botão "Ver Consultas" é clicado
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
         // Verifica se o painel "verConsultas" está oculto
         if (!verConsultas.isVisible()){
@@ -555,6 +559,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         carregarConsultasBaseDeDados();
     }//GEN-LAST:event_botaoVerConsultasActionPerformed
 
+    // Método que é chamado quando o botão "Marcar Consultas" é clicado
     private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
         // Verifica se o painel "marcarConsultas" está oculto
         if (!marcarConsultas.isVisible()){
@@ -572,30 +577,31 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
+    // Método que é chamado quando o botão "Pesquisar" é clicado
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
         String inputPesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
-        if (inputPesquisa == null || inputPesquisa.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira um número de SNS ou nome do paciente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (inputPesquisa == null || inputPesquisa.isEmpty()) {// Se estiver vazio
+            JOptionPane.showMessageDialog(this, "Por favor, insira um número de SNS ou nome do paciente.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
             return;
         }
 
         List<Consulta> consultas = getClinica().getConsultas(); // Obtem todas as consultas da base de dados
-        List<Consulta> consultasFiltradas = new ArrayList<>();
+        List<Consulta> consultasFiltradas = new ArrayList<>(); // Cria uma lista para armazenar as consultas filtradas
 
         // Verifica se o valor inserido é um número (pesquisa por nSns)
-        if (inputPesquisa.matches("\\d+")) {
-            int snsPaciente = Integer.parseInt(inputPesquisa);
-            for (Consulta consulta : consultas) {
-                if (consulta.getSnsPaciente() == snsPaciente) {
-                    consultasFiltradas.add(consulta);
+        if (inputPesquisa.matches("\\d+")) {// Se for um número
+            int snsPaciente = Integer.parseInt(inputPesquisa);// Converte o valor para inteiro
+            for (Consulta consulta : consultas) {// Para cada consulta
+                if (consulta.getSnsPaciente() == snsPaciente) {// Se o sns do paciente for igual ao sns inserido
+                    consultasFiltradas.add(consulta);// Adiciona a consulta à lista de consultas filtradas
                 }
             }
         } else { // Pesquisa por nome do paciente
-            for (Consulta consulta : consultas) {
-                if (consulta.getNomePaciente().toLowerCase().contains(inputPesquisa.toLowerCase())) {
-                    consultasFiltradas.add(consulta);
+            for (Consulta consulta : consultas) {// Para cada consulta
+                if (consulta.getNomePaciente().toLowerCase().contains(inputPesquisa.toLowerCase())) {// Se o nome do paciente contiver o valor inserido
+                    consultasFiltradas.add(consulta);// Adiciona a consulta à lista de consultas filtradas
                 }
             }
         }
@@ -603,52 +609,55 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         consultasPanel.removeAll(); // Limpa o painel de consultas
 
         // Verifica se há resultados
-        if (consultasFiltradas.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Erro", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            int tamanhoPainelConsultas = 0;
-            for (Consulta consulta : consultasFiltradas) {
+        if (consultasFiltradas.isEmpty()) {// Se não houver resultados
+            JOptionPane.showMessageDialog(this, "Consulta não encontrada!", "Erro", JOptionPane.INFORMATION_MESSAGE);// Mostra uma mensagem de erro
+        } else {// Se houver resultados
+            int tamanhoPainelConsultas = 0;// Inicializa o tamanho do painel de consultas
+            for (Consulta consulta : consultasFiltradas) {// Para cada consulta filtrada
                 criarPainelConsulta(consulta); // Cria e adiciona o painel de consulta
                 tamanhoPainelConsultas += 100; // Incrementa o tamanho do painel
             }
-            consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
-            consultasPanel.revalidate();
-            consultasPanel.repaint();
+            consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));// Define o tamanho do painel de consultas
+            consultasPanel.revalidate();// Atualiza o painel de consultas
+            consultasPanel.repaint();// Atualiza o painel de consultas
         }
     }                                               
 
+    // Método que é chamado quando o botão "DISPONIBILIDADE" é clicado
     private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
-        if (dataConsulta.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira a data da consulta.", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (dataConsulta.getText().isEmpty()) {// Verifica se o campo de data está vazio
+            JOptionPane.showMessageDialog(this, "Por favor, insira a data da consulta.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
             return;
         }
         dataConsultaHorario = dataConsulta.getText(); // Armazena a data da consulta pra usar na disponibilidade de médicos
-        DisponibilidadeMedicos disp = new DisponibilidadeMedicos();
-        disp.setVisible(true);
+        DisponibilidadeMedicos disp = new DisponibilidadeMedicos();// Cria uma nova janela de disponibilidade de médicos
+        disp.setVisible(true);// Torna a janela visível
     }//GEN-LAST:event_botaoHorariosActionPerformed
 
+    // Método que é chamado quando o botão "Procurar Paciente" é clicado
     private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
-        int num = Integer.parseInt(nSns.getText());
+        int num = Integer.parseInt(nSns.getText());// Obter o número de sns do campo de texto
 
         // Verificar se o paciente existe
-        String[] dadosPaciennte = getClinica().obterPacientePorSns(num);
-        if (dadosPaciennte != null) {
-            nomePaciente.setText(dadosPaciennte[0]);
-            contactoPaciente.setText(dadosPaciennte[1]);
-        } else {
-            JOptionPane.showMessageDialog(this, "Paciente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        String[] dadosPaciennte = getClinica().obterPacientePorSns(num);// Obter os dados do paciente
+        if (dadosPaciennte != null) {// Se o paciente existir
+            nomePaciente.setText(dadosPaciennte[0]);// Preencher o campo de nome do paciente
+            contactoPaciente.setText(dadosPaciennte[1]);// Preencher o campo de contacto do paciente
+        } else {// Se o paciente não existir
+            JOptionPane.showMessageDialog(this, "Paciente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
         }
     }//GEN-LAST:event_botaoPacientesActionPerformed
 
+    // Método que é chamado quando o botão "Sair" é clicado
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();
+        dispose();// Fechar a janela
         // Abir VistaDeLogin 
-        new VistaDeLogin().setVisible(true);
+        new VistaDeLogin().setVisible(true);// Tornar a janela de login visível
     }//GEN-LAST:event_exitButtonMouseClicked
 
-
+    // Método que é chamado quando o botão "Marcar" é clicado
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
+        try {// Tenta executar o código
             // Obter os valores dos campos da interface
             String nome = nomePaciente.getText();
             String numeroSnsStr = nSns.getText();
@@ -660,20 +669,20 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             String contacto = contactoPaciente.getText();
 
             // Verificar se algum campo está vazio
-            if (nome.isEmpty() || numeroSnsStr.isEmpty() || motivo.isEmpty() || data.isEmpty() || hora.isEmpty() || idMedicoStr.isEmpty() || idSalaStr.isEmpty() || contacto.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (nome.isEmpty() || numeroSnsStr.isEmpty() || motivo.isEmpty() || data.isEmpty() || hora.isEmpty() || idMedicoStr.isEmpty() || idSalaStr.isEmpty() || contacto.isEmpty()) {// Se algum campo estiver vazio
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
                 return;
             }
 
             // Verificar se o contacto tem 9 dígitos e não começa com 0
-            if (contacto.length() != 9 || contacto.charAt(0) == '0') {
-                JOptionPane.showMessageDialog(this, "O contacto deve ter exatamente 9 dígitos e não pode começar com 0.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+            if (contacto.length() != 9 || contacto.charAt(0) == '0') {// Se o contacto não tiver 9 dígitos ou começar com 0
+                JOptionPane.showMessageDialog(this, "O contacto deve ter exatamente 9 dígitos e não pode começar com 0.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
                 return;
             }
 
             //Verificar se o número de sns tem 9 dígitos e não começa com 0
-            if (numeroSnsStr.length() != 9 || numeroSnsStr.charAt(0) == '0')  {
-                JOptionPane.showMessageDialog(this, "O número de SNS deve ter exatamente 9 dígitos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+            if (numeroSnsStr.length() != 9 || numeroSnsStr.charAt(0) == '0')  {// Se o número de sns não tiver 9 dígitos ou começar com 0
+                JOptionPane.showMessageDialog(this, "O número de SNS deve ter exatamente 9 dígitos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
                 return;
             }
 
@@ -688,16 +697,16 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             Date dataHoraConsulta = Text.dataJavaParaSql(data, hora);
             Date dataHoraAtual = new Date();
 
-            if (dataHoraConsulta.before(dataHoraAtual)) {
-                JOptionPane.showMessageDialog(this, "A consulta não pode ser marcada no passado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (dataHoraConsulta.before(dataHoraAtual)) {// Se a data da consulta for antes da data atual
+                JOptionPane.showMessageDialog(this, "A consulta não pode ser marcada no passado.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
                 return;
             }
 
             // Criar o Paciente Caso ele não exista e adcionar ao objeto clinica
             boolean bool = SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);
-            if (bool == true) {
-                getClinica().addPaciente(new Paciente(numeroSns, nome, contactoInt));
-                SqlSecretaria.criarNovoRC(numeroSns);
+            if (bool == true) {// Se o paciente não existir
+                getClinica().addPaciente(new Paciente(numeroSns, nome, contactoInt));// Adicionar o paciente à lista de pacientes
+                SqlSecretaria.criarNovoRC(numeroSns);// Criar um novo registo clinico para o paciente
             }
 
 
@@ -711,8 +720,8 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
 
             // Verificar se a consulta foi criada com sucesso
-            if (idConsultaGerada != -1) {
-                JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso! ID da Consulta: " + idConsultaGerada, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            if (idConsultaGerada != -1) {// Se a consulta foi criada com sucesso
+                JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso! ID da Consulta: " + idConsultaGerada, "Sucesso", JOptionPane.INFORMATION_MESSAGE);// Mostrar uma mensagem de sucesso
                 // Limpar os campos
                 nomePaciente.setText("");
                 nSns.setText("");
@@ -726,19 +735,20 @@ public final class VistaSecretaria extends javax.swing.JFrame {
                 // Adicionar a consulta ao objeto clínica
                 getClinica().addConsulta(consulta);
                 carregarConsultasBaseDeDados();
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {// Se a consulta não foi criada com sucesso
+                JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Certifique-se de que os campos numéricos (SNS, Contacto, Médico, Sala) contêm apenas números.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-        } catch (HeadlessException | ParseException e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {// Se houver um erro de formatação
+            JOptionPane.showMessageDialog(this, "Certifique-se de que os campos numéricos (SNS, Contacto, Médico, Sala) contêm apenas números.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
+        } catch (HeadlessException | ParseException e) {// Se houver um erro inesperado
+            JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
         }
     }
 
     /**
      * @param args the command line arguments
      */
+    // Método main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

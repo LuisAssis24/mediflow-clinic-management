@@ -15,10 +15,11 @@ public class MedicoPanel extends javax.swing.JPanel {
     /**
      * Creates new form Medico
      */
+    // Construtor da classe
     public MedicoPanel(String id, String espec) {
         initComponents(); // Inicializa os componentes da interface
-        idMedico.setText(id);
-        especMedico.setText(espec);
+        idMedico.setText(id);// Preenche o id do médico
+        especMedico.setText(espec);// Preenche a especialidade do médico
     }
 
     /**
@@ -98,10 +99,11 @@ public class MedicoPanel extends javax.swing.JPanel {
         add(botaoHorarios, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método que é chamado quando o botão de horários é clicado
     private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_botaoHorariosActionPerformed
-        int idMedicoPassar = Integer.parseInt(idMedico.getText());
-        HorariosMedico horarios = new HorariosMedico(idMedicoPassar);
-        horarios.setVisible(true);
+        int idMedicoPassar = Integer.parseInt(idMedico.getText());// Pega o id do médico
+        HorariosMedico horarios = new HorariosMedico(idMedicoPassar);// Cria um novo painel de horários
+        horarios.setVisible(true);// Torna o painel de horários visível
     }//GEN-LAST:event_botaoHorariosActionPerformed
 
 

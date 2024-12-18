@@ -15,29 +15,32 @@ import static medi.flow.Main.getClinica;
  *
  * @author Luis
  */
+// Classe VistaMedico
 public final class VistaMedico extends javax.swing.JFrame {
     static int idMedico; // ID do médico que está a usar o sistema
     /**
      * Creates new form VistaMedico
      */
+    // Construtor da classe
     public VistaMedico(int idMedico) throws ParseException {
-        initComponents();
+        initComponents();// Inicializa os componentes da interface grafica
         this.idMedico = idMedico;// Inicializa os componentes da interface grafica
         carregarConsultasBaseDeDados(); // Chama o metodo para carregar as consultas existentes
          // Define o ID do médico que está a usar o sistema
     }
 
+    // Método para carregar as consultas existentes
     void carregarConsultasBaseDeDados() throws ParseException {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
         // Obtem os IDs das consultas da base de dados
         List<Consulta> consultas = getClinica().getConsultas();
-        for(Consulta consulta : consultas) {
+        for(Consulta consulta : consultas) {// Percorre a lista de consultas
             // Cria um painel com os dados da Consulta
             if (consulta.getIdMedico() == idMedico ) { //Verifica o médico que está a usar a aplicação
                 tamanhoPainelConsultas += 100; // Aumenta o tamanho do painel pai
-                consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));
+                consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));// Define o tamanho do painel de consultas
                 criarPainelConsulta(consulta); // Cria e adiciona o painel de consulta
             }
         }
@@ -53,9 +56,10 @@ public final class VistaMedico extends javax.swing.JFrame {
         consultasPanel.repaint();
     }
 
+    // Método para criar um painel de consulta
     void criarPainelConsulta(Consulta consulta) throws ParseException {
         // Cria um painel de consulta com os dados fornecidos, tendo em conta o médico que está a usar a aplicação
-        ConsultaMedico consultaPanel = new ConsultaMedico(consulta);
+        ConsultaMedico consultaPanel = new ConsultaMedico(consulta);// Cria um painel de consulta
         consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas
     }
     /**
@@ -154,8 +158,9 @@ public final class VistaMedico extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método para sair da aplicação
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-         dispose();
+         dispose();// Fecha a aplicação
         // Abir VistaDeLogin 
         new VistaDeLogin().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_exitButtonMouseClicked
@@ -163,6 +168,7 @@ public final class VistaMedico extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    // Método main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -191,11 +197,11 @@ public final class VistaMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new VistaMedico(idMedico).setVisible(true);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+        java.awt.EventQueue.invokeLater(() -> {// Cria e mostra a interface gráfica
+            try {// Tenta executar o código
+                new VistaMedico(idMedico).setVisible(true);// Cria uma nova janela de VistaMedico
+            } catch (ParseException e) {// Apanha uma exceção do tipo ParseException
+                throw new RuntimeException(e);// Lança uma nova exceção
             }
         });
     }

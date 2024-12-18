@@ -19,13 +19,15 @@ import static sql.server.SqlGestor.*;
  *
  * @author Luis
  */
+// Classe que representa a interface gráfica do gestor
 public final class VistaGestor extends javax.swing.JFrame {
     static String passwordGestor; // Password do gestor que está a usar o sistema
     /**
      * Creates new form VistaGestor
      */
+    // Construtor da classe
     public VistaGestor(String passwordGestor) {
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
         carregarCredenciaisBaseDeDados(); // Carrega as credenciais existentes
         this.passwordGestor = passwordGestor; // Define a password do gestor que está a usar o sistema
     }
@@ -48,16 +50,17 @@ public final class VistaGestor extends javax.swing.JFrame {
         }
 
         // Faz o scroll começar em cima
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        SwingUtilities.invokeLater(() -> {// Atualiza a interface grafica
+            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();// Obtem a barra de scroll vertical
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());// Define o valor da barra de scroll vertical para o minimo
         });
 
         // Atualiza o painel para refletir as mudanças na interface grafica
         credenciaisPanel.revalidate();
         credenciaisPanel.repaint();
     }
-    
+
+    // Metodo que é chamado quando o botão de concluir é pressionado
     void criarPainelCredencial(Utilizador utilizador){ //Adiciona uma credencial ao painel
         Credencial credencial = new Credencial(utilizador); // Cria uma instancia da classe credencial
         credenciaisPanel.add(credencial); // Adiciona o painel de credencial ao painel principal
@@ -461,10 +464,12 @@ public final class VistaGestor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Metodo acionado quando a barra de pesquisa é pressionada
     private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
 
+    // Metodo acionado quando o botão para criar credenciais é pressionado
     private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt){
         // Esconde a barra de pesquisa e o botao de pesquisa
         barraPesquisa.setVisible(false);
@@ -511,15 +516,15 @@ public final class VistaGestor extends javax.swing.JFrame {
         // Se nenhum utilizador foi encontrasdo na pesquisa
         if (filteredUsers.isEmpty()) {
             // Mostra uma mensagem ao utilizador informado que nenhum resultado foi encontrado
-            JOptionPane.showMessageDialog(this, "Nenhum utilizador encontrado.", "Pesquisa", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            credenciaisPanel.removeAll();
-            int tamanhoPainelCredenciais = 0;
+            JOptionPane.showMessageDialog(this, "Nenhum utilizador encontrado.", "Pesquisa", JOptionPane.INFORMATION_MESSAGE);// Mostra uma mensagem ao utilizador informado que nenhum resultado foi encontrado
+        } else {// Caso contrário
+            credenciaisPanel.removeAll();// Limpa o painel de credenciais
+            int tamanhoPainelCredenciais = 0;// Define o tamanho inicial do painel
 
             // Itera pela lista de utilizadores filtrados
             for (Utilizador utilizador : filteredUsers) {
-                tamanhoPainelCredenciais += 100;
-                credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
+                tamanhoPainelCredenciais += 100;// Incrementa o tamanho do painel
+                credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));// Define o tamanho do painel
                 // Chama um metodo que cria e adiciona o painel correspondente ao utilizador
                 criarPainelCredencial(utilizador);
             }
@@ -530,30 +535,30 @@ public final class VistaGestor extends javax.swing.JFrame {
         }
     } 
 
-
+    // Metodo acionado quando o botão de sair é pressionado
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();
+        dispose();// Fecha a janela atual
         // Abir VistaDeLogin 
         new VistaDeLogin().setVisible(true);
     }//GEN-LAST:event_exitButtonMouseClicked
 
     // Metodo acionado quando a sleção do tipo de funcionario é alterada
     private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
-        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();
+        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();// Obtem o tipo de funcionario selecionado
 
         // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
-        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {
-            especialidade.setVisible(true);
-            numeroDeMedico.setVisible(true);
-            nMedicoLabel.setVisible(true);
-            especLabel.setVisible(true);
+        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {// Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
+            especialidade.setVisible(true);// Mostra o campo de especialidade
+            numeroDeMedico.setVisible(true);// Mostra o campo de numero de medico
+            nMedicoLabel.setVisible(true);// Mostra o label de numero de medico
+            especLabel.setVisible(true);// Mostra o label de especialidade
 
         } else {
             // Caso contrario, esconde esses campos
-            especialidade.setVisible(false);
-            numeroDeMedico.setVisible(false);
-            nMedicoLabel.setVisible(false);
-            especLabel.setVisible(false);
+            especialidade.setVisible(false);// Esconde o campo de especialidade
+            numeroDeMedico.setVisible(false);// Esconde o campo de numero de medico
+            nMedicoLabel.setVisible(false);// Esconde o label de numero de medico
+            especLabel.setVisible(false);// Esconde o label de especialidade
         }
         // Atualiza o painel para refletir as mudanças de visibilidade
         criarCredencial.revalidate();
@@ -562,27 +567,27 @@ public final class VistaGestor extends javax.swing.JFrame {
 
     // metodo acionado quando o botao "Concluir" é pressionado para criar um novo utilizador
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
-        try {
-            // Obter dados da interface gráfica
-            String nome = nomeCompleto.getText();
-            String pessword = password.getText();
-            String tipoUtilizador = tipoFuncionario.getSelectedItem().toString();
-            int cc = Integer.parseInt(numeroCC.getText());
+        try {// Tenta executar o código
 
-            if (nome.isEmpty() || pessword.isEmpty() || tipoUtilizador.isEmpty()) {
-                JOptionPane.showMessageDialog(null,
+            String nome = nomeCompleto.getText();// Obtem o nome do utilizador
+            String pessword = password.getText();// Obtem a password do utilizador
+            String tipoUtilizador = tipoFuncionario.getSelectedItem().toString();// Obtem o tipo de utilizador selecionado
+            int cc = Integer.parseInt(numeroCC.getText());// Converte o numero do CC para inteiro
+
+            if (nome.isEmpty() || pessword.isEmpty() || tipoUtilizador.isEmpty()) {// Se algum dos campos obrigatórios estiver vazio
+                JOptionPane.showMessageDialog(null,// Mostra uma mensagem de erro
                         "Por favor, preencha todos os campos obrigatórios.",
                         "Erro de Validação",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
                 return;
             }
 
-            String ccString = String.valueOf(cc);
-            if (ccString.length() != 9) {
+            String ccString = String.valueOf(cc);// Converte o numero do CC para string
+            if (ccString.length() != 9) {// Se o numero do CC não tiver 9 digitos
                 JOptionPane.showMessageDialog(null,
                         "O número do CC deve ter exatamente 9 dígitos.",
                         "Erro de Validação",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
                 return;
             }
 
@@ -590,7 +595,7 @@ public final class VistaGestor extends javax.swing.JFrame {
             String espcialidade = "";
             int numOrdem = 0;
 
-            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {// Se o tipo de utilizador for médico
                 // Obter os valores adicionais para médicos
                 espcialidade = especialidade.getText();
                 numOrdem = Integer.parseInt(numeroDeMedico.getText());
@@ -614,26 +619,27 @@ public final class VistaGestor extends javax.swing.JFrame {
                 Utilizador utilizador = new Utilizador( Utilizador.ultimoIdUtilizador() + 1,cc, nome, pessword, espcialidade);
                 getClinica().getUtilizador().add(utilizador);
                 carregarCredenciaisBaseDeDados();
-            } else {
+            } else {// Caso contrário, exibe uma mensagem de erro
                 JOptionPane.showMessageDialog(null,
                         "Erro ao criar utilizador. Verifique os dados inseridos.");
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {// Se ocorrer um erro de formato
             JOptionPane.showMessageDialog(null,
                     "Por favor, insira dados válidos para CC ou Número do Médico.",
                     "Erro de Validação",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (HeadlessException ex) {
+                    JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
+        } catch (HeadlessException ex) {// Se ocorrer um erro de interface
             JOptionPane.showMessageDialog(null,
                     "Erro ao processar os dados: " + ex.getMessage(),
                     "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
         }
     }
 
     /**
      * @param args the command line arguments
      */
+    // Metodo principal que é chamado quando o programa é executado
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -662,7 +668,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
+        java.awt.EventQueue.invokeLater(() -> {// Cria e exibe a interface grafica
             new VistaGestor(passwordGestor).setVisible(true);
         });
     }

@@ -16,15 +16,17 @@ import java.util.List;
  *
  * @author Luis
  */
+// Classe RegistoClinicoPanel
 public class RegistoClinicoPanel extends javax.swing.JFrame {
 
     /**
      * Creates new form FichaMedica
      */
+    // Construtor da classe
     public RegistoClinicoPanel(RegistoClinico rc) {
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
 
-        String[] infoPaciente = rc.getInfoPaciente();
+        String[] infoPaciente = rc.getInfoPaciente();//Obter as informações do paciente a partir do número de sns
 
         //Obter as informações do paciente a partir do número de sns
         nomePaciente.setText(infoPaciente[0]);
@@ -45,25 +47,27 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         carregarEntradas(rc.getEntradasRegistoClinico());
     }
 
+    //Método para carregar as entradas do registo clinico
     public void carregarEntradas(List<RegistoClinico.EntradaRegistoClinico> entradas) {
-        int tamanhoPainelEntradas = 0;
-        entradasPanel.removeAll();
-        for (RegistoClinico.EntradaRegistoClinico entrada : entradas) {
-            tamanhoPainelEntradas += 220;
-            entradasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelEntradas));
-            criarPainelEntrada(entrada.getAssunto(), entrada.getTratamentos());
+        int tamanhoPainelEntradas = 0;//Tamanho do painel de entradas
+        entradasPanel.removeAll();//Remover todas as entradas do painel
+        for (RegistoClinico.EntradaRegistoClinico entrada : entradas) {//Para cada entrada
+            tamanhoPainelEntradas += 220;//Incrementar o tamanho do painel de entradas
+            entradasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelEntradas));//Definir o tamanho do painel de entradas
+            criarPainelEntrada(entrada.getAssunto(), entrada.getTratamentos());//Criar um painel para a entrada
         }
 
         // Move a barra de scroll para o topo do painel de consultas
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar verticalScrollBar = entradasScroll.getVerticalScrollBar();
-            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        SwingUtilities.invokeLater(() -> {//Executar a ação na thread de despacho de eventos
+            JScrollBar verticalScrollBar = entradasScroll.getVerticalScrollBar();//Obter a barra de scroll vertical
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());//Definir o valor da barra de scroll vertical para o mínimo
         });
 
-        entradasPanel.revalidate();
-        entradasPanel.repaint();
+        entradasPanel.revalidate();//Atualizar o painel de entradas
+        entradasPanel.repaint();//Repintar o painel de entradas
     }
 
+    //Método para criar um painel de entrada
     void criarPainelEntrada(List<String> assunto, List<String> tratamento){
         //cria um painel para cada entrada
         EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);
@@ -488,6 +492,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    //Método main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

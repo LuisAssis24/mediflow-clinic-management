@@ -24,7 +24,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
      */
 
     int nSns;
-
+    // Construtor da classe
     public ConsultaMedico(Consulta consulta) throws ParseException {
         initComponents(); // Inicializa os componentes da interface
 
@@ -32,14 +32,14 @@ public class ConsultaMedico extends javax.swing.JPanel {
         this.nSns = consulta.getSnsPaciente();
 
         // Preenche os componentes da interface
-        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
-        String horaFormtatada = timeFormat(consulta.getHora());
-        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
-        hora.setText(horaFormtatada);
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");// Preenche o nome do paciente
+        String horaFormtatada = timeFormat(consulta.getHora());// Formata a hora da consulta
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");// Preenche a data da consulta
+        hora.setText(horaFormtatada);// Preenche a hora da consulta
 
         // Preenche a lista de motivos da consulta
-        List<String> motivoList = splitStringToList(consulta.getMotivo());
-        motivos.setListData(motivoList.toArray(new String[0]));
+        List<String> motivoList = splitStringToList(consulta.getMotivo());// Obtem a lista de motivos da consulta
+        motivos.setListData(motivoList.toArray(new String[0]));// Preenche a lista de motivos da consulta
     }
 
     /**
@@ -177,12 +177,13 @@ public class ConsultaMedico extends javax.swing.JPanel {
         add(jScrollPane1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Botão para abrir a ficha medica do paciente
     private void fichaMedicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaMedicaButtonActionPerformed
-        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();
-        for(RegistoClinico registoClinico : listaRegistrosClinico){
-            if(registoClinico.getNumeroSns() == nSns){
-                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico);
-                registoClinicoPanel.setVisible(true);
+        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();// Obtem a lista de registos clinicos
+        for(RegistoClinico registoClinico : listaRegistrosClinico){// Percorre a lista de registos clinicos
+            if(registoClinico.getNumeroSns() == nSns){// Se o registo clinico for do paciente da consulta
+                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico);// Cria um painel com o registo clinico
+                registoClinicoPanel.setVisible(true);// Torna o painel visivel
             }
         }
     }//GEN-LAST:event_fichaMedicaButtonActionPerformed
