@@ -6,13 +6,15 @@ import java.util.Date;
 
 import medi.flow.*;
 
+// Classe para executar consultas SQL gerais
 public class SqlGeral {
 
+    // Método para verificar as credenciais de login
     public static String verificarLogin(String idUtilizador, String password) {
-        Connection conexao = DatabaseConnection.getInstance();
-        String tipoUtilizador = null;
+        Connection conexao = DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
+        String tipoUtilizador = null;// Variável para armazenar o tipo de utilizador
 
-        if (conexao != null) {
+        if (conexao != null) {// Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Cifra a password fornecida pelo usuário
                 String passCifrada = CifrarPasswords.cifrar(password);
@@ -29,18 +31,19 @@ public class SqlGeral {
                 ResultSet resultado = statement.executeQuery();
 
                 // Retorna o tipo de utilizador se as credenciais estiverem corretas
-                if (resultado.next()) {
-                    tipoUtilizador = resultado.getString("Tipo_Utilizador");
+                if (resultado.next()) {// Verifica se a consulta retornou algum resultado
+                    tipoUtilizador = resultado.getString("Tipo_Utilizador");// Obtém o tipo de utilizador
                 }
-            } catch (Exception e) {
-                System.out.println("Erro ao verificar as credenciais: " + e.getMessage());
+            } catch (Exception e) {// Trata erros relacionados ao SQL
+                System.out.println("Erro ao verificar as credenciais: " + e.getMessage());// Mensagem de erro
             }
-        } else {
-            System.out.println("Erro de conexão com o banco de dados.");
+        } else {// Mensagem de erro se a conexão não foi estabelecida
+            System.out.println("Erro de conexão com o banco de dados.");// Mensagem de erro
         }
-        return tipoUtilizador;
+        return tipoUtilizador;// Retorna o tipo de utilizador
     }
 
+    // Método para obter os dados de um utilizador
     public static List<Consulta> obterTodasConsultas() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         List<Consulta> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
@@ -69,12 +72,12 @@ public class SqlGeral {
                         int idMedico = resultado.getInt("ID_Medico");
                         int contacto = resultado.getInt("Contacto");
 
-                        Consulta consulta = new Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);
-                        consultas.add(consulta);
+                        Consulta consulta = new Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);// Cria um objeto Consulta
+                        consultas.add(consulta);// Adiciona o objeto à lista
                     }
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter as consultas: " + e.getMessage());
+                System.out.println("Erro ao obter as consultas: " + e.getMessage());// Mensagem de erro
             }
         }
         return consultas; // Retorna a lista com os IDs das consultas
@@ -98,11 +101,11 @@ public class SqlGeral {
         public static Connection getInstance() {
             try {
                 if (connection == null || connection.isClosed()) { // Verifica se a conexão é nula ou foi encerrada
-                    connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                    System.out.println("Conexão com MySQL foi recriada!");
+                    connection = DriverManager.getConnection(URL, USER, PASSWORD);// Cria uma nova conexão
+                    System.out.println("Conexão com MySQL foi recriada!");// Mensagem de sucesso
                 }
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar ao MySQL: " + e.getMessage());
+            } catch (SQLException e) {// Captura exceções relacionadas à conexão
+                System.out.println("Erro ao conectar ao MySQL: " + e.getMessage());// Mensagem de erro
             }
             return connection;
         }

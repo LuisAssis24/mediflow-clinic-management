@@ -5,6 +5,7 @@ import medi.flow.*;
 import java.sql.*;
 import java.util.*;
 
+// Classe para executar consultas SQL relacionadas com a gestão de utilizadores
 public class SqlGestor {
     // Obtem uma lista com todos os IDs dos utilizadores
     public static List<Utilizador> obterTodosUtilizadores() {
@@ -28,24 +29,25 @@ public class SqlGestor {
                     String password = resultado.getString("Password");
                     String tipoUtilizador = resultado.getString("Tipo_Utilizador");
 
-                    if (tipoUtilizador.equals("Médico")) {
-                        String sqlMedico = "{CALL ObterMedicoPorId(?)}";
-                        CallableStatement callableStatement = conexao.prepareCall(sqlMedico);
-                        callableStatement.setInt(1, id);
-                        ResultSet resultadoMedico = callableStatement.executeQuery();
-                        if (resultadoMedico.next()) {
-                            int numOrdem = resultadoMedico.getInt("Num_Ordem");
-                            String especialidade = resultadoMedico.getString("Especialidade");
-                            Medico medico = new Medico(id, cc, nome, password, tipoUtilizador, numOrdem, especialidade);
-                            utilizadores.add(medico);
+                    // Ver se o utilizador é um médico para obter os detalhes da tabela Medico
+                    if (tipoUtilizador.equals("Médico")) {// Verifica se o utilizador é um médico
+                        String sqlMedico = "{CALL ObterMedicoPorId(?)}";// Declara uma consulta SQL para obter os detalhes do médico
+                        CallableStatement callableStatement = conexao.prepareCall(sqlMedico);// Prepara a consulta
+                        callableStatement.setInt(1, id);// Substitui o placeholder (?) pelo ID do médico
+                        ResultSet resultadoMedico = callableStatement.executeQuery();// Executa a consulta
+                        if (resultadoMedico.next()) {// Verifica se a consulta retornou algum resultado
+                            int numOrdem = resultadoMedico.getInt("Num_Ordem");// Obtém o número de ordem do médico
+                            String especialidade = resultadoMedico.getString("Especialidade");// Obtém a especialidade do médico
+                            Medico medico = new Medico(id, cc, nome, password, tipoUtilizador, numOrdem, especialidade);// Cria um objeto Médico
+                            utilizadores.add(medico);// Adiciona o médico à lista de utilizadores
                         }
-                    } else {
-                        Utilizador utilizador = new Utilizador(id, cc, nome, password, tipoUtilizador);
-                        utilizadores.add(utilizador);
+                    } else {// Se não for médico, cria um objeto Utilizador
+                        Utilizador utilizador = new Utilizador(id, cc, nome, password, tipoUtilizador);// Cria um objeto Utilizador
+                        utilizadores.add(utilizador);// Adiciona o utilizador à lista de utilizadores
                     }
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter os utilizadores: " + e.getMessage());
+                System.out.println("Erro ao obter os utilizadores: " + e.getMessage());// Mensagem de erro
             }
         }
         return utilizadores; // Retorna a lista com os utilizadores
@@ -53,13 +55,13 @@ public class SqlGestor {
 
     // Cria um utilizador e, se for medico, adiciona os detalhes na tabela medico
     public static int criarUtilizador(String nome, String password, String tipoUtilizador, int cc, String especialidade, int numOrdem) {
-        int idUtilizadorGerado = -1;
+        int idUtilizadorGerado = -1;// ID do utilizador gerado
 
         try (Connection conexao = SqlGeral.DatabaseConnection.getInstance()) {
 
             // Criar o utilizador
-            String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}";
-            try (CallableStatement callableStatement = conexao.prepareCall(sqlCriarUtilizador)) {
+            String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}";// Declara a query para criar um utilizador
+            try (CallableStatement callableStatement = conexao.prepareCall(sqlCriarUtilizador)) {// Prepara a query
                 callableStatement.setInt(1, cc);                // CC
                 callableStatement.setString(2, nome);           // Name
 
@@ -74,7 +76,7 @@ public class SqlGestor {
                 System.out.println("User created with ID: " + idUtilizadorGerado);
             }
 
-            // Ver se o utilizador é um médico
+            // Verifica se o utilizador é um médico
             if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
                 // Adicionar os detalhes do médico
                 String sqlInserirMedico = "{CALL InserirMedico(?, ?, ?)}";
@@ -87,42 +89,43 @@ public class SqlGestor {
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("Error encrypting the password: " + e.getMessage());
+        } catch (SQLException e) {// Trata erros relacionados ao SQL
+            e.printStackTrace();// Mensagem de erro
+        } catch (Exception e) {// Trata erros gerais
+            System.out.println("Error encrypting the password: " + e.getMessage());// Mensagem de erro
         }
 
         return idUtilizadorGerado; // retornar o id do utilizador criado
     }
 
+    // Atualiza os dados de um utilizador
     public static void eliminarUtilizador(int idUtilizador, String tipoUtilizador) throws SQLException {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance();
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
 
 
-        if (conexao != null) {
-            try {
+        if (conexao != null) {// Verifica se a conexão foi estabelecida com sucesso
+            try {// Tenta executar a query
                 // Ver se o utilizador é um médico para eliminar da tabela Medico
-                if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
-                    String sqlMedico = "{CALL EliminarMedico(?)}";
-                    try (CallableStatement callableStatement = conexao.prepareCall(sqlMedico)) {
-                        callableStatement.setInt(1, idUtilizador);
-                        callableStatement.executeUpdate();
+                if ("Médico".equalsIgnoreCase(tipoUtilizador)) {// Verifica se o utilizador é um médico
+                    String sqlMedico = "{CALL EliminarMedico(?)}";// Declara a query para eliminar um médico
+                    try (CallableStatement callableStatement = conexao.prepareCall(sqlMedico)) {// Prepara a query
+                        callableStatement.setInt(1, idUtilizador);// Substitui o placeholder (?) pelo ID do médico
+                        callableStatement.executeUpdate();// Executa a query
                     }
                 }
 
                 // Deleter o utilizador
-                String sqlUtilizador = "{CALL EliminarUtilizador(?)}";
-                try (CallableStatement callableStatement = conexao.prepareCall(sqlUtilizador)) {
-                    callableStatement.setInt(1, idUtilizador);
-                    callableStatement.executeUpdate();
+                String sqlUtilizador = "{CALL EliminarUtilizador(?)}";// Declara a query para eliminar um utilizador
+                try (CallableStatement callableStatement = conexao.prepareCall(sqlUtilizador)) {// Prepara a query
+                    callableStatement.setInt(1, idUtilizador);// Substitui o placeholder (?) pelo ID do utilizador
+                    callableStatement.executeUpdate();// Executa a query
                 }
-            } catch (SQLException e) {
-                if (e.getMessage().contains("foreign key constraint fails")) {
-                    System.err.println("Erro ao eliminar utilizador: O utilizador tem consultas associadas.");
-                } else {
-                    System.err.println("Erro ao eliminar utilizador: " + e.getMessage());
-                    throw e;
+            } catch (SQLException e) {// Trata erros relacionados ao SQL
+                if (e.getMessage().contains("foreign key constraint fails")) {// Verifica se o erro é devido a uma restrição de chave estrangeira
+                    System.err.println("Erro ao eliminar utilizador: O utilizador tem consultas associadas.");// Mensagem de erro
+                } else {// Se não for uma restrição de chave estrangeira, mostra a mensagem de erro
+                    System.err.println("Erro ao eliminar utilizador: " + e.getMessage());// Mensagem de erro
+                    throw e;// Lança a exceção
                 }
             }
         }
