@@ -1,14 +1,16 @@
 package medi.flow;
 
+// Classe que representa um Paciente
 public class Paciente {
-    private int numeroSNS;
-    private String nome;
-    private int contacto;
+    private int numeroSNS;// Número de Segurança Social
+    private String nome;// Nome do Paciente
+    private int contacto;// Contacto do Paciente
 
+    // Construtor para inicializar todos os campos
     public Paciente(int numeroSNS, String nome, int contacto) {
-        this.numeroSNS = numeroSNS;
-        this.nome = nome;
-        this.contacto = contacto;
+        this.numeroSNS = numeroSNS;// Inicializa o número de segurança social
+        this.nome = nome;// Inicializa o nome
+        this.contacto = contacto;// Inicializa o contacto
     }
 
     // Getters
