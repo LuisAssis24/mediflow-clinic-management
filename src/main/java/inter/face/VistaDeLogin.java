@@ -198,6 +198,7 @@ public class VistaDeLogin extends javax.swing.JFrame {
 
         int idMedico;// ID do médico
         String passwordGestor;// Palavra-passe do gestor
+        String passwordSecretaria;// Palavra-passe da secretária
 
         // Verifica se as credenciais são válidas
         String tipoUtilizador = SqlGeral.verificarLogin(utilizador, password);// Verifica se as credenciais são válidas
@@ -218,8 +219,9 @@ public class VistaDeLogin extends javax.swing.JFrame {
                     this.dispose();
                     break;
                 case "Secretaria":// Caso seja uma secretária
+                    passwordSecretaria = password; // Obtém a palavra-passe da secretária
                     // Abre a vista de secretaria
-                    new VistaSecretaria().setVisible(true);
+                    new VistaSecretaria(passwordSecretaria).setVisible(true);
                     this.dispose();
                     break;
                 default:// Caso as credenciais sejam inválidas

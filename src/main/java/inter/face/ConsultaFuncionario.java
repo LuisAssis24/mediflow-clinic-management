@@ -4,11 +4,14 @@
  */
 package inter.face;
 
+import java.awt.*;
+import java.sql.SQLException;
 import java.text.ParseException;
 import medi.flow.*;
 import sql.server.*;
 import javax.swing.*;
 
+import static inter.face.VistaSecretaria.passwordSecretaria;
 import static medi.flow.Main.getClinica;
 import static medi.flow.Text.timeFormat;
 
@@ -224,15 +227,33 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         add(hora, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método para desmarcar a consulta
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
-        SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
-        getClinica().removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
+    // Criar um campo de texto para a password
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setEchoChar('*');
 
-        JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
-        parentPanel.remove(this); // remove este painel
-        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));
-        parentPanel.revalidate(); // Atualiza o painel
-        parentPanel.repaint(); // Redesenha o painel
+        // Obter o painel pai
+        JPanel parentPanel = (JPanel) this.getParent();
+
+        // Mostrar um diálogo para introduzir a password
+        int option = JOptionPane.showConfirmDialog(parentPanel, passwordField, "Por favor introduza a sua password:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) { // Se a opção for OK
+            String inputPassword = new String(passwordField.getPassword()); // Obter a password introduzida
+
+            if (inputPassword.equals(passwordSecretaria)) { // Verificar se a password está correta
+                SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
+                getClinica().removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
+
+                parentPanel.remove(this); // Remover o painel atual
+                parentPanel.setPreferredSize(new Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100)); // Atualizar o tamanho do painel pai
+                parentPanel.revalidate(); // Atualizar o painel pai
+                parentPanel.repaint(); // Atualizar o painel pai
+            } else {
+                JOptionPane.showMessageDialog(parentPanel, "Password incorreta. Consulta não foi desmarcada", "Autenticação falhou!", JOptionPane.ERROR_MESSAGE); // Show an error message
+            }
+        }
     }//GEN-LAST:event_botaoDesmarcarActionPerformed
 
 

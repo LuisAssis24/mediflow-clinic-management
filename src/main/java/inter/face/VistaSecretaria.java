@@ -23,14 +23,16 @@ import static medi.flow.Text.nomeMedicoTransform;
 // Classe que representa a interface gráfica da secretária
 public final class VistaSecretaria extends javax.swing.JFrame {
     static String dataConsultaHorario = null; // Variável que armazena a data da consulta
+    static String passwordSecretaria; // Password do secretario
 
     /**
      * Creates new form VistaSecretaria
      */
     // Construtor da classe
-    public VistaSecretaria() {
+    public VistaSecretaria(String passwordSecretaria) {
         initComponents(); // Inicializa os componentes da interface
         carregarConsultasBaseDeDados(); // Carrega as consultas da base de dados
+        this.passwordSecretaria = passwordSecretaria; // Password do secretario que está a usar o sistema
     }
 
     // Método que carrega as consultas da base de dados
@@ -795,7 +797,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new VistaSecretaria().setVisible(true);
+            new VistaSecretaria(passwordSecretaria).setVisible(true);
         });
     }
 
