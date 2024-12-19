@@ -39,62 +39,8 @@ public class CifrarPasswords {
         return new String(textoDecifrado); // converte o texto decifrado para String
     }
 
-    /*public static class AtualizarPassowrds {
-        public static void main(String[] args) {
-            // Obtém a conexão com o banco de dados
-            Connection conexao = SqlGeral.DatabaseConnection.getInstance();
-
-            if (conexao != null) {
-                try {
-                    // 1. Seleciona todos os registros com passowrds atuais
-                    String sqlSelect = "SELECT ID, Password FROM Utilizador";
-                    PreparedStatement selectStmt = conexao.prepareStatement(sqlSelect);
-                    ResultSet resultado = selectStmt.executeQuery();
-
-                    // 2. Prepara a query de atualização das passwords
-                    String sqlUpdate = "UPDATE Utilizador SET Password = ? WHERE ID = ?";
-                    PreparedStatement updateStmt = conexao.prepareStatement(sqlUpdate);
-
-                    // 3. Itera pelos resultados e atualiza cada password
-                    while (resultado.next()) {
-                        int id = resultado.getInt("ID");
-                        String passwordAtual = resultado.getString("Password");
-
-                        // Cifra a password atual
-                        String passwordCifrada = CifrarPasswords.cifrar(passwordAtual);
-
-                        // Atualiza a password cifrada no banco de dados
-                        updateStmt.setString(1, passwordCifrada);
-                        updateStmt.setInt(2, id);
-                        updateStmt.executeUpdate();
-                        System.out.println("Password atualizada para o ID: " + id);
-                    }
-                } catch (Exception e) {
-                    System.out.println("Erro ao atualizar passwords: " + e.getMessage());
-                }
-            } else {
-                System.out.println("Erro de conexão com o banco de dados.");
-            }
-        }
-    }
-*/
     // Método principal para testar a cifragem e decifragem de passwords
     public static void main(String[] args) {
-        try {
-            String passwordOriginal = "Sampas13"; // Password original (antes da cifragem)
 
-            // Cifrar a password
-            String passwordCifrada = CifrarPasswords.cifrar(passwordOriginal);
-            System.out.println("Password Cifrada: " + passwordCifrada); // Mostra a password cifrada
-
-            // Decifrar a password
-            String passwordDecifrada = CifrarPasswords.decifrar(passwordCifrada);
-            System.out.println("Password Decifrada: " + passwordDecifrada); // Mostra a password decifrada
-
-            // Verifica se a password original e a password decifrada são iguais
-            System.out.println("A password original é igual à password decifrada? " + passwordOriginal.equals(passwordDecifrada));
-        } catch (Exception e) {
-            System.out.println("Erro ao cifrar ou decifrar: " + e.getMessage());
-        }
     }
 }
