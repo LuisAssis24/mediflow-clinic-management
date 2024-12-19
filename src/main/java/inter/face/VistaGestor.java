@@ -79,10 +79,10 @@ public final class VistaGestor extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        botaoPesquisa = new javax.swing.JButton();
         barraPesquisa = new javax.swing.JTextField();
         botaoCriarCredencial = new javax.swing.JButton();
         botaoEliminarCredencial = new javax.swing.JButton();
+        botaoPesquisa = new javax.swing.JLabel();
         criarCredencial = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -119,25 +119,6 @@ public final class VistaGestor extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(960, 50));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        botaoPesquisa.setVisible(false);
-        botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
-        botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoPesquisa.setForeground(new java.awt.Color(245, 245, 245));
-        botaoPesquisa.setText("PESQUISAR");
-        botaoPesquisa.setMaximumSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.setMinimumSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisaActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
-        jPanel7.add(botaoPesquisa, gridBagConstraints);
-
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barraPesquisa.setText("Pesquisar...");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
@@ -151,7 +132,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         jPanel7.add(barraPesquisa, gridBagConstraints);
 
         botaoCriarCredencial.setBackground(new java.awt.Color(0, 132, 193));
@@ -178,7 +159,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         botaoEliminarCredencial.setLabel("Eliminar");
         botaoEliminarCredencial.setMaximumSize(new java.awt.Dimension(140, 35));
         botaoEliminarCredencial.setMinimumSize(new java.awt.Dimension(140, 35));
-        botaoEliminarCredencial.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoEliminarCredencial.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoEliminarCredencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoEliminarCredencialActionPerformed(evt);
@@ -188,6 +169,19 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         jPanel7.add(botaoEliminarCredencial, gridBagConstraints);
+
+        botaoPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        botaoPesquisa.setVisible(false);
+        botaoPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoPesquisaMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 200);
+        jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -323,9 +317,15 @@ public final class VistaGestor extends javax.swing.JFrame {
 
         numeroDeMedico.setVisible(false);
         numeroDeMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        numeroDeMedico.setText("11225566");
         numeroDeMedico.setMaximumSize(new java.awt.Dimension(200, 30));
         numeroDeMedico.setMinimumSize(new java.awt.Dimension(200, 30));
         numeroDeMedico.setPreferredSize(new java.awt.Dimension(200, 30));
+        numeroDeMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroDeMedicoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -497,6 +497,40 @@ public final class VistaGestor extends javax.swing.JFrame {
 
     // Metodo adionado quando o botão de pesquisa é pressionado
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    } 
+
+    // Metodo acionado quando o botão de sair é pressionado
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();// Fecha a janela atual
+        // Abir VistaDeLogin 
+        new VistaDeLogin().setVisible(true);
+    }//GEN-LAST:event_exitButtonMouseClicked
+
+    // Metodo acionado quando a sleção do tipo de funcionario é alterada
+    private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
+        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();// Obtem o tipo de funcionario selecionado
+
+        // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
+        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {// Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
+            especialidade.setVisible(true);// Mostra o campo de especialidade
+            numeroDeMedico.setVisible(true);// Mostra o campo de numero de medico
+            nMedicoLabel.setVisible(true);// Mostra o label de numero de medico
+            especLabel.setVisible(true);// Mostra o label de especialidade
+
+        } else {
+            // Caso contrario, esconde esses campos
+            especialidade.setVisible(false);// Esconde o campo de especialidade
+            numeroDeMedico.setVisible(false);// Esconde o campo de numero de medico
+            nMedicoLabel.setVisible(false);// Esconde o label de numero de medico
+            especLabel.setVisible(false);// Esconde o label de especialidade
+        }
+        // Atualiza o painel para refletir as mudanças de visibilidade
+        criarCredencial.revalidate();
+        criarCredencial.repaint();
+    }//GEN-LAST:event_tipoFuncionarioActionPerformed
+
+    private void botaoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisaMouseClicked
         String query = barraPesquisa.getText();
 
         // Obtem uma lista de todos os utilziadores através do método "obterTodosUtilizadores"
@@ -533,37 +567,11 @@ public final class VistaGestor extends javax.swing.JFrame {
             credenciaisPanel.revalidate();
             credenciaisPanel.repaint();
         }
-    } 
+    }//GEN-LAST:event_botaoPesquisaMouseClicked
 
-    // Metodo acionado quando o botão de sair é pressionado
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();// Fecha a janela atual
-        // Abir VistaDeLogin 
-        new VistaDeLogin().setVisible(true);
-    }//GEN-LAST:event_exitButtonMouseClicked
-
-    // Metodo acionado quando a sleção do tipo de funcionario é alterada
-    private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
-        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();// Obtem o tipo de funcionario selecionado
-
-        // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
-        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {// Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
-            especialidade.setVisible(true);// Mostra o campo de especialidade
-            numeroDeMedico.setVisible(true);// Mostra o campo de numero de medico
-            nMedicoLabel.setVisible(true);// Mostra o label de numero de medico
-            especLabel.setVisible(true);// Mostra o label de especialidade
-
-        } else {
-            // Caso contrario, esconde esses campos
-            especialidade.setVisible(false);// Esconde o campo de especialidade
-            numeroDeMedico.setVisible(false);// Esconde o campo de numero de medico
-            nMedicoLabel.setVisible(false);// Esconde o label de numero de medico
-            especLabel.setVisible(false);// Esconde o label de especialidade
-        }
-        // Atualiza o painel para refletir as mudanças de visibilidade
-        criarCredencial.revalidate();
-        criarCredencial.repaint();
-    }//GEN-LAST:event_tipoFuncionarioActionPerformed
+    private void numeroDeMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroDeMedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroDeMedicoActionPerformed
 
     // metodo acionado quando o botao "Concluir" é pressionado para criar um novo utilizador
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
@@ -677,7 +685,7 @@ public final class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField barraPesquisa;
     private javax.swing.JButton botaoCriarCredencial;
     private javax.swing.JButton botaoEliminarCredencial;
-    private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JLabel botaoPesquisa;
     private javax.swing.JButton concluirButton;
     private javax.swing.JPanel credenciaisPanel;
     private javax.swing.JLayeredPane criarCredencial;

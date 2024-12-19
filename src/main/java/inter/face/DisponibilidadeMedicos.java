@@ -63,9 +63,9 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel7 = new javax.swing.JPanel();
-        botaoPesquisa = new javax.swing.JButton();
         barraPesquisa = new javax.swing.JTextField();
         refresh = new javax.swing.JLabel();
+        botaoPesquisa = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         medicosPanel = new javax.swing.JPanel();
 
@@ -81,24 +81,6 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(520, 50));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
-        botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoPesquisa.setForeground(new java.awt.Color(245, 245, 245));
-        botaoPesquisa.setText("PESQUISAR");
-        botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setPreferredSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisaActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 75);
-        jPanel7.add(botaoPesquisa, gridBagConstraints);
-
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barraPesquisa.setText("Especialidade");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
@@ -111,6 +93,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         jPanel7.add(barraPesquisa, gridBagConstraints);
 
         refresh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -126,6 +109,18 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         jPanel7.add(refresh, gridBagConstraints);
+
+        botaoPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        botaoPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoPesquisaMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 130);
+        jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -153,7 +148,16 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaActionPerformed
+    private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barraPesquisaActionPerformed
+
+    private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
+        medicosPanel.removeAll(); // Limpa o painel de médicos
+        carregarMedicosBaseDeDados(); // Carrega os médicos da base de dados
+    }//GEN-LAST:event_refreshMouseClicked
+
+    private void botaoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisaMouseClicked
         String especialidadePesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
@@ -186,17 +190,8 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
             medicosPanel.setPreferredSize(new java.awt.Dimension(520, tamanhoPainelMedicos));// Define o tamanho do painel de médicos
             medicosPanel.revalidate();// Atualiza o painel de médicos
             medicosPanel.repaint();// Atualiza o painel de médicos
-        }
-    }//GEN-LAST:event_botaoPesquisaActionPerformed
-
-    private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_barraPesquisaActionPerformed
-
-    private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
-        medicosPanel.removeAll(); // Limpa o painel de médicos
-        carregarMedicosBaseDeDados(); // Carrega os médicos da base de dados
-    }//GEN-LAST:event_refreshMouseClicked
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoPesquisaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -236,7 +231,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField barraPesquisa;
-    private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JLabel botaoPesquisa;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel medicosPanel;
