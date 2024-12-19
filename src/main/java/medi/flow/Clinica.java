@@ -108,5 +108,14 @@ public class Clinica {
             }
         }
     }
+
+    public void atualizarClinica() {
+        this.consultas = obterTodasConsultas();
+        this.medicos = obterTodosMedicos();
+        this.utilizadores = obterTodosUtilizadores();
+        this.pacientes = obterTodosPacientes();
+        this.horariosMedicos = todosHorariosMedicos();
+        this.registos = obterTodosRegistos();
+    }
 }
 

@@ -473,6 +473,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        alergiasList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         alergiasList.setPreferredSize(new java.awt.Dimension(300, 120));
         jScrollPane5.setViewportView(alergiasList);
 
@@ -495,6 +496,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        operacoesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         operacoesList.setPreferredSize(new java.awt.Dimension(300, 120));
         jScrollPane6.setViewportView(operacoesList);
 

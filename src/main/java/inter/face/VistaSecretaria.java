@@ -78,6 +78,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         barraPesquisa = new javax.swing.JTextField();
@@ -153,6 +154,18 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
         jPanel1.add(jLabel12, gridBagConstraints);
+
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 925, 0, 0);
+        jPanel1.add(refreshButton, gridBagConstraints);
 
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
@@ -653,8 +666,13 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             consultasPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelConsultas));// Define o tamanho do painel de consultas
             consultasPanel.revalidate();// Atualiza o painel de consultas
             consultasPanel.repaint();// Atualiza o painel de consultas
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_botaoPesquisaMouseClicked
+
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        getClinica().atualizarClinica();// Atualiza as consultas
+        carregarConsultasBaseDeDados();// Carrega as consultas da base de dados
+    }//GEN-LAST:event_refreshButtonMouseClicked
 
     // Método que é chamado quando o botão "Marcar" é clicado
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -817,6 +835,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     private javax.swing.JTextArea motivoConsulta;
     private javax.swing.JTextField nSns;
     private javax.swing.JTextField nomePaciente;
+    private javax.swing.JLabel refreshButton;
     private javax.swing.JTextField salaConsulta;
     private javax.swing.JLayeredPane verConsultas;
     // End of variables declaration//GEN-END:variables

@@ -79,6 +79,7 @@ public final class VistaMedico extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -100,6 +101,11 @@ public final class VistaMedico extends javax.swing.JFrame {
         verticalScrollBar.setValue(verticalScrollBar.getMinimum());
 
         consultasPanel.setPreferredSize(new java.awt.Dimension(960, 0));
+        consultasPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consultasPanelMouseClicked(evt);
+            }
+        });
         consultasPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         jScrollPane1.setViewportView(consultasPanel);
 
@@ -152,6 +158,18 @@ public final class VistaMedico extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
         jPanel1.add(jLabel12, gridBagConstraints);
 
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 925, 0, 0);
+        jPanel1.add(refreshButton, gridBagConstraints);
+
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         pack();
@@ -164,6 +182,15 @@ public final class VistaMedico extends javax.swing.JFrame {
         // Abir VistaDeLogin 
         new VistaDeLogin().setVisible(true);
     }//GEN-LAST:event_exitButtonMouseClicked
+
+    private void consultasPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultasPanelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_consultasPanelMouseClicked
+
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        getClinica().atualizarClinica();
+        carregarConsultasBaseDeDados();
+    }//GEN-LAST:event_refreshButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -214,5 +241,6 @@ public final class VistaMedico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel refreshButton;
     // End of variables declaration//GEN-END:variables
 }

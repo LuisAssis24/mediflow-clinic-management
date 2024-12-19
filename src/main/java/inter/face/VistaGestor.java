@@ -106,6 +106,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -458,6 +459,18 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
         jPanel1.add(jLabel12, gridBagConstraints);
 
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 925, 0, 0);
+        jPanel1.add(refreshButton, gridBagConstraints);
+
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         pack();
@@ -572,6 +585,11 @@ public final class VistaGestor extends javax.swing.JFrame {
     private void numeroDeMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroDeMedicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_numeroDeMedicoActionPerformed
+
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        getClinica().atualizarClinica();
+        carregarCredenciaisBaseDeDados();
+    }//GEN-LAST:event_refreshButtonMouseClicked
 
     // metodo acionado quando o botao "Concluir" é pressionado para criar um novo utilizador
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
@@ -710,6 +728,7 @@ public final class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField numeroCC;
     private javax.swing.JTextField numeroDeMedico;
     private javax.swing.JTextField password;
+    private javax.swing.JLabel refreshButton;
     private javax.swing.JComboBox<String> tipoFuncionario;
     // End of variables declaration//GEN-END:variables
 }
