@@ -30,7 +30,7 @@ public final class VistaMedico extends javax.swing.JFrame {
     }
 
     // Método para carregar as consultas existentes
-    void carregarConsultasBaseDeDados() throws ParseException {
+    void carregarConsultasBaseDeDados()  {
         consultasPanel.removeAll(); // Limpa o painel para evitar duplicações
         int tamanhoPainelConsultas = 0; // Reseta o tamanho do painel de consultas
 
@@ -57,7 +57,7 @@ public final class VistaMedico extends javax.swing.JFrame {
     }
 
     // Método para criar um painel de consulta
-    void criarPainelConsulta(Consulta consulta) throws ParseException {
+    void criarPainelConsulta(Consulta consulta) {
         // Cria um painel de consulta com os dados fornecidos, tendo em conta o médico que está a usar a aplicação
         ConsultaMedico consultaPanel = new ConsultaMedico(consulta);// Cria um painel de consulta
         consultasPanel.add(consultaPanel); // Adiciona o painel criado ao painel principal de consultas
@@ -162,7 +162,7 @@ public final class VistaMedico extends javax.swing.JFrame {
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
          dispose();// Fecha a aplicação
         // Abir VistaDeLogin 
-        new VistaDeLogin().setVisible(true);        // TODO add your handling code here:
+        new VistaDeLogin().setVisible(true);
     }//GEN-LAST:event_exitButtonMouseClicked
 
     /**
