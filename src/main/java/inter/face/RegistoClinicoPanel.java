@@ -369,6 +369,11 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         receitarMed.setMaximumSize(new java.awt.Dimension(150, 30));
         receitarMed.setMinimumSize(new java.awt.Dimension(150, 30));
         receitarMed.setPreferredSize(new java.awt.Dimension(150, 30));
+        receitarMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receitarMedActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -588,6 +593,11 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
         carregarEntradas(getClinica().obterRegistoPorSns(consulta.getSnsPaciente()).getEntradasRegistoClinico());
     }//GEN-LAST:event_refreshButtonMouseClicked
+
+    private void receitarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receitarMedActionPerformed
+        ReceitarMedicacao receita = new ReceitarMedicacao();
+        receita.setVisible(true);    
+    }//GEN-LAST:event_receitarMedActionPerformed
 
     /**
      * @param args the command line arguments

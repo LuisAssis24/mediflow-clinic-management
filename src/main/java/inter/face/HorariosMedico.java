@@ -392,7 +392,6 @@ public class HorariosMedico extends JFrame {
         getContentPane().add(nomeMedico, gridBagConstraints);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
