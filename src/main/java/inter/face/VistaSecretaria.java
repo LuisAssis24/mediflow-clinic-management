@@ -168,8 +168,9 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoPesquisa.setForeground(new java.awt.Color(242, 242, 242));
         botaoPesquisa.setText("PESQUISAR");
+        botaoPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
+        botaoPesquisa.setMinimumSize(new java.awt.Dimension(140, 35));
         botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +215,8 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoMarcarConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoMarcarConsultas.setForeground(new java.awt.Color(242, 242, 242));
         botaoMarcarConsultas.setText("Marcar Consulta");
-        botaoMarcarConsultas.setMaximumSize(new java.awt.Dimension(140, 35));
+        botaoMarcarConsultas.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        botaoMarcarConsultas.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoMarcarConsultas.setMinimumSize(new java.awt.Dimension(140, 35));
         botaoMarcarConsultas.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoMarcarConsultas.addActionListener(new java.awt.event.ActionListener() {
@@ -423,6 +425,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoHorarios.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoHorarios.setForeground(new java.awt.Color(242, 242, 242));
         botaoHorarios.setText("DISPONIBILIDADE");
+        botaoHorarios.setMargin(new java.awt.Insets(2, 0, 3, 0));
         botaoHorarios.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoHorarios.setMinimumSize(new java.awt.Dimension(150, 35));
         botaoHorarios.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -486,6 +489,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoPacientes.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoPacientes.setForeground(new java.awt.Color(242, 242, 242));
         botaoPacientes.setText("Procurar Paciente");
+        botaoPacientes.setMargin(new java.awt.Insets(2, 0, 3, 0));
         botaoPacientes.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoPacientes.setMinimumSize(new java.awt.Dimension(150, 35));
         botaoPacientes.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -716,6 +720,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             String nomeMed = nomeMedicoTransform(nomeMedUnformat);
 
             // Chamar o método que cria a consulta e adicionar a consulta ao objeto clínica
+
             int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);
             Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
 

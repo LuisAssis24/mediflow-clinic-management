@@ -10,8 +10,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import static medi.flow.Main.getClinica;
-import static medi.flow.Text.splitStringToList;
-import static medi.flow.Text.timeFormat;
+import static medi.flow.Text.*;
 
 /**
  *
@@ -24,22 +23,32 @@ public class ConsultaMedico extends javax.swing.JPanel {
      */
 
     int nSns;
-    // Construtor da classe
-    public ConsultaMedico(Consulta consulta) throws ParseException {
+    Consulta consulta;
+
+    public ConsultaMedico(Consulta consulta) {
         initComponents(); // Inicializa os componentes da interface
 
         // Atributos escondidos da consulta
         this.nSns = consulta.getSnsPaciente();
+        this.consulta = consulta;
 
         // Preenche os componentes da interface
-        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");// Preenche o nome do paciente
-        String horaFormtatada = timeFormat(consulta.getHora());// Formata a hora da consulta
-        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");// Preenche a data da consulta
-        hora.setText(horaFormtatada);// Preenche a hora da consulta
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
+        String horaFormtatada;
+
+        try {
+            horaFormtatada = timeFormat(consulta.getHora());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
+        hora.setText(horaFormtatada);
 
         // Preenche a lista de motivos da consulta
-        List<String> motivoList = splitStringToList(consulta.getMotivo());// Obtem a lista de motivos da consulta
-        motivos.setListData(motivoList.toArray(new String[0]));// Preenche a lista de motivos da consulta
+        List<String> motivoList = splitStringToList(consulta.getMotivo());
+        motivos.setListData(motivoList.toArray(new String[0]));
+
     }
 
     /**
@@ -140,6 +149,7 @@ public class ConsultaMedico extends javax.swing.JPanel {
         fichaMedicaButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         fichaMedicaButton.setForeground(new java.awt.Color(245, 245, 245));
         fichaMedicaButton.setText("Registo Clínico");
+        fichaMedicaButton.setMargin(new java.awt.Insets(2, 0, 3, 0));
         fichaMedicaButton.setMaximumSize(new java.awt.Dimension(125, 35));
         fichaMedicaButton.setMinimumSize(new java.awt.Dimension(125, 35));
         fichaMedicaButton.setPreferredSize(new java.awt.Dimension(125, 35));
@@ -177,13 +187,12 @@ public class ConsultaMedico extends javax.swing.JPanel {
         add(jScrollPane1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    // Botão para abrir a ficha medica do paciente
     private void fichaMedicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaMedicaButtonActionPerformed
-        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();// Obtem a lista de registos clinicos
-        for(RegistoClinico registoClinico : listaRegistrosClinico){// Percorre a lista de registos clinicos
-            if(registoClinico.getNumeroSns() == nSns){// Se o registo clinico for do paciente da consulta
-                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico);// Cria um painel com o registo clinico
-                registoClinicoPanel.setVisible(true);// Torna o painel visivel
+        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();
+        for(RegistoClinico registoClinico : listaRegistrosClinico){
+            if(registoClinico.getNumeroSns() == nSns){
+                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico, consulta);
+                registoClinicoPanel.setVisible(true);
             }
         }
     }//GEN-LAST:event_fichaMedicaButtonActionPerformed
