@@ -99,7 +99,7 @@ public class ReceitarMedicacao extends javax.swing.JFrame {
         snsButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 350));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());

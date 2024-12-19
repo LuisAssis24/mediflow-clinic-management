@@ -40,7 +40,7 @@ public class CifrarPasswords {
     }
 
     // Método principal para testar a cifragem e decifragem de passwords
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
     }
 }

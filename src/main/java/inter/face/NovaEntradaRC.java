@@ -49,7 +49,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(720, 720));
         setMinimumSize(new java.awt.Dimension(720, 720));
         getContentPane().setLayout(new java.awt.GridBagLayout());

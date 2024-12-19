@@ -178,7 +178,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        barraPesquisa.setText("Pesquisar...");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
         barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
         gridBagConstraints = new java.awt.GridBagConstraints();

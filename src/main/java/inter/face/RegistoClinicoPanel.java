@@ -47,6 +47,11 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         rc.getHistoricoDoencas().forEach(doencasModel::addElement);
         histDoencasList.setModel(doencasModel);
 
+        // Preencher os campos com os dados do paciente
+        nomePaciente.setText(consulta.getNomePaciente());
+        nSns.setText(String.valueOf(consulta.getSnsPaciente()));
+        contacto.setText(String.valueOf(consulta.getContacto()));
+
         carregarEntradas(rc.getEntradasRegistoClinico());
     }
 
@@ -593,6 +598,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_adicionarEntradaActionPerformed
 
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        getClinica().atualizarClinica();
         carregarEntradas(getClinica().obterRegistoPorSns(consulta.getSnsPaciente()).getEntradasRegistoClinico());
     }//GEN-LAST:event_refreshButtonMouseClicked
 
