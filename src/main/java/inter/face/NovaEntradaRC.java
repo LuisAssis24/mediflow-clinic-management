@@ -168,7 +168,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
             List<String> assunto = splitStringToList(assuntos);
             List<String> tratamento = splitStringToList(tratamentos);
 
-
+            // Adicionar a nova entrada ao registo clínico do paciente (Objeto RegistoClinico)
             RegistoClinico.EntradaRegistoClinico entrada = null;
             for (RegistoClinico registo : getClinica().getRegistos()) {
                 if (registo.getNumeroSns() == consulta.getSnsPaciente()) {
@@ -178,6 +178,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
                 }
             }
 
+            // Adicionar a nova entrada à base de dados
             criarNovaEntrada(entrada);
 
             javax.swing.JOptionPane.showMessageDialog(this, "Entrada criada com sucesso.");

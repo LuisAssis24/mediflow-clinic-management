@@ -1,6 +1,5 @@
 package medi.flow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static sql.server.SqlGeral.*;

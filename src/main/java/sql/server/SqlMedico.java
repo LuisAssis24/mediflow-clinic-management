@@ -5,8 +5,7 @@ import medi.flow.RegistoClinico.*;
 import java.sql.*;
 import java.util.*;
 
-import static medi.flow.Text.listToString;
-import static medi.flow.Text.splitStringToList;
+import static medi.flow.Text.*;
 
 public class SqlMedico {
 

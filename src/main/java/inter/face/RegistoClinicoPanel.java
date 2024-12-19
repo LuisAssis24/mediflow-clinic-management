@@ -8,9 +8,11 @@ package inter.face;
 import medi.flow.*;
 
 import javax.swing.*;
+import java.util.Collections;
 import java.util.List;
 
 import static medi.flow.Main.getClinica;
+import sql.server.SqlMedico;
 
 
 /**
@@ -25,25 +27,26 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     public RegistoClinicoPanel(RegistoClinico rc, Consulta consulta) {
         initComponents();
 
-        String[] infoPaciente = rc.getInfoPaciente();
         this.consulta = consulta;
 
-        //Obter as informações do paciente a partir do número de sns
-        nomePaciente.setText(infoPaciente[0]);
-        nSns.setText(String.valueOf(rc.getNumeroSns()));
-        contacto.setText(infoPaciente[1]);
+        // Configurar o menu de contexto para cada lista
+        configurarPopupMenu(alergiasList);
+        configurarPopupMenu(operacoesList);
+        configurarPopupMenu(histDoencasList);
 
-        //Obter os dados das Listas
-        List<String> alergias = rc.getAlergias();
-        List<String> tratamentos = rc.getOperacoes();
-        List<String> doencas = rc.getHistoricoDoencas();
+        // Configurar modelos para permitir edição
+        DefaultListModel<String> alergiasModel = new DefaultListModel<>();
+        rc.getAlergias().forEach(alergiasModel::addElement);
+        alergiasList.setModel(alergiasModel);
 
-        //Preencher as listas de alergias, tratamentos e doenças
-        alergiasList.setListData(alergias.toArray(new String[0]));
-        operacoesList.setListData(tratamentos.toArray(new String[0]));
-        histDoencasList.setListData(doencas.toArray(new String[0]));
-        
-        //Carregar as entradas do registo clinico
+        DefaultListModel<String> operacoesModel = new DefaultListModel<>();
+        rc.getOperacoes().forEach(operacoesModel::addElement);
+        operacoesList.setModel(operacoesModel);
+
+        DefaultListModel<String> doencasModel = new DefaultListModel<>();
+        rc.getHistoricoDoencas().forEach(doencasModel::addElement);
+        histDoencasList.setModel(doencasModel);
+
         carregarEntradas(rc.getEntradasRegistoClinico());
     }
 
@@ -71,6 +74,86 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);
         entradasPanel.add(entradaPanel);
     }
+
+    private void configurarPopupMenu(JList<String> list) {
+        // Criar o menu de contexto
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        // Adicionar a opção "Editar"
+        JMenuItem editarItem = new JMenuItem("Editar");
+        editarItem.addActionListener(e -> {
+            int selectedIndex = list.getSelectedIndex();
+            if (selectedIndex != -1) {
+                String novoValor = JOptionPane.showInputDialog(
+                        this,
+                        "Editar item:",
+                        list.getModel().getElementAt(selectedIndex)
+                );
+                if (novoValor != null && !novoValor.trim().isEmpty()) {
+                    DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
+                    model.set(selectedIndex, novoValor);
+                    atualizarDadosNaBase(list, model);
+                }
+            }
+        });
+
+        popupMenu.add(editarItem);
+
+        // Adicionar a opção "Adicionar"
+        JMenuItem adicionarItem = new JMenuItem("Adicionar");
+        adicionarItem.addActionListener(e -> {
+            String novoValor = JOptionPane.showInputDialog(this, "Adicionar novo item:");
+            if (novoValor != null && !novoValor.trim().isEmpty()) {
+                DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
+                model.addElement(novoValor);
+                atualizarDadosNaBase(list, model);
+            }
+        });
+
+        popupMenu.add(adicionarItem);
+
+        // Associar o menu de contexto à lista
+        list.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                if (evt.isPopupTrigger()) {
+                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));
+                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            }
+
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                if (evt.isPopupTrigger()) {
+                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));
+                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            }
+        });
+    }
+
+    private void atualizarDadosNaBase(JList<String> list, DefaultListModel<String> model) {
+        for (RegistoClinico rc : getClinica().getRegistos()) {
+            if (rc.getNumeroSns() == consulta.getSnsPaciente()) {
+                if (list == alergiasList) {
+                    List<String> novasAlergias = Collections.list(model.elements());
+                    rc.setAlergias(novasAlergias);
+                    SqlMedico.alterarRC(rc);
+                } else if (list == operacoesList) {
+                    List<String> novasOperacoes = Collections.list(model.elements());
+                    rc.setOperacoes(novasOperacoes);
+                    SqlMedico.alterarRC(rc);
+                } else if (list == histDoencasList) {
+                    List<String> novoHistorico = Collections.list(model.elements());
+                    rc.setHistoricoDoencas(novoHistorico);
+                    SqlMedico.alterarRC(rc);
+                }
+                break;
+            }
+        }
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.

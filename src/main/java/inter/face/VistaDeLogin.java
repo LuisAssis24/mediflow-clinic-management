@@ -25,8 +25,6 @@ public class VistaDeLogin extends javax.swing.JFrame {
         addKeyListenerToComponents(this.getContentPane());// Adiciona um keyListener a todos os componentes da janela
     }
 
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
