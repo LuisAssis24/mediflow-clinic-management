@@ -14,7 +14,7 @@ public class Paciente {
     }
 
     // Getters
-    public int getNumeroSNS() { return numeroSNS; }
-    public String getNome() { return nome; }
-    public int getContacto() { return contacto; }
+    public int getNumeroSNS() { return numeroSNS; }//retorna o numero de sns
+    public String getNome() { return nome; }//retorna o nome
+    public int getContacto() { return contacto; }//retorna o contacto
 }

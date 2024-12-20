@@ -8,7 +8,7 @@ public class Text {
 
     // Método para dividir uma string em uma lista de strings
     public static List<String> splitStringToList(String string) {
-        return new ArrayList<>(Arrays.asList(string.split("(?=\\p{Lu})")));
+        return new ArrayList<>(Arrays.asList(string.split("(?=\\p{Lu})")));// Divide a string em partes
     }
 
     // Método para juntar uma lista de strings numa string
@@ -31,7 +31,7 @@ public class Text {
         SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");// Cria um formato de data
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");// Cria um formato de data
         Date date = sqlDateFormat.parse(dateString);// Converte a data
-        return dateFormat.format(date);
+        return dateFormat.format(date);// Retorna a data formatada
     }
 
     // Método para formatar a hora
@@ -39,7 +39,7 @@ public class Text {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");// Cria um formato de data
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM");// Cria um formato de data
         Date date = inputFormat.parse(data);// Converte a data
-        return outputFormat.format(date);
+        return outputFormat.format(date);// Retorna a data formatada
     }
 
     // Método para formatar a hora
