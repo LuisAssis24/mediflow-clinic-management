@@ -15,19 +15,19 @@ public class SqlGestor {
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {
                 // Declara uma consulta SQL para obter todos os utilizadores
-                String sql = "{CALL ObterTodosUtilizadores()}";
-                CallableStatement statement = conexao.prepareCall(sql);
+                String sql = "{CALL ObterTodosUtilizadores()}";// Declara a query para obter todos os utilizadores
+                CallableStatement statement = conexao.prepareCall(sql);// Prepara a query
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
                 // Adiciona todos os utilizadores à lista
-                while (resultado.next()) {
-                    int id = resultado.getInt("ID");
-                    int cc = resultado.getInt("CC");
-                    String nome = resultado.getString("Nome");
-                    String password = resultado.getString("Password");
-                    String tipoUtilizador = resultado.getString("Tipo_Utilizador");
+                while (resultado.next()) {// Itera sobre os resultados da consulta
+                    int id = resultado.getInt("ID");// Obtém o ID do utilizador
+                    int cc = resultado.getInt("CC");// Obtém o CC do utilizador
+                    String nome = resultado.getString("Nome");// Obtém o nome do utilizador
+                    String password = resultado.getString("Password");// Obtém a password do utilizador
+                    String tipoUtilizador = resultado.getString("Tipo_Utilizador");// Obtém o tipo de utilizador
 
                     // Ver se o utilizador é um médico para obter os detalhes da tabela Medico
                     if (tipoUtilizador.equals("Médico")) {// Verifica se o utilizador é um médico
@@ -57,36 +57,36 @@ public class SqlGestor {
     public static int criarUtilizador(String nome, String password, String tipoUtilizador, int cc, String especialidade, int numOrdem, int sala) {
         int idUtilizadorGerado = -1;// ID do utilizador gerado
 
-        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance()) {
+        try (Connection conexao = SqlGeral.DatabaseConnection.getInstance()) {// Obtém a conexão com a base de dados
 
             // Criar o utilizador
             String sqlCriarUtilizador = "{CALL CriarUtilizador(?, ?, ?, ?, ?)}";// Declara a query para criar um utilizador
             try (CallableStatement callableStatement = conexao.prepareCall(sqlCriarUtilizador)) {// Prepara a query
-                callableStatement.setInt(1, cc);                // CC
-                callableStatement.setString(2, nome);           // Name
+                callableStatement.setInt(1, cc); // CC
+                callableStatement.setString(2, nome); // Nome
 
-                String passwordCifrada = CifrarPasswords.cifrar(password);
-                callableStatement.setString(3, passwordCifrada); // Encrypted password
+                String passwordCifrada = CifrarPasswords.cifrar(password); // Cifra a password
+                callableStatement.setString(3, passwordCifrada); // Password
 
-                callableStatement.setString(4, tipoUtilizador); // User type
-                callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // Generated ID
+                callableStatement.setString(4, tipoUtilizador); // Tipo de utilizador
+                callableStatement.registerOutParameter(5, java.sql.Types.INTEGER); // ID do utilizador gerado
 
-                callableStatement.execute();
-                idUtilizadorGerado = callableStatement.getInt(5); // Get the generated ID
-                System.out.println("User created with ID: " + idUtilizadorGerado);
+                callableStatement.execute();// Executa a query
+                idUtilizadorGerado = callableStatement.getInt(5); // Obtém o ID do utilizador gerado
+                System.out.println("User created with ID: " + idUtilizadorGerado);// Mensagem de sucesso
             }
 
             // Verifica se o utilizador é um médico
-            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {
+            if ("Médico".equalsIgnoreCase(tipoUtilizador)) {// Verifica se o utilizador é um médico
                 // Adicionar os detalhes do médico
-                String sqlInserirMedico = "{CALL InserirMedico(?, ?, ?, ?)}";
-                try (CallableStatement callableStatement = conexao.prepareCall(sqlInserirMedico)) {
-                    callableStatement.setInt(1, idUtilizadorGerado);    // idUtilizador
-                    callableStatement.setString(2, especialidade);      // especialidade
-                    callableStatement.setInt(3, numOrdem);              // numero da ordem
-                    callableStatement.setInt(4, sala);                  // sala
-                    callableStatement.executeUpdate();
-                    System.out.println("Médico inserido com sucesso");
+                String sqlInserirMedico = "{CALL InserirMedico(?, ?, ?, ?)}";// Declara a query para inserir um médico
+                try (CallableStatement callableStatement = conexao.prepareCall(sqlInserirMedico)) {// Prepara a query
+                    callableStatement.setInt(1, idUtilizadorGerado); // ID do utilizador
+                    callableStatement.setString(2, especialidade); // especialidade
+                    callableStatement.setInt(3, numOrdem); // numOrdem
+                    callableStatement.setInt(4, sala); // sala
+                    callableStatement.executeUpdate();// Executa a query
+                    System.out.println("Médico inserido com sucesso");// Mensagem de sucesso
                 }
             }
 
@@ -99,6 +99,7 @@ public class SqlGestor {
         return idUtilizadorGerado; // retornar o id do utilizador criado
     }
 
+    // Atualiza os dados de um utilizador
     public static List<Integer> obterSalas() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
         List<Integer> salas = new ArrayList<>(); // Lista para armazenar as salas
@@ -107,15 +108,15 @@ public class SqlGestor {
             try {
                 // Declara uma consulta SQL para obter todas as salas
                 String sql = "{CALL ObterTodasSalas()}";
-                CallableStatement statement = conexao.prepareCall(sql);
+                CallableStatement statement = conexao.prepareCall(sql);// Prepara a query
 
                 // Executa a consulta e armazena o resultado
                 ResultSet resultado = statement.executeQuery();
 
                 // Adiciona todas as salas à lista
-                while (resultado.next()) {
-                    int numSalaAtual = resultado.getInt("Sala");
-                    salas.add(numSalaAtual);
+                while (resultado.next()) {// Itera sobre os resultados da consulta
+                    int numSalaAtual = resultado.getInt("Sala");// Obtém o número da sala
+                    salas.add(numSalaAtual);// Adiciona o número da sala à lista
                 }
             } catch (SQLException e) { // Trata erros relacionados ao SQL
                 System.out.println("Erro ao obter as salas: " + e.getMessage());// Mensagem de erro

@@ -16,38 +16,39 @@ import static medi.flow.Text.*;
  *
  * @author Luis
  */
+// Classe que representa a interface de uma consulta
 public class ConsultaMedico extends javax.swing.JPanel {
 
     /**
      * Creates new form Consulta
      */
 
-    int nSns;
-    Consulta consulta;
+    int nSns;// Número de utente do paciente
+    Consulta consulta;// Consulta associada
 
     public ConsultaMedico(Consulta consulta) {
         initComponents(); // Inicializa os componentes da interface
 
         // Atributos escondidos da consulta
-        this.nSns = consulta.getSnsPaciente();
-        this.consulta = consulta;
+        this.nSns = consulta.getSnsPaciente();// Número de utente do paciente
+        this.consulta = consulta;// Consulta associada
 
         // Preenche os componentes da interface
-        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
-        String horaFormtatada;
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");// Nome do pacienteq
+        String horaFormtatada;// Hora formatada
 
         try {
-            horaFormtatada = timeFormat(consulta.getHora());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            horaFormtatada = timeFormat(consulta.getHora());// Formata a hora
+        } catch (ParseException e) {// Em caso de erro
+            throw new RuntimeException(e);// Lança uma exceção
         }
 
-        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
-        hora.setText(horaFormtatada);
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");// Data da consulta
+        hora.setText(horaFormtatada);//
 
         // Preenche a lista de motivos da consulta
-        List<String> motivoList = splitStringToList(consulta.getMotivo());
-        motivos.setListData(motivoList.toArray(new String[0]));
+        List<String> motivoList = splitStringToList(consulta.getMotivo());// Motivos da consulta
+        motivos.setListData(motivoList.toArray(new String[0]));// Preenche a lista de motivos da consulta
 
     }
 
@@ -187,12 +188,13 @@ public class ConsultaMedico extends javax.swing.JPanel {
         add(jScrollPane1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método que é chamado quando o botão de registo clínico é pressionado
     private void fichaMedicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaMedicaButtonActionPerformed
-        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();
-        for(RegistoClinico registoClinico : listaRegistrosClinico){
-            if(registoClinico.getNumeroSns() == nSns){
-                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico, consulta);
-                registoClinicoPanel.setVisible(true);
+        List<RegistoClinico> listaRegistrosClinico = getClinica().getRegistos();// Lista de registos clínicos
+        for(RegistoClinico registoClinico : listaRegistrosClinico){// Para cada registo clínico
+            if(registoClinico.getNumeroSns() == nSns){// Se o número de utente do paciente for igual ao número de utente do paciente do registo clínico
+                RegistoClinicoPanel registoClinicoPanel = new RegistoClinicoPanel(registoClinico, consulta);// Painel de registo clínico
+                registoClinicoPanel.setVisible(true);// Torna o painel de registo clínico visível
             }
         }
     }//GEN-LAST:event_fichaMedicaButtonActionPerformed

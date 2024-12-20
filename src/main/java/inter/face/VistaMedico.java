@@ -46,14 +46,14 @@ public final class VistaMedico extends javax.swing.JFrame {
         }
 
         // Move a barra de scroll para o topo do painel de consultas
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        SwingUtilities.invokeLater(() -> {// Cria uma nova thread para executar o código
+            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();// Obtem a barra de scroll vertical
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());// Move a barra de scroll para o topo
         });
 
         // Atualiza a interface gráfica para refletir as mudanças
-        consultasPanel.revalidate();
-        consultasPanel.repaint();
+        consultasPanel.revalidate();// Atualiza o painel de consultas
+        consultasPanel.repaint();// Atualiza o painel de consultas
     }
 
     // Método para criar um painel de consulta
@@ -183,13 +183,15 @@ public final class VistaMedico extends javax.swing.JFrame {
         new VistaDeLogin().setVisible(true);
     }//GEN-LAST:event_exitButtonMouseClicked
 
+    // Método para clicar no painel de consultas
     private void consultasPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultasPanelMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_consultasPanelMouseClicked
 
+    // Método para clicar no botão de atualizar
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
-        getClinica().atualizarClinica();
-        carregarConsultasBaseDeDados();
+        getClinica().atualizarClinica();// Atualiza a clínica
+        carregarConsultasBaseDeDados();// Carrega as consultas existentes
     }//GEN-LAST:event_refreshButtonMouseClicked
 
     /**

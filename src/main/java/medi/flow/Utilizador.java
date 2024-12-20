@@ -28,10 +28,10 @@ public class Utilizador {
     }
 
     // Getters
-    public int getId() { return id; }
-    public int getCc() { return cc; }
-    public String getNome() { return nome; }
-    public String getPassword() { return password; }
-    public String getTipoUtilizador() { return tipoUtilizador; }
+    public int getId() { return id; }//retorna o id
+    public int getCc() { return cc; }//retorna o cc
+    public String getNome() { return nome; }//retorna o nome
+    public String getPassword() { return password; }//retorna a password
+    public String getTipoUtilizador() { return tipoUtilizador; }//retorna o tipo de utilizador
 
 }

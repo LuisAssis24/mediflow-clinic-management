@@ -20,8 +20,8 @@ public class Medico extends Utilizador {
     }
 
     // Getters
-    public int getNumOrdem() { return numOrdem; }
-    public String getEspecialidade() { return especialidade; }
+    public int getNumOrdem() { return numOrdem; }//retorna o numero da ordem
+    public String getEspecialidade() { return especialidade; }//retorna a especialidade
 
 
     // Classe que representa o horário de um Médico
@@ -36,8 +36,8 @@ public class Medico extends Utilizador {
         }
 
         // Getters
-        public int getIdMedico() { return idMedico; }
-        public List<String[]> getHorarios() { return horarios; }
+        public int getIdMedico() { return idMedico; }//retorna o id do medico
+        public List<String[]> getHorarios() { return horarios; }//retorna a lista de horarios
 
     }
 }

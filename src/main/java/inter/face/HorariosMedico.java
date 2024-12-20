@@ -126,6 +126,7 @@ public class HorariosMedico extends JFrame {
 
     // Método que atualiza os horários
     public void updateHorarios() {
+        // Define o renderizador de células personalizado
         horariosDia1.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[0]));
         horariosDia2.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[1]));
         horariosDia3.setCellRenderer(new CustomCellRenderer(horariosFiltered, todosDias[2]));
@@ -178,9 +179,9 @@ public class HorariosMedico extends JFrame {
             }
 
             // Verifica se o ano é igual ao ano passado como argumento
-            if (isolarAno(data) == ano) {
-                String[] horarioFormat = new String[]{dataFormat(data), timeFormat(horario[1])};
-                horariosFiltrados.add(horarioFormat);
+            if (isolarAno(data) == ano) {// Se for igual
+                String[] horarioFormat = new String[]{dataFormat(data), timeFormat(horario[1])};// Formata o horário
+                horariosFiltrados.add(horarioFormat);// Adiciona o horário à lista
             }
         }
         return horariosFiltrados;
@@ -399,7 +400,7 @@ public class HorariosMedico extends JFrame {
      */
 
 
-
+    // Método principal
     public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

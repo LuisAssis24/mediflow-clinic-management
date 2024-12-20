@@ -51,14 +51,14 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         }
 
         // Move a barra de scroll para o topo do painel de consultas
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        SwingUtilities.invokeLater(() -> {// Move a barra de scroll para o topo do painel de consultas
+            JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();// Obtem a barra de scroll vertical
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());// Move a barra de scroll para o topo
         });
 
         // Atualiza a interface gráfica para refletir as mudanças
-        consultasPanel.revalidate();
-        consultasPanel.repaint();
+        consultasPanel.revalidate();// Atualiza o painel de consultas
+        consultasPanel.repaint();// Atualiza o painel de consultas
     }
 
     // Método que cria um painel de consulta
@@ -572,11 +572,11 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     // Método que é chamado quando o botão "Ver Consultas" é clicado
     private void botaoVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerConsultasActionPerformed
         // Verifica se o painel "verConsultas" está oculto
-        if (!verConsultas.isVisible()){
-            barraPesquisa.setVisible(true);
-            botaoPesquisa.setVisible(true);
-            verConsultas.setVisible(true);
-            marcarConsultas.setVisible(false);
+        if (!verConsultas.isVisible()){// Se estiver oculto
+            barraPesquisa.setVisible(true);// Torna a barra de pesquisa visível
+            botaoPesquisa.setVisible(true);// Torna o botão de pesquisa visível
+            verConsultas.setVisible(true);// Torna o painel de consultas visível
+            marcarConsultas.setVisible(false);// Oculta o painel de marcar consultas
         }
         // Recarrega as consultas da base de dados
         carregarConsultasBaseDeDados();
@@ -585,18 +585,18 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     // Método que é chamado quando o botão "Marcar Consultas" é clicado
     private void botaoMarcarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMarcarConsultasActionPerformed
         // Verifica se o painel "marcarConsultas" está oculto
-        if (!marcarConsultas.isVisible()){
-            barraPesquisa.setVisible(false);
-            botaoPesquisa.setVisible(false);
-            marcarConsultas.setVisible(true);
-            verConsultas.setVisible(false);
-            nomePaciente.setText("");
-            contactoPaciente.setText("");
-            nSns.setText("");
-            motivoConsulta.setText("");
-            dataConsulta.setText("");
-            horaConsulta.setText("");
-            idMedico.setText("");
+        if (!marcarConsultas.isVisible()){// Se estiver oculto
+            barraPesquisa.setVisible(false);// Torna a barra de pesquisa invisível
+            botaoPesquisa.setVisible(false);// Torna o botão de pesquisa invisível
+            marcarConsultas.setVisible(true);// Torna o painel de marcar consultas visível
+            verConsultas.setVisible(false);// Oculta o painel de consultas
+            nomePaciente.setText("");// Limpa o campo de nome do paciente
+            contactoPaciente.setText("");// Limpa o campo de contacto do paciente
+            nSns.setText("");// Limpa o campo de sns do paciente
+            motivoConsulta.setText("");// Limpa o campo de motivo da consulta
+            dataConsulta.setText("");// Limpa o campo de data da consulta
+            horaConsulta.setText("");// Limpa o campo de hora da consulta
+            idMedico.setText("");// Limpa o campo de id do médico
         }
     }//GEN-LAST:event_botaoMarcarConsultasActionPerformed
 
@@ -704,14 +704,14 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
         try {// Tenta executar o código
             // Obter os valores dos campos da interface
-            String nome = nomePaciente.getText();
-            String numeroSnsStr = nSns.getText();
-            String motivo = motivoConsulta.getText();
-            String data = dataConsulta.getText();
-            String hora = horaConsulta.getText();
-            String idMedicoStr = idMedico.getText();
-            String idSalaStr = salaConsulta.getText();
-            String contacto = contactoPaciente.getText();
+            String nome = nomePaciente.getText();// Obter o nome do paciente
+            String numeroSnsStr = nSns.getText();// Obter o número de sns do paciente
+            String motivo = motivoConsulta.getText();// Obter o motivo da consulta
+            String data = dataConsulta.getText();// Obter a data da consulta
+            String hora = horaConsulta.getText();// Obter a hora da consulta
+            String idMedicoStr = idMedico.getText();// Obter o id do médico
+            String idSalaStr = salaConsulta.getText();// Obter o id da sala
+            String contacto = contactoPaciente.getText();// Obter o contacto do paciente
 
             // Verificar se algum campo está vazio
             if (nome.isEmpty() || numeroSnsStr.isEmpty() || motivo.isEmpty() || data.isEmpty() || hora.isEmpty() || idMedicoStr.isEmpty() || idSalaStr.isEmpty() || contacto.isEmpty()) {// Se algum campo estiver vazio
@@ -732,15 +732,15 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             }
 
             // Converter os valores para os tipos corretos
-            int numeroSns = Integer.parseInt(numeroSnsStr);
-            int idMedicoInt = Integer.parseInt(idMedicoStr);
-            int idSala = Integer.parseInt(idSalaStr);
-            int contactoInt = Integer.parseInt(contacto);
+            int numeroSns = Integer.parseInt(numeroSnsStr);// Converter o número de sns para inteiro
+            int idMedicoInt = Integer.parseInt(idMedicoStr);// Converter o id do médico para inteiro
+            int idSala = Integer.parseInt(idSalaStr);// Converter o id da sala para inteiro
+            int contactoInt = Integer.parseInt(contacto);// Converter o contacto para inteiro
 
 
             // Verificar se a data e hora da consulta são no futuro
-            Date dataHoraConsulta = Text.dataJavaParaSql(data, hora);
-            Date dataHoraAtual = new Date();
+            Date dataHoraConsulta = Text.dataJavaParaSql(data, hora);// Converter a data e hora da consulta para o formato de data e hora
+            Date dataHoraAtual = new Date();// Obter a data e hora atuais
 
             if (dataHoraConsulta.before(dataHoraAtual)) {// Se a data da consulta for antes da data atual
                 JOptionPane.showMessageDialog(this, "A consulta não pode ser marcada no passado.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
@@ -748,7 +748,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             }
 
             // Criar o Paciente Caso ele não exista e adcionar ao objeto clinica
-            boolean bool = SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);
+            boolean bool = SqlSecretaria.criarPaciente(numeroSns, nome, contactoInt);// Verificar se o paciente já existe
             if (bool == true) {// Se o paciente não existir
                 getClinica().addPaciente(new Paciente(numeroSns, nome, contactoInt));// Adicionar o paciente à lista de pacientes
                 SqlSecretaria.criarNovoRC(numeroSns);// Criar um novo registo clinico para o paciente
@@ -757,30 +757,31 @@ public final class VistaSecretaria extends javax.swing.JFrame {
 
 
             // Obter o nome do médico e formatá-lo
-            String nomeMedUnformat = getClinica().obterNomeMedicoPorId(idMedicoInt);
-            String nomeMed = nomeMedicoTransform(nomeMedUnformat);
-
+            String nomeMedUnformat = getClinica().obterNomeMedicoPorId(idMedicoInt);// Obter o nome do médico
+            String nomeMed = nomeMedicoTransform(nomeMedUnformat);// Formatar o nome do médico
+          
             // Chamar o método que cria a consulta e adicionar a consulta ao objeto clínica
 
-            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);
-            Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
+            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);// Criar a consulta na base de dados
+            Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);// Criar a consulta
+
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {// Se a consulta foi criada com sucesso
                 JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso! ID da Consulta: " + idConsultaGerada, "Sucesso", JOptionPane.INFORMATION_MESSAGE);// Mostrar uma mensagem de sucesso
                 // Limpar os campos
-                nomePaciente.setText("");
-                nSns.setText("");
-                motivoConsulta.setText("");
-                dataConsulta.setText("");
-                horaConsulta.setText("");
-                idMedico.setText("");
-                salaConsulta.setText("");
-                contactoPaciente.setText("");
+                nomePaciente.setText("");// Limpar o campo de nome do paciente
+                nSns.setText("");// Limpar o campo de sns do paciente
+                motivoConsulta.setText("");// Limpar o campo de motivo da consulta
+                dataConsulta.setText("");// Limpar o campo de data da consulta
+                horaConsulta.setText("");// Limpar o campo de hora da consulta
+                idMedico.setText("");// Limpar o campo de id do médico
+                salaConsulta.setText("");// Limpar o campo de id da sala
+                contactoPaciente.setText("");// Limpar o campo de contacto do paciente
 
                 // Adicionar a consulta ao objeto clínica
-                getClinica().addConsulta(consulta);
-                carregarConsultasBaseDeDados();
+                getClinica().addConsulta(consulta);// Adicionar a consulta à lista de consultas
+                carregarConsultasBaseDeDados();// Carregar as consultas da base de dados
             } else {// Se a consulta não foi criada com sucesso
                 JOptionPane.showMessageDialog(this, "Erro ao marcar a consulta. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
             }
@@ -801,28 +802,30 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+        try {// Tenta definir o look and feel para Nimbus
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {// Para cada look and feel instalado
+                if ("Nimbus".equals(info.getName())) {// Se for o Nimbus
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());// Definir o look and feel
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {// Se houver um erro de classe
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
+        } catch (InstantiationException ex) {// Se houver um erro de instanciação
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
+        } catch (IllegalAccessException ex) {// Se houver um erro de acesso
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {// Se houver um erro de look and feel
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new VistaSecretaria(passwordSecretaria).setVisible(true);
+
+        java.awt.EventQueue.invokeLater(() -> {// Criar e mostrar a janela
+            new VistaSecretaria(passwordSecretaria).setVisible(true);// Tornar a janela visível
+
         });
     }
 
