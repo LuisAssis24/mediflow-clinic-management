@@ -21,29 +21,30 @@ import static medi.flow.Text.timeFormat;
  */
 // Classe que representa uma consulta na interface do funcionário
 public class ConsultaFuncionario extends javax.swing.JPanel {
-    int idConsulta;
+    int idConsulta;// Variável para guardar o id da consulta
     /**
      * Creates new form Consulta
      */
+    // Construtor da classe
     public ConsultaFuncionario(Consulta consulta){
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
-        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
-        nSns.setText(Integer.toString(consulta.getSnsPaciente()));
-        medico.setText(consulta.getNomeMedico());
-        sala.setText(Integer.toString(consulta.getNumSala()));
-        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");// Preenche o nome do paciente
+        nSns.setText(Integer.toString(consulta.getSnsPaciente()));// Preenche o número de sns do paciente
+        medico.setText(consulta.getNomeMedico());// Preenche o nome do médico
+        sala.setText(Integer.toString(consulta.getNumSala()));// Preenche o número da sala
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");// Preenche a data da consulta
 
-        String horaFormatada = "";
-        try {
-            horaFormatada = timeFormat(consulta.getHora());
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String horaFormatada = "";// Variável para guardar a hora formatada
+        try {// Tenta formatar a hora
+            horaFormatada = timeFormat(consulta.getHora());// Formata a hora
+        } catch (ParseException e) {// Apanha exceções de parsing
+            e.printStackTrace();// Imprime o erro
         }
 
-        hora.setText(horaFormatada);
-        idConsulta = consulta.getIdConsulta();
+        hora.setText(horaFormatada);// Preenche a hora da consulta
+        idConsulta = consulta.getIdConsulta();// Guarda o id da consulta
     }
 
     /**

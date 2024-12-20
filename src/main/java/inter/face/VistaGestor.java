@@ -499,10 +499,10 @@ public final class VistaGestor extends javax.swing.JFrame {
     // Metodo acionado quando o botão para criar credenciais é pressionado
     private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt){
         // Esconde a barra de pesquisa e o botao de pesquisa
-        barraPesquisa.setVisible(false);
-        botaoPesquisa.setVisible(false);
+        barraPesquisa.setVisible(false);// Esconde a barra de pesquisa
+        botaoPesquisa.setVisible(false);// Esconde o botão de pesquisa
         // Exibe o painel de criação de credencial
-        criarCredencial.setVisible(true);
+        criarCredencial.setVisible(true);// Exibe o painel de criação de credenciais
         credenciaisPanel.setVisible(false); // Esconde o painel de credenciais
         eliminarCredencial.setVisible(false); // Esconde o painel de eliminação de credenciais
 
@@ -544,24 +544,24 @@ public final class VistaGestor extends javax.swing.JFrame {
             numeroDeMedico.setVisible(true);// Mostra o campo de numero de medico
             nMedicoLabel.setVisible(true);// Mostra o label de numero de medico
             especLabel.setVisible(true);// Mostra o label de especialidade
-            salaLabel.setVisible(true);
-            salaField.setVisible(true);
+            salaLabel.setVisible(true);// Mostra o label de sala
+            salaField.setVisible(true);// Mostra o campo de sala
         } else {
             // Caso contrario, esconde esses campos
             especialidade.setVisible(false);// Esconde o campo de especialidade
             numeroDeMedico.setVisible(false);// Esconde o campo de numero de medico
             nMedicoLabel.setVisible(false);// Esconde o label de numero de medico
             especLabel.setVisible(false);// Esconde o label de especialidade
-            salaLabel.setVisible(false);
-            salaField.setVisible(false);
+            salaLabel.setVisible(false);// Esconde o label de sala
+            salaField.setVisible(false);// Esconde o campo de sala
         }
         // Atualiza o painel para refletir as mudanças de visibilidade
-        criarCredencial.revalidate();
-        criarCredencial.repaint();
+        criarCredencial.revalidate();// Atualiza o painel de criação de credenciais
+        criarCredencial.repaint();// Atualiza o painel de criação de credenciais
     }//GEN-LAST:event_tipoFuncionarioActionPerformed
 
     private void botaoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisaMouseClicked
-        String query = barraPesquisa.getText();
+        String query = barraPesquisa.getText();// Obtem a query de pesquisa
 
         // Obtem uma lista de todos os utilziadores através do método "obterTodosUtilizadores"
         List<Utilizador> utilizadores = SqlGestor.obterTodosUtilizadores();
@@ -571,7 +571,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         // Itera pela lista de utilizadores
         for (Utilizador utilizador : utilizadores) {
             // Veerifica se o ID ou nome contem a query fornecida
-            if (String.valueOf(utilizador.getId()).contains(query) || utilizador.getNome().toLowerCase().contains(query.toLowerCase())) {
+            if (String.valueOf(utilizador.getId()).contains(query) || utilizador.getNome().toLowerCase().contains(query.toLowerCase())) {// Verifica se o ID ou nome contem a query fornecida
                 // Adiciona o utilizador à lista filtrada se a condiçãofor satisfeita
                 filteredUsers.add(utilizador);
             }
@@ -599,11 +599,13 @@ public final class VistaGestor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoPesquisaMouseClicked
 
+    // Metodo acionado quando o botão de atualizar é pressionado
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
-        getClinica().atualizarClinica();
-        carregarCredenciaisBaseDeDados();
+        getClinica().atualizarClinica();// Atualiza a clinica
+        carregarCredenciaisBaseDeDados();// Carrega as credenciais existentes
     }//GEN-LAST:event_refreshButtonMouseClicked
 
+    // Metodo acionado quando a barra de pesquisa é pressionada
     private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
@@ -635,23 +637,23 @@ public final class VistaGestor extends javax.swing.JFrame {
             }
 
             // Variáveis específicas para médicos
-            String espcialidade = "";
-            int numOrdem = 0;
-            int sala = 0;
+            String espcialidade = "";// Inicializa a especialidade
+            int numOrdem = 0;// Inicializa o número de ordem
+            int sala = 0;// Inicializa a sala
 
             if ("Médico".equalsIgnoreCase(tipoUtilizador)) {// Se o tipo de utilizador for médico
                 // Obter os valores adicionais para médicos
-                espcialidade = especialidade.getText();
-                numOrdem = Integer.parseInt(numeroDeMedico.getText());
-                sala = Integer.parseInt(salaField.getText());
+                espcialidade = especialidade.getText();// Obtem a especialidade
+                numOrdem = Integer.parseInt(numeroDeMedico.getText());// Obtem o número de ordem
+                sala = Integer.parseInt(salaField.getText());// Obtem a sala
 
                 // Verificar se a sala já está ocupada
-                for (int numSala : obterSalas()){
-                    if (numSala == sala){
+                for (int numSala : obterSalas()){// Itera pelas salas
+                    if (numSala == sala){// Se a sala já estiver ocupada
                         JOptionPane.showMessageDialog(null,
                                 "A sala já está ocupada.",
                                 "Erro de Validação",
-                                JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
                         return;
                     }
                 }
@@ -662,14 +664,14 @@ public final class VistaGestor extends javax.swing.JFrame {
 
             // Exibir mensagem de sucesso
             if (idUtilizador != -1) {
-                JOptionPane.showMessageDialog(null,"Utilizador criado com sucesso! ID: " + idUtilizador);
+                JOptionPane.showMessageDialog(null,"Utilizador criado com sucesso! ID: " + idUtilizador);// Mostra uma mensagem de sucesso
                 // Limpa os campos
-                nomeCompleto.setText("");
-                password.setText("");
-                numeroCC.setText("");
-                especialidade.setText("");
-                numeroDeMedico.setText("");
-                salaField.setText("");
+                nomeCompleto.setText("");// Limpa o campo de nome
+                password.setText("");// Limpa o campo de password
+                numeroCC.setText("");// Limpa o campo de numero do CC
+                especialidade.setText("");// Limpa o campo de especialidade
+                numeroDeMedico.setText("");// Limpa o campo de numero de medico
+                salaField.setText("");// Limpa o campo de sala
 
                 //Cria o objeto utilizador e carrega a base de dados
 

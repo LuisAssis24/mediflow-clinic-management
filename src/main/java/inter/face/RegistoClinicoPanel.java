@@ -19,15 +19,17 @@ import sql.server.SqlMedico;
  *
  * @author Luis
  */
+// Classe que representa a interface de um registo clínico
 public class RegistoClinicoPanel extends javax.swing.JFrame {
-    Consulta consulta;
+    Consulta consulta;// Consulta associada ao registo clínico
     /**
      * Creates new form FichaMedica
      */
+    // Construtor da classe
     public RegistoClinicoPanel(RegistoClinico rc, Consulta consulta) {
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
 
-        this.consulta = consulta;
+        this.consulta = consulta;// Guarda a consulta associada ao registo clínico
 
         // Configurar o menu de contexto para cada lista
         configurarPopupMenu(alergiasList);
@@ -39,10 +41,12 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         rc.getAlergias().forEach(alergiasModel::addElement);
         alergiasList.setModel(alergiasModel);
 
+        // Configurar modelos para permitir edição
         DefaultListModel<String> operacoesModel = new DefaultListModel<>();
         rc.getOperacoes().forEach(operacoesModel::addElement);
         operacoesList.setModel(operacoesModel);
 
+        // Configurar modelos para permitir edição
         DefaultListModel<String> doencasModel = new DefaultListModel<>();
         rc.getHistoricoDoencas().forEach(doencasModel::addElement);
         histDoencasList.setModel(doencasModel);
@@ -52,16 +56,17 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         nSns.setText(String.valueOf(consulta.getSnsPaciente()));
         contacto.setText(String.valueOf(consulta.getContacto()));
 
-        carregarEntradas(rc.getEntradasRegistoClinico());
+        carregarEntradas(rc.getEntradasRegistoClinico());// Carregar as entradas do registo clínico
     }
 
+    // Método para carregar as entradas do registo clínico
     public void carregarEntradas(List<RegistoClinico.EntradaRegistoClinico> entradas) {
-        int tamanhoPainelEntradas = 0;
-        entradasPanel.removeAll();
-        for (RegistoClinico.EntradaRegistoClinico entrada : entradas) {
-            tamanhoPainelEntradas += 220;
-            entradasPanel.setPreferredSize(new java.awt.Dimension(538, tamanhoPainelEntradas));
-            criarPainelEntrada(entrada.getAssunto(), entrada.getTratamentos());
+        int tamanhoPainelEntradas = 0;// Tamanho do painel de entradas
+        entradasPanel.removeAll();// Remover todas as entradas do painel
+        for (RegistoClinico.EntradaRegistoClinico entrada : entradas) {// Para cada entrada
+            tamanhoPainelEntradas += 220;// Aumentar o tamanho do painel de entradas
+            entradasPanel.setPreferredSize(new java.awt.Dimension(538, tamanhoPainelEntradas));// Definir o tamanho do painel de entradas
+            criarPainelEntrada(entrada.getAssunto(), entrada.getTratamentos());// Criar um painel para a entrada
         }
 
         // Move a barra de scroll para o topo do painel de consultas
@@ -70,88 +75,90 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
             verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
 
-        entradasPanel.revalidate();
-        entradasPanel.repaint();
+        entradasPanel.revalidate();// Atualizar o painel de entradas
+        entradasPanel.repaint();// Repintar o painel de entradas
     }
 
+    // Método para criar um painel para uma entrada
     void criarPainelEntrada(List<String> assunto, List<String> tratamento){
         // Cria um painel para cada entrada
-        EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);
-        entradasPanel.add(entradaPanel);
+        EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);// Cria um painel para a entrada
+        entradasPanel.add(entradaPanel);// Adiciona o painel ao painel de entradas
     }
 
+    // Método para configurar o menu de contexto para cada lista
     private void configurarPopupMenu(JList<String> list) {
-        // Criar o menu de contexto
-        JPopupMenu popupMenu = new JPopupMenu();
+        JPopupMenu popupMenu = new JPopupMenu();// Cria um menu de contexto
 
         // Adicionar a opção "Editar"
-        JMenuItem editarItem = new JMenuItem("Editar");
-        editarItem.addActionListener(e -> {
-            int selectedIndex = list.getSelectedIndex();
-            if (selectedIndex != -1) {
+        JMenuItem editarItem = new JMenuItem("Editar");// Cria um item para editar
+        editarItem.addActionListener(e -> {// Adiciona um listener para o item
+            int selectedIndex = list.getSelectedIndex();// Pega o índice do item selecionado
+            if (selectedIndex != -1) {// Se houver um item selecionado
                 String novoValor = JOptionPane.showInputDialog(
                         this,
                         "Editar item:",
                         list.getModel().getElementAt(selectedIndex)
-                );
-                if (novoValor != null && !novoValor.trim().isEmpty()) {
-                    DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
-                    model.set(selectedIndex, novoValor);
-                    atualizarDadosNaBase(list, model);
+                );// Pede um novo valor para o item
+                if (novoValor != null && !novoValor.trim().isEmpty()) {// Se o novo valor não for nulo nem vazio
+                    DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();// Pega o modelo da lista
+                    model.set(selectedIndex, novoValor);// Atualiza o valor do item
+                    atualizarDadosNaBase(list, model);// Atualiza os dados na base de dados
                 }
             }
         });
 
-        popupMenu.add(editarItem);
+        popupMenu.add(editarItem);// Adiciona o item ao menu de contexto
 
         // Adicionar a opção "Adicionar"
-        JMenuItem adicionarItem = new JMenuItem("Adicionar");
-        adicionarItem.addActionListener(e -> {
-            String novoValor = JOptionPane.showInputDialog(this, "Adicionar novo item:");
-            if (novoValor != null && !novoValor.trim().isEmpty()) {
-                DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
-                model.addElement(novoValor);
-                atualizarDadosNaBase(list, model);
+        JMenuItem adicionarItem = new JMenuItem("Adicionar");// Cria um item para adicionar
+        adicionarItem.addActionListener(e -> {// Adiciona um listener para o item
+            String novoValor = JOptionPane.showInputDialog(this, "Adicionar novo item:");// Pede um novo valor para o item
+            if (novoValor != null && !novoValor.trim().isEmpty()) {// Se o novo valor não for nulo nem vazio
+                DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();// Pega o modelo da lista
+                model.addElement(novoValor);// Adiciona o novo valor ao modelo
+                atualizarDadosNaBase(list, model);// Atualiza os dados na base de dados
             }
         });
 
-        popupMenu.add(adicionarItem);
+        popupMenu.add(adicionarItem);// Adiciona o item ao menu de contexto
 
         // Associar o menu de contexto à lista
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                if (evt.isPopupTrigger()) {
-                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));
-                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            public void mousePressed(java.awt.event.MouseEvent evt) {// Quando o botão do rato é pressionado
+                if (evt.isPopupTrigger()) {// Se for o botão direito do rato
+                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));// Seleciona o item clicado
+                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());// Mostra o menu de contexto
                 }
             }
 
             @Override
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                if (evt.isPopupTrigger()) {
-                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));
-                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            public void mouseReleased(java.awt.event.MouseEvent evt) {// Quando o botão do rato é libertado
+                if (evt.isPopupTrigger()) {// Se for o botão direito do rato
+                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));// Seleciona o item clicado
+                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());// Mostra o menu de contexto
                 }
             }
         });
     }
 
+    // Método para atualizar os dados na base de dados
     private void atualizarDadosNaBase(JList<String> list, DefaultListModel<String> model) {
-        for (RegistoClinico rc : getClinica().getRegistos()) {
-            if (rc.getNumeroSns() == consulta.getSnsPaciente()) {
-                if (list == alergiasList) {
-                    List<String> novasAlergias = Collections.list(model.elements());
-                    rc.setAlergias(novasAlergias);
-                    SqlMedico.alterarRC(rc);
-                } else if (list == operacoesList) {
-                    List<String> novasOperacoes = Collections.list(model.elements());
-                    rc.setOperacoes(novasOperacoes);
-                    SqlMedico.alterarRC(rc);
-                } else if (list == histDoencasList) {
-                    List<String> novoHistorico = Collections.list(model.elements());
-                    rc.setHistoricoDoencas(novoHistorico);
-                    SqlMedico.alterarRC(rc);
+        for (RegistoClinico rc : getClinica().getRegistos()) {// Para cada registo clínico
+            if (rc.getNumeroSns() == consulta.getSnsPaciente()) {// Se o registo clínico for do paciente da consulta
+                if (list == alergiasList) {// Se a lista for a de alergias
+                    List<String> novasAlergias = Collections.list(model.elements());// Pega as alergias do modelo
+                    rc.setAlergias(novasAlergias);// Atualiza as alergias do registo clínico
+                    SqlMedico.alterarRC(rc);// Atualiza o registo clínico na base de dados
+                } else if (list == operacoesList) {// Se a lista for a de operações
+                    List<String> novasOperacoes = Collections.list(model.elements());// Pega as operações do modelo
+                    rc.setOperacoes(novasOperacoes);// Atualiza as operações do registo clínico
+                    SqlMedico.alterarRC(rc);// Atualiza o registo clínico na base de dados
+                } else if (list == histDoencasList) {// Se a lista for a de histórico de doenças
+                    List<String> novoHistorico = Collections.list(model.elements());// Pega o histórico de doenças do modelo
+                    rc.setHistoricoDoencas(novoHistorico);// Atualiza o histórico de doenças do registo clínico
+                    SqlMedico.alterarRC(rc);// Atualiza o registo clínico na base de dados
                 }
                 break;
             }
@@ -594,23 +601,26 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
 
     //Método para adicionar uma entrada
     private void adicionarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarEntradaActionPerformed
-        NovaEntradaRC novaEntrada = new NovaEntradaRC(consulta);
-        novaEntrada.setVisible(true);
+        NovaEntradaRC novaEntrada = new NovaEntradaRC(consulta);// Cria uma nova entrada
+        novaEntrada.setVisible(true);// Mostra a nova entrada
     }//GEN-LAST:event_adicionarEntradaActionPerformed
 
+    //Método para atualizar o registo clínico
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
-        getClinica().atualizarClinica();
-        carregarEntradas(getClinica().obterRegistoPorSns(consulta.getSnsPaciente()).getEntradasRegistoClinico());
+        getClinica().atualizarClinica();// Atualiza a clínica
+        carregarEntradas(getClinica().obterRegistoPorSns(consulta.getSnsPaciente()).getEntradasRegistoClinico());// Carrega as entradas do registo clínico
     }//GEN-LAST:event_refreshButtonMouseClicked
 
+    //Método para receitar medicação
     private void receitarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receitarMedActionPerformed
-        ReceitarMedicacao receita = new ReceitarMedicacao();
-        receita.setVisible(true);    
+        ReceitarMedicacao receita = new ReceitarMedicacao();// Cria uma nova receita
+        receita.setVisible(true);// Mostra a receita
     }//GEN-LAST:event_receitarMedActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    //Método main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
