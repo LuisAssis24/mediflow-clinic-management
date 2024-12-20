@@ -5,21 +5,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CifrarPasswordsTeste {
 
+
     @Test
     public void testCifrar() {
         try {
-            // Senha original
             String passwordOriginal = "Sampas13";
-
-            // Cifra a senha
             String passwordCifrada = CifrarPasswords.cifrar(passwordOriginal);
-            System.out.println("Password Cifrada: " + passwordCifrada); // Mostra a senha cifrada
+            System.out.println("Password Cifrada: " + passwordCifrada);
 
-
-            // Verifica se a senha original e a senha decifrada são iguais
-            assertEquals(passwordOriginal, "A senha original e a decifrada devem ser iguais");
+            // Since there is no decifrar method, we cannot compare with the original password
+            // Instead, we can check if the cifrar method returns a non-null and non-empty string
+            assertNotNull(passwordCifrada, "A senha cifrada não deve ser nula");
+            assertFalse(passwordCifrada.isEmpty(), "A senha cifrada não deve ser vazia");
         } catch (Exception e) {
-            fail("Erro ao cifrar ou decifrar: " + e.getMessage());
+            fail("Erro ao cifrar: " + e.getMessage());
         }
     }
 
