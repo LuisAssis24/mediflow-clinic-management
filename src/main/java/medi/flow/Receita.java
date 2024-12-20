@@ -9,10 +9,10 @@ public class Receita {
     private List<String> medicacaoPrescrita;// Medicamentos prescritos
 
     // Construtor para inicializar os atributos
-    public Receita(int numeroReceita, String dataEmissao, List<String> medicacaoPrescrita) {}
+    public Receita(int numeroReceita, String dataEmissao, List<String> medicacaoPrescrita) {}// Inicializa os atributos
 
     // metodos getters
-    public int getNumeroReceita() { return numeroReceita; }
-    public String getDataEmissao() { return dataEmissao; }
-    public List<String> getMedicacaoPrescrita() { return null; }
+    public int getNumeroReceita() { return numeroReceita; }//retorna o numero da receita
+    public String getDataEmissao() { return dataEmissao; }//retorna a data de emissao
+    public List<String> getMedicacaoPrescrita() { return null; }//retorna a lista de medicamentos prescritos
 }

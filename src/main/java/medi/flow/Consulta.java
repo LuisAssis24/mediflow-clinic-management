@@ -21,14 +21,14 @@ public class Consulta {
     }
 
     // Getters
-    public int getIdConsulta() { return idConsulta; }
-    public String getData() { return data; }
-    public String getHora() { return hora; }
-    public String getMotivo() { return motivo; }
-    public String getNomePaciente() { return nomePaciente; }
-    public String getNomeMedico() { return nomeMedico; }
-    public int getSnsPaciente() { return snsPaciente; }
-    public int getNumSala() { return numSala; }
-    public int getIdMedico() { return idMedico; }
-    public int getContacto() { return contacto; }
+    public int getIdConsulta() { return idConsulta; }//retorna o id da consulta
+    public String getData() { return data; }//retorna a data da consulta
+    public String getHora() { return hora; }//retorna a hora da consulta
+    public String getMotivo() { return motivo; }//retorna o motivo da consulta
+    public String getNomePaciente() { return nomePaciente; }//retorna o nome do paciente
+    public String getNomeMedico() { return nomeMedico; }//retorna o nome do medico
+    public int getSnsPaciente() { return snsPaciente; }//retorna o sns do paciente
+    public int getNumSala() { return numSala; }//retorna o numero da sala
+    public int getIdMedico() { return idMedico; }//retorna o id do medicoq
+    public int getContacto() { return contacto; }//retorna o contacto
 }

@@ -12,7 +12,7 @@ public class Main {
 
     public static Clinica getClinica() {
         return clinica;
-    }
+    }//retorna a clinica
 
     // Método principal
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Main {
 
         // Inicia a interface gráfica
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() {//cria uma nova thread
                 new VistaDeLogin().setVisible(true); // Mostra a janela de login
             }
         });
