@@ -124,6 +124,30 @@ public class SqlGestor {
         return salas; // Retorna a lista com as salas
     }
 
+    public static int obterSalaMedico(int idMedico) {
+        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
+        int sala = -1; // Sala do médico
+
+        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
+            try {
+                // Declara uma consulta SQL para obter a sala do médico
+                String sql = "{CALL ObterSalaMedico(?)}";
+                CallableStatement statement = conexao.prepareCall(sql);
+                statement.setInt(1, idMedico);
+
+                // Executa a consulta e armazena o resultado
+                ResultSet resultado = statement.executeQuery();
+
+                // Adiciona todas as salas à lista
+                if (resultado.next()) {
+                    sala = resultado.getInt("Sala");
+                }
+            } catch (SQLException e) { // Trata erros relacionados ao SQL
+                System.out.println("Erro ao obter a sala do médico: " + e.getMessage());// Mensagem de erro
+            }
+        }
+        return sala; // Retorna a sala do médico
+    }
     // Atualiza os dados de um utilizador
     public static void eliminarUtilizador(int idUtilizador, String tipoUtilizador) throws SQLException {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados

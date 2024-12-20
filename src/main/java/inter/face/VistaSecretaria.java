@@ -15,6 +15,7 @@ import sql.server.SqlSecretaria;
 
 import static medi.flow.Main.getClinica;
 import static medi.flow.Text.nomeMedicoTransform;
+import static sql.server.SqlGestor.obterSalaMedico;
 
 /**
  *
@@ -464,6 +465,16 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         idMedico.setMaximumSize(new java.awt.Dimension(200, 30));
         idMedico.setMinimumSize(new java.awt.Dimension(200, 30));
         idMedico.setPreferredSize(new java.awt.Dimension(100, 30));
+        idMedico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                idMedicoMouseExited(evt);
+            }
+        });
+        idMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idMedicoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -486,6 +497,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         salaConsulta.setMaximumSize(new java.awt.Dimension(100, 30));
         salaConsulta.setMinimumSize(new java.awt.Dimension(100, 30));
         salaConsulta.setPreferredSize(new java.awt.Dimension(100, 30));
+        salaConsulta.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -674,6 +686,19 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         getClinica().atualizarClinica();// Atualiza as consultas
         carregarConsultasBaseDeDados();// Carrega as consultas da base de dados
     }//GEN-LAST:event_refreshButtonMouseClicked
+
+    private void idMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idMedicoActionPerformed
+
+    }//GEN-LAST:event_idMedicoActionPerformed
+
+    private void idMedicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMedicoMouseExited
+        if (idMedico.getText().isEmpty()) {// Se o campo de id do médico estiver vazio
+            salaConsulta.setText("");// Limpar o campo de sala
+        } else {
+            int sala = obterSalaMedico(Integer.parseInt(idMedico.getText()));// Obter a sala do médico
+            salaConsulta.setText(Integer.toString(sala));// Preencher o campo de sala
+        }
+    }//GEN-LAST:event_idMedicoMouseExited
 
     // Método que é chamado quando o botão "Marcar" é clicado
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {

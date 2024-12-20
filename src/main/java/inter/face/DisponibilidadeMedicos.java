@@ -5,8 +5,7 @@
 package inter.face;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static medi.flow.Main.getClinica;
 import static sql.server.SqlSecretaria.obterTodosMedicos;
