@@ -19,6 +19,7 @@ import static medi.flow.Text.timeFormat;
  *
  * @author Luis
  */
+// Classe que representa uma consulta na interface do funcionário
 public class ConsultaFuncionario extends javax.swing.JPanel {
     int idConsulta;
     /**
@@ -226,6 +227,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         add(hora, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
 
     // Método para desmarcar a consulta
     private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed

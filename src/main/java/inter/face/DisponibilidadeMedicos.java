@@ -15,16 +15,19 @@ import static sql.server.SqlSecretaria.obterTodosMedicos;
  *
  * @author Luis
  */
+// Classe que representa a interface de disponibilidade de médicos
 public class DisponibilidadeMedicos extends javax.swing.JFrame {
     
     /**
      * Creates new form DisponibilidadeMedicos
      */
+    // Construtor da classe
     public DisponibilidadeMedicos() {
         initComponents(); // Inicializa os componentes da interface gráfica
         carregarMedicosBaseDeDados(); // Carrega os dados  dos médicos na interface
     }
-    
+
+    // Método que carrega os médicos da base de dados
     void carregarMedicosBaseDeDados(){ //Carrega as consultas existentes de acordo com os dados fornecidos pelo SBGD
         int tamanhoPainelConsultas = 0;// Tamanho do painel de consultas
         List<String[]> medicos = getClinica().getMedicos(); // Obtem todos os médicos da base de dados
@@ -47,7 +50,8 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         medicosPanel.revalidate();
         medicosPanel.repaint();
     }
-        
+
+    // Método que cria um painel de médico
     void criarPainelMedico(String id , String espec){ //Adiciona uma consulta ao painel
         MedicoPanel medico = new MedicoPanel(id, espec); // Criação de um painel do tipo "Medico"
         medicosPanel.add(medico); // Adiciona o painel ao conteiner principal
@@ -146,7 +150,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    //Método que é chanada quando o botão de pesquisa é clicado
     private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_barraPesquisaActionPerformed
@@ -157,6 +161,7 @@ public class DisponibilidadeMedicos extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshMouseClicked
 
     private void botaoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisaMouseClicked
+
         String especialidadePesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio

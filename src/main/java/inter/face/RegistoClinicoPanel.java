@@ -75,7 +75,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
     }
 
     void criarPainelEntrada(List<String> assunto, List<String> tratamento){
-        //cria um painel para cada entrada
+        // Cria um painel para cada entrada
         EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);
         entradasPanel.add(entradaPanel);
     }
@@ -592,6 +592,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Método para adicionar uma entrada
     private void adicionarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarEntradaActionPerformed
         NovaEntradaRC novaEntrada = new NovaEntradaRC(consulta);
         novaEntrada.setVisible(true);
