@@ -470,11 +470,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
                 idMedicoMouseExited(evt);
             }
         });
-        idMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idMedicoActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -687,9 +682,6 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         carregarConsultasBaseDeDados();// Carrega as consultas da base de dados
     }//GEN-LAST:event_refreshButtonMouseClicked
 
-    private void idMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idMedicoActionPerformed
-
-    }//GEN-LAST:event_idMedicoActionPerformed
 
     private void idMedicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMedicoMouseExited
         if (idMedico.getText().isEmpty()) {// Se o campo de id do médico estiver vazio
