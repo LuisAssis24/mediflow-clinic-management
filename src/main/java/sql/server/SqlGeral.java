@@ -15,13 +15,13 @@ public class SqlGeral {
         String tipoUtilizador = null;// Variável para armazenar o tipo de utilizador
 
         if (conexao != null) {// Verifica se a conexão foi estabelecida com sucesso
-            try {
+            try {// Tenta executar a consulta SQL
                 // Cifra a password fornecida pelo usuário
                 String passCifrada = CifrarPasswords.cifrar(password);
 
                 // Declara uma consulta SQL para verificar as credenciais
-                String sql = "CALL VerificarLogin(?, ?)";
-                PreparedStatement statement = conexao.prepareStatement(sql);
+                String sql = "CALL VerificarLogin(?, ?)";// Chamada de procedimento armazenado
+                PreparedStatement statement = conexao.prepareStatement(sql);// Prepara a consulta
 
                 // Substitui os placeholders (?) pelos valores fornecidos pelo utilizador
                 statement.setString(1, idUtilizador);  // Usando ID para login
@@ -59,18 +59,18 @@ public class SqlGeral {
                 ResultSet resultado = statement.executeQuery();
 
                 // Adiciona todas as consultas à lista
-                while (resultado.next()) {
-                    if (resultado.getDate("Data").after(dataHoraAtual)) {
-                        int idConsulta = resultado.getInt("ID_Consulta");
-                        String data = resultado.getString("Data");
-                        String hora = resultado.getString("Hora");
-                        String motivo = resultado.getString("Motivo");
-                        String nomePaciente = resultado.getString("Nome_Paciente");
-                        String nomeMedico = resultado.getString("Nome_Medico");
-                        int snsPaciente = resultado.getInt("SNS_Paciente");
-                        int numSala = resultado.getInt("Num_Sala");
-                        int idMedico = resultado.getInt("ID_Medico");
-                        int contacto = resultado.getInt("Contacto");
+                while (resultado.next()) {// Enquanto houver consultas
+                    if (resultado.getDate("Data").after(dataHoraAtual)) {// Verifica se a data da consulta é futura
+                        int idConsulta = resultado.getInt("ID_Consulta");// Obtém o ID da consulta
+                        String data = resultado.getString("Data");// Obtém a data da consulta
+                        String hora = resultado.getString("Hora");// Obtém a hora da consulta
+                        String motivo = resultado.getString("Motivo");// Obtém o motivo da consulta
+                        String nomePaciente = resultado.getString("Nome_Paciente");// Obtém o nome do paciente
+                        String nomeMedico = resultado.getString("Nome_Medico");// Obtém o nome do médico
+                        int snsPaciente = resultado.getInt("SNS_Paciente");// Obtém o número de SNS do paciente
+                        int numSala = resultado.getInt("Num_Sala");// Obtém o número da sala
+                        int idMedico = resultado.getInt("ID_Medico");// Obtém o ID do médico
+                        int contacto = resultado.getInt("Contacto");// Obtém o contacto do paciente
 
                         Consulta consulta = new Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);// Cria um objeto Consulta
                         consultas.add(consulta);// Adiciona o objeto à lista
@@ -87,9 +87,9 @@ public class SqlGeral {
     public static class DatabaseConnection {
 
         // Definição das constantes para o URL da base de dados, o utilizador e a palavra-passe
-        private static final String URL = "jdbc:mysql://estga-dev.ua.pt:3306/PTDA24_BD_04";
-        private static final String USER = "PTDA24_04";
-        private static final String PASSWORD = "Etjs=889";
+        private static final String URL = "jdbc:mysql://estga-dev.ua.pt:3306/PTDA24_BD_04";// URL da base de dados
+        private static final String USER = "PTDA24_04";// Utilizador da base de dados
+        private static final String PASSWORD = "Etjs=889";// Palavra-passe da base de dados
 
         private static Connection connection; // Declaração da variável de conexão, que será partilhada pelo sistema todo
 
