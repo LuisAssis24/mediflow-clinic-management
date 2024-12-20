@@ -21,7 +21,7 @@ import static inter.face.VistaGestor.passwordGestor;
  */
 // Classe que representa a interface de uma credencial
 public class Credencial extends javax.swing.JPanel {
-    int idUtilizador;
+    int idUtilizador;// ID do utilizador
     /**
      * Creates new form Credencial
      */

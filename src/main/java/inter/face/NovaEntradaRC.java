@@ -19,14 +19,14 @@ import static sql.server.SqlMedico.criarNovaEntrada;
  */
 // Classe que cria a interface gráfica para a criação de uma nova entrada de registo clínico
 public class NovaEntradaRC extends javax.swing.JFrame {
-    static Consulta consulta;
+    static Consulta consulta;// Consulta associada à nova entrada
     /**
      * Creates new form NovaEntradaRC
      */
     // Construtor da classe
     public NovaEntradaRC(Consulta consulta) {
-        initComponents();
-        this.consulta = consulta;
+        initComponents();// Inicializa os componentes da interface
+        this.consulta = consulta;// Guarda a consulta associada à nova entrada
     }
 
     /**
@@ -159,21 +159,21 @@ public class NovaEntradaRC extends javax.swing.JFrame {
 
     // Método que é chamado quando o botão de guardar é pressionado
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concluirButtonActionPerformed
-        String assuntos = assuntosArea.getText();
-        String tratamentos = tratamentosArea.getText();
+        String assuntos = assuntosArea.getText();// Assuntos da nova entrada
+        String tratamentos = tratamentosArea.getText();// Tratamentos da nova entrada
 
-        if (assuntos.isEmpty() || tratamentos.isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos.");
-        }else{
-            List<String> assunto = splitStringToList(assuntos);
-            List<String> tratamento = splitStringToList(tratamentos);
+        if (assuntos.isEmpty() || tratamentos.isEmpty()){// Se algum dos campos estiver vazio
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos.");// Mostrar mensagem de erro
+        }else{// Se os campos estiverem preenchidos
+            List<String> assunto = splitStringToList(assuntos);// Assuntos da nova entrada
+            List<String> tratamento = splitStringToList(tratamentos);// Tratamentos da nova entrada
 
             // Adicionar a nova entrada ao registo clínico do paciente (Objeto RegistoClinico)
-            RegistoClinico.EntradaRegistoClinico entrada = null;
-            for (RegistoClinico registo : getClinica().getRegistos()) {
-                if (registo.getNumeroSns() == consulta.getSnsPaciente()) {
-                    entrada = registo.new EntradaRegistoClinico(consulta.getIdMedico(), consulta.getData(), assunto, tratamento);
-                    registo.addEntradaRegistoClinico(entrada);
+            RegistoClinico.EntradaRegistoClinico entrada = null;// Nova entrada
+            for (RegistoClinico registo : getClinica().getRegistos()) {// Para cada registo clínico
+                if (registo.getNumeroSns() == consulta.getSnsPaciente()) {// Se o registo clínico pertencer ao paciente da consulta
+                    entrada = registo.new EntradaRegistoClinico(consulta.getIdMedico(), consulta.getData(), assunto, tratamento);// Criar a nova entrada
+                    registo.addEntradaRegistoClinico(entrada);// Adicionar a nova entrada ao registo clínico
                     break;
                 }
             }
@@ -181,7 +181,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
             // Adicionar a nova entrada à base de dados
             criarNovaEntrada(entrada);
 
-            javax.swing.JOptionPane.showMessageDialog(this, "Entrada criada com sucesso.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Entrada criada com sucesso.");// Mostrar mensagem de sucesso
             dispose();
         }
     }//GEN-LAST:event_concluirButtonActionPerformed
@@ -218,7 +218,7 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new NovaEntradaRC(consulta).setVisible(true);
-            }
+            }// Cria a interface gráfica
         });
     }
 

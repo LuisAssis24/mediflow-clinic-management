@@ -179,9 +179,9 @@ public class HorariosMedico extends JFrame {
             }
 
             // Verifica se o ano é igual ao ano passado como argumento
-            if (isolarAno(data) == ano) {
-                String[] horarioFormat = new String[]{dataFormat(data), timeFormat(horario[1])};
-                horariosFiltrados.add(horarioFormat);
+            if (isolarAno(data) == ano) {// Se for igual
+                String[] horarioFormat = new String[]{dataFormat(data), timeFormat(horario[1])};// Formata o horário
+                horariosFiltrados.add(horarioFormat);// Adiciona o horário à lista
             }
         }
         return horariosFiltrados;

@@ -10,52 +10,54 @@ import javax.swing.*;
  *
  * @author draga
  */
+// Classe que representa a interface de receitar medicamentos
 public class ReceitarMedicacao extends javax.swing.JFrame {
 
     /**
      * Creates new form ReceitarMedicacao
      */
+    // Construtor da classe
     public ReceitarMedicacao() {
-        initComponents();
+        initComponents();// Inicializa os componentes da interface
 
         // Configurar o modelo da lista
-        DefaultListModel<String> medicamentoModel = new DefaultListModel<>();
-        jList1.setModel(medicamentoModel);
+        DefaultListModel<String> medicamentoModel = new DefaultListModel<>();// Cria um novo modelo de lista
+        jList1.setModel(medicamentoModel);// Define o modelo da lista
 
-        // Configurar o menu de contexto para a lista
-        configurarPopupMenu(jList1, medicamentoModel);
+        configurarPopupMenu(jList1, medicamentoModel);// Configurar o menu de contexto para a lista
     }
 
+    // Método para configurar o menu de contexto da lista
     private void configurarPopupMenu(JList<String> list, DefaultListModel<String> model) {
         // Criar o menu de contexto
         JPopupMenu popupMenu = new JPopupMenu();
 
         // Opção "Editar"
-        JMenuItem editarItem = new JMenuItem("Editar");
-        editarItem.addActionListener(e -> {
-            int selectedIndex = list.getSelectedIndex();
-            if (selectedIndex != -1) {
-                String valorAtual = model.get(selectedIndex);
+        JMenuItem editarItem = new JMenuItem("Editar");// Cria um novo item de menu
+        editarItem.addActionListener(e -> {// Adiciona um listener ao item de menu
+            int selectedIndex = list.getSelectedIndex();// Obtém o índice do item selecionado
+            if (selectedIndex != -1) {// Se houver um item selecionado
+                String valorAtual = model.get(selectedIndex);// Obtém o valor do item selecionado
                 String novoValor = JOptionPane.showInputDialog(
                     this,
                     "Editar medicamento e quantidade (ex.: Paracetamol - 500mg):",
                     valorAtual
-                );
-                if (novoValor != null && !novoValor.trim().isEmpty()) {
-                    model.set(selectedIndex, novoValor);
+                );// Mostra um diálogo para editar o valor do item
+                if (novoValor != null && !novoValor.trim().isEmpty()) {// Se o novo valor não for nulo nem vazio
+                    model.set(selectedIndex, novoValor);// Atualiza o valor do item
                 }
             }
         });
 
         // Opção "Adicionar"
-        JMenuItem adicionarItem = new JMenuItem("Adicionar");
-        adicionarItem.addActionListener(e -> {
+        JMenuItem adicionarItem = new JMenuItem("Adicionar");// Cria um novo item de menu
+        adicionarItem.addActionListener(e -> {// Adiciona um listener ao item de menu
             String novoMedicamento = JOptionPane.showInputDialog(
                 this,
                 "Adicionar medicamento e quantidade (ex.: 1xParacetamol - 500mg):"
-            );
-            if (novoMedicamento != null && !novoMedicamento.trim().isEmpty()) {
-                model.addElement(novoMedicamento);
+            );// Mostra um diálogo para adicionar um novo item
+            if (novoMedicamento != null && !novoMedicamento.trim().isEmpty()) {// Se o novo valor não for nulo nem vazio
+                model.addElement(novoMedicamento);// Adiciona o novo item ao modelo da lista
             }
         });
 
@@ -64,20 +66,20 @@ public class ReceitarMedicacao extends javax.swing.JFrame {
         popupMenu.add(adicionarItem);
 
         // Associar o menu de contexto à lista
-        list.addMouseListener(new java.awt.event.MouseAdapter() {
+        list.addMouseListener(new java.awt.event.MouseAdapter() {// Adiciona um listener de mouse à lista
             @Override
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                if (evt.isPopupTrigger()) {
-                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));
-                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            public void mousePressed(java.awt.event.MouseEvent evt) {// Sobrescreve o método de pressionar o botão do mouse
+                if (evt.isPopupTrigger()) {// Se for um gatilho de menu de contexto
+                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));// Define o índice selecionado com base na posição do mouse
+                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());// Mostra o menu de contexto
                 }
             }
 
             @Override
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                if (evt.isPopupTrigger()) {
-                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));
-                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            public void mouseReleased(java.awt.event.MouseEvent evt) {// Sobrescreve o método de soltar o botão do mouse
+                if (evt.isPopupTrigger()) {// Se for um gatilho de menu de contexto
+                    list.setSelectedIndex(list.locationToIndex(evt.getPoint()));// Define o índice selecionado com base na posição do mouse
+                    popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());// Mostra o menu de contexto
                 }
             }
         });
@@ -156,26 +158,27 @@ public class ReceitarMedicacao extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Método para ação do botão "CONCLUIR"
     private void snsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snsButtonActionPerformed
-        DefaultListModel<String> model = (DefaultListModel<String>) jList1.getModel();
-        boolean formatoCorreto = true;
+        DefaultListModel<String> model = (DefaultListModel<String>) jList1.getModel();// Obtém o modelo da lista
+        boolean formatoCorreto = true;// Variável para verificar se o formato dos itens está correto
 
         // Verificar o formato de cada item
-        for (int i = 0; i < model.size(); i++) {
-            String item = model.get(i);
-            if (!item.matches("^\\d+x[A-Za-zÀ-ÿ\\s]+ - \\d+mg$")) {
-                formatoCorreto = false;
+        for (int i = 0; i < model.size(); i++) {// Para cada item no modelo
+            String item = model.get(i);// Obtém o item
+            if (!item.matches("^\\d+x[A-Za-zÀ-ÿ\\s]+ - \\d+mg$")) {// Se o item não corresponder ao padrão
+                formatoCorreto = false;// Define que o formato não está correto
                 JOptionPane.showMessageDialog(
                     this,
                     "O item \"" + item + "\" está em um formato inválido.\nUse o formato: 1xParacetamol - 500mg",
                     "Erro de Formato",
-                    JOptionPane.ERROR_MESSAGE
+                    JOptionPane.ERROR_MESSAGE// Mostra uma mensagem de erro
                 );
                 break;
             }
         }
 
-        if (formatoCorreto) {
+        if (formatoCorreto) {// Se o formato estiver correto
             // Mostrar opções de "Enviar para SNS" ou "Imprimir"
             int escolha = JOptionPane.showOptionDialog(
                 this,
@@ -186,12 +189,12 @@ public class ReceitarMedicacao extends javax.swing.JFrame {
                 null,
                 new Object[]{"Enviar para SNS", "Imprimir"},
                 "Enviar para SNS"
-            );
+            );// Mostra um diálogo de escolha
 
-            if (escolha == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this, "Receita enviada para o SNS!");
-            } else if (escolha == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(this, "Receita imprimida!");
+            if (escolha == JOptionPane.YES_OPTION) {// Se a escolha for "Enviar para SNS"
+                JOptionPane.showMessageDialog(this, "Receita enviada para o SNS!");// Mostra uma mensagem de sucesso
+            } else if (escolha == JOptionPane.NO_OPTION) {// Se a escolha for "Imprimir"
+                JOptionPane.showMessageDialog(this, "Receita imprimida!");// Mostra uma mensagem de sucesso
             }
 
             // Fechar a janela
@@ -202,6 +205,7 @@ public class ReceitarMedicacao extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    // Método principal
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
