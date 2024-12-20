@@ -26,19 +26,6 @@ public class CifrarPasswords {
         return Base64.getEncoder().encodeToString(textoCifrado); // Converte o texto cifrado para Base64
     }
 
-    // Método para decifrar um texto
-    public static String decifrar(String textoCifrado) throws Exception {
-        // Criando a chave secreta a partir da password fixa
-        SecretKeySpec passwordkey= new SecretKeySpec(password.getBytes(), "DES");
-        // Inicialiaza o objeto Cipher para o algarismo DES
-        Cipher cifra = Cipher.getInstance("DES");
-        // Configura o Cipher no modo de decifragem
-        cifra.init(Cipher.DECRYPT_MODE, passwordkey);
-        //Decifra o texto cifrado fornecido e converte o resultado para texto
-        byte[] textoDecifrado = cifra.doFinal(Base64.getDecoder().decode(textoCifrado));
-        return new String(textoDecifrado); // converte o texto decifrado para String
-    }
-
     // Método principal para testar a cifragem e decifragem de passwords
     public static void main(String[] args) throws Exception {
 
