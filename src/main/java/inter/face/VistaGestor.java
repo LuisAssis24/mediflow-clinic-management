@@ -80,10 +80,10 @@ public final class VistaGestor extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        botaoPesquisa = new javax.swing.JButton();
         barraPesquisa = new javax.swing.JTextField();
         botaoCriarCredencial = new javax.swing.JButton();
         botaoEliminarCredencial = new javax.swing.JButton();
+        botaoPesquisa = new javax.swing.JLabel();
         criarCredencial = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -100,6 +100,8 @@ public final class VistaGestor extends javax.swing.JFrame {
         concluirButton = new javax.swing.JButton();
         tipoFuncionario = new javax.swing.JComboBox<>();
         numeroCC = new javax.swing.JTextField();
+        salaLabel = new javax.swing.JLabel();
+        salaField = new javax.swing.JTextField();
         eliminarCredencial = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         credenciaisPanel = new javax.swing.JPanel();
@@ -107,6 +109,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -120,27 +123,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(960, 50));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        botaoPesquisa.setVisible(false);
-        botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
-        botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoPesquisa.setForeground(new java.awt.Color(245, 245, 245));
-        botaoPesquisa.setText("PESQUISAR");
-        botaoPesquisa.setMaximumSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.setMinimumSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisaActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
-        jPanel7.add(botaoPesquisa, gridBagConstraints);
-
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        barraPesquisa.setText("Pesquisar...");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
         barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
         barraPesquisa.setVisible(false);
@@ -152,12 +135,12 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         jPanel7.add(barraPesquisa, gridBagConstraints);
 
         botaoCriarCredencial.setBackground(new java.awt.Color(0, 132, 193));
         botaoCriarCredencial.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoCriarCredencial.setForeground(new java.awt.Color(245, 245, 245));
+        botaoCriarCredencial.setForeground(new java.awt.Color(242, 242, 242));
         botaoCriarCredencial.setLabel("Criar");
         botaoCriarCredencial.setMaximumSize(new java.awt.Dimension(140, 35));
         botaoCriarCredencial.setMinimumSize(new java.awt.Dimension(140, 35));
@@ -175,11 +158,11 @@ public final class VistaGestor extends javax.swing.JFrame {
 
         botaoEliminarCredencial.setBackground(new java.awt.Color(0, 132, 193));
         botaoEliminarCredencial.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoEliminarCredencial.setForeground(new java.awt.Color(245, 245, 245));
+        botaoEliminarCredencial.setForeground(new java.awt.Color(242, 242, 242));
         botaoEliminarCredencial.setLabel("Eliminar");
         botaoEliminarCredencial.setMaximumSize(new java.awt.Dimension(140, 35));
         botaoEliminarCredencial.setMinimumSize(new java.awt.Dimension(140, 35));
-        botaoEliminarCredencial.setPreferredSize(new java.awt.Dimension(150, 35));
+        botaoEliminarCredencial.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoEliminarCredencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoEliminarCredencialActionPerformed(evt);
@@ -189,6 +172,19 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         jPanel7.add(botaoEliminarCredencial, gridBagConstraints);
+
+        botaoPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        botaoPesquisa.setVisible(false);
+        botaoPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoPesquisaMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 200);
+        jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -313,30 +309,30 @@ public final class VistaGestor extends javax.swing.JFrame {
         nMedicoLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         nMedicoLabel.setForeground(new java.awt.Color(242, 242, 242));
         nMedicoLabel.setText("Número da Ordem:");
-        nMedicoLabel.setMaximumSize(new java.awt.Dimension(200, 30));
-        nMedicoLabel.setMinimumSize(new java.awt.Dimension(200, 30));
-        nMedicoLabel.setPreferredSize(new java.awt.Dimension(200, 30));
+        nMedicoLabel.setMaximumSize(new java.awt.Dimension(130, 30));
+        nMedicoLabel.setMinimumSize(new java.awt.Dimension(130, 30));
+        nMedicoLabel.setPreferredSize(new java.awt.Dimension(125, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(10, 250, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 150, 0, 0);
         jPanel2.add(nMedicoLabel, gridBagConstraints);
 
         numeroDeMedico.setVisible(false);
         numeroDeMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        numeroDeMedico.setMaximumSize(new java.awt.Dimension(200, 30));
-        numeroDeMedico.setMinimumSize(new java.awt.Dimension(200, 30));
-        numeroDeMedico.setPreferredSize(new java.awt.Dimension(200, 30));
+        numeroDeMedico.setMaximumSize(new java.awt.Dimension(120, 30));
+        numeroDeMedico.setMinimumSize(new java.awt.Dimension(120, 30));
+        numeroDeMedico.setPreferredSize(new java.awt.Dimension(120, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(0, 250, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 150, 0, 0);
         jPanel2.add(numeroDeMedico, gridBagConstraints);
 
         concluirButton.setBackground(new java.awt.Color(0, 132, 193));
-        concluirButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        concluirButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         concluirButton.setForeground(new java.awt.Color(242, 242, 242));
-        concluirButton.setText("Concluir");
+        concluirButton.setText("CONCLUIR");
         concluirButton.setMaximumSize(new java.awt.Dimension(150, 35));
         concluirButton.setMinimumSize(new java.awt.Dimension(150, 35));
         concluirButton.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -350,7 +346,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 15);
         jPanel2.add(concluirButton, gridBagConstraints);
 
         tipoFuncionario.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
@@ -378,6 +374,29 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 70);
         jPanel2.add(numeroCC, gridBagConstraints);
+
+        salaLabel.setVisible(false);
+        salaLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        salaLabel.setForeground(new java.awt.Color(242, 242, 242));
+        salaLabel.setText("Sala:");
+        salaLabel.setMaximumSize(new java.awt.Dimension(50, 30));
+        salaLabel.setMinimumSize(new java.awt.Dimension(50, 30));
+        salaLabel.setPreferredSize(new java.awt.Dimension(50, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(10, 390, 0, 0);
+        jPanel2.add(salaLabel, gridBagConstraints);
+
+        salaField.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        salaField.setMinimumSize(new java.awt.Dimension(50, 30));
+        salaField.setPreferredSize(new java.awt.Dimension(50, 30));
+        salaField.setVisible(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(0, 390, 0, 0);
+        jPanel2.add(salaField, gridBagConstraints);
 
         criarCredencial.add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -459,16 +478,23 @@ public final class VistaGestor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
         jPanel1.add(jLabel12, gridBagConstraints);
 
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 925, 0, 0);
+        jPanel1.add(refreshButton, gridBagConstraints);
+
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    // Metodo acionado quando a barra de pesquisa é pressionada
-    private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_barraPesquisaActionPerformed
 
     // Metodo acionado quando o botão para criar credenciais é pressionado
     private void botaoCriarCredencialActionPerformed(java.awt.event.ActionEvent evt){
@@ -498,6 +524,43 @@ public final class VistaGestor extends javax.swing.JFrame {
 
     // Metodo adionado quando o botão de pesquisa é pressionado
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    } 
+
+    // Metodo acionado quando o botão de sair é pressionado
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();// Fecha a janela atual
+        // Abir VistaDeLogin 
+        new VistaDeLogin().setVisible(true);
+    }//GEN-LAST:event_exitButtonMouseClicked
+
+    // Metodo acionado quando a sleção do tipo de funcionario é alterada
+    private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
+        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();// Obtem o tipo de funcionario selecionado
+
+        // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
+        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {// Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
+            especialidade.setVisible(true);// Mostra o campo de especialidade
+            numeroDeMedico.setVisible(true);// Mostra o campo de numero de medico
+            nMedicoLabel.setVisible(true);// Mostra o label de numero de medico
+            especLabel.setVisible(true);// Mostra o label de especialidade
+            salaLabel.setVisible(true);
+            salaField.setVisible(true);
+        } else {
+            // Caso contrario, esconde esses campos
+            especialidade.setVisible(false);// Esconde o campo de especialidade
+            numeroDeMedico.setVisible(false);// Esconde o campo de numero de medico
+            nMedicoLabel.setVisible(false);// Esconde o label de numero de medico
+            especLabel.setVisible(false);// Esconde o label de especialidade
+            salaLabel.setVisible(false);
+            salaField.setVisible(false);
+        }
+        // Atualiza o painel para refletir as mudanças de visibilidade
+        criarCredencial.revalidate();
+        criarCredencial.repaint();
+    }//GEN-LAST:event_tipoFuncionarioActionPerformed
+
+    private void botaoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisaMouseClicked
         String query = barraPesquisa.getText();
 
         // Obtem uma lista de todos os utilziadores através do método "obterTodosUtilizadores"
@@ -534,37 +597,16 @@ public final class VistaGestor extends javax.swing.JFrame {
             credenciaisPanel.revalidate();
             credenciaisPanel.repaint();
         }
-    } 
+    }//GEN-LAST:event_botaoPesquisaMouseClicked
 
-    // Metodo acionado quando o botão de sair é pressionado
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();// Fecha a janela atual
-        // Abir VistaDeLogin 
-        new VistaDeLogin().setVisible(true);
-    }//GEN-LAST:event_exitButtonMouseClicked
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        getClinica().atualizarClinica();
+        carregarCredenciaisBaseDeDados();
+    }//GEN-LAST:event_refreshButtonMouseClicked
 
-    // Metodo acionado quando a sleção do tipo de funcionario é alterada
-    private void tipoFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFuncionarioActionPerformed
-        String tipoSelecionado = tipoFuncionario.getSelectedItem().toString();// Obtem o tipo de funcionario selecionado
-
-        // Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
-        if ("Médico".equalsIgnoreCase(tipoSelecionado)) {// Se o tipo de funcionario selecionado no combo box for medico mostra masi campos
-            especialidade.setVisible(true);// Mostra o campo de especialidade
-            numeroDeMedico.setVisible(true);// Mostra o campo de numero de medico
-            nMedicoLabel.setVisible(true);// Mostra o label de numero de medico
-            especLabel.setVisible(true);// Mostra o label de especialidade
-
-        } else {
-            // Caso contrario, esconde esses campos
-            especialidade.setVisible(false);// Esconde o campo de especialidade
-            numeroDeMedico.setVisible(false);// Esconde o campo de numero de medico
-            nMedicoLabel.setVisible(false);// Esconde o label de numero de medico
-            especLabel.setVisible(false);// Esconde o label de especialidade
-        }
-        // Atualiza o painel para refletir as mudanças de visibilidade
-        criarCredencial.revalidate();
-        criarCredencial.repaint();
-    }//GEN-LAST:event_tipoFuncionarioActionPerformed
+    private void barraPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barraPesquisaActionPerformed
 
     // metodo acionado quando o botao "Concluir" é pressionado para criar um novo utilizador
     private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) { //Cria um novo utilizador
@@ -595,15 +637,28 @@ public final class VistaGestor extends javax.swing.JFrame {
             // Variáveis específicas para médicos
             String espcialidade = "";
             int numOrdem = 0;
+            int sala = 0;
 
             if ("Médico".equalsIgnoreCase(tipoUtilizador)) {// Se o tipo de utilizador for médico
                 // Obter os valores adicionais para médicos
                 espcialidade = especialidade.getText();
                 numOrdem = Integer.parseInt(numeroDeMedico.getText());
+                sala = Integer.parseInt(salaField.getText());
+
+                // Verificar se a sala já está ocupada
+                for (int numSala : obterSalas()){
+                    if (numSala == sala){
+                        JOptionPane.showMessageDialog(null,
+                                "A sala já está ocupada.",
+                                "Erro de Validação",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
             }
 
             // Chamar o método para criar o utilizador e verificar se é médico
-            int idUtilizador = criarUtilizador(nome, pessword, tipoUtilizador, cc, espcialidade, numOrdem);
+            int idUtilizador = criarUtilizador(nome, pessword, tipoUtilizador, cc, espcialidade, numOrdem, sala);
 
             // Exibir mensagem de sucesso
             if (idUtilizador != -1) {
@@ -614,19 +669,21 @@ public final class VistaGestor extends javax.swing.JFrame {
                 numeroCC.setText("");
                 especialidade.setText("");
                 numeroDeMedico.setText("");
+                salaField.setText("");
 
                 //Cria o objeto utilizador e carrega a base de dados
-                List<Utilizador> listaUtilizadores = getClinica().getUtilizador();// Obtem a lista de utilizadores
-                Utilizador utilizador = new Utilizador( Utilizador.ultimoIdUtilizador() + 1,cc, nome, pessword, espcialidade);// Cria um novo utilizador
+
+                Utilizador utilizador = new Utilizador( Utilizador.ultimoIdUtilizador() + 1,cc, nome, pessword, tipoUtilizador);// Cria um novo objeto do tipo Utilizador com um ID único baseado no último ID registrado
                 getClinica().getUtilizador().add(utilizador);// Adiciona o utilizador à lista de utilizadores
                 carregarCredenciaisBaseDeDados();// Carrega as credenciais existentes
+
             } else {// Caso contrário, exibe uma mensagem de erro
                 JOptionPane.showMessageDialog(null,
                         "Erro ao criar utilizador. Verifique os dados inseridos.");// Mostra uma mensagem de erro
             }
         } catch (NumberFormatException ex) {// Se ocorrer um erro de formato
             JOptionPane.showMessageDialog(null,
-                    "Por favor, insira dados válidos para CC ou Número do Médico.",
+                    "Por favor, insira dados válidos para CC ou Número da Ordem.",
                     "Erro de Validação",
                     JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
         } catch (HeadlessException ex) {// Se ocorrer um erro de interface
@@ -678,7 +735,7 @@ public final class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField barraPesquisa;
     private javax.swing.JButton botaoCriarCredencial;
     private javax.swing.JButton botaoEliminarCredencial;
-    private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JLabel botaoPesquisa;
     private javax.swing.JButton concluirButton;
     private javax.swing.JPanel credenciaisPanel;
     private javax.swing.JLayeredPane criarCredencial;
@@ -703,6 +760,9 @@ public final class VistaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField numeroCC;
     private javax.swing.JTextField numeroDeMedico;
     private javax.swing.JTextField password;
+    private javax.swing.JLabel refreshButton;
+    private javax.swing.JTextField salaField;
+    private javax.swing.JLabel salaLabel;
     private javax.swing.JComboBox<String> tipoFuncionario;
     // End of variables declaration//GEN-END:variables
 }

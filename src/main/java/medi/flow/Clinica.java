@@ -1,6 +1,5 @@
 package medi.flow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static sql.server.SqlGeral.*;
@@ -8,7 +7,6 @@ import static sql.server.SqlGestor.*;
 import static sql.server.SqlMedico.obterTodosRegistos;
 import static sql.server.SqlSecretaria.*;
 
-// Classe que contém todas as listas de consultas, médicos, utilizadores, pacientes e registos
 public class Clinica {
 
     private List<Consulta> consultas;
@@ -18,32 +16,30 @@ public class Clinica {
     private List<Paciente> pacientes;
     private List<RegistoClinico> registos;
 
-    //Construtor
     public Clinica() {
-        this.consultas = obterTodasConsultas();//obterTodasConsultas();
-        this.medicos = obterTodosMedicos();//obterTodosMedicos();
-        this.utilizadores = obterTodosUtilizadores();//obterTodosUtilizadores();
-        this.pacientes = obterTodosPacientes();//obterTodosPacientes();
-        this.horariosMedicos = todosHorariosMedicos();//todosHorariosMedicos();
-        this.registos = obterTodosRegistos();//obterTodosRegistos();
+        this.consultas = obterTodasConsultas();
+        this.medicos = obterTodosMedicos();
+        this.utilizadores = obterTodosUtilizadores();
+        this.pacientes = obterTodosPacientes();
+        this.horariosMedicos = todosHorariosMedicos();
+        this.registos = obterTodosRegistos();
     }
 
     //Getters
-    public List<Consulta> getConsultas() {return consultas;}//obterTodasConsultas();}
-    public List<String[]> getMedicos() {return medicos;}//obterTodosMedicos();}
-    public List<Utilizador> getUtilizador() {return utilizadores;}//obterTodosUtilizadores();}
-    public List<Paciente> getPacientes() { return pacientes; }//obterTodosPacientes();}
-    public Medico.HorarioMedico getHorarioMedico(int id) {//todosHorariosMedicos();
-        for (Medico.HorarioMedico horario : horariosMedicos) {//todosHorariosMedicos();
-            if (horario.getIdMedico() == id) {//todosHorariosMedicos();
+    public List<Consulta> getConsultas() {return consultas;}
+    public List<String[]> getMedicos() {return medicos;}
+    public List<Utilizador> getUtilizador() {return utilizadores;}
+    public List<Paciente> getPacientes() { return pacientes; }
+    public Medico.HorarioMedico getHorarioMedico(int id) {
+        for (Medico.HorarioMedico horario : horariosMedicos) {
+            if (horario.getIdMedico() == id) {
                 return horario;
             }
         }
         return null;
     }
-    public List<RegistoClinico> getRegistos() { return registos; }//obterTodosRegistos();}
+    public List<RegistoClinico> getRegistos() { return registos; }
 
-    //obter todos os medicos por id
     public String obterNomeMedicoPorId(int id) {
         for (Utilizador medico : utilizadores) {
             if (medico.getId() == id) {
@@ -53,7 +49,6 @@ public class Clinica {
         return null;
     }
 
-    //obter todos os pacientes por sns
     public String[] obterPacientePorSns(int sns) {
         for (Paciente paciente : pacientes) {
             if (paciente.getNumeroSNS() == sns) {
@@ -63,14 +58,25 @@ public class Clinica {
         return null;
     }
 
+    public RegistoClinico obterRegistoPorSns(int sns) {
+        for (RegistoClinico registo : registos) {
+            if (registo.getNumeroSns() == sns) {
+                return registo;
+            }
+        }
+        return null;
+    }
+
     //Adders
-    public void addConsulta(Consulta consulta) {consultas.add(consulta);}//obterTodasConsultas();}
-    public void addMedico(String[] medico) {medicos.add(medico);}//obterTodosMedicos();}
-    public void addUtilizador(Utilizador utilizador) {utilizadores.add(utilizador);}//obterTodosUtilizadores();}
-    public void addPaciente(Paciente paciente) {pacientes.add(paciente);}//obterTodosPacientes();}
+    public void addConsulta(Consulta consulta) {consultas.add(consulta);}
+    public void addMedico(String[] medico) {medicos.add(medico);}
+    public void addUtilizador(Utilizador utilizador) {utilizadores.add(utilizador);}
+    public void addPaciente(Paciente paciente) {pacientes.add(paciente);}
+    public void addRegisto(RegistoClinico registo) {registos.add(registo);}
+
 
     //Removers
-    public void removeConsulta(int id) {//remove consulta por id
+    public void removeConsulta(int id) {
         for (Consulta consulta : consultas) {
             if (consulta.getIdConsulta() == id) {
                 consultas.remove(consulta);
@@ -78,7 +84,7 @@ public class Clinica {
             }
         }
     }
-    public void removeMedico(int id) {// remove medico por id
+    public void removeMedico(int id) {
         for (String[] medico : medicos) {
             if (Integer.parseInt(medico[0]) == id) {
                 medicos.remove(medico);
@@ -86,7 +92,7 @@ public class Clinica {
             }
         }
     }
-    public void removeUtilizador(int id) {// remove utilizador por id
+    public void removeUtilizador(int id) {
         for (Utilizador utilizador : utilizadores) {
             if (utilizador.getId() == id) {
                 utilizadores.remove(utilizador);
@@ -94,13 +100,22 @@ public class Clinica {
             }
         }
     }
-    public void removePaciente(int nSns) { // remove paciente por sns
+    public void removePaciente(int nSns) {
         for (Paciente paciente : pacientes) {
             if (paciente.getNumeroSNS() == nSns) {
                 pacientes.remove(paciente);
                 break;
             }
         }
+    }
+
+    public void atualizarClinica() {
+        this.consultas = obterTodasConsultas();
+        this.medicos = obterTodosMedicos();
+        this.utilizadores = obterTodosUtilizadores();
+        this.pacientes = obterTodosPacientes();
+        this.horariosMedicos = todosHorariosMedicos();
+        this.registos = obterTodosRegistos();
     }
 }
 

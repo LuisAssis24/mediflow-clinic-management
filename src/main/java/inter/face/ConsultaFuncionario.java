@@ -4,11 +4,16 @@
  */
 package inter.face;
 
+import java.awt.*;
+import java.sql.SQLException;
+import java.text.ParseException;
 import medi.flow.*;
 import sql.server.*;
 import javax.swing.*;
 
+import static inter.face.VistaSecretaria.passwordSecretaria;
 import static medi.flow.Main.getClinica;
+import static medi.flow.Text.timeFormat;
 
 /**
  *
@@ -16,22 +21,29 @@ import static medi.flow.Main.getClinica;
  */
 // Classe que representa uma consulta na interface do funcionário
 public class ConsultaFuncionario extends javax.swing.JPanel {
-    int idConsulta; // Id da consulta
+    int idConsulta;
     /**
      * Creates new form Consulta
      */
-    // Construtor da classe
-    public ConsultaFuncionario(Consulta consulta) {
-        initComponents();// Inicializa os componentes da interface
+    public ConsultaFuncionario(Consulta consulta){
+        initComponents();
 
         // Preenche os componentes da interface, verificando nulos e usando valores padrão
-        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");// Preenche o nome do paciente
-        nSns.setText(Integer.toString(consulta.getSnsPaciente()));// Preenche o número de sns do paciente
-        medico.setText(consulta.getNomeMedico());// Preenche o nome do médico
-        sala.setText(Integer.toString(consulta.getNumSala()));// Preenche o número da sala
-        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");// Preenche a data da consulta
-        hora.setText(consulta.getHora() != null ? consulta.getHora() : "Não disponível");// Preenche a hora da consulta
-        idConsulta = consulta.getIdConsulta();// Atribui o id da consulta
+        nomePaciente.setText(consulta.getNomePaciente() != null ? consulta.getNomePaciente() : "Não disponível");
+        nSns.setText(Integer.toString(consulta.getSnsPaciente()));
+        medico.setText(consulta.getNomeMedico());
+        sala.setText(Integer.toString(consulta.getNumSala()));
+        data.setText(consulta.getData() != null ? consulta.getData() : "Não disponível");
+
+        String horaFormatada = "";
+        try {
+            horaFormatada = timeFormat(consulta.getHora());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        hora.setText(horaFormatada);
+        idConsulta = consulta.getIdConsulta();
     }
 
     /**
@@ -172,6 +184,7 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         botaoDesmarcar.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoDesmarcar.setForeground(new java.awt.Color(242, 242, 242));
         botaoDesmarcar.setText("Desmarcar");
+        botaoDesmarcar.setMargin(new java.awt.Insets(2, 0, 3, 0));
         botaoDesmarcar.setPreferredSize(new java.awt.Dimension(100, 35));
         botaoDesmarcar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,16 +227,35 @@ public class ConsultaFuncionario extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         add(hora, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-    // Método que é chamado quando o botão de desmarcar é pressionado
-    private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
-        SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
-        getClinica().removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
 
-        JPanel parentPanel = (JPanel) this.getParent(); // Atualiza o painel pai ao remover esta consulta
-        parentPanel.remove(this); // remove este painel
-        parentPanel.setPreferredSize(new java.awt.Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100));// Atualiza a dimensão do painel pai
-        parentPanel.revalidate(); // Atualiza o painel
-        parentPanel.repaint(); // Redesenha o painel
+
+    // Método para desmarcar a consulta
+    private void botaoDesmarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDesmarcarActionPerformed
+    // Criar um campo de texto para a password
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setEchoChar('*');
+
+        // Obter o painel pai
+        JPanel parentPanel = (JPanel) this.getParent();
+
+        // Mostrar um diálogo para introduzir a password
+        int option = JOptionPane.showConfirmDialog(parentPanel, passwordField, "Por favor introduza a sua password:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) { // Se a opção for OK
+            String inputPassword = new String(passwordField.getPassword()); // Obter a password introduzida
+
+            if (inputPassword.equals(passwordSecretaria)) { // Verificar se a password está correta
+                SqlSecretaria.desmarcarConsulta(idConsulta); // Chama o método para desmarcar a consulta na base de dados
+                getClinica().removeConsulta(idConsulta); // Remove a consulta da lista de consultas da clínica
+
+                parentPanel.remove(this); // Remover o painel atual
+                parentPanel.setPreferredSize(new Dimension(parentPanel.getWidth(), parentPanel.getHeight() - 100)); // Atualizar o tamanho do painel pai
+                parentPanel.revalidate(); // Atualizar o painel pai
+                parentPanel.repaint(); // Atualizar o painel pai
+            } else {
+                JOptionPane.showMessageDialog(parentPanel, "Password incorreta. Consulta não foi desmarcada", "Autenticação falhou!", JOptionPane.ERROR_MESSAGE); // Show an error message
+            }
+        }
     }//GEN-LAST:event_botaoDesmarcarActionPerformed
 
 

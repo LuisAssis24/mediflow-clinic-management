@@ -46,7 +46,11 @@ public class MedicoPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("ID:");
+        jLabel1.setMaximumSize(new java.awt.Dimension(25, 20));
+        jLabel1.setMinimumSize(new java.awt.Dimension(25, 20));
+        jLabel1.setPreferredSize(new java.awt.Dimension(25, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -65,7 +69,11 @@ public class MedicoPanel extends javax.swing.JPanel {
         add(idMedico, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Especialidade:");
+        jLabel3.setMaximumSize(new java.awt.Dimension(95, 20));
+        jLabel3.setMinimumSize(new java.awt.Dimension(95, 20));
+        jLabel3.setPreferredSize(new java.awt.Dimension(95, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -85,6 +93,10 @@ public class MedicoPanel extends javax.swing.JPanel {
         botaoHorarios.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoHorarios.setForeground(new java.awt.Color(242, 242, 242));
         botaoHorarios.setText("HORÁRIOS");
+        botaoHorarios.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        botaoHorarios.setMaximumSize(new java.awt.Dimension(100, 27));
+        botaoHorarios.setMinimumSize(new java.awt.Dimension(100, 27));
+        botaoHorarios.setPreferredSize(new java.awt.Dimension(100, 27));
         botaoHorarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {

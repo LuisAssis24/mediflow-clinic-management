@@ -4,19 +4,29 @@
  */
 package inter.face;
 
+import medi.flow.Consulta;
+import medi.flow.RegistoClinico;
+
+import java.util.List;
+
+import static medi.flow.Main.getClinica;
+import static medi.flow.Text.splitStringToList;
+import static sql.server.SqlMedico.criarNovaEntrada;
+
 /**
  *
- * @author draga
+ * @author Luis
  */
 // Classe que cria a interface gráfica para a criação de uma nova entrada de registo clínico
 public class NovaEntradaRC extends javax.swing.JFrame {
-
+    static Consulta consulta;
     /**
      * Creates new form NovaEntradaRC
      */
     // Construtor da classe
-    public NovaEntradaRC() {
+    public NovaEntradaRC(Consulta consulta) {
         initComponents();
+        this.consulta = consulta;
     }
 
     /**
@@ -32,16 +42,14 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        assuntosArea = new javax.swing.JTextArea();
+        tratamentosArea = new javax.swing.JTextArea();
+        concluirButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(720, 720));
         setMinimumSize(new java.awt.Dimension(720, 720));
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -70,58 +78,44 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 230, 0);
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 250));
+        assuntosArea.setColumns(20);
+        assuntosArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        assuntosArea.setLineWrap(true);
+        assuntosArea.setRows(5);
+        assuntosArea.setWrapStyleWord(true);
+        assuntosArea.setMinimumSize(new java.awt.Dimension(500, 250));
+        assuntosArea.setPreferredSize(new java.awt.Dimension(500, 250));
+        jPanel2.add(assuntosArea, new java.awt.GridBagConstraints());
 
-        jList1.setBackground(new java.awt.Color(242, 242, 242));
-        jList1.setBorder(null);
-        jList1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        jPanel2.add(jScrollPane1, gridBagConstraints);
-
-        jScrollPane2.setMinimumSize(new java.awt.Dimension(500, 250));
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(500, 250));
-
-        jList2.setBackground(new java.awt.Color(242, 242, 242));
-        jList2.setBorder(null);
-        jList2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
-
+        tratamentosArea.setColumns(20);
+        tratamentosArea.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        tratamentosArea.setLineWrap(true);
+        tratamentosArea.setRows(5);
+        tratamentosArea.setWrapStyleWord(true);
+        tratamentosArea.setMinimumSize(new java.awt.Dimension(500, 250));
+        tratamentosArea.setPreferredSize(new java.awt.Dimension(500, 250));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        jPanel2.add(jScrollPane2, gridBagConstraints);
+        jPanel2.add(tratamentosArea, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(0, 132, 193));
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(242, 242, 242));
-        jButton1.setText("GUARDAR");
-        jButton1.setMaximumSize(new java.awt.Dimension(120, 35));
-        jButton1.setMinimumSize(new java.awt.Dimension(120, 35));
-        jButton1.setPreferredSize(new java.awt.Dimension(120, 35));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        concluirButton.setBackground(new java.awt.Color(0, 132, 193));
+        concluirButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        concluirButton.setForeground(new java.awt.Color(242, 242, 242));
+        concluirButton.setText("CONCLUIR");
+        concluirButton.setMaximumSize(new java.awt.Dimension(140, 35));
+        concluirButton.setMinimumSize(new java.awt.Dimension(140, 35));
+        concluirButton.setPreferredSize(new java.awt.Dimension(140, 35));
+        concluirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                concluirButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(20, 380, 0, 0);
-        jPanel2.add(jButton1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(25, 350, 0, 0);
+        jPanel2.add(concluirButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -164,9 +158,33 @@ public class NovaEntradaRC extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Método que é chamado quando o botão de guardar é pressionado
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void concluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concluirButtonActionPerformed
+        String assuntos = assuntosArea.getText();
+        String tratamentos = tratamentosArea.getText();
+
+        if (assuntos.isEmpty() || tratamentos.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos.");
+        }else{
+            List<String> assunto = splitStringToList(assuntos);
+            List<String> tratamento = splitStringToList(tratamentos);
+
+            // Adicionar a nova entrada ao registo clínico do paciente (Objeto RegistoClinico)
+            RegistoClinico.EntradaRegistoClinico entrada = null;
+            for (RegistoClinico registo : getClinica().getRegistos()) {
+                if (registo.getNumeroSns() == consulta.getSnsPaciente()) {
+                    entrada = registo.new EntradaRegistoClinico(consulta.getIdMedico(), consulta.getData(), assunto, tratamento);
+                    registo.addEntradaRegistoClinico(entrada);
+                    break;
+                }
+            }
+
+            // Adicionar a nova entrada à base de dados
+            criarNovaEntrada(entrada);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Entrada criada com sucesso.");
+            dispose();
+        }
+    }//GEN-LAST:event_concluirButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,22 +217,20 @@ public class NovaEntradaRC extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovaEntradaRC().setVisible(true);
+                new NovaEntradaRC(consulta).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextArea assuntosArea;
+    private javax.swing.JButton concluirButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea tratamentosArea;
     // End of variables declaration//GEN-END:variables
 }

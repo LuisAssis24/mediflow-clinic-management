@@ -23,14 +23,16 @@ import static medi.flow.Text.nomeMedicoTransform;
 // Classe que representa a interface gráfica da secretária
 public final class VistaSecretaria extends javax.swing.JFrame {
     static String dataConsultaHorario = null; // Variável que armazena a data da consulta
+    static String passwordSecretaria; // Password do secretario
 
     /**
      * Creates new form VistaSecretaria
      */
     // Construtor da classe
-    public VistaSecretaria() {
+    public VistaSecretaria(String passwordSecretaria) {
         initComponents(); // Inicializa os componentes da interface
         carregarConsultasBaseDeDados(); // Carrega as consultas da base de dados
+        this.passwordSecretaria = passwordSecretaria; // Password do secretario que está a usar o sistema
     }
 
     // Método que carrega as consultas da base de dados
@@ -78,12 +80,13 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         exitButton = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        botaoPesquisa = new javax.swing.JButton();
         barraPesquisa = new javax.swing.JTextField();
         botaoVerConsultas = new javax.swing.JButton();
         botaoMarcarConsultas = new javax.swing.JButton();
+        botaoPesquisa = new javax.swing.JLabel();
         marcarConsultas = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -154,6 +157,18 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1000);
         jPanel1.add(jLabel12, gridBagConstraints);
 
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 925, 0, 0);
+        jPanel1.add(refreshButton, gridBagConstraints);
+
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         jPanel3.setMinimumSize(new java.awt.Dimension(1080, 660));
@@ -164,32 +179,13 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(960, 50));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        botaoPesquisa.setBackground(new java.awt.Color(0, 132, 193));
-        botaoPesquisa.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        botaoPesquisa.setForeground(new java.awt.Color(242, 242, 242));
-        botaoPesquisa.setText("PESQUISAR");
-        botaoPesquisa.setMaximumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setMinimumSize(new java.awt.Dimension(120, 35));
-        botaoPesquisa.setPreferredSize(new java.awt.Dimension(140, 35));
-        botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisaActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
-        jPanel7.add(botaoPesquisa, gridBagConstraints);
-
         barraPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        barraPesquisa.setText("Pesquisar...");
         barraPesquisa.setMinimumSize(new java.awt.Dimension(350, 35));
         barraPesquisa.setPreferredSize(new java.awt.Dimension(350, 35));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         jPanel7.add(barraPesquisa, gridBagConstraints);
 
         botaoVerConsultas.setBackground(new java.awt.Color(0, 132, 193));
@@ -214,7 +210,8 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoMarcarConsultas.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoMarcarConsultas.setForeground(new java.awt.Color(242, 242, 242));
         botaoMarcarConsultas.setText("Marcar Consulta");
-        botaoMarcarConsultas.setMaximumSize(new java.awt.Dimension(140, 35));
+        botaoMarcarConsultas.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        botaoMarcarConsultas.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoMarcarConsultas.setMinimumSize(new java.awt.Dimension(140, 35));
         botaoMarcarConsultas.setPreferredSize(new java.awt.Dimension(140, 35));
         botaoMarcarConsultas.addActionListener(new java.awt.event.ActionListener() {
@@ -226,6 +223,18 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         jPanel7.add(botaoMarcarConsultas, gridBagConstraints);
+
+        botaoPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        botaoPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoPesquisaMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 200);
+        jPanel7.add(botaoPesquisa, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -423,6 +432,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoHorarios.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoHorarios.setForeground(new java.awt.Color(242, 242, 242));
         botaoHorarios.setText("DISPONIBILIDADE");
+        botaoHorarios.setMargin(new java.awt.Insets(2, 0, 3, 0));
         botaoHorarios.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoHorarios.setMinimumSize(new java.awt.Dimension(150, 35));
         botaoHorarios.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -486,6 +496,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         botaoPacientes.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         botaoPacientes.setForeground(new java.awt.Color(242, 242, 242));
         botaoPacientes.setText("Procurar Paciente");
+        botaoPacientes.setMargin(new java.awt.Insets(2, 0, 3, 0));
         botaoPacientes.setMaximumSize(new java.awt.Dimension(150, 35));
         botaoPacientes.setMinimumSize(new java.awt.Dimension(150, 35));
         botaoPacientes.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -579,7 +590,43 @@ public final class VistaSecretaria extends javax.swing.JFrame {
 
     // Método que é chamado quando o botão "Pesquisar" é clicado
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {
-        String inputPesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
+    
+    }                                               
+
+    // Método que é chamado quando o botão "DISPONIBILIDADE" é clicado
+    private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
+        if (dataConsulta.getText().isEmpty()) {// Verifica se o campo de data está vazio
+            JOptionPane.showMessageDialog(this, "Por favor, insira a data da consulta.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
+            return;
+        }
+        dataConsultaHorario = dataConsulta.getText(); // Armazena a data da consulta pra usar na disponibilidade de médicos
+        DisponibilidadeMedicos disp = new DisponibilidadeMedicos();// Cria uma nova janela de disponibilidade de médicos
+        disp.setVisible(true);// Torna a janela visível
+    }//GEN-LAST:event_botaoHorariosActionPerformed
+
+    // Método que é chamado quando o botão "Procurar Paciente" é clicado
+    private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
+        int num = Integer.parseInt(nSns.getText());// Obter o número de sns do campo de texto
+
+        // Verificar se o paciente existe
+        String[] dadosPaciennte = getClinica().obterPacientePorSns(num);// Obter os dados do paciente
+        if (dadosPaciennte != null) {// Se o paciente existir
+            nomePaciente.setText(dadosPaciennte[0]);// Preencher o campo de nome do paciente
+            contactoPaciente.setText(dadosPaciennte[1]);// Preencher o campo de contacto do paciente
+        } else {// Se o paciente não existir
+            JOptionPane.showMessageDialog(this, "Paciente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
+        }
+    }//GEN-LAST:event_botaoPacientesActionPerformed
+
+    // Método que é chamado quando o botão "Sair" é clicado
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();// Fechar a janela
+        // Abir VistaDeLogin 
+        new VistaDeLogin().setVisible(true);// Tornar a janela de login visível
+    }//GEN-LAST:event_exitButtonMouseClicked
+
+    private void botaoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisaMouseClicked
+            String inputPesquisa = barraPesquisa.getText().trim(); // Obtem o texto da barra de pesquisa
 
         // Verifica se o campo de pesquisa está vazio
         if (inputPesquisa == null || inputPesquisa.isEmpty()) {// Se estiver vazio
@@ -621,39 +668,12 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             consultasPanel.revalidate();// Atualiza o painel de consultas
             consultasPanel.repaint();// Atualiza o painel de consultas
         }
-    }                                               
+    }//GEN-LAST:event_botaoPesquisaMouseClicked
 
-    // Método que é chamado quando o botão "DISPONIBILIDADE" é clicado
-    private void botaoHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHorariosActionPerformed
-        if (dataConsulta.getText().isEmpty()) {// Verifica se o campo de data está vazio
-            JOptionPane.showMessageDialog(this, "Por favor, insira a data da consulta.", "Erro", JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
-            return;
-        }
-        dataConsultaHorario = dataConsulta.getText(); // Armazena a data da consulta pra usar na disponibilidade de médicos
-        DisponibilidadeMedicos disp = new DisponibilidadeMedicos();// Cria uma nova janela de disponibilidade de médicos
-        disp.setVisible(true);// Torna a janela visível
-    }//GEN-LAST:event_botaoHorariosActionPerformed
-
-    // Método que é chamado quando o botão "Procurar Paciente" é clicado
-    private void botaoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPacientesActionPerformed
-        int num = Integer.parseInt(nSns.getText());// Obter o número de sns do campo de texto
-
-        // Verificar se o paciente existe
-        String[] dadosPaciennte = getClinica().obterPacientePorSns(num);// Obter os dados do paciente
-        if (dadosPaciennte != null) {// Se o paciente existir
-            nomePaciente.setText(dadosPaciennte[0]);// Preencher o campo de nome do paciente
-            contactoPaciente.setText(dadosPaciennte[1]);// Preencher o campo de contacto do paciente
-        } else {// Se o paciente não existir
-            JOptionPane.showMessageDialog(this, "Paciente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
-        }
-    }//GEN-LAST:event_botaoPacientesActionPerformed
-
-    // Método que é chamado quando o botão "Sair" é clicado
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();// Fechar a janela
-        // Abir VistaDeLogin 
-        new VistaDeLogin().setVisible(true);// Tornar a janela de login visível
-    }//GEN-LAST:event_exitButtonMouseClicked
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        getClinica().atualizarClinica();// Atualiza as consultas
+        carregarConsultasBaseDeDados();// Carrega as consultas da base de dados
+    }//GEN-LAST:event_refreshButtonMouseClicked
 
     // Método que é chamado quando o botão "Marcar" é clicado
     private void botaoMarcarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -714,10 +734,12 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             // Obter o nome do médico e formatá-lo
             String nomeMedUnformat = getClinica().obterNomeMedicoPorId(idMedicoInt);
             String nomeMed = nomeMedicoTransform(nomeMedUnformat);
-
+          
+            // Chamar o método que cria a consulta e adicionar a consulta ao objeto clínica
 
             int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);// Criar a consulta na base de dados
             Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);// Criar a consulta
+
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {// Se a consulta foi criada com sucesso
@@ -775,8 +797,10 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+
         java.awt.EventQueue.invokeLater(() -> {// Criar e mostrar a janela
-            new VistaSecretaria().setVisible(true);// Tornar a janela visível
+            new VistaSecretaria(passwordSecretaria).setVisible(true);// Tornar a janela visível
+
         });
     }
 
@@ -786,7 +810,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     private javax.swing.JButton botaoMarcar;
     private javax.swing.JButton botaoMarcarConsultas;
     private javax.swing.JButton botaoPacientes;
-    private javax.swing.JButton botaoPesquisa;
+    private javax.swing.JLabel botaoPesquisa;
     private javax.swing.JButton botaoVerConsultas;
     private javax.swing.JPanel consultasPanel;
     private javax.swing.JTextField contactoPaciente;
@@ -815,6 +839,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
     private javax.swing.JTextArea motivoConsulta;
     private javax.swing.JTextField nSns;
     private javax.swing.JTextField nomePaciente;
+    private javax.swing.JLabel refreshButton;
     private javax.swing.JTextField salaConsulta;
     private javax.swing.JLayeredPane verConsultas;
     // End of variables declaration//GEN-END:variables

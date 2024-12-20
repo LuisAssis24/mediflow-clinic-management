@@ -41,35 +41,36 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
         tratamentoList = new javax.swing.JList<>();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 149, 218), 3, true));
-        setMaximumSize(new java.awt.Dimension(538, 220));
-        setMinimumSize(new java.awt.Dimension(538, 220));
         setPreferredSize(new java.awt.Dimension(538, 220));
         setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Motivo:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(80, 20));
-        jLabel1.setMinimumSize(new java.awt.Dimension(80, 20));
-        jLabel1.setPreferredSize(new java.awt.Dimension(80, 20));
+        jLabel1.setText("Motivos:");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel1.setPreferredSize(new java.awt.Dimension(80, 90));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 80, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         add(jLabel1, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Tratamentos:");
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel2.setPreferredSize(new java.awt.Dimension(81, 90));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 80, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         add(jLabel2, gridBagConstraints);
 
         jScrollPane1.setBackground(new java.awt.Color(242, 242, 242));
         jScrollPane1.setBorder(null);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 100));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 90));
 
         motivoList.setBackground(new java.awt.Color(242, 242, 242));
         motivoList.setBorder(null);
@@ -79,16 +80,20 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        motivoList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        motivoList.setPreferredSize(new java.awt.Dimension(300, 90));
         jScrollPane1.setViewportView(motivoList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 10);
         add(jScrollPane1, gridBagConstraints);
 
         jScrollPane2.setBackground(new java.awt.Color(242, 242, 242));
         jScrollPane2.setBorder(null);
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 100));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 90));
 
         tratamentoList.setBackground(new java.awt.Color(242, 242, 242));
         tratamentoList.setBorder(null);
@@ -98,11 +103,14 @@ public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        tratamentoList.setPreferredSize(new java.awt.Dimension(300, 90));
         jScrollPane2.setViewportView(tratamentoList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 10);
         add(jScrollPane2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

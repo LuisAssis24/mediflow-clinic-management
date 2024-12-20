@@ -7,8 +7,8 @@ import java.util.*;
 public class Text {
 
     // Método para dividir uma string em uma lista de strings
-    public static List<String> splitStringToList(String string) {// Recebe uma string
-        return new ArrayList<>(Arrays.asList(string.split("\\.")));// Divide a string em uma lista de strings
+    public static List<String> splitStringToList(String string) {
+        return new ArrayList<>(Arrays.asList(string.split("(?=\\p{Lu})")));
     }
 
     // Método para juntar uma lista de strings numa string
