@@ -10,6 +10,7 @@ import java.text.ParseException;
  *
  * @author Luis
  */
+// Classe que representa a interface de um médico
 public class MedicoPanel extends javax.swing.JPanel {
 
     /**

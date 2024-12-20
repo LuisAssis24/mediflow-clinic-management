@@ -715,9 +715,9 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             String nomeMedUnformat = getClinica().obterNomeMedicoPorId(idMedicoInt);
             String nomeMed = nomeMedicoTransform(nomeMedUnformat);
 
-            // Chamar o método que cria a consulta e adicionar a consulta ao objeto clínica
-            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);
-            Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);
+
+            int idConsultaGerada = SqlSecretaria.criarConsulta(data, hora, motivo, nome, numeroSns,contactoInt, idSala, idMedicoInt, nomeMed);// Criar a consulta na base de dados
+            Consulta consulta = new Consulta(idConsultaGerada, data, hora, motivo, nome, nomeMed, numeroSns,contactoInt, idSala, idMedicoInt);// Criar a consulta
 
             // Verificar se a consulta foi criada com sucesso
             if (idConsultaGerada != -1) {// Se a consulta foi criada com sucesso
@@ -755,28 +755,28 @@ public final class VistaSecretaria extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+        try {// Tenta definir o look and feel para Nimbus
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {// Para cada look and feel instalado
+                if ("Nimbus".equals(info.getName())) {// Se for o Nimbus
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());// Definir o look and feel
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {// Se houver um erro de classe
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
+        } catch (InstantiationException ex) {// Se houver um erro de instanciação
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
+        } catch (IllegalAccessException ex) {// Se houver um erro de acesso
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {// Se houver um erro de look and feel
+            java.util.logging.Logger.getLogger(VistaSecretaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);// Registar o erro
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new VistaSecretaria().setVisible(true);
+        java.awt.EventQueue.invokeLater(() -> {// Criar e mostrar a janela
+            new VistaSecretaria().setVisible(true);// Tornar a janela visível
         });
     }
 

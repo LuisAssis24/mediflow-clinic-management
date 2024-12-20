@@ -17,6 +17,7 @@ import static medi.flow.Text.timeFormat;
  *
  * @author Luis
  */
+// Classe que representa a interface de uma consulta
 public class ConsultaMedico extends javax.swing.JPanel {
 
     /**

@@ -32,6 +32,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         this.passwordGestor = passwordGestor; // Define a password do gestor que está a usar o sistema
     }
 
+    // Metodo que é chamado quando o botão de concluir é pressionado
     void carregarCredenciaisBaseDeDados(){ //Carrega as credenciais existentes de acordo com os dados fornecidos pelo SBGD
         credenciaisPanel.removeAll(); // Limpa o painel de credenciais
 
@@ -45,7 +46,7 @@ public final class VistaGestor extends javax.swing.JFrame {
         // Itera pelos utilizadores
         for (Utilizador utilizador : utilizadores) {
             tamanhoPainelCredenciais += 100; // Incrementa o tamanho do painel
-            credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));
+            credenciaisPanel.setPreferredSize(new java.awt.Dimension(960, tamanhoPainelCredenciais));// Define o tamanho do painel de credenciais
             criarPainelCredencial(utilizador); // Adiciona uma credencial ao painel
         }
 
@@ -487,8 +488,8 @@ public final class VistaGestor extends javax.swing.JFrame {
         eliminarCredencial.setVisible(true); // Exibe o painel para eliminar credenciais
         credenciaisPanel.setVisible(true); // Exibe o painel de credenciais
         // Exibe a barra de pesquisa e o botão de pesquisa
-        barraPesquisa.setVisible(true);
-        botaoPesquisa.setVisible(true);
+        barraPesquisa.setVisible(true);// Exibe a barra de pesquisa
+        botaoPesquisa.setVisible(true);// Exibe o botão de pesquisa
         criarCredencial.setVisible(false); // Esconde o painel de criação de credenciais
 
         // Chama o método para carregar as credenciais do banco de dados
@@ -615,13 +616,13 @@ public final class VistaGestor extends javax.swing.JFrame {
                 numeroDeMedico.setText("");
 
                 //Cria o objeto utilizador e carrega a base de dados
-                List<Utilizador> listaUtilizadores = getClinica().getUtilizador();
-                Utilizador utilizador = new Utilizador( Utilizador.ultimoIdUtilizador() + 1,cc, nome, pessword, espcialidade);
-                getClinica().getUtilizador().add(utilizador);
-                carregarCredenciaisBaseDeDados();
+                List<Utilizador> listaUtilizadores = getClinica().getUtilizador();// Obtem a lista de utilizadores
+                Utilizador utilizador = new Utilizador( Utilizador.ultimoIdUtilizador() + 1,cc, nome, pessword, espcialidade);// Cria um novo utilizador
+                getClinica().getUtilizador().add(utilizador);// Adiciona o utilizador à lista de utilizadores
+                carregarCredenciaisBaseDeDados();// Carrega as credenciais existentes
             } else {// Caso contrário, exibe uma mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao criar utilizador. Verifique os dados inseridos.");
+                        "Erro ao criar utilizador. Verifique os dados inseridos.");// Mostra uma mensagem de erro
             }
         } catch (NumberFormatException ex) {// Se ocorrer um erro de formato
             JOptionPane.showMessageDialog(null,

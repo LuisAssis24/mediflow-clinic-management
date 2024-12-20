@@ -10,6 +10,7 @@ import java.util.List;
  *
  * @author Luís
  */
+// Classe que representa a interface de um registo clínico
 public class EntradaRegistoClinicoPanel extends javax.swing.JPanel {
 
     /**

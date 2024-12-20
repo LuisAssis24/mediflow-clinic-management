@@ -58,9 +58,9 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         }
 
         // Move a barra de scroll para o topo do painel de consultas
-        SwingUtilities.invokeLater(() -> {//Executar a ação na thread de despacho de eventos
-            JScrollBar verticalScrollBar = entradasScroll.getVerticalScrollBar();//Obter a barra de scroll vertical
-            verticalScrollBar.setValue(verticalScrollBar.getMinimum());//Definir o valor da barra de scroll vertical para o mínimo
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = entradasScroll.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
         });
 
         entradasPanel.revalidate();//Atualizar o painel de entradas
@@ -69,7 +69,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
 
     //Método para criar um painel de entrada
     void criarPainelEntrada(List<String> assunto, List<String> tratamento){
-        //cria um painel para cada entrada
+        // Cria um painel para cada entrada
         EntradaRegistoClinicoPanel entradaPanel = new EntradaRegistoClinicoPanel(assunto, tratamento);
         entradasPanel.add(entradaPanel);
     }
@@ -485,6 +485,7 @@ public class RegistoClinicoPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Método para adicionar uma entrada
     private void adicionarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarEntradaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adicionarEntradaActionPerformed
