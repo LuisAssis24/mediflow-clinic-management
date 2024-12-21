@@ -1,5 +1,9 @@
 package sql.server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -85,43 +89,59 @@ public class SqlGeral {
 
     // A classe DatabaseConnection é a responsavel por criar a conexão com a base de dados
     public static class DatabaseConnection {
+        private static final String URL = "jdbc:mysql://estga-dev.ua.pt:3306/PTDA24_BD_04";
+        private static final String USER = "PTDA24_04";
+        private static final String PASSWORD = "Etjs=889";
+        private static Connection connection;
+        InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties.txt");
 
-        // Definição das constantes para o URL da base de dados, o utilizador e a palavra-passe
-        private static final String URL = "jdbc:mysql://estga-dev.ua.pt:3306/PTDA24_BD_04";// URL da base de dados
-        private static final String USER = "PTDA24_04";// Utilizador da base de dados
-        private static final String PASSWORD = "Etjs=889";// Palavra-passe da base de dados
-
-        private static Connection connection; // Declaração da variável de conexão, que será partilhada pelo sistema todo
-
-        // Construtor privado para evitar a criação de instâncias da classe diretamente
-        private DatabaseConnection() {
+        public DatabaseConnection() {
         }
 
-        // Método estático para obter a conexão com a base de dados
         public static Connection getInstance() {
             try {
-                if (connection == null || connection.isClosed()) { // Verifica se a conexão é nula ou foi encerrada
-                    connection = DriverManager.getConnection(URL, USER, PASSWORD);// Cria uma nova conexão
-                    System.out.println("Conexão com MySQL foi recriada!");// Mensagem de sucesso
+                if (connection == null || connection.isClosed()) {
+                    Properties props = new Properties();
+                    String jarDir = (new File(SqlGeral.class.getProtectionDomain().getCodeSource().getLocation().toURI())).getParent();
+                    String configFilePath = jarDir + File.separator + "resources" + File.separator + "config.properties.txt";
+
+                    try {
+                        InputStream input = new FileInputStream(configFilePath);
+
+                        try {
+                            props.load(input);
+                        } catch (Throwable var10) {
+                            try {
+                                input.close();
+                            } catch (Throwable var9) {
+                                var10.addSuppressed(var9);
+                            }
+
+                            throw var10;
+                        }
+
+                        input.close();
+                    } catch (IOException var11) {
+                        IOException e = var11;
+                        System.out.println("Erro ao carregar o ficheiro de configuração: " + e.getMessage());
+                        return null;
+                    }
+
+                    String host = props.getProperty("db.host");
+                    String port = props.getProperty("db.port");
+                    String user = props.getProperty("db.user");
+                    String password = props.getProperty("db.password");
+                    String schema = props.getProperty("db.schema");
+                    String url = "jdbc:mysql://" + host + ":" + port + "/" + schema;
+                    connection = DriverManager.getConnection(url, user, password);
+                    System.out.println("Conexão com MySQL foi recriada! Usando o esquema: " + schema);
                 }
-            } catch (SQLException e) {// Captura exceções relacionadas à conexão
-                System.out.println("Erro ao conectar ao MySQL: " + e.getMessage());// Mensagem de erro
+            } catch (Exception var12) {
+                Exception e = var12;
+                System.out.println("Erro ao conectar ao MySQL: " + e.getMessage());
             }
+
             return connection;
-        }
-
-
-
-        // Método estático para fechar a conexão com a base de dados
-        public static void closeConnection() {
-            if (connection != null) { // Verifica se a conexão existe
-                try {
-                    connection.close(); // Tenta fechar a conexão
-                    System.out.println("Conexão encerrada."); // Mensagem que indica que a conexão foi encerrada
-                } catch (SQLException e) { // Captura exceções relacionadas ao fecho da conexão
-                    System.out.println("Erro ao fechar a conexão: " + e.getMessage()); // Mensagem de erro ao tentar fechar a conexão
-                }
-            }
         }
     }
 }
