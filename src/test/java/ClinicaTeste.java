@@ -89,7 +89,7 @@ public class ClinicaTeste {
         Medico.HorarioMedico horarioMedico = new Medico.HorarioMedico(101, horarios);
 
         // Cria o médico
-        Medico medico = new Medico(101, 123456789, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
+        Medico medico = new Medico(101, 12345678, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
 
         // Aqui a lógica para adicionar esse horário ao médico ou à clínica pode ser ajustada, dependendo da implementação da sua clínica
         // No entanto, vamos apenas verificar a criação do horário
@@ -125,8 +125,8 @@ public class ClinicaTeste {
         clinica.getConsultas().clear();
 
         // Cria médicos e pacientes
-        Medico medico1 = new Medico(101, 123456789, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
-        Medico medico2 = new Medico(102, 987654321, "Dr. Ana", "senha456", "Médico", 1002, "Dermatologista");
+        Medico medico1 = new Medico(101, 12345678, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
+        Medico medico2 = new Medico(102, 98765432, "Dr. Ana", "senha456", "Médico", 1002, "Dermatologista");
         Paciente paciente1 = new Paciente(12345, "Carlos Silva", 987654321);
         Paciente paciente2 = new Paciente(67890, "Maria Souza", 123456789);
 

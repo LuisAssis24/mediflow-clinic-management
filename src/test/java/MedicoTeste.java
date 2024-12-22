@@ -14,7 +14,7 @@ public class MedicoTeste {
     @BeforeEach
     public void setup() {
         // Cria o médico para os testes
-        medico = new Medico(1, 123456789, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
+        medico = new Medico(1, 12345678, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
     }
 
     // Teste de Criação
