@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class MainTeste {
 
+    // Teste de Conexão com o Banco de Dados
     @Test
     public void testConnectionInitialization() {
         // Simula o comportamento da conexão, sem mocks
@@ -19,6 +20,7 @@ public class MainTeste {
         assertNotNull(connection, "A conexão com o banco de dados falhou!");
     }
 
+    // Teste de Interface Gráfica
     @Test
     public void testLoginWindowVisibility() {
         // Cria a janela de login
@@ -29,6 +31,7 @@ public class MainTeste {
         assertTrue(loginWindow.isVisible(), "A janela de login não está visível!");
     }
 
+    // Teste do Método Principal
     @Test
     public void testMainMethod() {
         // Aqui, não é possível fazer uma verificação profunda,

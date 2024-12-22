@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UtilizadorTeste {
 
+    // Teste de Criação de Utilizador
     @Test
     public void testUtilizadorCreation() {
         // Dados para o construtor
@@ -24,6 +25,7 @@ public class UtilizadorTeste {
         assertEquals(tipoUtilizador, utilizador.getTipoUtilizador());
     }
 
+    // Teste de Getters do Utilizador
     @Test
     public void testUtilizadorGetter() {
         // Dados para o construtor

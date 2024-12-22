@@ -6,6 +6,7 @@ import java.util.List;
 
 public class RegistoClinicoTeste {
 
+    // Teste de Criação
     @Test
     public void testCriacaoRegistoClinico() {
         // Cria o registo clínico com apenas o número SNS
@@ -20,6 +21,7 @@ public class RegistoClinicoTeste {
         assertTrue(registo.getOperacoes().isEmpty(), "A lista de operações deve estar vazia inicialmente");
     }
 
+    // Teste de Criação com Verificação de Dados Iniciais
     @Test
     public void testCriacaoRegistoClinicoVazio() {
         // Cria o registo clínico sem dados
@@ -31,6 +33,8 @@ public class RegistoClinicoTeste {
         assertTrue(registo.getAlergias().isEmpty());
         assertTrue(registo.getOperacoes().isEmpty());
     }
+
+    // Teste de Verificação de Listas Vazias
     @Test
     public void testRegistoClinicoVazio() {
         // Cria um registo clínico vazio
@@ -41,6 +45,4 @@ public class RegistoClinicoTeste {
         assertTrue(registo.getAlergias().isEmpty());
         assertTrue(registo.getOperacoes().isEmpty());
     }
-
-
 }

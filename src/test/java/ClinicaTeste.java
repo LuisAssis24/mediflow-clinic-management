@@ -21,7 +21,7 @@ public class ClinicaTeste {
         clinica = new Clinica();
     }
 
-    // Testa a adição de um médico
+    // Teste de Entrada e Saída
     @Test
     public void testAddMedico() {
         // Limpa a lista de médicos para evitar dados acumulados de outros testes
@@ -37,7 +37,7 @@ public class ClinicaTeste {
         assertEquals(1, clinica.getMedicos().size());
     }
 
-    // Testa a adição e remoção de uma consulta
+    // Teste de Entrada e Saída
     @Test
     public void testAddAndRemoveConsulta() {
         // Limpa a lista de consultas antes do teste
@@ -59,7 +59,7 @@ public class ClinicaTeste {
         assertEquals(0, clinica.getConsultas().size());
     }
 
-    // Testa a adição de um paciente
+    // Teste de Entrada e Saída
     @Test
     public void testAddPaciente() {
         // Limpa a lista de pacientes antes do teste
@@ -75,8 +75,7 @@ public class ClinicaTeste {
         assertEquals(1, clinica.getPacientes().size());
     }
 
-
-    // Testa a criação e adição de um horário médico
+    // Teste Estrutural
     @Test
     public void testAddHorarioMedico() {
         // Limpa a lista de horários médicos
@@ -97,6 +96,7 @@ public class ClinicaTeste {
         assertEquals(2, horarioMedico.getHorarios().size());  // Verifica se dois horários foram adicionados
     }
 
+    // Teste de Entrada e Saída
     @Test
     public void testRemoveMedico() {
         // Limpa a lista de médicos antes do teste
@@ -118,6 +118,7 @@ public class ClinicaTeste {
         assertEquals(0, clinica.getMedicos().size());
     }
 
+    // Teste de Entrada e Saída
     @Test
     public void testAddConsultasComPacientesEMedicosDiferentes() {
         // Limpa a lista de consultas antes do teste
@@ -140,6 +141,5 @@ public class ClinicaTeste {
         // Verifica se as duas consultas foram adicionadas corretamente
         assertEquals(2, clinica.getConsultas().size());
     }
-
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class SqlSecretariaTeste {
 
+    // Teste de Obtenção de Pacientes
     @Test
     public void testObterTodosPacientes() {
         List<Paciente> pacientes = SqlSecretaria.obterTodosPacientes();
@@ -24,6 +25,7 @@ public class SqlSecretariaTeste {
         }
     }
 
+    // Teste de Criação de Paciente
     @Test
     public void testCriarPaciente() {
         int numeroSNS = 987654321;
@@ -36,6 +38,7 @@ public class SqlSecretariaTeste {
         // Exemplo: Verificar se o paciente com o SNS existe
     }
 
+    // Teste de Obtenção de Horários dos Médicos
     @Test
     public void testTodosHorariosMedicos() {
         List<Medico.HorarioMedico> horarios = SqlSecretaria.todosHorariosMedicos();

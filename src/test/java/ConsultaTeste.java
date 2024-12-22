@@ -3,7 +3,6 @@ import medi.flow.Consulta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConsultaTeste {
@@ -18,8 +17,7 @@ public class ConsultaTeste {
         clinica.addConsulta(consulta);  // Adiciona a consulta à clínica para o teste
     }
 
-
-    // Testa a criação de uma consulta
+    // Teste de Entrada e Saída
     @Test
     public void testCriacaoConsulta() {
         // Verifica se a consulta foi criada corretamente
@@ -35,7 +33,7 @@ public class ConsultaTeste {
         assertEquals(123456789, consulta.getContacto(), "O contacto está incorreto.");
     }
 
-    // Teste para verificar os getters da consulta
+    // Teste de Entrada e Saída
     @Test
     public void testGettersConsulta() {
         assertEquals(1, consulta.getIdConsulta(), "ID da consulta incorreto.");
@@ -49,7 +47,7 @@ public class ConsultaTeste {
         assertEquals(123456789, consulta.getContacto(), "Contacto incorreto.");
     }
 
-    // Teste para verificar a alteração do motivo da consulta
+    // Teste de Alteração de Dados
     @Test
     public void testAlterarMotivoConsulta() {
         // Alterando o motivo da consulta
@@ -59,7 +57,7 @@ public class ConsultaTeste {
         assertEquals("Consulta de emergência", consulta.getMotivo(), "O motivo da consulta não foi alterado corretamente.");
     }
 
-    // Teste para verificar a alteração de dados do paciente
+    // Teste de Alteração de Dados
     @Test
     public void testAlterarPacienteConsulta() {
         // Alterando o paciente
@@ -69,7 +67,7 @@ public class ConsultaTeste {
         assertEquals("Ana Silva", consulta.getNomePaciente(), "O nome do paciente não foi alterado corretamente.");
     }
 
-    // Teste para verificar a alteração do médico
+    // Teste de Alteração de Dados
     @Test
     public void testAlterarMedicoConsulta() {
         // Alterando o médico

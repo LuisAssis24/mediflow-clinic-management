@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PacienteTeste {
 
+    // Teste de Criação
     @Test
     public void testCriacaoPaciente() {
         // Cria um paciente
@@ -15,6 +16,7 @@ public class PacienteTeste {
         assertEquals(987654321, paciente.getContacto());
     }
 
+    // Teste de Getters
     @Test
     public void testGetters() {
         // Cria um paciente
@@ -26,6 +28,7 @@ public class PacienteTeste {
         assertEquals(987654321, paciente.getContacto());
     }
 
+    // Teste de Igualdade
     @Test
     public void testIgualdadePaciente() {
         // Cria dois pacientes com os mesmos dados
@@ -35,6 +38,8 @@ public class PacienteTeste {
         // Verifica se as instâncias são iguais (mas isso não é garantido sem sobrescrever o método equals)
         assertNotSame(paciente1, paciente2); // Eles não são a mesma instância, mas podem ter dados iguais
     }
+
+    // Teste de Valores Extremos
     @Test
     public void testNumeroSNSExtremo() {
         // Cria um paciente com SNS muito grande
@@ -44,6 +49,7 @@ public class PacienteTeste {
         assertEquals(999999999, paciente.getNumeroSNS());
     }
 
+    // Teste de Valores Extremos
     @Test
     public void testContactoPacienteExtremo() {
         // Cria um paciente com contacto muito grande

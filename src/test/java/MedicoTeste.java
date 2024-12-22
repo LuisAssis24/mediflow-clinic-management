@@ -17,7 +17,7 @@ public class MedicoTeste {
         medico = new Medico(1, 123456789, "Dr. João", "senha123", "Médico", 1001, "Cardiologista");
     }
 
-    // Testa a criação de um Medico
+    // Teste de Criação
     @Test
     public void testCriacaoMedico() {
         assertNotNull(medico, "O médico não deve ser nulo.");
@@ -26,19 +26,19 @@ public class MedicoTeste {
         assertEquals("Cardiologista", medico.getEspecialidade(), "A especialidade do médico está incorreta.");
     }
 
-    // Testa a especialidade do médico
+    // Teste de Especialidade
     @Test
     public void testEspecialidadeMedico() {
         assertEquals("Cardiologista", medico.getEspecialidade(), "Especialidade do médico não foi atribuída corretamente.");
     }
 
-    // Testa o número da ordem do médico
+    // Teste de Número da Ordem
     @Test
     public void testNumOrdemMedico() {
         assertEquals(1001, medico.getNumOrdem(), "Número da ordem do médico não está correto.");
     }
 
-    // Testa a criação de horários para o médico
+    // Teste de Criação de Horários
     @Test
     public void testHorarioMedico() {
         // Criar um horário para o médico
@@ -55,7 +55,7 @@ public class MedicoTeste {
         assertArrayEquals(new String[] {"12/12/2024", "10:00"}, horarioMedico.getHorarios().get(0), "O primeiro horário está incorreto.");
     }
 
-    // Testa a criação de múltiplos horários médicos
+    // Teste de Criação de Vários Horários
     @Test
     public void testVariosHorariosMedico() {
         // Criar diferentes horários para o médico
