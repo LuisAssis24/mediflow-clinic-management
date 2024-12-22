@@ -5,6 +5,11 @@ import java.util.List;
 import static medi.flow.Main.getClinica;
 import static sql.server.SqlGestor.obterSalas;
 
+/**
+ *
+ * @author Luís Assis
+ */
+
 // Classe que representa um Médico
 public class Medico extends Utilizador {
     private int numOrdem; // Número da Ordem dos Médicos

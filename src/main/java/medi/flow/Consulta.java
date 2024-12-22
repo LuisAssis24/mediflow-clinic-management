@@ -1,5 +1,10 @@
 package medi.flow;
 
+/**
+ *
+ * @author Luís Assis
+ */
+
 // Classe que contém todas as listas de consultas, médicos, utilizadores, pacientes e registos
 public class Consulta {
     private int idConsulta;

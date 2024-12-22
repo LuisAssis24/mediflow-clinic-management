@@ -8,6 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Base64;
 
+/**
+ *
+ * @author Joáo Nunes
+ * @author Pedro Sampaio
+ */
+
 // Classe para cifrar e decifrar passwords
 public class CifrarPasswords {
     // Define a chave criptografia. A chave é uma string fixa de 8 caracteres para o algaritmo DES

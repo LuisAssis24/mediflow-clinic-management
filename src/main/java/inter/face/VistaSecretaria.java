@@ -19,7 +19,11 @@ import static sql.server.SqlGestor.obterSalaMedico;
 
 /**
  *
- * @author Luis
+ * @author João Nunes
+ * @author Luís Assis
+ * @author Luís Nantes
+ * @author Rodrigo Ferreira
+ * @author Pedro Sampaio
  */
 // Classe que representa a interface gráfica da secretária
 public final class VistaSecretaria extends javax.swing.JFrame {

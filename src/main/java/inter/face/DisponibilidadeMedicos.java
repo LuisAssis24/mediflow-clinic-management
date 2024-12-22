@@ -12,7 +12,7 @@ import static sql.server.SqlSecretaria.obterTodosMedicos;
 
 /**
  *
- * @author Luis
+ * @author Luís Assis
  */
 // Classe que representa a interface de disponibilidade de médicos
 public class DisponibilidadeMedicos extends javax.swing.JFrame {

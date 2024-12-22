@@ -5,7 +5,6 @@
 package inter.face;
 
 import java.awt.*;
-import java.sql.SQLException;
 import java.text.ParseException;
 import medi.flow.*;
 import sql.server.*;
@@ -17,7 +16,7 @@ import static medi.flow.Text.timeFormat;
 
 /**
  *
- * @author Luis
+ * @author Luís Assis
  */
 // Classe que representa uma consulta na interface do funcionário
 public class ConsultaFuncionario extends javax.swing.JPanel {

@@ -4,6 +4,12 @@ import java.util.*;
 
 import static medi.flow.Main.getClinica;
 
+/**
+ *
+ * @author Luís Assis
+ * @author Luís Nantes
+ */
+
 // Classe que representa o Registo Clínico de um Paciente
 public class RegistoClinico {
     private int numeroSns;

@@ -13,7 +13,9 @@ import static medi.flow.Main.getClinica;
 
 /**
  *
- * @author Luis
+ * @author João Nunes
+ * @author Luís Assis
+ * @author Luís Nantes
  */
 // Classe VistaMedico
 public final class VistaMedico extends javax.swing.JFrame {

@@ -8,7 +8,7 @@ import javax.swing.*;
 
 /**
  *
- * @author draga
+ * @author Luís Assis
  */
 // Classe que representa a interface de receitar medicamentos
 public class ReceitarMedicacao extends javax.swing.JFrame {

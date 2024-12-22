@@ -5,6 +5,12 @@ import medi.flow.*;
 import java.sql.*;
 import java.util.*;
 
+/**
+ *
+ * @author Luís Assis
+ * @author Pedro Sampaio
+ */
+
 // Classe para executar consultas SQL relacionadas com a gestão de utilizadores
 public class SqlGestor {
     // Obtem uma lista com todos os IDs dos utilizadores

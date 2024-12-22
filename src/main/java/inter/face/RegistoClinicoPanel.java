@@ -17,7 +17,9 @@ import sql.server.SqlMedico;
 
 /**
  *
- * @author Luis
+ * @author Luís Assis
+ * @author João Nunes
+ * @author Luís Nantes
  */
 // Classe que representa a interface de um registo clínico
 public class RegistoClinicoPanel extends javax.swing.JFrame {

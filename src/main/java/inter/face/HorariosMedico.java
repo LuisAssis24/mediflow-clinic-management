@@ -16,7 +16,7 @@ import static medi.flow.Text.*;
 
 /**
  *
- * @author draga
+ * @author Luís Assis
  */
 
 // Classe que cria a interface gráfica para a visualização dos horários de um médico

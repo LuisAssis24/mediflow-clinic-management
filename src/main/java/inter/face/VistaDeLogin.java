@@ -12,7 +12,10 @@ import java.text.ParseException;
 
 /**
  *
- * @author rodri
+ * @author Rodrigo Ferreira
+ * @author Pedro Sampaio
+ * @author Luís Assis
+ * @author João Nunes
  */
 // Classe que representa a vista de login
 public class VistaDeLogin extends javax.swing.JFrame {

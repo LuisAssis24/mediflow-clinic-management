@@ -7,6 +7,13 @@ import java.util.*;
 
 import static medi.flow.Text.*;
 
+/**
+ *
+ * @author Luís Assis
+ * @author João Nunes
+ * @author Luís Nantes
+ */
+
 // Classe para executar consultas SQL relacionadas com a gestão de utilizadores
 public class SqlMedico {
 

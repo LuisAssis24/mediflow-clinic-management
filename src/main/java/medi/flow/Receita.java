@@ -2,6 +2,11 @@ package medi.flow;
 
 import java.util.List;
 
+/**
+ *
+ * @author Luís Assis
+ */
+
 // Classe que representa uma Receita
 public class Receita {
     private int numeroReceita;// Número da Receita

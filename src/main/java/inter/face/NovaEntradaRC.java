@@ -15,7 +15,7 @@ import static sql.server.SqlMedico.criarNovaEntrada;
 
 /**
  *
- * @author Luis
+ * @author Luís Assis
  */
 // Classe que cria a interface gráfica para a criação de uma nova entrada de registo clínico
 public class NovaEntradaRC extends javax.swing.JFrame {

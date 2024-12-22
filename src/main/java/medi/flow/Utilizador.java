@@ -1,6 +1,11 @@
 package medi.flow;
 import static medi.flow.Main.getClinica;
 
+/**
+ *
+ * @author Luís Assis
+ */
+
 // Classe que representa um Utilizador
 public class Utilizador {
     private int id;// ID do Utilizador

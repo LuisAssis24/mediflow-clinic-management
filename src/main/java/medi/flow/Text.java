@@ -3,6 +3,11 @@ package medi.flow;
 import java.text.*;
 import java.util.*;
 
+/**
+ *
+ * @author Luís Assis
+ */
+
 // Classe que contém métodos para manipulação de texto
 public class Text {
 

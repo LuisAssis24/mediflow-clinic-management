@@ -6,6 +6,12 @@ import java.util.Date;
 
 import medi.flow.*;
 
+/**
+ *
+ * @author Luís Assis
+ * @author Pedro Sampaio
+ */
+
 // Classe para executar consultas SQL gerais
 public class SqlGeral {
 

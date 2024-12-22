@@ -1,5 +1,10 @@
 package medi.flow;
 
+/**
+ *
+ * @author Luís Assis
+ */
+
 // Classe que representa um Paciente
 public class Paciente {
     private int numeroSNS;// Número de Segurança Social

@@ -10,6 +10,12 @@ import static medi.flow.Main.getClinica;
 import static medi.flow.Text.dataFormat;
 import static medi.flow.Text.dataSqlParaJava;
 
+/**
+ *
+ * @author Luís Assis
+ * @author Pedro Sampaio
+ */
+
 // Classe para executar consultas SQL relacionadas com a secretaria
 public class SqlSecretaria {
     // Metodo para carregar os medicos
@@ -71,7 +77,7 @@ public class SqlSecretaria {
         return pacientes;
     }
 
-    // Metodo para criar uma nova consulta medica
+    // Metodo para criar uma consulta medica
     public static int criarConsulta(String data, String hora, String motivo, String nomePaciente, int snsPaciente, int contacto, int numSala, int idMedico, String nomeMedico) {// Método para criar uma nova consulta
         Connection conexao = SqlGeral.DatabaseConnection.getInstance();// Obtém a conexão com a base de dados
         int idConsultaGerado = -1; // Variable to store the generated ID
@@ -86,7 +92,7 @@ public class SqlSecretaria {
             e.printStackTrace();// Mensagem de erro
         }
 
-        // Adiciona :00 para ai fim da hora
+        // Adiciona: 00 para aí fim da hora
         String horaSql = hora + ":00";
 
         // Chama o procedure

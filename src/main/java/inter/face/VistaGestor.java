@@ -17,7 +17,10 @@ import static sql.server.SqlGestor.*;
 
 /**
  *
- * @author Luis
+ * @author Rodrigo Ferreira
+ * @author Pedro Sampaio
+ * @author Luís Assis
+ * @author João Nunes
  */
 // Classe que representa a interface gráfica do gestor
 public final class VistaGestor extends javax.swing.JFrame {

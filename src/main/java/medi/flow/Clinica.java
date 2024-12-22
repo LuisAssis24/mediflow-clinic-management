@@ -7,6 +7,12 @@ import static sql.server.SqlGestor.*;
 import static sql.server.SqlMedico.obterTodosRegistos;
 import static sql.server.SqlSecretaria.*;
 
+/**
+ *
+ * @author Luís Assis
+ * @author Luís Nantes
+ */
+
 // Classe que representa a Clinica, contendo listas de consultas, medicos, utilizadores, pacientes e registos
 public class Clinica {
 
