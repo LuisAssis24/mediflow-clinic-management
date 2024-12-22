@@ -628,9 +628,10 @@ public final class VistaGestor extends javax.swing.JFrame {
             }
 
             String ccString = String.valueOf(cc);// Converte o numero do CC para string
-            if (ccString.length() != 9) {// Se o numero do CC não tiver 9 digitos
+
+            if (ccString.length() != 8) {// Se o numero do CC não tiver 8 digitos
                 JOptionPane.showMessageDialog(null,
-                        "O número do CC deve ter exatamente 9 dígitos.",
+                        "O número do CC deve ter exatamente 8 dígitos.",
                         "Erro de Validação",
                         JOptionPane.ERROR_MESSAGE);// Mostra uma mensagem de erro
                 return;

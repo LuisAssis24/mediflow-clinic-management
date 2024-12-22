@@ -2,5 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/sql/server/SqlGestor.java" dialect="GenericSQL" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/88f1840c-73c6-4c70-9d12-9b77414663a1/console_23.sql" dialect="MySQL" />
   </component>
 </project>

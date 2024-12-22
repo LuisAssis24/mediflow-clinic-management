@@ -15,7 +15,7 @@ public class SqlSecretaria {
     // Metodo para carregar os medicos
     public static List<String[]> obterTodosMedicos() {
         Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        List<String[]> medicos = new ArrayList<>(); // Lista para armazenar os IDs e Especialidades dos médicos
+        List<String[]> medicos = new ArrayList<>(); // Lista para armazenar os ‘IDs’ e Especialidades dos médicos
 
         if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
             try {

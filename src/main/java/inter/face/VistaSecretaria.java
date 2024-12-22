@@ -718,7 +718,7 @@ public final class VistaSecretaria extends javax.swing.JFrame {
             }
 
             //Verificar se o número de sns tem 9 dígitos e não começa com 0
-            if (numeroSnsStr.length() != 9 || numeroSnsStr.charAt(0) == '0')  {// Se o número de sns não tiver 9 dígitos ou começar com 0
+            if (numeroSnsStr.length() != 8 || numeroSnsStr.charAt(0) == '0')  {// Se o número de sns não tiver 9 dígitos ou começar com 0
                 JOptionPane.showMessageDialog(this, "O número de SNS deve ter exatamente 9 dígitos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);// Mostrar uma mensagem de erro
                 return;
             }
