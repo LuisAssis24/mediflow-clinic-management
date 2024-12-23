@@ -49,46 +49,6 @@ public class SqlGeral {
         return tipoUtilizador;// Retorna o tipo de utilizador
     }
 
-    // Método para obter os dados de um utilizador
-    public static List<Consulta> obterTodasConsultas() {
-        Connection conexao = SqlGeral.DatabaseConnection.getInstance(); // Obtém a conexão com a base de dados
-        List<Consulta> consultas = new ArrayList<>(); // Lista para armazenar os IDs das consultas
-
-        if (conexao != null) { // Verifica se a conexão foi estabelecida com sucesso
-            try {
-                Date dataHoraAtual = new Date(); // Obtém a data e hora atuais para carregar apenas as consultas futuras.
-                // Declara uma consulta SQL para obter todos os IDs das consultas
-                String sql = "{CALL SelecionarConsultas()}";
-                CallableStatement statement = conexao.prepareCall(sql);
-
-                // Executa a consulta e armazena o resultado
-                ResultSet resultado = statement.executeQuery();
-
-                // Adiciona todas as consultas à lista
-                while (resultado.next()) {// Enquanto houver consultas
-                    if (resultado.getDate("Data").after(dataHoraAtual)) {// Verifica se a data da consulta é futura
-                        int idConsulta = resultado.getInt("ID_Consulta");// Obtém o ID da consulta
-                        String data = resultado.getString("Data");// Obtém a data da consulta
-                        String hora = resultado.getString("Hora");// Obtém a hora da consulta
-                        String motivo = resultado.getString("Motivo");// Obtém o motivo da consulta
-                        String nomePaciente = resultado.getString("Nome_Paciente");// Obtém o nome do paciente
-                        String nomeMedico = resultado.getString("Nome_Medico");// Obtém o nome do médico
-                        int snsPaciente = resultado.getInt("SNS_Paciente");// Obtém o número de SNS do paciente
-                        int numSala = resultado.getInt("Num_Sala");// Obtém o número da sala
-                        int idMedico = resultado.getInt("ID_Medico");// Obtém o ID do médico
-                        int contacto = resultado.getInt("Contacto");// Obtém o contacto do paciente
-
-                        Consulta consulta = new Consulta(idConsulta, data, hora, motivo, nomePaciente, nomeMedico, snsPaciente, numSala, idMedico, contacto);// Cria um objeto Consulta
-                        consultas.add(consulta);// Adiciona o objeto à lista
-                    }
-                }
-            } catch (SQLException e) { // Trata erros relacionados ao SQL
-                System.out.println("Erro ao obter as consultas: " + e.getMessage());// Mensagem de erro
-            }
-        }
-        return consultas; // Retorna a lista com os IDs das consultas
-    }
-
     // A classe DatabaseConnection é a responsavel por criar a conexão com a base de dados
     public static class DatabaseConnection {
 
