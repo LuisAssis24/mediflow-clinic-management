@@ -97,10 +97,9 @@ Note: Some tests hit the live database, so matching data must be available.
 ## Further Reading
 For detailed methodology, requirement analysis, system logic and implementation decisions, refer to the technical reports:
 
-- [Relatório 1 – Especificação de Requisitos](1.Relatorio%20Especificacao%20Requisitos.pdf)
-- [Relatório 2 – Especificação Lógica](2.Relatorio%20Especificacao%20Logica.pdf)
-- [Relatório 3 – Implementação](3.Relatorio%20Implementacao.pdf)
-
+1.Relatorio Especificacao Requisitos
+2.Relatorio Especificacao Logica
+3.Relatorio Implementacao
 
 
 
