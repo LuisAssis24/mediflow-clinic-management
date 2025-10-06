@@ -94,6 +94,12 @@ Note: Some tests hit the live database, so matching data must be available.
 - DES encryption with a fixed key in `CifrarPasswords` is for academic purposes only. Replace with stronger algorithms/key management in production.
 - The `target/` directory can be cleaned with `mvn clean` if you need a fresh workspace.
 
+## Further Reading
+For detailed methodology, requirement analysis, system logic and implementation decisions, refer to the technical reports:
+
+- [Relatório 1 – Especificação de Requisitos](1.Relatorio%20Especificacao%20Requisitos.pdf)
+- [Relatório 2 – Especificação Lógica](2.Relatorio%20Especificacao%20Logica.pdf)
+- [Relatório 3 – Implementação](3.Relatorio%20Implementacao.pdf)
 
 
 
