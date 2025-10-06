@@ -95,11 +95,12 @@ Note: Some tests hit the live database, so matching data must be available.
 - The `target/` directory can be cleaned with `mvn clean` if you need a fresh workspace.
 
 ## Further Reading
-For detailed methodology, requirement analysis, system logic and implementation decisions, refer to the technical reports:
+For detailed methodology, requirement analysis, system logic and implementation decisions, refer to the technical reports (Portuguese):
 
 1.Relatorio Especificacao Requisitos  
 2.Relatorio Especificacao Logica  
 3.Relatorio Implementacao
+
 
 
 
