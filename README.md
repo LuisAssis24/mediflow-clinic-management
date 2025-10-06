@@ -97,9 +97,10 @@ Note: Some tests hit the live database, so matching data must be available.
 ## Further Reading
 For detailed methodology, requirement analysis, system logic and implementation decisions, refer to the technical reports:
 
-1.Relatorio Especificacao Requisitos
-2.Relatorio Especificacao Logica
+1.Relatorio Especificacao Requisitos  
+2.Relatorio Especificacao Logica  
 3.Relatorio Implementacao
+
 
 
 
