@@ -1,6 +1,7 @@
 # MediFlow
 
-Desktop application developed as part of the Applied Application Development module (Group 4). The system centralises scheduling, clinical records, and credential management for a clinic through a Swing interface backed by MySQL.
+Desktop application developed as part of the Applied Application Development module in the Information Technologies programme at the University of Aveiro.
+The system centralises scheduling, clinical records, and credential management for a medical clinic, through a Java Swing interface backed by a MySQL database.
 
 ## Overview
 
@@ -92,4 +93,5 @@ Note: Some tests hit the live database, so matching data must be available.
 - Database credentials are hardcoded; move them to environment variables or config files before distributing.
 - DES encryption with a fixed key in `CifrarPasswords` is for academic purposes only. Replace with stronger algorithms/key management in production.
 - The `target/` directory can be cleaned with `mvn clean` if you need a fresh workspace.
+
 
