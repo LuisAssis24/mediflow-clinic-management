@@ -16,7 +16,7 @@ All information is persisted through MySQL stored procedures, and passwords are 
 
 - Authentication backed by the `CALL VerificarLogin` procedure and DES encryption (`sql/server/CifrarPasswords.java`).
 - Manager console: user search, credential CRUD, room and schedule assignment (`inter/face/VistaGestor.java`).
-- Secretary console: booking/cancelation of appointments, patient creation, doctor agenda queries (`inter/face/VistaSecretaria.java`).
+- Secretary console: booking/cancelation of appointments, doctor agenda queries (`inter/face/VistaSecretaria.java`).
 - Doctor console: dynamic appointment list, direct access to clinical records, prescription issuing (`inter/face/VistaMedico.java`, `inter/face/RegistoClinicoPanel.java`).
 - Detailed clinical records with history, allergies, surgeries, and doctor entries (`medi/flow/RegistoClinico.java`, `sql/server/SqlMedico.java`).
 - Utilities for text/date formatting (`medi/flow/Text.java`) and a segmented data-access layer (`SqlGeral`, `SqlGestor`, `SqlSecretaria`, `SqlMedico`).
@@ -93,6 +93,7 @@ Note: Some tests hit the live database, so matching data must be available.
 - Database credentials are hardcoded; move them to environment variables or config files before distributing.
 - DES encryption with a fixed key in `CifrarPasswords` is for academic purposes only. Replace with stronger algorithms/key management in production.
 - The `target/` directory can be cleaned with `mvn clean` if you need a fresh workspace.
+
 
 
 
